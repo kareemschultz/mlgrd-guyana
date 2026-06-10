@@ -55,6 +55,7 @@ export const mainNav: NavItem[] = [
   { label: "Services", href: "/services" },
   { label: "Laws & Policies", href: "/laws-policies" },
   { label: "News", href: "/news" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -91,6 +92,7 @@ export const footerNav: { heading: string; links: NavLink[] }[] = [
     links: [
       { label: "The Ministry", href: "/about" },
       { label: "Minister's Desk", href: "/ministers-desk" },
+      { label: "Gallery", href: "/gallery" },
       { label: "Laws & Policies", href: "/laws-policies" },
       { label: "News & Updates", href: "/news" },
     ],

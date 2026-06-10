@@ -14,6 +14,7 @@ import {
   Users,
   CalendarDays,
   HandHelping,
+  Maximize2,
   Image as ImageIcon,
   type LucideIcon,
 } from "lucide-react";
@@ -53,12 +54,12 @@ const containerVariants: Variants = {
 };
 
 const tileVariants: Variants = {
-  hidden: { opacity: 0, y: 24, scale: 0.98 },
+  hidden: { opacity: 0, y: 28, filter: "blur(10px)" },
   show: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    filter: "blur(0px)",
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -131,14 +132,14 @@ export function PhotoGallery() {
         </div>
       )}
 
-      {/* ───── Masonry grid ───── */}
+      {/* ───── Masonry grid — fade-overlay captions ───── */}
       <motion.div
         layout
-        className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5"
+        className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4"
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.1, margin: "0px 0px -6% 0px" }}
+        viewport={{ once: true, amount: 0.05, margin: "0px 0px -8% 0px" }}
       >
         <AnimatePresence mode="popLayout">
           {visible.map((it) => {
@@ -152,38 +153,53 @@ export function PhotoGallery() {
                 initial="hidden"
                 animate="show"
                 exit={{ opacity: 0, scale: 0.96 }}
-                whileHover={reduce ? undefined : { y: -4 }}
+                whileHover={reduce ? undefined : { y: -5 }}
+                transition={{ type: "spring", stiffness: 300, damping: 26 }}
                 onClick={() => setActive(it)}
-                className="group block w-full break-inside-avoid overflow-hidden rounded-2xl border bg-card text-left shadow-sm transition-shadow duration-300 hover:border-brand/40 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                className="group relative block w-full break-inside-avoid overflow-hidden rounded-2xl bg-ink text-left shadow-md ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               >
-                <div className="relative aspect-[4/3] w-full overflow-hidden">
-                  {it.image ? (
-                    <img
-                      src={it.image}
-                      alt={it.caption || it.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="relative flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-brand-600 to-brand-700 text-white transition-transform duration-500 group-hover:scale-105">
-                      <div className="pointer-events-none absolute inset-0 bg-dot text-white/10" />
-                      <Icon className="size-10 text-white/90" />
-                      <span className="mt-3 max-w-[80%] text-center text-xs font-semibold uppercase tracking-wide text-white/80">
-                        {it.category || it.title}
-                      </span>
-                    </div>
+                {it.image ? (
+                  <img
+                    src={it.image}
+                    alt={it.caption || it.title}
+                    loading="lazy"
+                    className="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                  />
+                ) : (
+                  <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-gradient-to-br from-brand-600 to-brand-700 text-white transition-transform duration-500 group-hover:scale-[1.04]">
+                    <div className="pointer-events-none absolute inset-0 bg-dot text-white/10" />
+                    <Icon className="size-10 text-white/90" />
+                  </div>
+                )}
+
+                {/* fade gradient over the image */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/35 to-transparent" />
+
+                {/* zoom affordance (reveals on hover) */}
+                <span className="absolute right-3 top-3 flex size-8 items-center justify-center rounded-full bg-white/15 text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+                  <Maximize2 className="size-4" />
+                </span>
+
+                {/* caption */}
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  {it.category && (
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gold">
+                      {it.category}
+                    </span>
                   )}
-                </div>
-                <div className="p-4">
-                  <h3 className="font-heading text-sm font-bold leading-snug">
+                  <h3 className="mt-0.5 font-heading text-sm font-bold leading-snug text-white">
                     {it.title}
                   </h3>
                   {it.date && (
-                    <div className="mt-2 flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-                      <Calendar className="size-3.5" />
+                    <span className="mt-1.5 flex items-center gap-1 text-xs font-medium text-white/65">
+                      <Calendar className="size-3" />
                       {it.date}
-                    </div>
+                    </span>
                   )}
                 </div>
+
+                {/* gold base accent grows in on hover */}
+                <span className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand via-gold to-brand transition-transform duration-300 group-hover:scale-x-100" />
               </motion.button>
             );
           })}
