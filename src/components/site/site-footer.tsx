@@ -12,9 +12,9 @@ export function SiteFooter() {
 
       <div className="container-gov py-14">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
-          {/* Brand + contact */}
-          <div>
-            <div className="flex items-center gap-3">
+          {/* Brand + contact — centered on mobile, left-aligned from lg up */}
+          <div className="text-center lg:text-left">
+            <div className="flex items-center justify-center gap-3 lg:justify-start">
               <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-white p-1">
                 <LogoMark className="size-10" />
               </span>
@@ -23,8 +23,8 @@ export function SiteFooter() {
                 <p className="text-xs text-white/60">Government of Guyana</p>
               </div>
             </div>
-            <p className="mt-4 max-w-xs text-sm text-white/70">{ministry.name}.</p>
-            <ul className="mt-5 space-y-2.5 text-sm text-white/75">
+            <p className="mx-auto mt-4 max-w-xs text-sm text-white/70 lg:mx-0">{ministry.name}.</p>
+            <ul className="mx-auto mt-5 w-fit space-y-2.5 text-left text-sm text-white/75 lg:mx-0">
               <li className="flex items-start gap-2.5">
                 <MapPin className="mt-0.5 size-4 shrink-0 text-gold" /> {ministry.address}
               </li>
@@ -44,7 +44,7 @@ export function SiteFooter() {
 
           {/* Link columns */}
           {footerNav.map((col) => (
-            <div key={col.heading}>
+            <div key={col.heading} className="text-center lg:text-left">
               <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-white">
                 {col.heading}
               </h3>

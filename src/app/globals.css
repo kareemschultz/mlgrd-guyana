@@ -246,9 +246,14 @@
 }
 
 @layer utilities {
-  /* Section width helper */
+  /* Section width helper.
+     Scales up on large displays so the layout fills wide monitors (e.g. 32")
+     instead of sitting in a narrow 1280px column with huge empty margins. */
   .container-gov {
-    @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 xl:px-10
+      2xl:max-w-[88rem] 2xl:px-12
+      min-[1920px]:max-w-[104rem]
+      min-[2560px]:max-w-[128rem];
   }
   /* Brand gradient text */
   .text-gradient-brand {
@@ -262,6 +267,81 @@
     background-image: radial-gradient(currentColor 1px, transparent 1px);
     background-size: 22px 22px;
   }
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Admin (/admin) theme scope — ministry logo colours.
+   Scoped to `.admin-theme` so the PUBLIC site theme is never affected.
+   Corporate back-office look: charcoal ink sidebar with light text + gold
+   active states; brand orange primary; gold/amber accents; ink/gold/amber charts.
+   ─────────────────────────────────────────────────────────────────────────── */
+.admin-theme {
+  /* Surfaces — slightly warm neutral so cards read against the ink sidebar. */
+  --background: oklch(0.985 0.004 75);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+
+  /* Primary = ministry brand orange. */
+  --primary: var(--brand);
+  --primary-foreground: #ffffff;
+
+  /* Secondary / muted / accent in warm amber-tinted neutrals. */
+  --secondary: oklch(0.96 0.018 78);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.965 0.012 78);
+  --muted-foreground: oklch(0.5 0.03 60);
+  --accent: oklch(0.94 0.05 80);          /* soft gold wash for hovers */
+  --accent-foreground: #5c3a05;
+
+  --border: oklch(0.9 0.014 78);
+  --input: oklch(0.9 0.014 78);
+  --ring: var(--gold);
+
+  /* Charts — ministry palette (orange, ink, gold, green, red). */
+  --chart-1: var(--brand);
+  --chart-2: var(--ink);
+  --chart-3: var(--gold);
+  --chart-4: #2f9e4f;
+  --chart-5: var(--flag-red);
+
+  /* Sidebar = ink charcoal with light text; gold for the active item. */
+  --sidebar: var(--ink);
+  --sidebar-foreground: oklch(0.86 0.01 75);
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: #2a1a00;
+  --sidebar-accent: oklch(0.27 0.015 260);        /* subtle ink hover row */
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: var(--gold);
+}
+
+/* Active sidebar nav item → ministry gold (the primitive's active state uses the
+   accent token, so override it explicitly for the active/current item only). */
+.admin-theme [data-slot="sidebar-menu-button"][data-active="true"] {
+  background-color: var(--gold);
+  color: #2a1a00;
+  font-weight: 600;
+}
+.admin-theme [data-slot="sidebar-menu-button"][data-active="true"]:hover {
+  background-color: color-mix(in oklab, var(--gold) 90%, #000);
+  color: #2a1a00;
+}
+.admin-theme [data-slot="sidebar-menu-button"][data-active="true"] svg {
+  color: #2a1a00;
+}
+
+/* Scale the whole UI up on very large displays. Most sizing is rem-based, so
+   nudging the root font-size makes typography, spacing and components grow
+   proportionally on wide/high-DPI monitors (e.g. 27"–32") rather than looking
+   tiny. Kept subtle to avoid disrupting layouts. */
+@media (min-width: 1920px) {
+  html { font-size: 17px; }
+}
+@media (min-width: 2560px) {
+  html { font-size: 18px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

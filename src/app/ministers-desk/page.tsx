@@ -6,6 +6,8 @@ import {
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { FloatingMotifs } from "@/components/site/floating-motifs";
+import { MinisterGallery } from "@/components/gallery/minister-gallery";
+import { PhotoGallery } from "@/components/gallery/photo-gallery";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -107,6 +109,50 @@ export default function MinistersDeskPage() {
               </p>
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* ───── Leadership gallery ───── */}
+      <section className="border-t py-16 sm:py-20">
+        <div className="container-gov">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
+              Leadership
+            </p>
+            <h2 className="mt-2 font-heading text-2xl font-extrabold sm:text-3xl">
+              Ministers &amp; officials
+            </h2>
+            <p className="mt-3 max-w-2xl text-muted-foreground">
+              The leadership guiding the Ministry&apos;s work with councils and
+              communities. Select a profile to read more.
+            </p>
+          </Reveal>
+
+          <div className="mt-10">
+            <MinisterGallery />
+          </div>
+        </div>
+      </section>
+
+      {/* ───── Photo gallery ───── */}
+      <section className="border-t py-16 sm:py-20">
+        <div className="container-gov">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
+              Gallery
+            </p>
+            <h2 className="mt-2 font-heading text-2xl font-extrabold sm:text-3xl">
+              Moments from the Ministry
+            </h2>
+            <p className="mt-3 max-w-2xl text-muted-foreground">
+              Consultations, capacity-building and community development from
+              across the regions. Select a photo to view it larger.
+            </p>
+          </Reveal>
+
+          <div className="mt-10">
+            <PhotoGallery />
+          </div>
         </div>
       </section>
 

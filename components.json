@@ -27,6 +27,28 @@
       "headers": {
         "Authorization": "Bearer ${MAGICUI_PRO_REGISTRY_TOKEN}"
       }
+    },
+    "@shadcn-studio": "https://shadcnstudio.com/r/{style}/{name}.json",
+    "@ss-components": {
+      "url": "https://shadcnstudio.com/r/components/{style}/{name}.json",
+      "params": {
+        "email": "${SHADCN_STUDIO_EMAIL}",
+        "license_key": "${SHADCN_STUDIO_LICENSE_KEY}"
+      }
+    },
+    "@ss-blocks": {
+      "url": "https://shadcnstudio.com/r/blocks/{style}/{name}.json",
+      "params": {
+        "email": "${SHADCN_STUDIO_EMAIL}",
+        "license_key": "${SHADCN_STUDIO_LICENSE_KEY}"
+      }
+    },
+    "@ss-themes": {
+      "url": "https://shadcnstudio.com/r/themes/{name}.json",
+      "params": {
+        "email": "${SHADCN_STUDIO_EMAIL}",
+        "license_key": "${SHADCN_STUDIO_LICENSE_KEY}"
+      }
     }
   }
 }

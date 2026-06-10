@@ -1,0 +1,27 @@
+# Cloudflare Pages configuration for the MLGRD Guyana portal.
+#
+# The site is a Next.js static export (see next.config.ts -> output: "export"),
+# served from ./out, with dynamic /api/* handled by Pages Functions in ./functions.
+#
+# Deploy: see DEPLOY-CLOUDFLARE.md. In short:
+#   1. wrangler d1 create mlgrd            # paste the returned database_id below
+#   2. wrangler d1 execute mlgrd --remote --file=scripts/d1-schema.sql
+#   3. wrangler d1 execute mlgrd --remote --file=scripts/d1-seed.sql
+#   4. set secrets:  wrangler pages secret put ADMIN_SECRET   (and ADMIN_PASSWORD)
+#   5. bun run build  &&  wrangler pages deploy out
+
+name = "mlgrd-guyana"
+compatibility_date = "2025-06-01"
+pages_build_output_dir = "out"
+
+# D1 database binding consumed by functions/api/[[path]].ts as env.DB
+[[d1_databases]]
+binding = "DB"
+database_name = "mlgrd"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+# Non-secret defaults. Set ADMIN_SECRET and ADMIN_PASSWORD as SECRETS, not here:
+#   wrangler pages secret put ADMIN_SECRET
+#   wrangler pages secret put ADMIN_PASSWORD
+[vars]
+ADMIN_USERNAME = "admin"

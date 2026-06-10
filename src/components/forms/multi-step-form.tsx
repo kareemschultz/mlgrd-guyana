@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { Check, ChevronLeft, ChevronRight, Loader2, PartyPopper, Send } from "lucide-react";
 import type { FieldDef } from "@/components/forms/configs";
 import { formConfigs } from "@/components/forms/configs";
+import { data } from "@/lib/data/client";
+import type { NewMessage } from "@/lib/data/types";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +23,41 @@ import {
 
 function makeRef() {
   return `MLGRD-${Date.now().toString(36).toUpperCase().slice(-6)}`;
+}
+
+/**
+ * Map a (config-agnostic) set of form values into a helpdesk/contact message so
+ * every public submission — feedback, helpdesk, report-a-problem, vendor enquiry
+ * — lands in the admin Messages inbox via the data layer. The message body keeps
+ * all the contextual fields (region, urgency, company, etc.) using their labels.
+ */
+function buildMessage(
+  config: (typeof formConfigs)[keyof typeof formConfigs],
+  configId: keyof typeof formConfigs,
+  value: Record<string, string>,
+  ref: string,
+): NewMessage {
+  const labels: Record<string, string> = {};
+  for (const s of config.steps) for (const f of s.fields) labels[f.name] = f.label;
+
+  const lead = value.message || value.description || "";
+  const omit = new Set(["name", "email", "subject", "message", "description"]);
+  const extras = Object.entries(value)
+    .filter(([k, v]) => v && !omit.has(k))
+    .map(([k, v]) => `${labels[k] ?? k}: ${v}`);
+
+  const body = [lead, extras.join("\n"), `Reference: ${ref}`]
+    .filter(Boolean)
+    .join("\n\n");
+
+  return {
+    channel: configId === "helpdesk" ? "helpdesk" : "contact",
+    name: value.name || value.company || "Website visitor",
+    email: value.email || "",
+    subject: value.subject || config.title,
+    category: value.topic || value.category || value.interest || config.subject,
+    body,
+  };
 }
 
 export function MultiStepForm({ configId }: { configId: keyof typeof formConfigs }) {
@@ -44,14 +81,22 @@ export function MultiStepForm({ configId }: { configId: keyof typeof formConfigs
       const ref = makeRef();
       const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
       try {
+        // Always log the submission to the data layer so it appears in the admin
+        // helpdesk inbox (localStorage in demo mode, Cloudflare D1 in live mode).
+        try {
+          await data.messages.create(
+            buildMessage(config, configId, value as Record<string, string>, ref),
+          );
+        } catch {
+          /* non-fatal — still attempt email delivery and show the reference */
+        }
+        // Optional: also email a copy if a form endpoint (e.g. Formspree) is set.
         if (endpoint) {
           await fetch(endpoint, {
             method: "POST",
             headers: { "Content-Type": "application/json", Accept: "application/json" },
             body: JSON.stringify({ _subject: `${config.subject} (${ref})`, reference: ref, ...value }),
           });
-        } else {
-          await new Promise((r) => setTimeout(r, 700)); // no endpoint configured — simulate
         }
         setDone(ref);
       } finally {
@@ -107,9 +152,10 @@ export function MultiStepForm({ configId }: { configId: keyof typeof formConfigs
           <span className="font-mono font-semibold">{done}</span>
         </div>
         <p className="mt-6 text-xs text-muted-foreground">
+          Your message has been logged to the Ministry helpdesk
           {process.env.NEXT_PUBLIC_FORM_ENDPOINT
-            ? "A copy has been sent to the Ministry."
-            : "Demo mode: configure NEXT_PUBLIC_FORM_ENDPOINT to deliver submissions by email."}
+            ? " and emailed to the team."
+            : "."}
         </p>
       </motion.div>
     );
