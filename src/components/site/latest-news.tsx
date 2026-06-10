@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Calendar, Newspaper } from "lucide-react";
-import { LogoMark } from "@/components/site/logo";
+import { asset } from "@/lib/site";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { data } from "@/lib/data/client";
 import { seedPosts } from "@/lib/data/seed";
@@ -70,27 +70,31 @@ export function HeroEmblemNews() {
       animate={entrance.animate}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* ── Emblem treatment ── */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-center backdrop-blur-sm">
+      {/* ── Emblem treatment (official ministry crest) ── */}
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-8 text-center backdrop-blur-sm">
         <BorderBeam
           size={140}
           duration={12}
           className="from-brand via-gold to-transparent"
         />
         <div className="pointer-events-none absolute inset-0 bg-dot text-white/[0.04]" />
-        <div className="relative mx-auto flex size-32 items-center justify-center rounded-full bg-gradient-to-b from-white/15 to-white/[0.02] ring-1 ring-inset ring-gold/30 sm:size-36">
-          <span className="absolute inset-0 rounded-full bg-gold/10 blur-xl" />
-          <LogoMark className="relative size-24 drop-shadow-lg sm:size-28" />
-        </div>
+        {/* soft gold glow behind the crest */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 size-60 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 blur-2xl" />
+        <motion.img
+          src={asset("/emblem.png")}
+          alt="Ministry of Local Government & Regional Development emblem"
+          className="relative mx-auto h-auto w-44 drop-shadow-[0_10px_28px_rgba(0,0,0,0.45)] sm:w-52"
+          animate={reduce ? undefined : { y: [0, -7, 0] }}
+          transition={
+            reduce
+              ? undefined
+              : { duration: 6, repeat: Infinity, ease: "easeInOut" }
+          }
+        />
         <p className="relative mt-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold">
           Government of Guyana
         </p>
-        <h2 className="relative mt-2 font-heading text-xl font-extrabold leading-tight text-white sm:text-2xl">
-          Ministry of{" "}
-          <span className="text-gradient-brand">Local Government</span>
-          <br className="hidden sm:block" /> &amp; Regional Development
-        </h2>
-        <div className="relative mx-auto mt-4 h-0.5 w-16 rounded-full bg-gradient-to-r from-brand via-gold to-brand" />
+        <div className="relative mx-auto mt-3 h-0.5 w-16 rounded-full bg-gradient-to-r from-brand via-gold to-brand" />
       </div>
 
       {/* ── Latest updates ── */}
