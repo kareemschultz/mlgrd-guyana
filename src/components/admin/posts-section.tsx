@@ -58,7 +58,9 @@ function emptyDraft(): NewPost {
     excerpt: "",
     body: "",
     category: CATEGORIES[0],
+    tags: [],
     coverImage: "",
+    sourceUrl: "",
     status: "draft",
     date: new Date().toISOString().slice(0, 10),
   };
@@ -95,7 +97,9 @@ export function PostsSection({
       excerpt: post.excerpt,
       body: post.body,
       category: post.category,
+      tags: post.tags ?? [],
       coverImage: post.coverImage ?? "",
+      sourceUrl: post.sourceUrl ?? "",
       status: post.status,
       date: post.date,
     });
@@ -122,6 +126,8 @@ export function PostsSection({
         ...draft,
         slug: draft.slug.trim() || slugify(draft.title),
         coverImage: draft.coverImage || undefined,
+        sourceUrl: (draft.sourceUrl || "").trim() || undefined,
+        tags: (draft.tags ?? []).map((t) => t.trim()).filter(Boolean),
       };
       if (editing) {
         await data.posts.update(editing.id, payload);
@@ -346,6 +352,37 @@ export function PostsSection({
                 onChange={(e) => patch({ body: e.target.value })}
                 rows={6}
                 placeholder="Full content of the post."
+              />
+            </Field>
+
+            <Field
+              label="Tags"
+              htmlFor="post-tags"
+              hint="Comma-separated — used for search & filtering (e.g. Region 6, REO, flooding)."
+            >
+              <Input
+                id="post-tags"
+                value={(draft.tags ?? []).join(", ")}
+                onChange={(e) =>
+                  patch({
+                    tags: e.target.value.split(",").map((t) => t.trim()).filter(Boolean),
+                  })
+                }
+                placeholder="Region 6, REO, flooding"
+              />
+            </Field>
+
+            <Field
+              label="Source / Facebook link (optional)"
+              htmlFor="post-source"
+              hint="Links the story to the original DPI/Facebook post."
+            >
+              <Input
+                id="post-source"
+                type="url"
+                value={draft.sourceUrl ?? ""}
+                onChange={(e) => patch({ sourceUrl: e.target.value })}
+                placeholder="https://www.facebook.com/..."
               />
             </Field>
 

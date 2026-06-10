@@ -24,6 +24,8 @@ export interface Post {
   body: string;
   /** e.g. "Legislation", "Capacity-building", "Digital services". */
   category: string;
+  /** Freeform tags for search/filtering (e.g. ["Region 6", "REO", "flooding"]). */
+  tags?: string[];
   /** Image URL, /public path, or a data: URL (demo mode). Optional. */
   coverImage?: string;
   /** Link to the original source / Facebook post for this story. Optional. */
