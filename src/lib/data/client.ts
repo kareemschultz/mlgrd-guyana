@@ -91,7 +91,7 @@ const KEYS = {
  * `mlgrd:*` store in localStorage from a previous visit) get the new content.
  * Citizen-submitted messages are preserved; only seeded collections are reset.
  */
-const SEED_VERSION = "2026.06-real-content";
+const SEED_VERSION = "2026.06-tags";
 
 function ensureSeedVersion() {
   if (typeof window === "undefined") return;

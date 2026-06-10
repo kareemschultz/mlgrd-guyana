@@ -145,6 +145,17 @@ function rowToMinister(r: Record<string, unknown>) {
   return { ...r, current: !!r.current };
 }
 
+// Map a D1 post row (tags stored as a JSON string) to the API shape.
+function rowToPost(r: Record<string, unknown>) {
+  let tags: unknown = [];
+  try {
+    tags = r.tags ? JSON.parse(String(r.tags)) : [];
+  } catch {
+    tags = [];
+  }
+  return { ...r, tags };
+}
+
 // Map a D1 directory row (officials stored as a JSON string) to the API shape.
 function rowToDirectory(r: Record<string, unknown>) {
   let officials: unknown = [];
@@ -204,8 +215,8 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         const sql = authed
           ? "SELECT * FROM posts ORDER BY date DESC"
           : "SELECT * FROM posts WHERE status = 'published' ORDER BY date DESC";
-        const { results } = await env.DB.prepare(sql).all();
-        return json(results);
+        const { results } = await env.DB.prepare(sql).all<Record<string, unknown>>();
+        return json(results.map(rowToPost));
       }
       if (method === "POST") {
         const guard = requireAuth();
@@ -214,8 +225,8 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         const now = new Date().toISOString();
         const newId = `post-${crypto.randomUUID().slice(0, 8)}`;
         await env.DB.prepare(
-          `INSERT INTO posts (id,slug,title,excerpt,body,category,coverImage,sourceUrl,status,date,createdAt,updatedAt)
-           VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
+          `INSERT INTO posts (id,slug,title,excerpt,body,category,tags,coverImage,sourceUrl,status,date,createdAt,updatedAt)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         )
           .bind(
             newId,
@@ -224,6 +235,7 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
             b.excerpt ?? "",
             b.body ?? "",
             b.category ?? "",
+            JSON.stringify(b.tags ?? []),
             b.coverImage ?? null,
             b.sourceUrl ?? null,
             b.status ?? "draft",
@@ -232,19 +244,22 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
             now,
           )
           .run();
-        return json(await env.DB.prepare("SELECT * FROM posts WHERE id = ?").bind(newId).first(), 201);
+        const created = await env.DB.prepare("SELECT * FROM posts WHERE id = ?").bind(newId).first<Record<string, unknown>>();
+        return json(rowToPost(created!), 201);
       }
       if (method === "PUT" && id) {
         const guard = requireAuth();
         if (guard) return guard;
         const b = await readBody<Record<string, unknown>>(request);
-        const fields = ["slug", "title", "excerpt", "body", "category", "coverImage", "sourceUrl", "status", "date"];
+        if ("tags" in b) b.tags = JSON.stringify(b.tags);
+        const fields = ["slug", "title", "excerpt", "body", "category", "tags", "coverImage", "sourceUrl", "status", "date"];
         const sets = fields.filter((f) => f in b);
         if (sets.length) {
           const sql = `UPDATE posts SET ${sets.map((f) => `${f} = ?`).join(", ")}, updatedAt = ? WHERE id = ?`;
           await env.DB.prepare(sql).bind(...sets.map((f) => b[f]), new Date().toISOString(), id).run();
         }
-        return json(await env.DB.prepare("SELECT * FROM posts WHERE id = ?").bind(id).first());
+        const updated = await env.DB.prepare("SELECT * FROM posts WHERE id = ?").bind(id).first<Record<string, unknown>>();
+        return json(rowToPost(updated!));
       }
       if (method === "DELETE" && id) {
         const guard = requireAuth();

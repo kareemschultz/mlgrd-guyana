@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS posts (
   excerpt    TEXT,
   body       TEXT,
   category   TEXT,
+  tags       TEXT,
   coverImage TEXT,
   sourceUrl  TEXT,
   status     TEXT NOT NULL DEFAULT 'draft',
