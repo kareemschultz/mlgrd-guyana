@@ -1,14 +1,14 @@
 [
   {
     "slug": "port-kaituma-matthews-ridge-arakaka",
-    "name": "Port Kaituma / Matthew's Ridge / Arakaka",
+    "name": "Port Kaituma / Matthew's Ridge/ Arakaka",
     "region": "Region 1",
     "regionName": "Barima-Waini",
     "contact": {
       "chairperson": "Keith Parker",
       "deputy": "Celestina Joseph",
       "overseer": "Shuntell Charles",
-      "officeNumber": "601-1748"
+      "officeNumber": ""
     }
   },
   {
@@ -19,8 +19,8 @@
     "contact": {
       "chairperson": "Chandrawattie Coomal",
       "deputy": "Deleep Singh",
-      "overseer": "Lucian Mahadeo (Acting)",
-      "officeNumber": "+592-771-4694"
+      "overseer": "Lucian Mahadeo",
+      "officeNumber": "771-4694"
     }
   },
   {
@@ -31,7 +31,8 @@
     "contact": {
       "chairperson": "Lionel Boodhram",
       "deputy": "Javyn Persaud",
-      "overseer": "Savita Deochan"
+      "overseer": "Savita Deochan",
+      "officeNumber": ""
     }
   },
   {
@@ -42,7 +43,8 @@
     "contact": {
       "chairperson": "Jayashree Persaud",
       "deputy": "Kumar Ramdeo",
-      "overseer": "Danieram Singh"
+      "overseer": "Danieram Singh",
+      "officeNumber": ""
     }
   },
   {
@@ -54,7 +56,7 @@
       "chairperson": "Hansoutie Ramkellawan",
       "deputy": "Kevin Andrew Lowe",
       "overseer": "Poolasha Rupnarayan",
-      "officeNumber": "+592-681-4699"
+      "officeNumber": "681-4699"
     }
   },
   {
@@ -65,7 +67,8 @@
     "contact": {
       "chairperson": "Godfrey Alfred Culpeper",
       "deputy": "Kim Juliet Boyan",
-      "overseer": "Althea Giles"
+      "overseer": "Althea Giles",
+      "officeNumber": ""
     }
   },
   {
@@ -76,7 +79,8 @@
     "contact": {
       "chairperson": "Melroy Milton Henry",
       "deputy": "Junior Avindra Gounga",
-      "overseer": "Oveita Da Silva"
+      "overseer": "Oveita Da Silva",
+      "officeNumber": ""
     }
   },
   {
@@ -87,7 +91,8 @@
     "contact": {
       "chairperson": "Andy Ramnarine",
       "deputy": "Devon Tang",
-      "overseer": "Nicola Persaud"
+      "overseer": "Nicola Persaud",
+      "officeNumber": ""
     }
   },
   {
@@ -99,7 +104,7 @@
       "chairperson": "Sheikh Saeed Ahmad",
       "deputy": "Davindra Ragobir",
       "overseer": "Yougita Thakur",
-      "officeNumber": "+592-774-5060"
+      "officeNumber": "774-5060"
     }
   },
   {
@@ -111,7 +116,7 @@
       "chairperson": "Jainarine Singh",
       "deputy": "Mohamed Shazaad Razak",
       "overseer": "Yuvendra Narandra",
-      "officeNumber": "+592-260-0710"
+      "officeNumber": "260-0710"
     }
   },
   {
@@ -134,7 +139,8 @@
     "contact": {
       "chairperson": "Parasram Persaud",
       "deputy": "Yugisthir Hemrup",
-      "overseer": "Reshma Ramroop"
+      "overseer": "Reshma Ramroop",
+      "officeNumber": ""
     }
   },
   {
@@ -146,7 +152,7 @@
       "chairperson": "Adhunauth Bhola",
       "deputy": "Rajpera Indra",
       "overseer": "Milecia Washington",
-      "officeNumber": "+592-260-2199"
+      "officeNumber": "260-2199"
     }
   },
   {
@@ -158,7 +164,7 @@
       "chairperson": "Dennis Seepersaud Heeralall",
       "deputy": "Roopnarine Singh",
       "overseer": "Ravindra Ramdhan",
-      "officeNumber": "+592-275-0355"
+      "officeNumber": "275-0355"
     }
   },
   {
@@ -170,7 +176,7 @@
       "chairperson": "Shiek Samad",
       "deputy": "Oliver Payne",
       "overseer": "Savitri Gopaul",
-      "officeNumber": "+592-268-2388"
+      "officeNumber": "268-2388"
     }
   },
   {
@@ -182,7 +188,7 @@
       "chairperson": "Tracie Nadia Cowsil Khan",
       "deputy": "Daniel Alyster Renee",
       "overseer": "Ceciline Creighton",
-      "officeNumber": "+592-276-3015"
+      "officeNumber": "276-3015"
     }
   },
   {
@@ -194,7 +200,7 @@
       "chairperson": "Raijesh Kadarnauth",
       "deputy": "Kowsilla Hardeo",
       "overseer": "Sharda Deoraj",
-      "officeNumber": "+592-269-0011"
+      "officeNumber": "269-0011"
     }
   },
   {
@@ -206,7 +212,7 @@
       "chairperson": "Umesh Balram",
       "deputy": "Madeshwar Ramnarace Sudama",
       "overseer": "Shanetta Churaman",
-      "officeNumber": "+592-264-2461"
+      "officeNumber": "264-2461"
     }
   },
   {
@@ -218,7 +224,7 @@
       "chairperson": "Paul Fabian Hemraj Ramrattan",
       "deputy": "Orson Rayan Garnett",
       "overseer": "Theresa Persaud",
-      "officeNumber": "+592-253-3006"
+      "officeNumber": "253-3006"
     }
   },
   {
@@ -230,7 +236,7 @@
       "chairperson": "Alvin Parag",
       "deputy": "Kishan Shivgobin",
       "overseer": "Marcella Narain",
-      "officeNumber": "+592-501-1809"
+      "officeNumber": "501-1809"
     }
   },
   {
@@ -242,7 +248,7 @@
       "chairperson": "Yogieraj Anauge Das",
       "deputy": "Heraman Harrylall",
       "overseer": "Chandroutie Bhagwandas",
-      "officeNumber": "+592-689-9530"
+      "officeNumber": "689-9530"
     }
   },
   {
@@ -252,8 +258,9 @@
     "regionName": "Essequibo Islands-West Demerara",
     "contact": {
       "chairperson": "Mark Khan",
+      "deputy": "Terrence Simeon",
       "overseer": "Nekisha Lewis",
-      "officeNumber": "+592-267-0010"
+      "officeNumber": "267-0010"
     }
   },
   {
@@ -265,19 +272,19 @@
       "chairperson": "Arthur Pole",
       "deputy": "Bhupendra Dookie",
       "overseer": "Fazilla Manna",
-      "officeNumber": "+592-261-5224"
+      "officeNumber": "261-5224"
     }
   },
   {
     "slug": "caledonia-good-success",
-    "name": "Caledonia / Good Success",
+    "name": "Caledonia/Good Success",
     "region": "Region 4",
     "regionName": "Demerara-Mahaica",
     "contact": {
       "chairperson": "Shannaz Rahat",
       "deputy": "Neelwattie Sukhu",
       "overseer": "Devi Dookhi",
-      "officeNumber": "+592-266-2239"
+      "officeNumber": "266-2239"
     }
   },
   {
@@ -289,19 +296,19 @@
       "chairperson": "Ulric Paul",
       "deputy": "Heman Narine Ramphal",
       "overseer": "Parmani Persaud",
-      "officeNumber": "+592-265-2256"
+      "officeNumber": "265-2256"
     }
   },
   {
-    "slug": "little-diamond-herstelling",
-    "name": "Little Diamond / Herstelling",
+    "slug": "herstelling-little-diamond",
+    "name": "Herstelling/ Little Diamond",
     "region": "Region 4",
     "regionName": "Demerara-Mahaica",
     "contact": {
       "chairperson": "Puneet Jaigopaul",
       "deputy": "Devanand Indar",
       "overseer": "Leelawatie C Raghunauth",
-      "officeNumber": "+592-265-2333"
+      "officeNumber": "265-2333"
     }
   },
   {
@@ -313,7 +320,7 @@
       "chairperson": "Rudolph Adams",
       "deputy": "Sceyon Hope",
       "overseer": "Jacqueline Delph",
-      "officeNumber": "+592-217-0099"
+      "officeNumber": "217-0099"
     }
   },
   {
@@ -323,19 +330,21 @@
     "regionName": "Demerara-Mahaica",
     "contact": {
       "chairperson": "Ramesh Persaud (a.g)",
+      "deputy": "",
       "overseer": "Zoreen Outar",
-      "officeNumber": "+592-233-5515"
+      "officeNumber": "233-5515"
     }
   },
   {
     "slug": "industry-plaisance",
-    "name": "Industry / Plaisance",
+    "name": "Industry/ Plaisance",
     "region": "Region 4",
     "regionName": "Demerara-Mahaica",
     "contact": {
       "chairperson": "Vanessa Benn (a.g)",
+      "deputy": "",
       "overseer": "Roseanna Shivlall",
-      "officeNumber": "+592-220-2326"
+      "officeNumber": "220-2326"
     }
   },
   {
@@ -359,7 +368,7 @@
       "chairperson": "Wendy Andrews",
       "deputy": "Andrea Mc Donald",
       "overseer": "Bebe Khadija Pagu",
-      "officeNumber": "+592-220-2306"
+      "officeNumber": "220-2306"
     }
   },
   {
@@ -369,8 +378,9 @@
     "regionName": "Demerara-Mahaica",
     "contact": {
       "chairperson": "Harrydat Tilku (a.g)",
-      "overseer": "Nalini Mohamed (Acting)",
-      "officeNumber": "+592-220-8110"
+      "deputy": "",
+      "overseer": "Nalini Mohamed",
+      "officeNumber": "220-8110"
     }
   },
   {
@@ -382,8 +392,7 @@
       "chairperson": "Walston Martins",
       "deputy": "David Jones",
       "overseer": "Liesel Eastman",
-      "assistantOverseer": "Simone Amsterdam",
-      "officeNumber": "+592-220-8449"
+      "officeNumber": "220-8449"
     }
   },
   {
@@ -395,7 +404,7 @@
       "chairperson": "Mahendra Sharma",
       "deputy": "Hemwantie Sawh",
       "overseer": "Rampaul Sukdeo",
-      "officeNumber": "+592-256-3533"
+      "officeNumber": "256-3533"
     }
   },
   {
@@ -407,7 +416,7 @@
       "chairperson": "Michael Spencer",
       "deputy": "Avnel Woode",
       "overseer": "Denissa Clark",
-      "officeNumber": "229-2226/229-2013"
+      "officeNumber": "229-2226/2013"
     }
   },
   {
@@ -419,19 +428,19 @@
       "chairperson": "Basmattie Singh",
       "deputy": "Kubear Ramharak",
       "overseer": "Nalinie Dath",
-      "officeNumber": "+592-228-2055"
+      "officeNumber": "228-2055"
     }
   },
   {
     "slug": "cane-grove",
-    "name": "Cane Grove",
+    "name": "Cane /Grove",
     "region": "Region 4",
     "regionName": "Demerara-Mahaica",
     "contact": {
       "chairperson": "Keshni Rooplall",
       "deputy": "Nancoomar Persaud",
       "overseer": "Mahima Narine",
-      "officeNumber": "+592-257-0059"
+      "officeNumber": "257-0059"
     }
   },
   {
@@ -441,7 +450,9 @@
     "regionName": "Demerara-Mahaica",
     "contact": {
       "chairperson": "Michelle Harrinaraine",
-      "deputy": "Floyd Smith"
+      "deputy": "Floyd Smith",
+      "overseer": "Bibi Mohamed",
+      "officeNumber": ""
     }
   },
   {
@@ -453,7 +464,7 @@
       "chairperson": "Askari Ferrier",
       "deputy": "Rohan Pillay",
       "overseer": "Adrian Mohar",
-      "officeNumber": "+592-651-1567"
+      "officeNumber": "651-1567"
     }
   },
   {
@@ -465,7 +476,7 @@
       "chairperson": "Krisendat Balkaran",
       "deputy": "Sandra Glasgow",
       "overseer": "Savitri Hemnauth",
-      "officeNumber": "+592-221-2237"
+      "officeNumber": "221-2237"
     }
   },
   {
@@ -477,7 +488,7 @@
       "chairperson": "Kesheon Ross",
       "deputy": "Glevia Bourne",
       "overseer": "Shundell Robertson",
-      "officeNumber": "+592-221-2443"
+      "officeNumber": "221-2443"
     }
   },
   {
@@ -489,7 +500,7 @@
       "chairperson": "Permal Ritney",
       "deputy": "Leon Randy Wordsworth",
       "overseer": "Andrea Moria",
-      "officeNumber": "+592-221-2846"
+      "officeNumber": "221-2846"
     }
   },
   {
@@ -501,7 +512,7 @@
       "chairperson": "Angela Asante Mc Donald",
       "deputy": "Beverly Ann Monita Fraser",
       "overseer": "Shanetta Bisnauth",
-      "officeNumber": "+592-232-3580"
+      "officeNumber": "232-3580"
     }
   },
   {
@@ -513,7 +524,7 @@
       "chairperson": "Desney Alana Mentore",
       "deputy": "Frank Wilson",
       "overseer": "Rylin Samuels",
-      "officeNumber": "+592-328-2142"
+      "officeNumber": "328-2142"
     }
   },
   {
@@ -525,7 +536,7 @@
       "chairperson": "Tiffeny Allica Mc Farlene Mentore",
       "deputy": "Seonaid Richmond Welch",
       "overseer": "Odetta Carmichael Gilkes",
-      "officeNumber": "+592-232-0045"
+      "officeNumber": "232-0045"
     }
   },
   {
@@ -537,7 +548,7 @@
       "chairperson": "Dilchand Sanmogan",
       "deputy": "Mahendra Persaud",
       "overseer": "Dankumarie Jagnauth",
-      "officeNumber": "+592-328-7395"
+      "officeNumber": "328-7395"
     }
   },
   {
@@ -549,7 +560,7 @@
       "chairperson": "Saffraz Sattar",
       "deputy": "Jocelyn Sandra BraithWaite",
       "overseer": "Meenawattie Heralall",
-      "officeNumber": "+592-682-9500"
+      "officeNumber": "682-9500"
     }
   },
   {
@@ -561,7 +572,7 @@
       "chairperson": "Winston Herlall",
       "deputy": "Virgil Watts",
       "overseer": "Amir Khan",
-      "officeNumber": "+592-330-2423"
+      "officeNumber": "330-2423"
     }
   },
   {
@@ -573,114 +584,115 @@
       "chairperson": "Muhammad Hussain",
       "deputy": "Vadiawattie Persaud",
       "overseer": "Surina Amariah Saroop",
-      "officeNumber": "+592-327-0558"
+      "officeNumber": "327-0558"
     }
   },
   {
     "slug": "enfield-new-doe-park",
-    "name": "Enfield / New Doe Park",
+    "name": "Enfield/ New Doe Park",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Padaaratt Seebaran",
       "deputy": "Christina Jagit",
       "overseer": "Jennifer Mahadeo",
-      "officeNumber": "+592-333-5636"
+      "officeNumber": "333-5636"
     }
   },
   {
     "slug": "ordinance-fort-lands",
-    "name": "Ordinance / Fort Lands",
+    "name": "Ordinance/Fort Lands",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Ramsundar Phagwah",
       "deputy": "Ashraf Jahoor",
       "overseer": "Kumar Vijai Ramsunder",
-      "officeNumber": "+592-327-7205"
+      "officeNumber": "327-7205"
     }
   },
   {
     "slug": "canefield-enterprise",
-    "name": "Canefield / Enterprise",
+    "name": "Canefield/Enterprise",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Geron Hitnarine",
       "deputy": "Alica Dowridge",
       "overseer": "Ghomattie Chandipersaud",
-      "officeNumber": "+592-326-0575"
+      "officeNumber": "326-0575"
     }
   },
   {
     "slug": "kintyre-borlam",
-    "name": "Kintyre / Borlam",
+    "name": "Kintyre/Borlam",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Geeta Samaroo Ramsingh",
       "deputy": "Chandra Devi Partabsingh",
       "overseer": "Vijay Persaud",
-      "officeNumber": "+592-610-8407"
+      "officeNumber": "610-8407"
     }
   },
   {
     "slug": "gibraltar-fyrish",
-    "name": "Gibraltar / Fyrish",
+    "name": "Gibraltar/Fyrish",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Davindranauth Sewnauth",
       "deputy": "Kevin Nacimento",
       "overseer": "Joshua Sudial",
-      "officeNumber": "+592-322-0300"
+      "officeNumber": "322-0300"
     }
   },
   {
     "slug": "kilcoy-hampshire",
-    "name": "Kilcoy / Hampshire",
+    "name": "Kilcoy/Hampshire",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Shamir Khan",
       "deputy": "Mohamed Yassim Razack",
       "overseer": "Chrisnadat Nandu",
-      "officeNumber": "+592-322-3147"
+      "officeNumber": "322-3147"
     }
   },
   {
     "slug": "port-mourant-johns",
-    "name": "Port Mourant / Johns",
+    "name": "Port Mourant/Johns",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Vimen Armogan",
       "deputy": "Perdita Pamesar",
       "overseer": "Umawattie Ramnauth",
-      "officeNumber": "+592-336-6810"
+      "officeNumber": "336-6810"
     }
   },
   {
     "slug": "bloomfield-whim",
-    "name": "Bloomfield / Whim",
+    "name": "Bloomfield/Whim",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Omeshwar Sirikishun",
+      "deputy": "Daniel Sony",
       "overseer": "Lalchand Rupchand",
-      "officeNumber": "+592-337-2619"
+      "officeNumber": "337-2619"
     }
   },
   {
     "slug": "lancaster-hogstye",
-    "name": "Lancaster / Hogstye",
+    "name": "Lancaster/Hogstye",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Sheron Smith",
       "deputy": "Hernie Park",
       "overseer": "Denitta Park",
-      "officeNumber": "+592-331-0187"
+      "officeNumber": "331-0187"
     }
   },
   {
@@ -692,20 +704,19 @@
       "chairperson": "Kalamrudeen Mohamed",
       "deputy": "Ann Bactawar",
       "overseer": "Keisha Marks",
-      "assistantOverseer": "Tatianna Hintzen",
-      "officeNumber": "+592-331-0767"
+      "officeNumber": "331-0767"
     }
   },
   {
     "slug": "maida-tarlogie",
-    "name": "Maida / Tarlogie",
+    "name": "Maida/Tarlogie",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Lillawattie Dean",
       "deputy": "Annie Pestano",
       "overseer": "Shemeniel Bourne",
-      "officeNumber": "+592-325-3508"
+      "officeNumber": "325-3508"
     }
   },
   {
@@ -717,76 +728,91 @@
       "chairperson": "Lounita Devi Sanichar",
       "deputy": "Rajcomarie Nankoo",
       "overseer": "Patricia Ramcharran",
-      "officeNumber": "+592-664-3439"
+      "officeNumber": "664-3439"
     }
   },
   {
     "slug": "macedonia-joppa",
-    "name": "Macedonia / Joppa",
+    "name": "Macedonia/Joppa",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Senel Drepaul",
       "deputy": "Learie Haynes",
       "overseer": "Aticha Persaud",
-      "officeNumber": "+592-325-5567"
+      "officeNumber": "325-5567"
     }
   },
   {
     "slug": "good-hope-no-51",
-    "name": "Good Hope / No. 51",
+    "name": "Good Hope/No. 51",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Nagasar Sookram",
       "deputy": "Kerpaul Dammar",
       "overseer": "Glorey Samuels",
-      "officeNumber": "+592-339-4318"
+      "officeNumber": "339-4318"
     }
   },
   {
-    "slug": "no-64-74",
-    "name": "No. 64 / 74",
+    "slug": "no-52-63",
+    "name": "No. 52/ 63",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Hemraj Ghansham",
+      "deputy": "Lakhram Singh",
+      "overseer": "Rajendra Khemraj",
+      "officeNumber": "339-4010"
+    }
+  },
+  {
+    "slug": "no64-74",
+    "name": "No.64 / 74",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Jason Gravesande",
       "deputy": "Moteelall Sankat",
-      "overseer": "Roslyn Hawker"
+      "overseer": "Roslyn Hawker",
+      "officeNumber": ""
     }
   },
   {
     "slug": "crabwood-creek-moleson",
-    "name": "Crabwood Creek / Moleson",
+    "name": "Crabwood Creek/Moleson",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Lela Devi Rambharose (a.g)",
+      "deputy": "",
       "overseer": "Fizul Ali",
-      "assistantOverseer": "Sattie Singh",
-      "officeNumber": "+592-339-2330"
+      "officeNumber": "339-2330"
     }
   },
   {
     "slug": "plegt-anker-kortberaadt",
-    "name": "Plegt Anker / Kortberaadt",
+    "name": "Plegt Anker/ Kortberaadt",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
       "chairperson": "Rohit Emraj",
       "deputy": "Richard Barron",
-      "overseer": "Reuel Mohan"
+      "overseer": "Reuel Mohan",
+      "officeNumber": ""
     }
   },
   {
     "slug": "wyburg-caracas",
-    "name": "Wyburg / Caracas",
+    "name": "Wyburg /Caracas",
     "region": "Region 6",
     "regionName": "East Berbice-Corentyne",
     "contact": {
-      "chairperson": "Percy Ovid Phillips",
-      "deputy": "Raywattie Hoosain",
-      "overseer": "Chuyashnin Youaerhan"
+      "chairperson": "Mr. Percy Ovid Phillips",
+      "deputy": "Ms. Raywattie Hoosain",
+      "overseer": "Chuyashnin Youaerhan",
+      "officeNumber": ""
     }
   },
   {
@@ -797,7 +823,8 @@
     "contact": {
       "chairperson": "Gillian Alecia Rodrigues",
       "deputy": "Raynoldson Francis",
-      "overseer": "Floyd Peters"
+      "overseer": "Floyd Peters",
+      "officeNumber": ""
     }
   },
   {
@@ -809,7 +836,7 @@
       "chairperson": "Michell Simeon",
       "deputy": "Lindon Mc Kenzie",
       "overseer": "Viola Hartman",
-      "officeNumber": "+592-440-2560"
+      "officeNumber": "440-2560"
     }
   }
 ]

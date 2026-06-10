@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Building2, MapPin } from "lucide-react";
+import { Building2, MapPin, UserRound } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { Badge } from "@/components/ui/badge";
@@ -55,10 +55,34 @@ export default function MunicipalitiesPage() {
                   <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
                     <MapPin className="size-3.5" /> {m.region} — {m.regionName}
                   </p>
-                  <p className="mt-3 flex-1 text-sm text-muted-foreground">
-                    {m.name} {m.type === "City" ? "City Council" : "Town Council"} delivers
-                    municipal services to residents and businesses across {m.regionName}.
-                  </p>
+
+                  {m.officials?.length > 0 && (
+                    <div className="mt-4 flex-1 border-t pt-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-brand-600">
+                        Council leadership
+                      </p>
+                      <ul className="mt-3 space-y-2.5">
+                        {m.officials.map((o) => (
+                          <li
+                            key={`${o.role}-${o.name}`}
+                            className="flex items-start gap-2.5 text-sm"
+                          >
+                            <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+                              <UserRound className="size-3.5" />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="block text-xs text-muted-foreground">
+                                {o.role}
+                              </span>
+                              <span className="block font-medium leading-snug">
+                                {o.name}
+                              </span>
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </Reveal>
             ))}

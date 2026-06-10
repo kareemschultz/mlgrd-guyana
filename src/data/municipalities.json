@@ -1,12 +1,202 @@
 [
-  { "name": "Georgetown", "type": "City", "region": "Region 4", "regionName": "Demerara-Mahaica" },
-  { "name": "Mabaruma", "type": "Town", "region": "Region 1", "regionName": "Barima-Waini" },
-  { "name": "Anna Regina", "type": "Town", "region": "Region 2", "regionName": "Pomeroon-Supenaam" },
-  { "name": "New Amsterdam", "type": "Town", "region": "Region 6", "regionName": "East Berbice-Corentyne" },
-  { "name": "Rose Hall", "type": "Town", "region": "Region 6", "regionName": "East Berbice-Corentyne" },
-  { "name": "Corriverton", "type": "Town", "region": "Region 6", "regionName": "East Berbice-Corentyne" },
-  { "name": "Linden", "type": "Town", "region": "Region 10", "regionName": "Upper Demerara-Berbice" },
-  { "name": "Mahdia", "type": "Town", "region": "Region 8", "regionName": "Potaro-Siparuni" },
-  { "name": "Lethem", "type": "Town", "region": "Region 9", "regionName": "Upper Takutu-Upper Essequibo" },
-  { "name": "Bartica", "type": "Town", "region": "Region 7", "regionName": "Cuyuni-Mazaruni" }
+  {
+    "name": "Georgetown",
+    "type": "City",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "officials": [
+      {
+        "role": "Mayor",
+        "name": "Mr. Alfred Mentore"
+      },
+      {
+        "role": "Deputy Mayor",
+        "name": "Ms. Denise Miller"
+      },
+      {
+        "role": "Town Clerk",
+        "name": "Ms. Candace Nelson (ag)"
+      }
+    ]
+  },
+  {
+    "name": "New Amsterdam",
+    "type": "Town",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "officials": [
+      {
+        "role": "Mayor",
+        "name": "Mr. Wainwright Mc Intosh"
+      },
+      {
+        "role": "Deputy Mayor",
+        "name": "Mr. Kirk Fraser"
+      },
+      {
+        "role": "Town Clerk",
+        "name": "Ms. Sharon Bacchus"
+      }
+    ]
+  },
+  {
+    "name": "Anna Regina",
+    "type": "Town",
+    "region": "Region 2",
+    "regionName": "Pomeroon-Supenaam",
+    "officials": [
+      {
+        "role": "Mayor",
+        "name": "Mr. Devin Mohan"
+      },
+      {
+        "role": "Deputy Mayor",
+        "name": "Ms. Lorna Fitzallen"
+      },
+      {
+        "role": "Town Clerk",
+        "name": "Mr. Lennox Gasper"
+      }
+    ]
+  },
+  {
+    "name": "Bartica",
+    "type": "Town",
+    "region": "Region 7",
+    "regionName": "Cuyuni-Mazaruni",
+    "officials": [
+      {
+        "role": "Mayor",
+        "name": "Mr. Martin Anthony Murray"
+      },
+      {
+        "role": "Deputy Mayor",
+        "name": "Ms. Gail Ann Persaud"
+      },
+      {
+        "role": "Town Clerk",
+        "name": "Mr. Narendranauth Sukhram"
+      }
+    ]
+  },
+  {
+    "name": "Corriveton",
+    "type": "Town",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "officials": [
+      {
+        "role": "Mayor",
+        "name": "Mr. Imran Amin"
+      },
+      {
+        "role": "Deputy Mayor",
+        "name": "Mr. Satyanand Ramraj"
+      },
+      {
+        "role": "Town Clerk",
+        "name": "Ms. Natasha Griffith"
+      }
+    ]
+  },
+  {
+    "name": "Lethem",
+    "type": "Town",
+    "region": "Region 9",
+    "regionName": "Upper Takutu-Upper Essequibo",
+    "officials": [
+      {
+        "role": "Mayor",
+        "name": "Mr. John Macedo"
+      },
+      {
+        "role": "Deputy Mayor",
+        "name": "Ms. Indira Singh"
+      },
+      {
+        "role": "Town Clerk",
+        "name": "Ms. Radika Lall (ag)"
+      }
+    ]
+  },
+  {
+    "name": "Linden",
+    "type": "Town",
+    "region": "Region 10",
+    "regionName": "Upper Demerara-Berbice",
+    "officials": [
+      {
+        "role": "Mayor",
+        "name": "Mr. Dominique Blair"
+      },
+      {
+        "role": "Deputy Mayor",
+        "name": "Mr. Wainewright Odida Bethune"
+      },
+      {
+        "role": "Town Clerk",
+        "name": "Ms. Tamika Joris (ag)"
+      }
+    ]
+  },
+  {
+    "name": "Mabaruma",
+    "type": "Town",
+    "region": "Region 1",
+    "regionName": "Barima-Waini",
+    "officials": [
+      {
+        "role": "Mayor",
+        "name": "Mr. Trevi Leung"
+      },
+      {
+        "role": "Deputy Mayor",
+        "name": "Ms. Liane Persaud"
+      },
+      {
+        "role": "Town Clerk",
+        "name": "Mr. Edmund Inniss (ag)"
+      }
+    ]
+  },
+  {
+    "name": "Mahdia",
+    "type": "Town",
+    "region": "Region 8",
+    "regionName": "Potaro-Siparuni",
+    "officials": [
+      {
+        "role": "Mayor",
+        "name": "Ms. Eslyn Gail Romascindo-Hussain"
+      },
+      {
+        "role": "Deputy Mayor",
+        "name": "Ms. Akita John"
+      },
+      {
+        "role": "Town Clerk",
+        "name": "Ms. Keisha Vincent"
+      }
+    ]
+  },
+  {
+    "name": "Rose Hall",
+    "type": "Town",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "officials": [
+      {
+        "role": "Mayor",
+        "name": "Mr. Dave Budhu"
+      },
+      {
+        "role": "Deputy Mayor",
+        "name": "Mr. Roydel Lewis"
+      },
+      {
+        "role": "Town Clerk",
+        "name": "Mr. Kevin Gildharie (ag)"
+      }
+    ]
+  }
 ]

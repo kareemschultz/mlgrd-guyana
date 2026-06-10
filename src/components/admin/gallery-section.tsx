@@ -23,6 +23,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { AnimatedList } from "@/components/ui/animated-list";
 import { ConfirmDelete } from "@/components/admin/confirm-delete";
 import {
   Field,
@@ -156,16 +157,22 @@ export function GallerySection({
           }
         />
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <AnimatedList
+          as="div"
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {items.map((item) => (
-            <Card key={item.id} className="overflow-hidden p-0">
-              <div className="relative aspect-[16/10] w-full bg-muted">
+            <Card
+              key={item.id}
+              className="group overflow-hidden p-0 transition-shadow hover:border-gold/40 hover:shadow-md"
+            >
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
                 {item.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="absolute inset-0 size-full object-cover"
+                    className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
@@ -212,7 +219,7 @@ export function GallerySection({
               </div>
             </Card>
           ))}
-        </div>
+        </AnimatedList>
       )}
 
       <Dialog open={editorOpen} onOpenChange={setEditorOpen}>

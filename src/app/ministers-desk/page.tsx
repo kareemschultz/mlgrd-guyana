@@ -10,6 +10,7 @@ import { MinisterGallery } from "@/components/gallery/minister-gallery";
 import { PhotoGallery } from "@/components/gallery/photo-gallery";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { seedMinisters } from "@/lib/data/seed";
 
 export const metadata: Metadata = {
   title: "Minister's Desk",
@@ -41,6 +42,7 @@ const priorities = [
 ];
 
 export default function MinistersDeskPage() {
+  const minister = seedMinisters.find((m) => m.current) ?? seedMinisters[0];
   return (
     <>
       <PageHero
@@ -56,17 +58,24 @@ export default function MinistersDeskPage() {
           {/* Avatar / identity block */}
           <Reveal>
             <div className="lg:sticky lg:top-24">
-              <div className="relative mx-auto flex aspect-square w-44 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 text-white shadow-lg sm:w-52 lg:mx-0">
+              <div className="relative mx-auto aspect-square w-44 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 text-white shadow-lg sm:w-52 lg:mx-0">
                 <div className="pointer-events-none absolute inset-0 bg-dot text-white/10" />
-                <span className="font-heading text-5xl font-extrabold tracking-wide">
-                  HM
-                </span>
+                {minister.portrait ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={minister.portrait}
+                    alt={`Portrait of ${minister.name}`}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span className="flex h-full w-full items-center justify-center font-heading text-5xl font-extrabold tracking-wide">
+                    {minister.initials ?? minister.name.slice(0, 2).toUpperCase()}
+                  </span>
+                )}
               </div>
               <div className="mt-5 text-center lg:text-left">
-                <p className="font-heading text-lg font-bold">The Hon. Minister</p>
-                <p className="text-sm text-muted-foreground">
-                  Local Government &amp; Regional Development
-                </p>
+                <p className="font-heading text-lg font-bold">{minister.name}</p>
+                <p className="text-sm text-muted-foreground">{minister.title}</p>
                 <Badge variant="secondary" className="mt-3">
                   Office of the Minister
                 </Badge>
@@ -102,11 +111,9 @@ export default function MinistersDeskPage() {
                 </p>
               </div>
               <p className="mt-8 font-heading text-lg font-bold text-foreground">
-                The Hon. Minister
+                {minister.name}
               </p>
-              <p className="text-sm text-muted-foreground">
-                Ministry of Local Government &amp; Regional Development
-              </p>
+              <p className="text-sm text-muted-foreground">{minister.title}</p>
             </div>
           </Reveal>
         </div>

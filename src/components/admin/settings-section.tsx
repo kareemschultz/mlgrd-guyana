@@ -47,7 +47,7 @@ export function SettingsSection({ onLogout }: { onLogout: () => void }) {
                 : "bg-gold/15 text-[#8a6500]"
             }
           >
-            {live ? "Live • Cloudflare" : "Demo • this browser"}
+            {live ? "Live • Cloudflare" : "Local data"}
           </Badge>
         </CardHeader>
         <CardContent className="flex flex-col gap-3 text-sm text-muted-foreground">
@@ -60,9 +60,9 @@ export function SettingsSection({ onLogout }: { onLogout: () => void }) {
             </p>
           ) : (
             <p>
-              This admin is running in{" "}
-              <strong className="text-foreground">demo mode</strong>. Content is
-              stored in this browser&apos;s <code>localStorage</code> only —
+              This admin is using{" "}
+              <strong className="text-foreground">local data</strong>. Content
+              is stored in this browser&apos;s <code>localStorage</code> only —
               changes are not shared with other devices and reset if you clear
               site data. Deploy on Cloudflare Pages to enable shared, persistent
               storage.

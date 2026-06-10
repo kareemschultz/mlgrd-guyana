@@ -1,12 +1,322 @@
 [
-  { "region": "Region 1", "name": "Barima-Waini", "council": "Regional Democratic Council, Region 1" },
-  { "region": "Region 2", "name": "Pomeroon-Supenaam", "council": "Regional Democratic Council, Region 2" },
-  { "region": "Region 3", "name": "Essequibo Islands-West Demerara", "council": "Regional Democratic Council, Region 3" },
-  { "region": "Region 4", "name": "Demerara-Mahaica", "council": "Regional Democratic Council, Region 4" },
-  { "region": "Region 5", "name": "Mahaica-Berbice", "council": "Regional Democratic Council, Region 5" },
-  { "region": "Region 6", "name": "East Berbice-Corentyne", "council": "Regional Democratic Council, Region 6" },
-  { "region": "Region 7", "name": "Cuyuni-Mazaruni", "council": "Regional Democratic Council, Region 7" },
-  { "region": "Region 8", "name": "Potaro-Siparuni", "council": "Regional Democratic Council, Region 8" },
-  { "region": "Region 9", "name": "Upper Takutu-Upper Essequibo", "council": "Regional Democratic Council, Region 9" },
-  { "region": "Region 10", "name": "Upper Demerara-Berbice", "council": "Regional Democratic Council, Region 10" }
+  {
+    "region": "Region 1",
+    "name": "Barima-Waini",
+    "council": "Regional Democratic Council, Region 1",
+    "address": "Mabaruma Compound, Barima-Waini",
+    "phone": "777-5015, 777-5057",
+    "email": "regionalexecutiveofficer1@gmail.com",
+    "facebook": "Barima Waini Region RDC",
+    "website": "",
+    "officials": [
+      {
+        "role": "Regional Executive Officer (REO)",
+        "name": "Dr. Steven Cheefoon"
+      },
+      {
+        "role": "Deputy REO",
+        "name": "Shem Cuffy"
+      },
+      {
+        "role": "Regional Health Officer (RHO)",
+        "name": "Dr. Mitchell Pierre (Ag.)"
+      },
+      {
+        "role": "Regional Education & Dev. Officer (REDO)",
+        "name": "Annansha Peters"
+      },
+      {
+        "role": "Environmental Health Officer (EHO)",
+        "name": "Andrea Bazilio (Ag.)"
+      }
+    ]
+  },
+  {
+    "region": "Region 2",
+    "name": "Pomeroon-Supenaam",
+    "council": "Regional Democratic Council, Region 2",
+    "address": "Anna Regina, Essequibo Coast",
+    "phone": "(592) 663-0066 / 771-4232",
+    "email": "reo.reg2@gmail.com",
+    "facebook": "Regional Democratic Council, Region 2",
+    "website": "https://portal.gov.gy/agencies/rdc-region-2--pomeroon-supenaam",
+    "officials": [
+      {
+        "role": "Regional Executive Officer (REO)",
+        "name": "Deolall Rooplall"
+      },
+      {
+        "role": "Deputy REO",
+        "name": "Omesh Sasenarayan"
+      },
+      {
+        "role": "Regional Health Officer (RHO)",
+        "name": "Dr. Ranjeev Singh"
+      },
+      {
+        "role": "Regional Education & Dev. Officer (REDO)",
+        "name": "Shondelle Hercules"
+      },
+      {
+        "role": "Environmental Health Officer (EHO)",
+        "name": "Shaleena Jaigobin"
+      }
+    ]
+  },
+  {
+    "region": "Region 3",
+    "name": "Essequibo Islands-West Demerara",
+    "council": "Regional Democratic Council, Region 3",
+    "address": "Vreed-en-Hoop, West Coast Demerara",
+    "phone": "264 -2261",
+    "email": "regionaldemocraticcouncil3@gmail.com",
+    "facebook": "Regional Democratic Council - Region #3",
+    "website": "",
+    "officials": [
+      {
+        "role": "Regional Executive Officer (REO)",
+        "name": "Surendra Khayyam"
+      },
+      {
+        "role": "Deputy REO",
+        "name": "Shameer Arjoon"
+      },
+      {
+        "role": "Regional Health Officer (RHO)",
+        "name": "Dr. Fiaz Hassan"
+      },
+      {
+        "role": "Regional Education & Dev. Officer (REDO)",
+        "name": "Akbar Chindu"
+      },
+      {
+        "role": "Environmental Health Officer (EHO)",
+        "name": "June Statia Nedd"
+      }
+    ]
+  },
+  {
+    "region": "Region 4",
+    "name": "Demerara-Mahaica",
+    "council": "Regional Democratic Council, Region 4",
+    "address": "Triumph Public Road, East Coast Demerara",
+    "phone": "592) 232-0305 (592) 232-0308 (592) 232-0292",
+    "email": "reo.rdcregion4@gmail.com",
+    "facebook": "Regional Democratic Council Region No. 4",
+    "website": "",
+    "officials": [
+      {
+        "role": "Regional Executive Officer (REO)",
+        "name": "Juan Edghill Jr."
+      },
+      {
+        "role": "Deputy REO",
+        "name": "Deryck Persaud"
+      },
+      {
+        "role": "Regional Health Officer (RHO)",
+        "name": "Dr. Gavinash Peraud"
+      },
+      {
+        "role": "Regional Education & Dev. Officer (REDO)",
+        "name": "Kean Adams"
+      },
+      {
+        "role": "Environmental Health Officer (EHO)",
+        "name": "Kestine Garnett"
+      }
+    ]
+  },
+  {
+    "region": "Region 5",
+    "name": "Mahaica-Berbice",
+    "council": "Regional Democratic Council, Region 5",
+    "address": "Fort Wellington, West Coast Berbice",
+    "phone": "(592) 232-0304 / 232-0828",
+    "email": "reo.5.rdc@gmail.com maryannsamaroo03@gmail.com",
+    "facebook": "Regional Democratic Council Region No. 5",
+    "website": "",
+    "officials": [
+      {
+        "role": "Regional Executive Officer (REO)",
+        "name": "Mary Samaroo"
+      },
+      {
+        "role": "Deputy REO",
+        "name": "Sherwin Millington"
+      },
+      {
+        "role": "Regional Health Officer (RHO)",
+        "name": "Dr. Theresa Sarju"
+      },
+      {
+        "role": "Regional Education & Dev. Officer (REDO)",
+        "name": "Selestine La Rose"
+      },
+      {
+        "role": "Environmental Health Officer (EHO)",
+        "name": "Jermaine Dover"
+      }
+    ]
+  },
+  {
+    "region": "Region 6",
+    "name": "East Berbice-Corentyne",
+    "council": "Regional Democratic Council, Region 6",
+    "address": "Vryman's Erven, New Amsterdam, East Berbice-Corentyne",
+    "phone": "333-3120",
+    "email": "reo.reg6@gmail.com",
+    "facebook": "Regional Democratic Council Region No. 6",
+    "website": "",
+    "officials": [
+      {
+        "role": "Regional Executive Officer (REO)",
+        "name": "Ronald Harsaywack"
+      },
+      {
+        "role": "Deputy REO",
+        "name": "Vanetta Thomas (AREO)"
+      },
+      {
+        "role": "Regional Health Officer (RHO)",
+        "name": "Dr. Vineshri Khirodhar"
+      },
+      {
+        "role": "Regional Education & Dev. Officer (REDO)",
+        "name": "Sattish Udit"
+      },
+      {
+        "role": "Environmental Health Officer (EHO)",
+        "name": "Marvin Dindyal"
+      }
+    ]
+  },
+  {
+    "region": "Region 7",
+    "name": "Cuyuni-Mazaruni",
+    "council": "Regional Democratic Council, Region 7",
+    "address": "Lot 11 First Avenue, Bartica",
+    "phone": "+592 455-2251",
+    "email": "reoregion7@yahoo.com",
+    "facebook": "Regional Democratic Council Region 7",
+    "website": "https://bartica.gov.gy/directory/regional-democratic-council-office",
+    "officials": [
+      {
+        "role": "Regional Executive Officer (REO)",
+        "name": "Dr. Josh Kanhai"
+      },
+      {
+        "role": "Deputy REO",
+        "name": "Dion Seecharran (AREO)"
+      },
+      {
+        "role": "Regional Health Officer (RHO)",
+        "name": "Dr. Edward Sagala"
+      },
+      {
+        "role": "Regional Education & Dev. Officer (REDO)",
+        "name": "Samantha Phagu-Singh"
+      },
+      {
+        "role": "Environmental Health Officer (EHO)",
+        "name": "Dotsy Douglas"
+      }
+    ]
+  },
+  {
+    "region": "Region 8",
+    "name": "Potaro-Siparuni",
+    "council": "Regional Democratic Council, Region 8",
+    "address": "11 Miles,Mahdia, Potaro-Siparuni",
+    "phone": "692-0071",
+    "email": "rajahvramotar@gmail.com",
+    "facebook": "Regional Democratic Council Region #8",
+    "website": "",
+    "officials": [
+      {
+        "role": "Regional Executive Officer (REO)",
+        "name": "Marti DeSouza"
+      },
+      {
+        "role": "Deputy REO",
+        "name": "Shaun Britton"
+      },
+      {
+        "role": "Regional Health Officer (RHO)",
+        "name": "Dr. Talitha Cort"
+      },
+      {
+        "role": "Regional Education & Dev. Officer (REDO)",
+        "name": "Gewan Dookie"
+      },
+      {
+        "role": "Environmental Health Officer (EHO)",
+        "name": "Donika Vanlonge"
+      }
+    ]
+  },
+  {
+    "region": "Region 9",
+    "name": "Upper Takutu-Upper Essequibo",
+    "council": "Regional Democratic Council, Region 9",
+    "address": "Takutu Drive, Lethem, Upper Takutu-Upper Essequibo",
+    "phone": "772-2021",
+    "email": "karlsingh177@gmail.com reoofficeregion9@gmail.com",
+    "facebook": "Office of the Regional Executive Officer Region #9",
+    "website": "",
+    "officials": [
+      {
+        "role": "Regional Executive Officer (REO)",
+        "name": "Karl Singh"
+      },
+      {
+        "role": "Deputy REO",
+        "name": "Althea Fitzpatrick (AREO)"
+      },
+      {
+        "role": "Regional Health Officer (RHO)",
+        "name": "Dr. Nevan Henry"
+      },
+      {
+        "role": "Regional Education & Dev. Officer (REDO)",
+        "name": "Ms. Kateri Joseph"
+      },
+      {
+        "role": "Environmental Health Officer (EHO)",
+        "name": "Juanita Williams"
+      }
+    ]
+  },
+  {
+    "region": "Region 10",
+    "name": "Upper Demerara-Berbice",
+    "council": "Regional Democratic Council, Region 10",
+    "address": "19 Republic Avenue, Mackenzie, Linden",
+    "phone": "444-6121",
+    "email": "reoregion10@gmail.com regional.chairman10@yahoo.com",
+    "facebook": "Regional Democratic Council - Region 10",
+    "website": "",
+    "officials": [
+      {
+        "role": "Regional Executive Officer (REO)",
+        "name": "Dr. Gregory Harris"
+      },
+      {
+        "role": "Deputy REO",
+        "name": "Deon Adams (Regional Chair)"
+      },
+      {
+        "role": "Regional Health Officer (RHO)",
+        "name": "Dr. Gregory Harris"
+      },
+      {
+        "role": "Regional Education & Dev. Officer (REDO)",
+        "name": "La Shanna Anderson"
+      },
+      {
+        "role": "Environmental Health Officer (EHO)",
+        "name": "Rhonda Howell"
+      }
+    ]
+  }
 ]

@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/ui/marquee";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
-import { BorderBeam } from "@/components/ui/border-beam";
 import { HeroFx } from "@/components/site/hero-fx";
+import { HeroEmblemNews } from "@/components/site/latest-news";
 import ndcs from "@/data/ndcs.json";
 
 const stats = [
@@ -54,7 +54,7 @@ export default function HomePage() {
         <div className="container-gov relative grid gap-10 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:py-28">
           <div>
             <AnimatedGradientText className="mb-5 text-sm font-medium">
-              🇬🇾 Government of Guyana
+              🇬🇾 Government of Guyana · Local Government &amp; Regional Development
             </AnimatedGradientText>
             <h1 className="font-heading text-4xl font-extrabold leading-[1.05] sm:text-5xl md:text-6xl">
               Strong councils,{" "}
@@ -83,29 +83,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Quick-access card */}
-          <div className="relative">
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-              <BorderBeam size={120} duration={10} className="from-brand via-gold to-transparent" />
-              <h2 className="font-heading text-lg font-bold text-white">Popular services</h2>
-              <p className="mt-1 text-sm text-white/60">Jump straight to what you need.</p>
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                {services.slice(0, 4).map((s) => (
-                  <Link
-                    key={s.href}
-                    href={s.href}
-                    className="group flex flex-col gap-2 rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-gold/40 hover:bg-white/[0.07]"
-                  >
-                    <s.icon className="size-5 text-gold" />
-                    <span className="text-sm font-semibold leading-snug text-white">{s.title}</span>
-                  </Link>
-                ))}
-              </div>
-              <Link href="/services" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-gold hover:underline">
-                View all services <ArrowRight className="size-3.5" />
-              </Link>
-            </div>
-          </div>
+          {/* Emblem + latest updates */}
+          <HeroEmblemNews />
         </div>
 
         {/* updates marquee */}
