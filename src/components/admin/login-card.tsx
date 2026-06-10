@@ -61,7 +61,6 @@ export function LoginCard({ onSuccess }: { onSuccess: () => void }) {
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="username"
               autoFocus
-              placeholder="admin"
             />
           </Field>
 

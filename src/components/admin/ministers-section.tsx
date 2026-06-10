@@ -49,6 +49,7 @@ function emptyDraft(nextOrder: number): NewMinister {
     portrait: "",
     initials: "",
     bio: "",
+    profileUrl: "",
     termStart: "",
     termEnd: "",
     current: true,
@@ -85,6 +86,7 @@ export function MinistersSection({
       portrait: m.portrait ?? "",
       initials: m.initials ?? "",
       bio: m.bio ?? "",
+      profileUrl: m.profileUrl ?? "",
       termStart: m.termStart ?? "",
       termEnd: m.termEnd ?? "",
       current: m.current,
@@ -109,6 +111,7 @@ export function MinistersSection({
         initials: (draft.initials || initialsOf(draft.name)).toUpperCase(),
         portrait: draft.portrait || undefined,
         bio: draft.bio || undefined,
+        profileUrl: draft.profileUrl || undefined,
         termStart: draft.termStart || undefined,
         termEnd: draft.termEnd || undefined,
         order: Number(draft.order) || 0,
@@ -318,6 +321,20 @@ export function MinistersSection({
                 onChange={(e) => patch({ bio: e.target.value })}
                 rows={4}
                 placeholder="Short biography."
+              />
+            </Field>
+
+            <Field
+              label="Profile / website link (optional)"
+              htmlFor="min-profile"
+              hint="Adds a 'View profile' link on the public Minister's Desk."
+            >
+              <Input
+                id="min-profile"
+                type="url"
+                value={draft.profileUrl ?? ""}
+                onChange={(e) => patch({ profileUrl: e.target.value })}
+                placeholder="https://..."
               />
             </Field>
 
