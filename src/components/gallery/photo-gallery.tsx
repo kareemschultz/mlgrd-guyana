@@ -1,12 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  type Variants,
-} from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   X,
   Calendar,
@@ -22,16 +17,17 @@ import { data } from "@/lib/data/client";
 import { seedGallery } from "@/lib/data/seed";
 import type { GalleryItem } from "@/lib/data/types";
 import { cn } from "@/lib/utils";
+import { BlurFade } from "@/components/ui/blur-fade";
 
 /**
- * Animated ministry photo gallery for the Minister's Desk.
- *
- * Initial state is `seedGallery` so the static export renders real content
- * immediately; a useEffect overlays any live updates. Items without an `image`
- * render a tasteful branded placeholder tile (gradient + category icon) rather
- * than a broken image. Tiles stagger into view and zoom on hover; clicking
- * opens an animated lightbox with the caption. Category chips filter the grid.
- * Reduced-motion is honoured globally and locally.
+ * Animated ministry photo gallery — a hybrid of the StyleOS gallery motion
+ * pattern (motion/react):
+ *   1. Two infinite marquee rows scrolling in opposite directions (showcase).
+ *   2. A spring `layoutId` indicator on the category filter pills.
+ *   3. BlurFade scroll-reveal on the browsable masonry grid below.
+ *   4. whileHover lift on every photo card.
+ * Clicking any photo opens an animated lightbox. Reduced motion is honoured
+ * (marquee is hidden, reveals collapse to a fade).
  */
 
 const ALL = "All";
@@ -40,6 +36,9 @@ const CATEGORY_ICON: Record<string, LucideIcon> = {
   "Capacity-building": Landmark,
   Community: HandHelping,
   Events: CalendarDays,
+  Leadership: Users,
+  Engagements: Users,
+  Regional: Landmark,
   Minister: Users,
 };
 
@@ -48,20 +47,81 @@ function iconFor(category?: string): LucideIcon {
   return ImageIcon;
 }
 
-const containerVariants: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07 } },
-};
+/** A fixed-size card used inside the moving marquee rows. */
+function MarqueeCard({
+  item,
+  onPick,
+  reduce,
+}: {
+  item: GalleryItem;
+  onPick: (it: GalleryItem) => void;
+  reduce: boolean | null;
+}) {
+  const Icon = iconFor(item.category);
+  return (
+    <motion.button
+      type="button"
+      onClick={() => onPick(item)}
+      whileHover={reduce ? undefined : { scale: 1.03, y: -4 }}
+      transition={{ duration: 0.18 }}
+      className="group relative h-40 w-60 shrink-0 overflow-hidden rounded-2xl bg-ink text-left shadow-md ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold sm:h-44 sm:w-72"
+    >
+      {item.image ? (
+        <img
+          src={item.image}
+          alt={item.caption || item.title}
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand-600 to-brand-700 text-white">
+          <Icon className="size-9 text-white/90" />
+        </div>
+      )}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/20 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 p-3">
+        {item.category && (
+          <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gold">
+            {item.category}
+          </span>
+        )}
+        <h3 className="font-heading text-sm font-bold leading-snug text-white">
+          {item.title}
+        </h3>
+      </div>
+    </motion.button>
+  );
+}
 
-const tileVariants: Variants = {
-  hidden: { opacity: 0, y: 28, filter: "blur(10px)" },
-  show: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
-};
+/** One infinite-scrolling row (duplicated content for a seamless loop). */
+function MarqueeRow({
+  items,
+  direction,
+  duration,
+  onPick,
+  reduce,
+}: {
+  items: GalleryItem[];
+  direction: "left" | "right";
+  duration: number;
+  onPick: (it: GalleryItem) => void;
+  reduce: boolean | null;
+}) {
+  const loop = [...items, ...items];
+  return (
+    <div className="flex overflow-hidden">
+      <motion.div
+        className="flex w-max shrink-0 gap-4 pr-4"
+        animate={{ x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"] }}
+        transition={{ ease: "linear", repeat: Infinity, duration }}
+      >
+        {loop.map((it, i) => (
+          <MarqueeCard key={`${it.id}-${i}`} item={it} onPick={onPick} reduce={reduce} />
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
 export function PhotoGallery() {
   const [items, setItems] = useState<GalleryItem[]>(seedGallery);
@@ -107,7 +167,18 @@ export function PhotoGallery() {
 
   return (
     <>
-      {/* ───── Category filter chips ───── */}
+      {/* ── 1. Moving marquee rows (opposite directions) ── */}
+      {!reduce && items.length > 1 && (
+        <div className="relative mb-12 space-y-4">
+          <MarqueeRow items={items} direction="left" duration={34} onPick={setActive} reduce={reduce} />
+          <MarqueeRow items={[...items].reverse()} direction="right" duration={40} onPick={setActive} reduce={reduce} />
+          {/* edge fades */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-background to-transparent sm:w-24" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-background to-transparent sm:w-24" />
+        </div>
+      )}
+
+      {/* ── 2. Category filter pills with spring layoutId indicator ── */}
       {categories.length > 0 && (
         <div className="mb-8 flex flex-wrap gap-2">
           {[ALL, ...categories].map((c) => {
@@ -119,44 +190,43 @@ export function PhotoGallery() {
                 onClick={() => setFilter(c)}
                 aria-pressed={selected}
                 className={cn(
-                  "rounded-full border px-4 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2",
+                  "relative rounded-full border px-4 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2",
                   selected
-                    ? "border-brand-600 bg-brand-600 text-white"
+                    ? "border-brand-600 text-white"
                     : "border-border bg-card text-muted-foreground hover:border-brand/40 hover:text-foreground",
                 )}
               >
-                {c}
+                {selected && (
+                  <motion.span
+                    layoutId="gallery-tab"
+                    className="absolute inset-0 -z-0 rounded-full bg-brand-600"
+                    transition={{ type: "spring", bounce: 0.15, duration: 0.35 }}
+                  />
+                )}
+                <span className="relative z-10">{c}</span>
               </button>
             );
           })}
         </div>
       )}
 
-      {/* ───── Masonry grid — fade-overlay captions ───── */}
-      <motion.div
-        layout
-        className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.05, margin: "0px 0px -8% 0px" }}
-      >
-        <AnimatePresence mode="popLayout">
-          {visible.map((it) => {
-            const Icon = iconFor(it.category);
-            return (
+      {/* ── 3 + 4. BlurFade masonry grid with hover-lift cards ── */}
+      <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
+        {visible.map((it, i) => {
+          const Icon = iconFor(it.category);
+          return (
+            <BlurFade
+              key={it.id}
+              inView
+              delay={(i % 9) * 0.06}
+              className="break-inside-avoid"
+            >
               <motion.button
-                key={it.id}
-                layout
                 type="button"
-                variants={tileVariants}
-                initial="hidden"
-                animate="show"
-                exit={{ opacity: 0, scale: 0.96 }}
-                whileHover={reduce ? undefined : { y: -5 }}
-                transition={{ type: "spring", stiffness: 300, damping: 26 }}
                 onClick={() => setActive(it)}
-                className="group relative block w-full break-inside-avoid overflow-hidden rounded-2xl bg-ink text-left shadow-md ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                whileHover={reduce ? undefined : { scale: 1.03, y: -4 }}
+                transition={{ duration: 0.18 }}
+                className="group relative block w-full overflow-hidden rounded-2xl bg-ink text-left shadow-md ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               >
                 {it.image ? (
                   <img
@@ -166,16 +236,16 @@ export function PhotoGallery() {
                     className="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                   />
                 ) : (
-                  <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-gradient-to-br from-brand-600 to-brand-700 text-white transition-transform duration-500 group-hover:scale-[1.04]">
+                  <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-gradient-to-br from-brand-600 to-brand-700 text-white">
                     <div className="pointer-events-none absolute inset-0 bg-dot text-white/10" />
                     <Icon className="size-10 text-white/90" />
                   </div>
                 )}
 
-                {/* fade gradient over the image */}
+                {/* fade gradient */}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/35 to-transparent" />
 
-                {/* zoom affordance (reveals on hover) */}
+                {/* zoom affordance */}
                 <span className="absolute right-3 top-3 flex size-8 items-center justify-center rounded-full bg-white/15 text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
                   <Maximize2 className="size-4" />
                 </span>
@@ -198,15 +268,15 @@ export function PhotoGallery() {
                   )}
                 </div>
 
-                {/* gold base accent grows in on hover */}
+                {/* gold base accent on hover */}
                 <span className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand via-gold to-brand transition-transform duration-300 group-hover:scale-x-100" />
               </motion.button>
-            );
-          })}
-        </AnimatePresence>
-      </motion.div>
+            </BlurFade>
+          );
+        })}
+      </div>
 
-      {/* ───── Lightbox ───── */}
+      {/* ── Lightbox ── */}
       <AnimatePresence>
         {active && (
           <motion.div
