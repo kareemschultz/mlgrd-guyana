@@ -24,6 +24,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { AnimatedList } from "@/components/ui/animated-list";
 import { ConfirmDelete } from "@/components/admin/confirm-delete";
 import {
   Field,
@@ -171,12 +172,24 @@ export function MinistersSection({
           }
         />
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <AnimatedList
+          as="div"
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {ministers.map((m) => (
-            <Card key={m.id} className="gap-4 p-5">
+            <Card
+              key={m.id}
+              className="group gap-4 p-5 transition-shadow hover:border-gold/40 hover:shadow-md"
+            >
               <div className="flex items-start gap-3">
-                <Avatar className="size-14 rounded-xl">
-                  {m.portrait && <AvatarImage src={m.portrait} alt={m.name} />}
+                <Avatar className="size-14 rounded-xl ring-2 ring-transparent transition-all group-hover:ring-gold/40">
+                  {m.portrait && (
+                    <AvatarImage
+                      src={m.portrait}
+                      alt={m.name}
+                      className="object-cover"
+                    />
+                  )}
                   <AvatarFallback className="rounded-xl bg-ink text-base font-semibold text-white">
                     {m.initials || initialsOf(m.name)}
                   </AvatarFallback>
@@ -232,7 +245,7 @@ export function MinistersSection({
               </div>
             </Card>
           ))}
-        </div>
+        </AnimatedList>
       )}
 
       <Dialog open={editorOpen} onOpenChange={setEditorOpen}>

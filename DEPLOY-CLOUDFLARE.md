@@ -32,6 +32,12 @@ wrangler d1 create mlgrd
 wrangler d1 execute mlgrd --remote --file=scripts/d1-schema.sql
 wrangler d1 execute mlgrd --remote --file=scripts/d1-seed.sql
 
+# 2b. (Optional) Load the FULL council/officials directory incl. personal contacts.
+#     Generate the git-ignored seed locally first from the ministry spreadsheet:
+#       python scripts/import-agencies.py "path/to/Agencies & Administrators.xlsx"
+#     then apply it (admin-only data — only exists in D1, never in the public bundle):
+wrangler d1 execute mlgrd --remote --file=scripts/d1-seed-directory.sql
+
 # 3. Admin secrets (run once; you'll be prompted for the value)
 wrangler pages secret put ADMIN_SECRET      # any long random string (signs sessions)
 wrangler pages secret put ADMIN_PASSWORD    # the admin login password

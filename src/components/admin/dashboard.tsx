@@ -6,14 +6,18 @@
  * scoped to /admin via the `.admin-theme` wrapper. Wired to the data layer.
  */
 import * as React from "react";
+import { AnimatePresence, motion } from "motion/react";
 import {
   LayoutDashboard,
   Newspaper,
   Images,
   Users,
+  Network,
   Inbox,
   Settings,
   LogOut,
+  HardDrive,
+  Cloud,
   type LucideIcon,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -45,6 +49,7 @@ import { OverviewSection } from "@/components/admin/overview-section";
 import { PostsSection } from "@/components/admin/posts-section";
 import { GallerySection } from "@/components/admin/gallery-section";
 import { MinistersSection } from "@/components/admin/ministers-section";
+import { DirectorySection } from "@/components/admin/directory-section";
 import { MessagesSection } from "@/components/admin/messages-section";
 import { SettingsSection } from "@/components/admin/settings-section";
 
@@ -53,6 +58,7 @@ type SectionId =
   | "posts"
   | "gallery"
   | "ministers"
+  | "directory"
   | "messages"
   | "settings";
 
@@ -61,6 +67,7 @@ const NAV: { id: SectionId; label: string; icon: LucideIcon }[] = [
   { id: "posts", label: "Posts", icon: Newspaper },
   { id: "gallery", label: "Gallery", icon: Images },
   { id: "ministers", label: "Ministers", icon: Users },
+  { id: "directory", label: "Directories", icon: Network },
   { id: "messages", label: "Messages", icon: Inbox },
   { id: "settings", label: "Settings", icon: Settings },
 ];
@@ -70,6 +77,7 @@ const LABELS: Record<SectionId, string> = {
   posts: "News posts",
   gallery: "Gallery",
   ministers: "Ministers & officials",
+  directory: "Directories",
   messages: "Inbox",
   settings: "Settings",
 };
@@ -135,13 +143,18 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
             </div>
             <Badge
               className={cn(
-                "mx-1 mb-1 w-fit border-0 font-medium",
+                "mx-1 mb-1 flex w-fit items-center gap-1.5 border-0 font-medium",
                 live
                   ? "bg-emerald-500/15 text-emerald-300"
                   : "bg-gold/20 text-gold",
               )}
             >
-              {live ? "Live • Cloudflare" : "Demo • this browser"}
+              {live ? (
+                <Cloud className="size-3" />
+              ) : (
+                <HardDrive className="size-3" />
+              )}
+              {live ? "Live • Cloudflare" : "Local data"}
             </Badge>
           </SidebarHeader>
 
@@ -209,44 +222,63 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
           </header>
 
           <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6">
-            {section === "overview" && (
-              <OverviewSection
-                counts={{
-                  posts: posts.length,
-                  published: posts.filter((p) => p.status === "published")
-                    .length,
-                  gallery: gallery.length,
-                  ministers: ministers.length,
-                  newMessages,
-                  totalMessages: messages.length,
-                }}
-              />
-            )}
-            {section === "posts" && (
-              <PostsSection posts={posts} onChange={refresh} loading={loading} />
-            )}
-            {section === "gallery" && (
-              <GallerySection
-                items={gallery}
-                onChange={refresh}
-                loading={loading}
-              />
-            )}
-            {section === "ministers" && (
-              <MinistersSection
-                ministers={ministers}
-                onChange={refresh}
-                loading={loading}
-              />
-            )}
-            {section === "messages" && (
-              <MessagesSection
-                messages={messages}
-                onChange={refresh}
-                loading={loading}
-              />
-            )}
-            {section === "settings" && <SettingsSection onLogout={logout} />}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={section}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {section === "overview" && (
+                  <OverviewSection
+                    counts={{
+                      posts: posts.length,
+                      published: posts.filter((p) => p.status === "published")
+                        .length,
+                      gallery: gallery.length,
+                      ministers: ministers.length,
+                      newMessages,
+                      totalMessages: messages.length,
+                    }}
+                    recentPosts={posts}
+                    recentMessages={messages}
+                  />
+                )}
+                {section === "posts" && (
+                  <PostsSection
+                    posts={posts}
+                    onChange={refresh}
+                    loading={loading}
+                  />
+                )}
+                {section === "gallery" && (
+                  <GallerySection
+                    items={gallery}
+                    onChange={refresh}
+                    loading={loading}
+                  />
+                )}
+                {section === "ministers" && (
+                  <MinistersSection
+                    ministers={ministers}
+                    onChange={refresh}
+                    loading={loading}
+                  />
+                )}
+                {section === "directory" && <DirectorySection />}
+                {section === "messages" && (
+                  <MessagesSection
+                    messages={messages}
+                    onChange={refresh}
+                    loading={loading}
+                  />
+                )}
+                {section === "settings" && (
+                  <SettingsSection onLogout={logout} />
+                )}
+              </motion.div>
+            </AnimatePresence>
           </main>
         </SidebarInset>
       </SidebarProvider>

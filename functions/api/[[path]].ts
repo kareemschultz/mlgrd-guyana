@@ -145,6 +145,17 @@ function rowToMinister(r: Record<string, unknown>) {
   return { ...r, current: !!r.current };
 }
 
+// Map a D1 directory row (officials stored as a JSON string) to the API shape.
+function rowToDirectory(r: Record<string, unknown>) {
+  let officials: unknown = [];
+  try {
+    officials = r.officials ? JSON.parse(String(r.officials)) : [];
+  } catch {
+    officials = [];
+  }
+  return { ...r, officials };
+}
+
 // ── entry point ──────────────────────────────────────────────────────────────
 
 export const onRequest = async (ctx: EventContext): Promise<Response> => {
@@ -203,8 +214,8 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         const now = new Date().toISOString();
         const newId = `post-${crypto.randomUUID().slice(0, 8)}`;
         await env.DB.prepare(
-          `INSERT INTO posts (id,slug,title,excerpt,body,category,coverImage,status,date,createdAt,updatedAt)
-           VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
+          `INSERT INTO posts (id,slug,title,excerpt,body,category,coverImage,sourceUrl,status,date,createdAt,updatedAt)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
         )
           .bind(
             newId,
@@ -214,6 +225,7 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
             b.body ?? "",
             b.category ?? "",
             b.coverImage ?? null,
+            b.sourceUrl ?? null,
             b.status ?? "draft",
             b.date ?? now.slice(0, 10),
             now,
@@ -226,7 +238,7 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         const guard = requireAuth();
         if (guard) return guard;
         const b = await readBody<Record<string, unknown>>(request);
-        const fields = ["slug", "title", "excerpt", "body", "category", "coverImage", "status", "date"];
+        const fields = ["slug", "title", "excerpt", "body", "category", "coverImage", "sourceUrl", "status", "date"];
         const sets = fields.filter((f) => f in b);
         if (sets.length) {
           const sql = `UPDATE posts SET ${sets.map((f) => `${f} = ?`).join(", ")}, updatedAt = ? WHERE id = ?`;
@@ -294,8 +306,8 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         const now = new Date().toISOString();
         const newId = `minister-${crypto.randomUUID().slice(0, 8)}`;
         await env.DB.prepare(
-          `INSERT INTO ministers (id,name,title,portrait,initials,bio,termStart,termEnd,current,"order",createdAt)
-           VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
+          `INSERT INTO ministers (id,name,title,portrait,initials,bio,profileUrl,termStart,termEnd,current,"order",createdAt)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
         )
           .bind(
             newId,
@@ -304,6 +316,7 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
             b.portrait ?? null,
             b.initials ?? null,
             b.bio ?? null,
+            b.profileUrl ?? null,
             b.termStart ?? null,
             b.termEnd ?? null,
             b.current ? 1 : 0,
@@ -319,7 +332,7 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         if (guard) return guard;
         const b = await readBody<Record<string, unknown>>(request);
         if ("current" in b) b.current = b.current ? 1 : 0;
-        const fields = ["name", "title", "portrait", "initials", "bio", "termStart", "termEnd", "current", "order"];
+        const fields = ["name", "title", "portrait", "initials", "bio", "profileUrl", "termStart", "termEnd", "current", "order"];
         const sets = fields.filter((f) => f in b);
         if (sets.length) {
           const sql = `UPDATE ministers SET ${sets.map((f) => `"${f}" = ?`).join(", ")} WHERE id = ?`;
@@ -380,6 +393,52 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         const guard = requireAuth();
         if (guard) return guard;
         await env.DB.prepare("DELETE FROM messages WHERE id = ?").bind(id).run();
+        return json(null, 204);
+      }
+    }
+
+    // ── directory (admin-only: full records incl. sensitive fields) ──────────
+    if (resource === "directory") {
+      const guard = requireAuth();
+      if (guard) return guard;
+      if (method === "GET" && !id) {
+        const { results } = await env.DB.prepare(
+          "SELECT * FROM directory ORDER BY kind, region, name",
+        ).all<Record<string, unknown>>();
+        return json(results.map(rowToDirectory));
+      }
+      if (method === "POST") {
+        const b = await readBody<Record<string, unknown>>(request);
+        const now = new Date().toISOString();
+        const newId = `dir-${crypto.randomUUID().slice(0, 8)}`;
+        await env.DB.prepare(
+          `INSERT INTO directory (id,kind,region,regionName,name,council,status,officials,officeAddress,officePhone,email,facebook,website,comments,createdAt)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        )
+          .bind(
+            newId, b.kind ?? "ndc", b.region ?? "", b.regionName ?? "", b.name ?? "",
+            b.council ?? "", b.status ?? "", JSON.stringify(b.officials ?? []),
+            b.officeAddress ?? "", b.officePhone ?? "", b.email ?? "", b.facebook ?? "",
+            b.website ?? "", b.comments ?? "", now,
+          )
+          .run();
+        const row = await env.DB.prepare("SELECT * FROM directory WHERE id = ?").bind(newId).first<Record<string, unknown>>();
+        return json(rowToDirectory(row!), 201);
+      }
+      if (method === "PUT" && id) {
+        const b = await readBody<Record<string, unknown>>(request);
+        if ("officials" in b) b.officials = JSON.stringify(b.officials);
+        const fields = ["kind", "region", "regionName", "name", "council", "status", "officials", "officeAddress", "officePhone", "email", "facebook", "website", "comments"];
+        const sets = fields.filter((f) => f in b);
+        if (sets.length) {
+          const sql = `UPDATE directory SET ${sets.map((f) => `"${f}" = ?`).join(", ")} WHERE id = ?`;
+          await env.DB.prepare(sql).bind(...sets.map((f) => b[f]), id).run();
+        }
+        const row = await env.DB.prepare("SELECT * FROM directory WHERE id = ?").bind(id).first<Record<string, unknown>>();
+        return json(rowToDirectory(row!));
+      }
+      if (method === "DELETE" && id) {
+        await env.DB.prepare("DELETE FROM directory WHERE id = ?").bind(id).run();
         return json(null, 204);
       }
     }

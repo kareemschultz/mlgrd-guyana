@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS posts (
   body       TEXT,
   category   TEXT,
   coverImage TEXT,
+  sourceUrl  TEXT,
   status     TEXT NOT NULL DEFAULT 'draft',
   date       TEXT NOT NULL,
   createdAt  TEXT NOT NULL,
@@ -35,6 +36,7 @@ CREATE TABLE IF NOT EXISTS ministers (
   portrait  TEXT,
   initials  TEXT,
   bio       TEXT,
+  profileUrl TEXT,
   termStart TEXT,
   termEnd   TEXT,
   current   INTEGER NOT NULL DEFAULT 1,
@@ -54,3 +56,26 @@ CREATE TABLE IF NOT EXISTS messages (
   createdAt TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_messages_created ON messages (createdAt DESC);
+
+-- Local-government directory (NDC / RDC / municipality / CDC officials).
+-- Holds the FULL records incl. sensitive fields (personal mobiles, emails,
+-- comments); reads are admin-only. Seed with scripts/d1-seed-directory.sql
+-- (git-ignored — generated locally by scripts/import-agencies.py).
+CREATE TABLE IF NOT EXISTS directory (
+  id            TEXT PRIMARY KEY,
+  kind          TEXT NOT NULL,
+  region        TEXT,
+  regionName    TEXT,
+  name          TEXT NOT NULL,
+  council       TEXT,
+  status        TEXT,
+  officials     TEXT,            -- JSON array of {role,name,officePhone?,personalPhone?,email?}
+  officeAddress TEXT,
+  officePhone   TEXT,
+  email         TEXT,
+  facebook      TEXT,
+  website       TEXT,
+  comments      TEXT,
+  createdAt     TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_directory_kind ON directory (kind, region);

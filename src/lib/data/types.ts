@@ -26,6 +26,8 @@ export interface Post {
   category: string;
   /** Image URL, /public path, or a data: URL (demo mode). Optional. */
   coverImage?: string;
+  /** Link to the original source / Facebook post for this story. Optional. */
+  sourceUrl?: string;
   status: PostStatus;
   /** Display date, ISO `yyyy-mm-dd`. */
   date: string;
@@ -59,6 +61,8 @@ export interface Minister {
   /** Initials fallback when no portrait (e.g. "HM"). */
   initials?: string;
   bio?: string;
+  /** Link to the official's page / profile / website. Optional. */
+  profileUrl?: string;
   termStart?: string;
   termEnd?: string;
   /** True for the sitting minister/official; false for past holders. */
@@ -84,7 +88,46 @@ export interface Message {
   createdAt: string;
 }
 
-export type Collection = "posts" | "gallery" | "ministers" | "messages";
+/** An official within a directory entry (council/town leadership). */
+export interface DirectoryOfficial {
+  role: string;
+  name: string;
+  /** Institutional/office line (public-safe). */
+  officePhone?: string;
+  /** Personal mobile — SENSITIVE, admin/live-only, never in the committed seed. */
+  personalPhone?: string;
+  /** Personal email — SENSITIVE, admin/live-only. */
+  email?: string;
+}
+
+export type DirectoryKind = "ndc" | "rdc" | "municipality" | "cdc";
+
+/**
+ * A local-government directory record (Neighbourhood/Regional Democratic Council,
+ * municipality, or Community Development Council). The PUBLIC directories render a
+ * curated safe subset (src/data/*.json); the admin manages the fuller record.
+ */
+export interface DirectoryEntry {
+  id: ID;
+  kind: DirectoryKind;
+  region: string;
+  regionName?: string;
+  name: string;
+  council?: string;
+  /** CDCs: "active" | "inactive". */
+  status?: string;
+  officials: DirectoryOfficial[];
+  officeAddress?: string;
+  officePhone?: string;
+  email?: string;
+  facebook?: string;
+  website?: string;
+  /** Internal operational notes — SENSITIVE, admin/live-only. */
+  comments?: string;
+  createdAt: string;
+}
+
+export type Collection = "posts" | "gallery" | "ministers" | "messages" | "directory";
 
 /** Shape returned by the auth endpoint / demo login. */
 export interface AuthResult {
@@ -98,3 +141,4 @@ export type NewPost = Omit<Post, "id" | "createdAt" | "updatedAt">;
 export type NewGalleryItem = Omit<GalleryItem, "id" | "createdAt">;
 export type NewMinister = Omit<Minister, "id" | "createdAt">;
 export type NewMessage = Omit<Message, "id" | "createdAt" | "status">;
+export type NewDirectoryEntry = Omit<DirectoryEntry, "id" | "createdAt">;

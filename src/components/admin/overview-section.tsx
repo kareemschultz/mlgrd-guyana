@@ -3,7 +3,8 @@
 /**
  * Overview — ministry-themed statistics cards (adapted from shadcn studio
  * statistics blocks) showing real counts from the data layer, with animated
- * count-ups via the existing NumberTicker.
+ * count-ups via NumberTicker, plus a premium animated "Recent activity" feed
+ * (newest posts + inbound messages) built on the AnimatedList primitive.
  */
 import {
   Newspaper,
@@ -11,13 +12,19 @@ import {
   Users,
   Inbox,
   CheckCircle2,
+  Clock3,
+  Mail,
+  FileText,
   type LucideIcon,
 } from "lucide-react";
 
+import type { Message, Post } from "@/lib/data/types";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { NumberTicker } from "@/components/ui/number-ticker";
+import { AnimatedList, AnimatedListItem } from "@/components/ui/animated-list";
 import { cn } from "@/lib/utils";
+import { formatDate } from "@/components/admin/shared";
 
 export type OverviewCounts = {
   posts: number;
@@ -46,7 +53,52 @@ const toneClasses: Record<Stat["tone"], { icon: string; badge: string }> = {
   },
 };
 
-export function OverviewSection({ counts }: { counts: OverviewCounts }) {
+type ActivityItem = {
+  id: string;
+  kind: "post" | "message";
+  title: string;
+  sub: string;
+  date: string;
+  badge: string;
+  badgeClass: string;
+};
+
+function buildActivity(posts: Post[], messages: Message[]): ActivityItem[] {
+  const fromPosts: ActivityItem[] = posts.map((p) => ({
+    id: `post-${p.id}`,
+    kind: "post",
+    title: p.title,
+    sub: p.category,
+    date: p.updatedAt || p.createdAt || p.date,
+    badge: p.status === "published" ? "Published" : "Draft",
+    badgeClass:
+      p.status === "published"
+        ? "bg-emerald-500/10 text-emerald-700"
+        : "bg-muted text-muted-foreground",
+  }));
+  const fromMessages: ActivityItem[] = messages.map((m) => ({
+    id: `msg-${m.id}`,
+    kind: "message",
+    title: m.subject || m.category || `Message from ${m.name}`,
+    sub: m.name,
+    date: m.createdAt,
+    badge: m.channel,
+    badgeClass: "bg-ink/10 text-ink capitalize",
+  }));
+  return [...fromPosts, ...fromMessages]
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
+    .slice(0, 6);
+}
+
+export function OverviewSection({
+  counts,
+  recentPosts = [],
+  recentMessages = [],
+}: {
+  counts: OverviewCounts;
+  recentPosts?: Post[];
+  recentMessages?: Message[];
+}) {
   const stats: Stat[] = [
     {
       icon: Newspaper,
@@ -78,6 +130,8 @@ export function OverviewSection({ counts }: { counts: OverviewCounts }) {
     },
   ];
 
+  const activity = buildActivity(recentPosts, recentMessages);
+
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -89,12 +143,18 @@ export function OverviewSection({ counts }: { counts: OverviewCounts }) {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <AnimatedList
+        as="div"
+        className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+      >
         {stats.map((s) => {
           const Icon = s.icon;
           const tc = toneClasses[s.tone];
           return (
-            <Card key={s.title} className="gap-3">
+            <Card
+              key={s.title}
+              className="gap-3 transition-shadow hover:shadow-md"
+            >
               <CardHeader className="flex items-center justify-between">
                 <span
                   className={cn(
@@ -116,25 +176,108 @@ export function OverviewSection({ counts }: { counts: OverviewCounts }) {
             </Card>
           );
         })}
-      </div>
+      </AnimatedList>
 
-      <Card>
-        <CardContent className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-start gap-3">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700">
-              <CheckCircle2 className="size-5" />
+      <div className="grid gap-6 lg:grid-cols-3">
+        {/* Recent activity feed */}
+        <Card className="lg:col-span-2">
+          <CardHeader className="flex flex-row items-center gap-3">
+            <span className="flex size-10 items-center justify-center rounded-lg bg-brand/10 text-brand-700">
+              <Clock3 className="size-5" />
             </span>
             <div>
-              <p className="font-medium">Portal status</p>
+              <p className="font-semibold leading-tight">Recent activity</p>
               <p className="text-sm text-muted-foreground">
-                {counts.published} of {counts.posts} posts are live to the
-                public. {counts.newMessages} message
-                {counts.newMessages === 1 ? "" : "s"} awaiting review.
+                Latest posts and inbound messages.
               </p>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardHeader>
+          <CardContent>
+            {activity.length === 0 ? (
+              <p className="py-8 text-center text-sm text-muted-foreground">
+                No recent activity yet.
+              </p>
+            ) : (
+              <AnimatedList className="flex flex-col gap-2">
+                {activity.map((a) => {
+                  const Icon = a.kind === "post" ? FileText : Mail;
+                  return (
+                    <AnimatedListItem
+                      key={a.id}
+                      accent={a.kind === "post" ? "brand" : "gold"}
+                      className="flex items-center gap-3 px-3 py-2.5"
+                    >
+                        <span
+                          className={cn(
+                            "flex size-9 shrink-0 items-center justify-center rounded-lg",
+                            a.kind === "post"
+                              ? "bg-brand/10 text-brand-700"
+                              : "bg-gold/15 text-[#8a6500]",
+                          )}
+                        >
+                          <Icon className="size-4" />
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-medium">
+                            {a.title}
+                          </p>
+                          <p className="truncate text-xs text-muted-foreground">
+                            {a.sub}
+                          </p>
+                        </div>
+                        <div className="flex shrink-0 flex-col items-end gap-1">
+                          <Badge className={cn("text-xs", a.badgeClass)}>
+                            {a.badge}
+                          </Badge>
+                          <span className="text-[11px] text-muted-foreground">
+                            {formatDate(a.date)}
+                          </span>
+                        </div>
+                    </AnimatedListItem>
+                  );
+                })}
+              </AnimatedList>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Portal status */}
+        <Card>
+          <CardHeader className="flex flex-row items-center gap-3">
+            <span className="flex size-10 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700">
+              <CheckCircle2 className="size-5" />
+            </span>
+            <p className="font-semibold leading-tight">Portal status</p>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-4">
+            <div className="flex items-baseline gap-2">
+              <NumberTicker
+                value={counts.published}
+                className="font-heading text-3xl font-extrabold text-emerald-700"
+              />
+              <span className="text-sm text-muted-foreground">
+                of {counts.posts} posts live
+              </span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {counts.newMessages} message
+              {counts.newMessages === 1 ? "" : "s"} awaiting review.
+            </p>
+            <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+              <div
+                className="h-full rounded-full bg-emerald-500 transition-all duration-700"
+                style={{
+                  width: `${
+                    counts.posts > 0
+                      ? Math.round((counts.published / counts.posts) * 100)
+                      : 0
+                  }%`,
+                }}
+              />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

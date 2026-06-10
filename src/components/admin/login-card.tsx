@@ -94,9 +94,7 @@ export function LoginCard({ onSuccess }: { onSuccess: () => void }) {
 
           <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
             <ShieldCheck className="size-3.5" />
-            {data.mode === "live"
-              ? "Secured by the Cloudflare backend."
-              : "Demo mode — credentials check in your browser."}
+            Authorised personnel only.
           </p>
         </form>
       </motion.div>

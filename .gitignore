@@ -49,6 +49,12 @@ yarn-error.log*
 # Claude Code local tooling / worktrees / preview config
 .claude/
 
+# Sensitive directory data (personal mobiles, emails, internal comments) — the
+# FULL D1 seed is generated locally by scripts/import-agencies.py for live DB
+# seeding only and must never be committed to the public repo.
+/scripts/d1-seed-directory.sql
+*Agencies & Administrators*.xlsx
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

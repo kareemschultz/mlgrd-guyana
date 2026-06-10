@@ -2,7 +2,7 @@
 
 /**
  * Posts — studio datatable listing news posts with create/edit via a studio
- * dialog and confirm-delete. Wired to data.posts.* (real CRUD, no demo data).
+ * dialog and confirm-delete. Wired to data.posts.* (real CRUD).
  */
 import * as React from "react";
 import { Plus, Pencil, Trash2, Newspaper, Loader2 } from "lucide-react";

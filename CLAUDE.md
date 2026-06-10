@@ -40,6 +40,19 @@ seed initial React state from `seed.ts`, then overlay live data via `data.*.list
 in a `useEffect` inside a `"use client"` child. See `src/components/news/news-feed.tsx`
 and `src/components/gallery/*`.
 
+### Directories (NDC / RDC / Municipality / CDC officials)
+Council/officials data comes from the ministry's "Agencies & Administrators" spreadsheet
+via `scripts/import-agencies.py` (re-run when the client updates the sheet). It enforces
+a **public-vs-sensitive split** — this is load-bearing because the repo is **public**:
+- **PUBLIC, committed** → `src/data/{ndcs,rdcs,municipalities,cdcs}.json` (names + titles +
+  institutional contact only) and `src/lib/data/seed-directory.ts` (the admin's demo seed,
+  with personal mobiles/emails/comments STRIPPED).
+- **SENSITIVE, git-ignored** → `scripts/d1-seed-directory.sql` (full records incl. personal
+  mobiles, personal emails, NDC operational comments, inactive CDCs). Generated locally,
+  applied to D1 for live mode only. **Never commit personal contacts.**
+The admin's `data.directory` reads the safe seed in demo and the auth-gated `/api/directory`
+(full records from D1) in live mode. Public directory pages never read sensitive fields.
+
 ## Backend (Cloudflare)
 - `functions/api/[[path]].ts` — single catch-all router (Workers runtime, Web Crypto).
   Auth = HMAC-signed session token (`ADMIN_SECRET`). Public can read published content

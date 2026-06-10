@@ -18,9 +18,11 @@
  */
 import type {
   AuthResult,
+  DirectoryEntry,
   GalleryItem,
   Message,
   Minister,
+  NewDirectoryEntry,
   NewGalleryItem,
   NewMessage,
   NewMinister,
@@ -28,6 +30,7 @@ import type {
   Post,
 } from "./types";
 import { seedGallery, seedMinisters, seedPosts, demoAdmin } from "./seed";
+import { seedDirectory } from "./seed-directory";
 
 const API_BASE =
   typeof process !== "undefined" ? process.env.NEXT_PUBLIC_API_BASE : undefined;
@@ -80,10 +83,32 @@ const KEYS = {
   gallery: "mlgrd:gallery",
   ministers: "mlgrd:ministers",
   messages: "mlgrd:messages",
+  directory: "mlgrd:directory",
 } as const;
+
+/**
+ * Bump when the seed content changes so returning visitors (who already have a
+ * `mlgrd:*` store in localStorage from a previous visit) get the new content.
+ * Citizen-submitted messages are preserved; only seeded collections are reset.
+ */
+const SEED_VERSION = "2026.06-real-content";
+
+function ensureSeedVersion() {
+  if (typeof window === "undefined") return;
+  try {
+    if (window.localStorage.getItem("mlgrd:seedv") === SEED_VERSION) return;
+    for (const k of [KEYS.posts, KEYS.gallery, KEYS.ministers, KEYS.directory]) {
+      window.localStorage.removeItem(k);
+    }
+    window.localStorage.setItem("mlgrd:seedv", SEED_VERSION);
+  } catch {
+    /* ignore */
+  }
+}
 
 function readStore<T>(key: string, seed: T[]): T[] {
   if (typeof window === "undefined") return seed;
+  ensureSeedVersion();
   try {
     const raw = window.localStorage.getItem(key);
     if (raw === null) {
@@ -237,6 +262,34 @@ const demo = {
     );
   },
 
+  // directory (admin) -------------------------------------------------------
+  listDirectory: async (): Promise<DirectoryEntry[]> =>
+    readStore<DirectoryEntry>(KEYS.directory, seedDirectory),
+
+  createDirectory: async (input: NewDirectoryEntry): Promise<DirectoryEntry> => {
+    const items = readStore<DirectoryEntry>(KEYS.directory, seedDirectory);
+    const entry: DirectoryEntry = { ...input, id: uid("dir"), createdAt: nowIso() };
+    writeStore(KEYS.directory, [...items, entry]);
+    return entry;
+  },
+
+  updateDirectory: async (
+    id: string,
+    patch: Partial<NewDirectoryEntry>,
+  ): Promise<DirectoryEntry> => {
+    const items = readStore<DirectoryEntry>(KEYS.directory, seedDirectory);
+    const next = items.map((d) => (d.id === id ? { ...d, ...patch } : d));
+    writeStore(KEYS.directory, next);
+    return next.find((d) => d.id === id)!;
+  },
+
+  deleteDirectory: async (id: string): Promise<void> => {
+    writeStore(
+      KEYS.directory,
+      readStore<DirectoryEntry>(KEYS.directory, seedDirectory).filter((d) => d.id !== id),
+    );
+  },
+
   // auth --------------------------------------------------------------------
   login: async (username: string, password: string): Promise<AuthResult> => {
     if (username !== demoAdmin.username || password !== demoAdmin.password) {
@@ -318,6 +371,15 @@ const http = {
   deleteMessage: (id: string) =>
     api<void>(`/messages/${id}`, { method: "DELETE", auth: true }),
 
+  // directory reads are admin-only (the public site uses the static safe JSONs).
+  listDirectory: () => api<DirectoryEntry[]>("/directory", { auth: true }),
+  createDirectory: (input: NewDirectoryEntry) =>
+    api<DirectoryEntry>("/directory", { method: "POST", body: JSON.stringify(input), auth: true }),
+  updateDirectory: (id: string, patch: Partial<NewDirectoryEntry>) =>
+    api<DirectoryEntry>(`/directory/${id}`, { method: "PUT", body: JSON.stringify(patch), auth: true }),
+  deleteDirectory: (id: string) =>
+    api<void>(`/directory/${id}`, { method: "DELETE", auth: true }),
+
   login: async (username: string, password: string): Promise<AuthResult> => {
     const auth = await api<AuthResult>("/auth/login", {
       method: "POST",
@@ -358,6 +420,12 @@ export const data = {
     create: backend.createMessage,
     update: backend.updateMessage,
     remove: backend.deleteMessage,
+  },
+  directory: {
+    list: backend.listDirectory,
+    create: backend.createDirectory,
+    update: backend.updateDirectory,
+    remove: backend.deleteDirectory,
   },
   auth: {
     login: backend.login,

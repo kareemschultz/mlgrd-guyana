@@ -45,6 +45,11 @@ export const mainNav: NavItem[] = [
         href: "/municipalities",
         description: "Towns and municipal councils",
       },
+      {
+        label: "Community Development Councils",
+        href: "/cdcs",
+        description: "Active CDCs across the regions",
+      },
     ],
   },
   { label: "Services", href: "/services" },
@@ -69,6 +74,7 @@ export const footerNav: { heading: string; links: NavLink[] }[] = [
       { label: "NDCs", href: "/ndcs" },
       { label: "RDCs", href: "/rdcs" },
       { label: "Municipalities", href: "/municipalities" },
+      { label: "Community Development Councils", href: "/cdcs" },
     ],
   },
   {

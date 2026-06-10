@@ -7,7 +7,7 @@ import {
   useReducedMotion,
   type Variants,
 } from "motion/react";
-import { X } from "lucide-react";
+import { X, ExternalLink } from "lucide-react";
 import { data } from "@/lib/data/client";
 import { seedMinisters } from "@/lib/data/seed";
 import type { Minister } from "@/lib/data/types";
@@ -213,6 +213,17 @@ export function MinisterGallery() {
                   <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                     {active.bio}
                   </p>
+                )}
+                {active.profileUrl && (
+                  <a
+                    href={active.profileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                  >
+                    View profile
+                    <ExternalLink className="size-4" />
+                  </a>
                 )}
               </div>
             </motion.div>
