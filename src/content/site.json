@@ -1,0 +1,62 @@
+{
+  "ministry": {
+    "name": "Ministry of Local Government & Regional Development",
+    "shortName": "MLGRD",
+    "government": "Government of Guyana",
+    "address": "Fort Street, Georgetown, Guyana",
+    "phone": "+592-225-6088",
+    "email": "info@mlgrd.gov.gy"
+  },
+  "nav": [
+    { "label": "Home", "href": "/" },
+    { "label": "About Us", "href": "/about-us/" },
+    { "label": "Directories", "children": [
+      { "label": "NDCs", "href": "/ndcs/" },
+      { "label": "RDCs", "href": "/rdcs/" },
+      { "label": "Municipalities", "href": "/municipalities/" }
+    ]},
+    { "label": "Services", "href": "/services/" },
+    { "label": "FAQ", "href": "/faq/" },
+    { "label": "Laws & Policies", "href": "/laws-policies/" },
+    { "label": "Minister's Desk", "href": "/ministers-desk/" },
+    { "label": "Helpdesk", "href": "/helpdesk/" }
+  ],
+  "home": {
+    "hero": {
+      "headline": "Government of Guyana Ministry of Local Government & Regional Development",
+      "subtext": "Empowering communities through effective governance and sustainable development across Guyana's administrative regions."
+    },
+    "stats": [
+      { "label": "Administrative Regions", "value": "10" },
+      { "label": "NDCs & Municipalities", "value": "80" },
+      { "label": "Digital Services", "value": "6" },
+      { "label": "Commitment", "value": "100%" }
+    ],
+    "statsNote": "On the live site the metric counters animate from 0; values above reflect the real counts of regions, councils and services published on the site.",
+    "serviceSections": [
+      { "title": "Government Services", "text": "Access permits, licenses and development programs" },
+      { "title": "NDC Directory", "text": "Find contact information for all local government bodies" },
+      { "title": "Laws & Policies", "text": "Browse official legislation and policy documents" }
+    ],
+    "communityDirectories": [
+      "Burial Grounds",
+      "Health Centres",
+      "Schools",
+      "Hinterland Support Contacts"
+    ],
+    "footer": "© 2026 Ministry of Local Government & Regional Development. All rights reserved."
+  },
+  "about": {
+    "heading": "About Local Government",
+    "mission": "Local government brings decision-making closer to communities, supporting local democracy, public services, infrastructure, environmental health, community development and responsive administration across Guyana.",
+    "function": "Local government operates through three tiers to serve citizens. These bodies handle local roads, drainage, sanitation, markets, public spaces, permits, environmental management, civic participation and community development.",
+    "structure": {
+      "tiers": [
+        { "name": "Regional Democratic Councils", "count": 10, "note": "Regions 1-10" },
+        { "name": "Municipalities", "count": 10, "note": "Georgetown, Mabaruma, Anna Regina, New Amsterdam, Rose Hall, Corriverton, Linden, Mahdia, Lethem, Bartica" },
+        { "name": "Neighbourhood Democratic Councils", "count": "70+", "note": "Distributed across regions" }
+      ]
+    },
+    "legalFramework": "The system operates under the Local Democratic Organs Act, Chapter 28:09, which establishes the authority and responsibilities of local democratic organs."
+  }
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "town-and-country-planning-act-chapter-2001",
+    "title": "Town and Country Planning Act, Chapter 20:01",
+    "chapter": "20:01",
+    "year": "1998",
+    "status": "In Force",
+    "category": "Act",
+    "summary": "Planning law governing planning schemes, approval procedures, local authority roles and development control."
+  },
+  {
+    "slug": "municipal-and-district-councils-act-chapter-2801",
+    "title": "Municipal and District Councils Act, Chapter 28:01",
+    "chapter": "28:01",
+    "year": "1969",
+    "status": "In Force",
+    "category": "Act",
+    "summary": "Principal legislation for municipal and district councils, including local administration, property, works, rates, markets, sanitation and public services."
+  },
+  {
+    "slug": "local-government-act-chapter-2802",
+    "title": "Local Government Act, Chapter 28:02",
+    "chapter": "28:02",
+    "year": "1945",
+    "status": "In Force",
+    "category": "Act",
+    "summary": "Provides for central administration, village and country districts, local authorities, officers, estimates, rates and general local administration powers."
+  },
+  {
+    "slug": "local-authorities-elections-act-chapter-2803",
+    "title": "Local Authorities (Elections) Act, Chapter 28:03",
+    "chapter": "28:03",
+    "status": "In Force",
+    "category": "Act",
+    "summary": "Sets out the legal framework for local authority elections, voter registration, supervision and election procedures."
+  },
+  {
+    "slug": "local-democratic-organs-act-chapter-2809",
+    "title": "Local Democratic Organs Act, Chapter 28:09",
+    "chapter": "28:09",
+    "year": "1980",
+    "status": "In Force",
+    "category": "Act",
+    "summary": "Establishes local democratic organs, regional democratic councils and neighbourhood democratic councils, with their objectives, powers and governance structure."
+  },
+  {
+    "slug": "valuation-for-rating-purposes-act-chapter-2804",
+    "title": "Valuation for Rating Purposes Act, Chapter 28:04",
+    "chapter": "28:04",
+    "year": "1998",
+    "status": "In Force",
+    "category": "Act",
+    "summary": "Governs valuation lists, objections, appeals and related procedures for rating and property valuation purposes."
+  },
+  {
+    "slug": "local-government-commission-act-2013",
+    "title": "Local Government Commission Act 2013",
+    "chapter": null,
+    "year": "2013",
+    "status": "In Force",
+    "category": "Act",
+    "summary": "Establishes the Local Government Commission, including its composition, functions, investigations, officers, budget and accounts."
+  },
+  {
+    "slug": "draft-integrated-solid-waste-management-bill-2026",
+    "title": "Draft Integrated Solid Waste Management Bill 2026",
+    "chapter": null,
+    "year": "2026",
+    "status": "Draft",
+    "category": "Draft Bill",
+    "summary": "Draft bill setting the national framework for solid waste governance, planning, licensing, enforcement, offences, fees and extended producer responsibility."
+  },
+  {
+    "slug": "draft-integrated-solid-waste-management-regulations-2026",
+    "title": "Draft Integrated Solid Waste Management Regulations 2026",
+    "chapter": null,
+    "year": "2026",
+    "status": "Draft",
+    "category": "Draft Regulations",
+    "summary": "Draft regulations supporting the proposed waste management bill with operational rules, procedures and compliance requirements."
+  }
+]

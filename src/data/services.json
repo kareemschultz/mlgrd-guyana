@@ -1,0 +1,84 @@
+[
+  {
+    "slug": "reporting-local-problems",
+    "title": "Reporting Local Problems",
+    "summary": "Guidance for reporting drainage issues, roads, waste complaints, or other neighbourhood concerns.",
+    "body": "Guidance for addressing drainage issues, roads, waste complaints, and neighbourhood concerns through the proper local channels.",
+    "steps": [
+      "Document the exact location, nature of the issue, the date of observation, and any safety risks to residents.",
+      "Contact the NDC, municipality, or relevant local office first, and record the officer or department details.",
+      "For urgent matters, follow up by telephone and request guidance on subsequent actions."
+    ],
+    "office": "NDC, municipality, or relevant local office",
+    "contact": { "address": "Fort Street, Georgetown, Guyana", "phone": "+592-225-6088", "email": "info@mlgrd.gov.gy" }
+  },
+  {
+    "slug": "rates-and-taxes-guidance",
+    "title": "Rates and Taxes Guidance",
+    "summary": "Guidance for property owners who need to understand where to pay or update local tax records.",
+    "body": "Guidance for property owners who need to understand where to pay or update local tax records.",
+    "steps": [
+      "Contact the local authority responsible for the property location to confirm the current account balance and payment process.",
+      "Carry the property address, transport or lot number and any previous receipt if available.",
+      "Ask whether payment is handled at the council office, treasury section or another designated point."
+    ],
+    "documents": ["Property address", "Transport or lot number", "Previous receipt (if available)"],
+    "office": "Local authority responsible for the property location (council office, treasury section, or another designated payment point)",
+    "contact": { "address": "Fort Street, Georgetown, Guyana", "phone": "+592-225-6088", "email": "info@mlgrd.gov.gy" }
+  },
+  {
+    "slug": "community-projects",
+    "title": "Community Projects",
+    "summary": "Guidance for community groups seeking support for local clean-up, beautification, or development activities.",
+    "body": "Guidance for community groups seeking support for local clean-up, beautification, or development activities.",
+    "steps": [
+      "Document the community problem, proposed activity, expected benefit, and location.",
+      "Contact the NDC, municipality, or RDC office to determine whether submission goes through councillors or the administrative office.",
+      "Record the contact person's name and any reference number for easier follow-up."
+    ],
+    "office": "NDC, municipality, or RDC",
+    "contact": { "address": "Fort Street, Georgetown, Guyana", "phone": "+592-225-6088", "email": "info@mlgrd.gov.gy" }
+  },
+  {
+    "slug": "business-licences",
+    "title": "Business Licences",
+    "summary": "Guidance for opening or regularising a business that operates within a municipality or NDC area.",
+    "body": "Guidance for opening or regularising a business that operates within a municipality or NDC area.",
+    "steps": [
+      "Check with the local authority where the business will operate to confirm licensing, trade and sanitation requirements.",
+      "Carry identification, business name details, address information and any tenancy or ownership documents.",
+      "Ask whether other agencies must also approve the activity before the local licence can be finalised."
+    ],
+    "documents": ["Identification", "Business name details", "Address information", "Tenancy or ownership documents"],
+    "office": "Local authority in the municipality or NDC area where the business will operate",
+    "contact": { "address": "Fort Street, Georgetown, Guyana", "phone": "+592-225-6088", "email": "info@mlgrd.gov.gy" }
+  },
+  {
+    "slug": "building-permits",
+    "title": "Building Permits",
+    "summary": "Guidance for persons planning new construction, extensions, renovations, or structural changes.",
+    "body": "Guidance for persons planning new construction, extensions, renovations, or structural changes.",
+    "steps": [
+      "Visit your NDC, municipality or local authority first to confirm whether approval is needed for the proposed works.",
+      "Prepare a simple description of the project, proof of ownership or permission to build, and any plan or sketch available.",
+      "Ask what fees, inspections, and supporting documents are required before work begins."
+    ],
+    "documents": ["Simple project description", "Proof of ownership or permission to build", "Any available plan or sketch"],
+    "office": "NDC, municipality, or local authority in your area",
+    "contact": { "address": "Fort Street, Georgetown, Guyana", "phone": "+592-225-6088", "email": "info@mlgrd.gov.gy" }
+  },
+  {
+    "slug": "vendor-and-supplier-enquiries",
+    "title": "Vendor and Supplier Enquiries",
+    "summary": "Guidance for businesses seeking information about procurement opportunities and vendor registration.",
+    "body": "Guidance to companies interested in engaging with the ministry's procurement processes and becoming registered suppliers.",
+    "steps": [
+      "Prepare your business registration details, tax compliance information, and contact details.",
+      "Check tender notices and ask the ministry or procuring entity what supporting documents are required for registration or bidding.",
+      "Keep copies of submissions and note all deadlines carefully."
+    ],
+    "documents": ["Business registration details", "Tax compliance information", "Contact details", "Supporting documents as specified by the procuring entity"],
+    "office": "Ministry of Local Government & Regional Development",
+    "contact": { "address": "Fort Street, Georgetown, Guyana", "phone": "+592-225-6088", "email": "info@mlgrd.gov.gy" }
+  }
+]

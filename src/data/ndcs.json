@@ -1,0 +1,815 @@
+[
+  {
+    "slug": "port-kaituma-matthews-ridge-arakaka",
+    "name": "Port Kaituma / Matthew's Ridge / Arakaka",
+    "region": "Region 1",
+    "regionName": "Barima-Waini",
+    "contact": {
+      "chairperson": "Keith Parker",
+      "deputy": "Celestina Joseph",
+      "overseer": "Shuntell Charles",
+      "officeNumber": "601-1748"
+    }
+  },
+  {
+    "slug": "charity-urasara",
+    "name": "Charity / Urasara",
+    "region": "Region 2",
+    "regionName": "Pomeroon-Supenaam",
+    "contact": {
+      "chairperson": "Chandrawattie Coomal",
+      "deputy": "Deleep Singh",
+      "overseer": "Lucian Mahadeo (Acting)",
+      "officeNumber": "+592-771-4694"
+    }
+  },
+  {
+    "slug": "evergreen-paradise",
+    "name": "Evergreen / Paradise",
+    "region": "Region 2",
+    "regionName": "Pomeroon-Supenaam",
+    "contact": {
+      "chairperson": "Lionel Boodhram",
+      "deputy": "Javyn Persaud",
+      "overseer": "Savita Deochan"
+    }
+  },
+  {
+    "slug": "aberdeen-zorg-en-vlygt",
+    "name": "Aberdeen / Zorg-en-Vlygt",
+    "region": "Region 2",
+    "regionName": "Pomeroon-Supenaam",
+    "contact": {
+      "chairperson": "Jayashree Persaud",
+      "deputy": "Kumar Ramdeo",
+      "overseer": "Danieram Singh"
+    }
+  },
+  {
+    "slug": "annandale-riverstown",
+    "name": "Annandale / Riverstown",
+    "region": "Region 2",
+    "regionName": "Pomeroon-Supenaam",
+    "contact": {
+      "chairperson": "Hansoutie Ramkellawan",
+      "deputy": "Kevin Andrew Lowe",
+      "overseer": "Poolasha Rupnarayan",
+      "officeNumber": "+592-681-4699"
+    }
+  },
+  {
+    "slug": "moruka-providence",
+    "name": "Moruka / Providence",
+    "region": "Region 2",
+    "regionName": "Pomeroon-Supenaam",
+    "contact": {
+      "chairperson": "Godfrey Alfred Culpeper",
+      "deputy": "Kim Juliet Boyan",
+      "overseer": "Althea Giles"
+    }
+  },
+  {
+    "slug": "nile-cozier",
+    "name": "Nile / Cozier",
+    "region": "Region 2",
+    "regionName": "Pomeroon-Supenaam",
+    "contact": {
+      "chairperson": "Melroy Milton Henry",
+      "deputy": "Junior Avindra Gounga",
+      "overseer": "Oveita Da Silva"
+    }
+  },
+  {
+    "slug": "good-hope-pomona",
+    "name": "Good Hope / Pomona",
+    "region": "Region 2",
+    "regionName": "Pomeroon-Supenaam",
+    "contact": {
+      "chairperson": "Andy Ramnarine",
+      "deputy": "Devon Tang",
+      "overseer": "Nicola Persaud"
+    }
+  },
+  {
+    "slug": "wakenaam",
+    "name": "Wakenaam",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Sheikh Saeed Ahmad",
+      "deputy": "Davindra Ragobir",
+      "overseer": "Yougita Thakur",
+      "officeNumber": "+592-774-5060"
+    }
+  },
+  {
+    "slug": "leguan",
+    "name": "Leguan",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Jainarine Singh",
+      "deputy": "Mohamed Shazaad Razak",
+      "overseer": "Yuvendra Narandra",
+      "officeNumber": "+592-260-0710"
+    }
+  },
+  {
+    "slug": "mora-parika",
+    "name": "Mora / Parika",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Jaideo Sookhoo",
+      "deputy": "Donald Nascimento",
+      "overseer": "Youmattie George",
+      "officeNumber": "260-4570/4569"
+    }
+  },
+  {
+    "slug": "hydronie-good-hope",
+    "name": "Hydronie / Good Hope",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Parasram Persaud",
+      "deputy": "Yugisthir Hemrup",
+      "overseer": "Reshma Ramroop"
+    }
+  },
+  {
+    "slug": "greenwich-park-vergenoegen",
+    "name": "Greenwich Park / Vergenoegen",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Adhunauth Bhola",
+      "deputy": "Rajpera Indra",
+      "overseer": "Milecia Washington",
+      "officeNumber": "+592-260-2199"
+    }
+  },
+  {
+    "slug": "tuschen-uitvlugt",
+    "name": "Tuschen / Uitvlugt",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Dennis Seepersaud Heeralall",
+      "deputy": "Roopnarine Singh",
+      "overseer": "Ravindra Ramdhan",
+      "officeNumber": "+592-275-0355"
+    }
+  },
+  {
+    "slug": "stewartville-cornelia-ida",
+    "name": "Stewartville / Cornelia Ida",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Shiek Samad",
+      "deputy": "Oliver Payne",
+      "overseer": "Savitri Gopaul",
+      "officeNumber": "+592-268-2388"
+    }
+  },
+  {
+    "slug": "hague-blankenburg",
+    "name": "Hague / Blankenburg",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Tracie Nadia Cowsil Khan",
+      "deputy": "Daniel Alyster Renee",
+      "overseer": "Ceciline Creighton",
+      "officeNumber": "+592-276-3015"
+    }
+  },
+  {
+    "slug": "la-jalousie-nouvelle-flanders",
+    "name": "La Jalousie / Nouvelle Flanders",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Raijesh Kadarnauth",
+      "deputy": "Kowsilla Hardeo",
+      "overseer": "Sharda Deoraj",
+      "officeNumber": "+592-269-0011"
+    }
+  },
+  {
+    "slug": "best-klien-pouderoyen",
+    "name": "Best / Klien Pouderoyen",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Umesh Balram",
+      "deputy": "Madeshwar Ramnarace Sudama",
+      "overseer": "Shanetta Churaman",
+      "officeNumber": "+592-264-2461"
+    }
+  },
+  {
+    "slug": "malgre-tout-meerzorgen",
+    "name": "Malgre Tout / Meerzorgen",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Paul Fabian Hemraj Ramrattan",
+      "deputy": "Orson Rayan Garnett",
+      "overseer": "Theresa Persaud",
+      "officeNumber": "+592-253-3006"
+    }
+  },
+  {
+    "slug": "la-grange-nismes",
+    "name": "La Grange / Nismes",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Alvin Parag",
+      "deputy": "Kishan Shivgobin",
+      "overseer": "Marcella Narain",
+      "officeNumber": "+592-501-1809"
+    }
+  },
+  {
+    "slug": "canals-polder",
+    "name": "Canals Polder",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Yogieraj Anauge Das",
+      "deputy": "Heraman Harrylall",
+      "overseer": "Chandroutie Bhagwandas",
+      "officeNumber": "+592-689-9530"
+    }
+  },
+  {
+    "slug": "toevlugt-patentia",
+    "name": "Toevlugt / Patentia",
+    "region": "Region 3",
+    "regionName": "Essequibo Islands-West Demerara",
+    "contact": {
+      "chairperson": "Mark Khan",
+      "overseer": "Nekisha Lewis",
+      "officeNumber": "+592-267-0010"
+    }
+  },
+  {
+    "slug": "soesdyke-te-huis-te-coverden",
+    "name": "Soesdyke / Te Huis Te Coverden",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Arthur Pole",
+      "deputy": "Bhupendra Dookie",
+      "overseer": "Fazilla Manna",
+      "officeNumber": "+592-261-5224"
+    }
+  },
+  {
+    "slug": "caledonia-good-success",
+    "name": "Caledonia / Good Success",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Shannaz Rahat",
+      "deputy": "Neelwattie Sukhu",
+      "overseer": "Devi Dookhi",
+      "officeNumber": "+592-266-2239"
+    }
+  },
+  {
+    "slug": "golden-grove-diamond-place",
+    "name": "Golden Grove / Diamond Place",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Ulric Paul",
+      "deputy": "Heman Narine Ramphal",
+      "overseer": "Parmani Persaud",
+      "officeNumber": "+592-265-2256"
+    }
+  },
+  {
+    "slug": "little-diamond-herstelling",
+    "name": "Little Diamond / Herstelling",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Puneet Jaigopaul",
+      "deputy": "Devanand Indar",
+      "overseer": "Leelawatie C Raghunauth",
+      "officeNumber": "+592-265-2333"
+    }
+  },
+  {
+    "slug": "mocha-arcadia",
+    "name": "Mocha / Arcadia",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Rudolph Adams",
+      "deputy": "Sceyon Hope",
+      "overseer": "Jacqueline Delph",
+      "officeNumber": "+592-217-0099"
+    }
+  },
+  {
+    "slug": "eccles-ramsburg",
+    "name": "Eccles / Ramsburg",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Ramesh Persaud (a.g)",
+      "overseer": "Zoreen Outar",
+      "officeNumber": "+592-233-5515"
+    }
+  },
+  {
+    "slug": "industry-plaisance",
+    "name": "Industry / Plaisance",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Vanessa Benn (a.g)",
+      "overseer": "Roseanna Shivlall",
+      "officeNumber": "+592-220-2326"
+    }
+  },
+  {
+    "slug": "better-hope-la-bonne-intention",
+    "name": "Better Hope / La Bonne Intention",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Zaman Shaw",
+      "deputy": "Haroon Khan",
+      "overseer": "Nandanie Mohamed",
+      "officeNumber": "220-8899/1441"
+    }
+  },
+  {
+    "slug": "beterverwagting-triumph",
+    "name": "Beterverwagting / Triumph",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Wendy Andrews",
+      "deputy": "Andrea Mc Donald",
+      "overseer": "Bebe Khadija Pagu",
+      "officeNumber": "+592-220-2306"
+    }
+  },
+  {
+    "slug": "mon-repos-la-reconnaissance",
+    "name": "Mon Repos / La Reconnaissance",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Harrydat Tilku (a.g)",
+      "overseer": "Nalini Mohamed (Acting)",
+      "officeNumber": "+592-220-8110"
+    }
+  },
+  {
+    "slug": "buxton-foulis",
+    "name": "Buxton / Foulis",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Walston Martins",
+      "deputy": "David Jones",
+      "overseer": "Liesel Eastman",
+      "assistantOverseer": "Simone Amsterdam",
+      "officeNumber": "+592-220-8449"
+    }
+  },
+  {
+    "slug": "enmore-hope",
+    "name": "Enmore / Hope",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Mahendra Sharma",
+      "deputy": "Hemwantie Sawh",
+      "overseer": "Rampaul Sukdeo",
+      "officeNumber": "+592-256-3533"
+    }
+  },
+  {
+    "slug": "haslington-golden-grove",
+    "name": "Haslington / Golden Grove",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Michael Spencer",
+      "deputy": "Avnel Woode",
+      "overseer": "Denissa Clark",
+      "officeNumber": "229-2226/229-2013"
+    }
+  },
+  {
+    "slug": "unity-vereeniging",
+    "name": "Unity / Vereeniging",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Basmattie Singh",
+      "deputy": "Kubear Ramharak",
+      "overseer": "Nalinie Dath",
+      "officeNumber": "+592-228-2055"
+    }
+  },
+  {
+    "slug": "cane-grove",
+    "name": "Cane Grove",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Keshni Rooplall",
+      "deputy": "Nancoomar Persaud",
+      "overseer": "Mahima Narine",
+      "officeNumber": "+592-257-0059"
+    }
+  },
+  {
+    "slug": "lamaha-yarowkabra",
+    "name": "Lamaha / Yarowkabra",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Michelle Harrinaraine",
+      "deputy": "Floyd Smith"
+    }
+  },
+  {
+    "slug": "hauraruni-yarowkabra",
+    "name": "Hauraruni / Yarowkabra",
+    "region": "Region 4",
+    "regionName": "Demerara-Mahaica",
+    "contact": {
+      "chairperson": "Askari Ferrier",
+      "deputy": "Rohan Pillay",
+      "overseer": "Adrian Mohar",
+      "officeNumber": "+592-651-1567"
+    }
+  },
+  {
+    "slug": "woodlands-farm",
+    "name": "Woodlands / Farm",
+    "region": "Region 5",
+    "regionName": "Mahaica-Berbice",
+    "contact": {
+      "chairperson": "Krisendat Balkaran",
+      "deputy": "Sandra Glasgow",
+      "overseer": "Savitri Hemnauth",
+      "officeNumber": "+592-221-2237"
+    }
+  },
+  {
+    "slug": "hamlet-chance",
+    "name": "Hamlet / Chance",
+    "region": "Region 5",
+    "regionName": "Mahaica-Berbice",
+    "contact": {
+      "chairperson": "Kesheon Ross",
+      "deputy": "Glevia Bourne",
+      "overseer": "Shundell Robertson",
+      "officeNumber": "+592-221-2443"
+    }
+  },
+  {
+    "slug": "mahaicony-abary",
+    "name": "Mahaicony / Abary",
+    "region": "Region 5",
+    "regionName": "Mahaica-Berbice",
+    "contact": {
+      "chairperson": "Permal Ritney",
+      "deputy": "Leon Randy Wordsworth",
+      "overseer": "Andrea Moria",
+      "officeNumber": "+592-221-2846"
+    }
+  },
+  {
+    "slug": "profit-rising-sun",
+    "name": "Profit / Rising Sun",
+    "region": "Region 5",
+    "regionName": "Mahaica-Berbice",
+    "contact": {
+      "chairperson": "Angela Asante Mc Donald",
+      "deputy": "Beverly Ann Monita Fraser",
+      "overseer": "Shanetta Bisnauth",
+      "officeNumber": "+592-232-3580"
+    }
+  },
+  {
+    "slug": "seafield-tempie",
+    "name": "Seafield / Tempie",
+    "region": "Region 5",
+    "regionName": "Mahaica-Berbice",
+    "contact": {
+      "chairperson": "Desney Alana Mentore",
+      "deputy": "Frank Wilson",
+      "overseer": "Rylin Samuels",
+      "officeNumber": "+592-328-2142"
+    }
+  },
+  {
+    "slug": "union-naarstigheid",
+    "name": "Union / Naarstigheid",
+    "region": "Region 5",
+    "regionName": "Mahaica-Berbice",
+    "contact": {
+      "chairperson": "Tiffeny Allica Mc Farlene Mentore",
+      "deputy": "Seonaid Richmond Welch",
+      "overseer": "Odetta Carmichael Gilkes",
+      "officeNumber": "+592-232-0045"
+    }
+  },
+  {
+    "slug": "bath-woodley-park",
+    "name": "Bath / Woodley Park",
+    "region": "Region 5",
+    "regionName": "Mahaica-Berbice",
+    "contact": {
+      "chairperson": "Dilchand Sanmogan",
+      "deputy": "Mahendra Persaud",
+      "overseer": "Dankumarie Jagnauth",
+      "officeNumber": "+592-328-7395"
+    }
+  },
+  {
+    "slug": "bel-air-woodlands",
+    "name": "Bel Air / Woodlands",
+    "region": "Region 5",
+    "regionName": "Mahaica-Berbice",
+    "contact": {
+      "chairperson": "Saffraz Sattar",
+      "deputy": "Jocelyn Sandra BraithWaite",
+      "overseer": "Meenawattie Heralall",
+      "officeNumber": "+592-682-9500"
+    }
+  },
+  {
+    "slug": "rosignol-zeelust",
+    "name": "Rosignol / Zeelust",
+    "region": "Region 5",
+    "regionName": "Mahaica-Berbice",
+    "contact": {
+      "chairperson": "Winston Herlall",
+      "deputy": "Virgil Watts",
+      "overseer": "Amir Khan",
+      "officeNumber": "+592-330-2423"
+    }
+  },
+  {
+    "slug": "blairmont-gelderland",
+    "name": "Blairmont / Gelderland",
+    "region": "Region 5",
+    "regionName": "Mahaica-Berbice",
+    "contact": {
+      "chairperson": "Muhammad Hussain",
+      "deputy": "Vadiawattie Persaud",
+      "overseer": "Surina Amariah Saroop",
+      "officeNumber": "+592-327-0558"
+    }
+  },
+  {
+    "slug": "enfield-new-doe-park",
+    "name": "Enfield / New Doe Park",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Padaaratt Seebaran",
+      "deputy": "Christina Jagit",
+      "overseer": "Jennifer Mahadeo",
+      "officeNumber": "+592-333-5636"
+    }
+  },
+  {
+    "slug": "ordinance-fort-lands",
+    "name": "Ordinance / Fort Lands",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Ramsundar Phagwah",
+      "deputy": "Ashraf Jahoor",
+      "overseer": "Kumar Vijai Ramsunder",
+      "officeNumber": "+592-327-7205"
+    }
+  },
+  {
+    "slug": "canefield-enterprise",
+    "name": "Canefield / Enterprise",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Geron Hitnarine",
+      "deputy": "Alica Dowridge",
+      "overseer": "Ghomattie Chandipersaud",
+      "officeNumber": "+592-326-0575"
+    }
+  },
+  {
+    "slug": "kintyre-borlam",
+    "name": "Kintyre / Borlam",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Geeta Samaroo Ramsingh",
+      "deputy": "Chandra Devi Partabsingh",
+      "overseer": "Vijay Persaud",
+      "officeNumber": "+592-610-8407"
+    }
+  },
+  {
+    "slug": "gibraltar-fyrish",
+    "name": "Gibraltar / Fyrish",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Davindranauth Sewnauth",
+      "deputy": "Kevin Nacimento",
+      "overseer": "Joshua Sudial",
+      "officeNumber": "+592-322-0300"
+    }
+  },
+  {
+    "slug": "kilcoy-hampshire",
+    "name": "Kilcoy / Hampshire",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Shamir Khan",
+      "deputy": "Mohamed Yassim Razack",
+      "overseer": "Chrisnadat Nandu",
+      "officeNumber": "+592-322-3147"
+    }
+  },
+  {
+    "slug": "port-mourant-johns",
+    "name": "Port Mourant / Johns",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Vimen Armogan",
+      "deputy": "Perdita Pamesar",
+      "overseer": "Umawattie Ramnauth",
+      "officeNumber": "+592-336-6810"
+    }
+  },
+  {
+    "slug": "bloomfield-whim",
+    "name": "Bloomfield / Whim",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Omeshwar Sirikishun",
+      "overseer": "Lalchand Rupchand",
+      "officeNumber": "+592-337-2619"
+    }
+  },
+  {
+    "slug": "lancaster-hogstye",
+    "name": "Lancaster / Hogstye",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Sheron Smith",
+      "deputy": "Hernie Park",
+      "overseer": "Denitta Park",
+      "officeNumber": "+592-331-0187"
+    }
+  },
+  {
+    "slug": "adventure-bushlot",
+    "name": "Adventure / Bushlot",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Kalamrudeen Mohamed",
+      "deputy": "Ann Bactawar",
+      "overseer": "Keisha Marks",
+      "assistantOverseer": "Tatianna Hintzen",
+      "officeNumber": "+592-331-0767"
+    }
+  },
+  {
+    "slug": "maida-tarlogie",
+    "name": "Maida / Tarlogie",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Lillawattie Dean",
+      "deputy": "Annie Pestano",
+      "overseer": "Shemeniel Bourne",
+      "officeNumber": "+592-325-3508"
+    }
+  },
+  {
+    "slug": "black-bush-polders",
+    "name": "Black Bush Polders",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Lounita Devi Sanichar",
+      "deputy": "Rajcomarie Nankoo",
+      "overseer": "Patricia Ramcharran",
+      "officeNumber": "+592-664-3439"
+    }
+  },
+  {
+    "slug": "macedonia-joppa",
+    "name": "Macedonia / Joppa",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Senel Drepaul",
+      "deputy": "Learie Haynes",
+      "overseer": "Aticha Persaud",
+      "officeNumber": "+592-325-5567"
+    }
+  },
+  {
+    "slug": "good-hope-no-51",
+    "name": "Good Hope / No. 51",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Nagasar Sookram",
+      "deputy": "Kerpaul Dammar",
+      "overseer": "Glorey Samuels",
+      "officeNumber": "+592-339-4318"
+    }
+  },
+  {
+    "slug": "no-64-74",
+    "name": "No. 64 / 74",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Jason Gravesande",
+      "deputy": "Moteelall Sankat",
+      "overseer": "Roslyn Hawker"
+    }
+  },
+  {
+    "slug": "crabwood-creek-moleson",
+    "name": "Crabwood Creek / Moleson",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Lela Devi Rambharose (a.g)",
+      "overseer": "Fizul Ali",
+      "assistantOverseer": "Sattie Singh",
+      "officeNumber": "+592-339-2330"
+    }
+  },
+  {
+    "slug": "plegt-anker-kortberaadt",
+    "name": "Plegt Anker / Kortberaadt",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Rohit Emraj",
+      "deputy": "Richard Barron",
+      "overseer": "Reuel Mohan"
+    }
+  },
+  {
+    "slug": "wyburg-caracas",
+    "name": "Wyburg / Caracas",
+    "region": "Region 6",
+    "regionName": "East Berbice-Corentyne",
+    "contact": {
+      "chairperson": "Percy Ovid Phillips",
+      "deputy": "Raywattie Hoosain",
+      "overseer": "Chuyashnin Youaerhan"
+    }
+  },
+  {
+    "slug": "aranaputa-upper-burro-burro",
+    "name": "Aranaputa / Upper Burro Burro",
+    "region": "Region 9",
+    "regionName": "Upper Takutu-Upper Essequibo",
+    "contact": {
+      "chairperson": "Gillian Alecia Rodrigues",
+      "deputy": "Raynoldson Francis",
+      "overseer": "Floyd Peters"
+    }
+  },
+  {
+    "slug": "kwakwani",
+    "name": "Kwakwani",
+    "region": "Region 10",
+    "regionName": "Upper Demerara-Berbice",
+    "contact": {
+      "chairperson": "Michell Simeon",
+      "deputy": "Lindon Mc Kenzie",
+      "overseer": "Viola Hartman",
+      "officeNumber": "+592-440-2560"
+    }
+  }
+]

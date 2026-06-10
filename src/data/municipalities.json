@@ -1,0 +1,12 @@
+[
+  { "name": "Georgetown", "type": "City", "region": "Region 4", "regionName": "Demerara-Mahaica" },
+  { "name": "Mabaruma", "type": "Town", "region": "Region 1", "regionName": "Barima-Waini" },
+  { "name": "Anna Regina", "type": "Town", "region": "Region 2", "regionName": "Pomeroon-Supenaam" },
+  { "name": "New Amsterdam", "type": "Town", "region": "Region 6", "regionName": "East Berbice-Corentyne" },
+  { "name": "Rose Hall", "type": "Town", "region": "Region 6", "regionName": "East Berbice-Corentyne" },
+  { "name": "Corriverton", "type": "Town", "region": "Region 6", "regionName": "East Berbice-Corentyne" },
+  { "name": "Linden", "type": "Town", "region": "Region 10", "regionName": "Upper Demerara-Berbice" },
+  { "name": "Mahdia", "type": "Town", "region": "Region 8", "regionName": "Potaro-Siparuni" },
+  { "name": "Lethem", "type": "Town", "region": "Region 9", "regionName": "Upper Takutu-Upper Essequibo" },
+  { "name": "Bartica", "type": "Town", "region": "Region 7", "regionName": "Cuyuni-Mazaruni" }
+]

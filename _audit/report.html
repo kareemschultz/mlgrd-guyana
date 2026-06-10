@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MLGRD Website Security Assessment</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap');
+  :root{
+    --green:#009E49; --gold:#FCD116; --red:#CE1126;
+    --ink:#0F172A; --slate:#475569; --mist:#E2E8F0; --paper:#FFFFFF; --soft:#F8FAFC;
+    --navy:#0b2942; --navy2:#04101f;
+    --high:#CE1126; --med:#F59E0B; --low:#2563EB; --ok:#059669;
+  }
+  *{box-sizing:border-box}
+  @page{size:A4;margin:0}
+  html,body{margin:0;padding:0;color:var(--ink);font-family:'Inter',system-ui,Arial,sans-serif;font-size:10.5px;line-height:1.6}
+  h1,h2,h3,h4,h5{font-family:'Inter',sans-serif;margin:0 0 .4em;letter-spacing:-.01em}
+  .serif{font-family:'Source Serif 4',Georgia,serif}
+
+  /* ── PAGE FRAME ── */
+  .page{position:relative;padding:46px 52px 58px;page-break-after:always;width:210mm;min-height:296mm;overflow:hidden;background:var(--paper)}
+  .page:last-child{page-break-after:auto}
+
+  /* running header */
+  .rhead{position:absolute;top:18px;left:52px;right:52px;display:flex;justify-content:space-between;align-items:center;font-size:8px;color:var(--slate);text-transform:uppercase;letter-spacing:.1em;font-weight:700;border-bottom:1px solid var(--mist);padding-bottom:6px}
+  .rhead .cl{color:var(--high)}
+  .content{margin-top:14px}
+
+  /* running footer */
+  .foot{position:absolute;bottom:22px;left:52px;right:52px;display:flex;justify-content:space-between;font-size:8px;color:var(--slate);border-top:1px solid var(--mist);padding-top:6px}
+
+  /* ── FLAG / PILLS ── */
+  .flag{display:flex;height:7px;width:100%;border-radius:4px;overflow:hidden}
+  .flag i{flex:1}.flag .g{background:var(--green)}.flag .y{background:var(--gold)}.flag .r{background:var(--red)}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-weight:700;font-size:9px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+  .pill.high{background:rgba(206,17,38,.12);color:var(--high)}
+  .pill.med{background:rgba(245,158,11,.18);color:#B45309}
+  .pill.low{background:rgba(37,99,235,.12);color:var(--low)}
+  .pill.ok{background:rgba(5,150,105,.14);color:var(--ok)}
+  .muted{color:var(--slate)}
+
+  /* ── COVER ── */
+  .cover{display:flex;flex-direction:column;justify-content:space-between;height:296mm;padding:0;overflow:hidden}
+  .cover-band{background:linear-gradient(135deg,#04101f 0%,#0b2942 60%,#0d3b2f 100%);color:#fff;padding:58px 56px 64px;border-radius:0 0 22px 22px}
+  .classif{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:10px;letter-spacing:.14em;padding:5px 12px;border-radius:4px}
+  .cover h1{font-size:42px;line-height:1.07;margin-top:28px;font-weight:800}
+  .cover .sub{font-size:15px;color:#cfe3ff;margin-top:16px;max-width:86%;line-height:1.55}
+  .crest{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--green),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:800;color:#04101f;font-size:20px}
+  .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--mist);border-radius:14px;overflow:hidden;margin:0 56px}
+  .meta-grid div{padding:15px 20px;border-right:1px solid var(--mist);border-bottom:1px solid var(--mist)}
+  .meta-grid .k{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--slate);font-weight:700}
+  .meta-grid .v{font-size:13px;font-weight:600;margin-top:3px}
+  .cover-foot{padding:0 56px 48px;color:var(--slate);font-size:10px}
+
+  /* ── HEADINGS ── */
+  .eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--green);font-weight:800}
+  h2.sec{font-size:22px;font-weight:800;margin:6px 0 12px}
+  h3.sub{font-size:14px;font-weight:700;margin:18px 0 6px;color:var(--navy)}
+  h4{font-size:12px;font-weight:700;margin:14px 0 5px;color:var(--navy)}
+  .lead{font-size:11.5px;color:#1e293b;line-height:1.72;text-align:justify}
+  p{text-align:justify;margin:0 0 9px}
+  .nojust{text-align:left}
+
+  /* ── CARDS ── */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:16px 0}
+  .card{border:1px solid var(--mist);border-radius:14px;padding:13px 15px;background:var(--soft)}
+  .card .n{font-size:28px;font-weight:800;line-height:1}
+  .card .l{font-size:9.5px;color:var(--slate);margin-top:6px;font-weight:600}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}
+  .split.top{align-items:start}
+  .chart{width:100%;border-radius:10px}
+  .figwrap{text-align:center;margin:10px 0}
+  .figcap{font-size:8.5px;color:var(--slate);margin-top:4px;font-style:italic}
+
+  /* ── TABLES ── */
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:10px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:7px 9px;font-weight:600;font-size:9px;text-transform:uppercase;letter-spacing:.04em}
+  td{padding:7px 9px;border-bottom:1px solid var(--mist);vertical-align:top}
+  tr:nth-child(even) td{background:var(--soft)}
+  table.tight td,table.tight th{padding:6px 8px;font-size:9.5px}
+  .toc-tbl td{padding:6px 9px;font-size:11px}
+  .toc-tbl .num{width:34px;color:var(--green);font-weight:800}
+  .toc-tbl .pg{text-align:right;color:var(--slate);width:36px}
+
+  /* ── FINDING BLOCKS ── */
+  .finding{border:1px solid var(--mist);border-left:5px solid var(--slate);border-radius:12px;padding:15px 17px;margin:12px 0;break-inside:avoid}
+  .finding.high{border-left-color:var(--high)}
+  .finding.med{border-left-color:var(--med)}
+  .finding.low{border-left-color:var(--low)}
+  .finding h3{font-size:13.5px;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+  .finding .row{margin-top:7px;line-height:1.6}
+  .finding .lbl{font-weight:800;font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--slate)}
+  .ratings{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 4px}
+  .rating{background:var(--soft);border:1px solid var(--mist);border-radius:8px;padding:7px 10px}
+  .rating .rk{font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--slate);font-weight:700}
+  .rating .rv{font-size:11px;font-weight:700;margin-top:2px}
+
+  code{background:#0f172a;color:#e2e8f0;padding:1px 5px;border-radius:4px;font-size:9px;font-family:'SFMono-Regular',Consolas,monospace;word-break:break-all}
+
+  /* ── NOTES ── */
+  .note{background:rgba(5,150,105,.07);border:1px solid rgba(5,150,105,.25);border-radius:12px;padding:13px 15px;line-height:1.6}
+  .note.warn{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.35)}
+  .note.info{background:rgba(37,99,235,.06);border-color:rgba(37,99,235,.25)}
+  ul.tight{margin:6px 0;padding-left:18px}ul.tight li{margin:3px 0;text-align:left}
+  ol.steps{margin:6px 0;padding-left:18px}ol.steps li{margin:4px 0;text-align:justify}
+
+  .gloss{display:grid;grid-template-columns:120px 1fr;gap:4px 14px;font-size:10px;margin-top:8px}
+  .gloss .t{font-weight:700;color:var(--navy)}
+  .gloss .d{text-align:justify}
+
+  pre.ev{background:#0f172a;color:#cbd5e1;border-radius:10px;padding:14px 16px;font-family:'SFMono-Regular',Consolas,monospace;font-size:8.6px;line-height:1.5;white-space:pre-wrap;word-break:break-all;margin:8px 0}
+  pre.ev .hl{color:#fca5a5;font-weight:700}
+  .evtitle{font-size:10px;font-weight:700;color:var(--navy);margin-top:14px}
+  a{color:var(--low);text-decoration:none;word-break:break-all}
+
+  /* On-screen viewing only (does NOT affect the print/PDF output): centre each
+     A4 page on a soft grey desk with a drop shadow, like a document viewer. */
+  @media screen {
+    body { background: #e6e9ef; padding: 24px 0; }
+    .page { margin: 0 auto 22px; box-shadow: 0 6px 28px rgba(8, 15, 30, 0.16); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════ 1 · COVER ════════════════════════ -->
+<div class="page cover">
+  <div class="cover-band">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <span class="classif">OFFICIAL · SENSITIVE</span>
+      <div class="crest">GY</div>
+    </div>
+    <h1>Website Security<br>Assessment Report</h1>
+    <div class="sub serif">Ministry of Local Government &amp; Regional Development — an external, non-intrusive security review of the ministry web portal conducted ahead of the Government of Guyana assuming hosting responsibility.</div>
+    <div class="flag" style="margin-top:36px;max-width:230px"><i class="g"></i><i class="y"></i><i class="r"></i></div>
+  </div>
+  <div>
+    <div class="meta-grid">
+      <div><div class="k">Assessed target</div><div class="v">kishanac4.sg-host.com</div></div>
+      <div style="border-right:none"><div class="k">Assessment date</div><div class="v">10 June 2026</div></div>
+      <div><div class="k">Assessment type</div><div class="v">Black-box · non-intrusive</div></div>
+      <div style="border-right:none"><div class="k">Platform under review</div><div class="v">WordPress · Elementor · SiteGround</div></div>
+      <div><div class="k">Overall posture</div><div class="v" style="color:var(--med)">Needs hardening before launch</div></div>
+      <div style="border-right:none"><div class="k">Findings</div><div class="v">2 High · 4 Medium · 1 Low</div></div>
+      <div style="border-bottom:none"><div class="k">Prepared for</div><div class="v">MLGRD / Government of Guyana</div></div>
+      <div style="border-bottom:none;border-right:none"><div class="k">Classification</div><div class="v" style="color:var(--high)">OFFICIAL · SENSITIVE</div></div>
+    </div>
+  </div>
+  <div class="cover-foot">
+    <div class="flag" style="max-width:160px;margin-bottom:12px"><i class="g"></i><i class="y"></i><i class="r"></i></div>
+    <strong>Confidential.</strong> Prepared for internal Government use. All findings are based on read-only reconnaissance; no system was exploited, modified, or subjected to active attack. Distribution is restricted to authorised personnel within the Ministry and its designated technical partners.
+  </div>
+</div>
+
+<!-- ════════════════════════ 2 · DOCUMENT CONTROL ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>MLGRD Website Security Assessment</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Document Control</div>
+    <h2 class="sec">Classification &amp; document control</h2>
+    <p class="lead">This page records the formal control information for this report — its classification, version, ownership and authorised distribution. The report is to be handled in line with its <strong>OFFICIAL · SENSITIVE</strong> classification: it names a live administrator account, a personal email address and specific technical weaknesses, and must therefore be shared only with personnel who have a legitimate need to act on it.</p>
+
+    <h3 class="sub">Document control</h3>
+    <table class="tight">
+      <tr><th style="width:32%">Field</th><th>Value</th></tr>
+      <tr><td>Document title</td><td>MLGRD Website Security Assessment Report</td></tr>
+      <tr><td>Classification</td><td><span class="pill high">OFFICIAL · SENSITIVE</span></td></tr>
+      <tr><td>Version</td><td>1.0 (final)</td></tr>
+      <tr><td>Issue date</td><td>10 June 2026</td></tr>
+      <tr><td>Author / role</td><td>Security Assessment — prepared for MLGRD</td></tr>
+      <tr><td>Assessed system</td><td>WordPress staging instance of the MLGRD website — <code>https://kishanac4.sg-host.com/</code></td></tr>
+      <tr><td>Assessment window</td><td>Single-day passive review, 10 June 2026</td></tr>
+      <tr><td>Distribution</td><td>MLGRD senior management; designated ICT / hosting team; appointed technical partner. Not for public release.</td></tr>
+      <tr><td>Review status</td><td>Final — issued for action</td></tr>
+    </table>
+
+    <h3 class="sub">Version history</h3>
+    <table class="tight">
+      <tr><th style="width:14%">Version</th><th style="width:18%">Date</th><th style="width:30%">Author</th><th>Summary of change</th></tr>
+      <tr><td>0.1</td><td>10 Jun 2026</td><td>Security Assessment</td><td>Initial draft of findings and evidence capture.</td></tr>
+      <tr><td>1.0</td><td>10 Jun 2026</td><td>Security Assessment</td><td>Final report issued to MLGRD: full findings, methodology, remediation roadmap, CVE watch-list and rebuild recommendation.</td></tr>
+    </table>
+
+    <h3 class="sub">Handling instructions</h3>
+    <div class="note warn">
+      <ul class="tight">
+        <li>Store and transmit only through Government-approved channels; do not forward to personal accounts.</li>
+        <li>The administrator login name and personal email quoted in this report are <strong>live</strong> at the time of writing — treat them as sensitive until Finding F-01 is remediated.</li>
+        <li>Redact Appendix A (raw evidence) before any wider or external circulation.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 2</span></div>
+</div>
+
+<!-- ════════════════════════ 3 · TABLE OF CONTENTS ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>MLGRD Website Security Assessment</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Contents</div>
+    <h2 class="sec">Table of contents</h2>
+    <table class="toc-tbl">
+      <tr><td class="num">1</td><td>Executive Summary</td><td class="pg">4</td></tr>
+      <tr><td class="num">2</td><td>Introduction</td><td class="pg">6</td></tr>
+      <tr><td class="num">3</td><td>Scope &amp; Authorisation</td><td class="pg">7</td></tr>
+      <tr><td class="num">4</td><td>Methodology</td><td class="pg">8</td></tr>
+      <tr><td class="num">5</td><td>Detailed Findings (F-01 – F-07)</td><td class="pg">9</td></tr>
+      <tr><td class="num">5.1</td><td>F-01 — Username &amp; email enumeration / PII disclosure</td><td class="pg">9</td></tr>
+      <tr><td class="num">5.2</td><td>F-02 — Missing HTTP security headers</td><td class="pg">10</td></tr>
+      <tr><td class="num">5.3</td><td>F-03 — Software / version disclosure</td><td class="pg">11</td></tr>
+      <tr><td class="num">5.4</td><td>F-04 — Public, indexable staging environment</td><td class="pg">12</td></tr>
+      <tr><td class="num">5.5</td><td>F-05 — Exposed authentication surface, no MFA / rate-limiting</td><td class="pg">13</td></tr>
+      <tr><td class="num">5.6</td><td>F-06 — WordPress MCP / AI adapter endpoint exposed</td><td class="pg">14</td></tr>
+      <tr><td class="num">5.7</td><td>F-07 — Lower-severity hygiene issues</td><td class="pg">15</td></tr>
+      <tr><td class="num">6</td><td>Security Control Assessment</td><td class="pg">16</td></tr>
+      <tr><td class="num">7</td><td>Recommendation: Static Rebuild</td><td class="pg">17</td></tr>
+      <tr><td class="num">8</td><td>Remediation Roadmap</td><td class="pg">18</td></tr>
+      <tr><td class="num">9</td><td>CVE Watch-list</td><td class="pg">19</td></tr>
+      <tr><td class="num">10</td><td>Conclusion</td><td class="pg">20</td></tr>
+      <tr><td class="num">11</td><td>Glossary</td><td class="pg">21</td></tr>
+      <tr><td class="num">A</td><td>Appendix A — Evidence</td><td class="pg">22</td></tr>
+      <tr><td class="num">B</td><td>Appendix B — References</td><td class="pg">23</td></tr>
+    </table>
+
+    <div class="note info" style="margin-top:20px">
+      <strong>How to read this report.</strong> Section 1 is written for senior decision-makers and can be read on its own. Sections 2–4 explain what was done and how. Section 5 is the technical core, with one clearly-labelled finding per issue (description, evidence, impact, likelihood, severity and remediation). Sections 6–9 turn the findings into a prioritised action plan and a patch watch-list. A plain-English glossary (Section 11) defines every technical term used.
+    </div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 3</span></div>
+</div>
+
+<!-- ════════════════════════ 4 · EXECUTIVE SUMMARY ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>1 · Executive Summary</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 1</div>
+    <h2 class="sec">Executive summary</h2>
+    <p class="lead">
+      The Ministry of Local Government &amp; Regional Development (MLGRD) website is a standard <strong>WordPress</strong>
+      build — theme <em>Hello Elementor</em>, the page-builders <em>Elementor</em> and <em>ElementsKit</em>, plus a suite
+      of Hostinger plugins — hosted on <strong>SiteGround</strong> behind an nginx web server. This assessment was
+      carried out ahead of the Government of Guyana taking over hosting of the site, to establish its security posture
+      before any production launch.
+    </p>
+    <p class="lead">
+      The hosting platform applies several sound baseline protections: sensitive files, directory listings, the legacy
+      <code>xmlrpc.php</code> interface and the <code>TRACE</code> method are all blocked, and privileged
+      administrative interfaces require authentication. <strong>However, the application leaks information that
+      materially lowers the cost of attacking it, and it ships none of the modern HTTP security headers that browsers
+      rely on to protect visitors.</strong> Two issues are rated <strong>High</strong> severity.
+    </p>
+
+    <div class="cards" style="margin:12px 0">
+      <div class="card"><div class="n" style="color:var(--high)">7</div><div class="l">Finding groups identified</div></div>
+      <div class="card"><div class="n" style="color:var(--high)">2</div><div class="l">High-severity issues</div></div>
+      <div class="card"><div class="n" style="color:var(--med)">0/6</div><div class="l">Security headers present</div></div>
+      <div class="card"><div class="n" style="color:var(--ok)">8</div><div class="l">Good controls confirmed</div></div>
+    </div>
+
+    <div class="split top" style="margin-top:2px">
+      <div class="figwrap"><img class="chart" src="charts/severity.png" style="max-width:300px">
+        <div class="figcap">Figure 1 — Distribution of findings by severity.</div>
+      </div>
+      <div>
+        <h4 style="margin-top:0">Headline risk posture</h4>
+        <p style="font-size:10.5px">The single most important issue is that <strong>anyone, with no login, can retrieve the administrator's username and a second user's personal email address</strong> from the site (F-01). Combined with an exposed login page that shows no two-factor authentication or rate-limiting (F-05), this gives an attacker a ready-made target for password-guessing and phishing. The absence of security headers (F-02) leaves every visitor's browser without standard protections.</p>
+      </div>
+    </div>
+
+    <h3 class="sub" style="margin:12px 0 5px">Findings summary</h3>
+    <table class="tight" style="margin-top:4px">
+      <tr><th style="width:9%">ID</th><th>Finding</th><th style="width:14%">Severity</th></tr>
+      <tr><td>F-01</td><td>Username &amp; email enumeration — admin login <code>kishanachang</code> and a personal email leaked unauthenticated</td><td><span class="pill high">High</span></td></tr>
+      <tr><td>F-02</td><td>No HTTP security headers (HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy and Permissions-Policy all absent)</td><td><span class="pill high">High</span></td></tr>
+      <tr><td>F-03</td><td>Software / version disclosure easing targeted CVE matching against a frequently-exploited plugin ecosystem</td><td><span class="pill med">Medium</span></td></tr>
+      <tr><td>F-04</td><td>Public, indexable staging environment with real ministry content on a non-government domain + leftover test page</td><td><span class="pill med">Medium</span></td></tr>
+      <tr><td>F-05</td><td>Login surface exposed with no visible two-factor authentication or rate-limiting, combined with known usernames</td><td><span class="pill med">Medium</span></td></tr>
+      <tr><td>F-06</td><td>WordPress MCP / AI adapter endpoint exposed (currently authentication-gated) — broad, destructive-capable surface</td><td><span class="pill med">Medium</span></td></tr>
+      <tr><td>F-07</td><td>Hygiene issues: open <code>wp-cron</code>, no <code>security.txt</code>, cookie missing <code>SameSite</code>, attribution leak</td><td><span class="pill low">Low</span></td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 4</span></div>
+</div>
+
+<!-- ════════ EXEC SUMMARY p2 — top recommendations ════════ -->
+<div class="page">
+  <div class="rhead"><span>1 · Executive Summary</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 1 (continued)</div>
+    <h2 class="sec">Top recommendations</h2>
+    <p class="lead">The findings point to a single, twofold conclusion. <strong>First</strong>, if the existing
+      WordPress site is to go live, it must be hardened beforehand (Section 8). <strong>Second</strong>, and more
+      strongly, the Government should prefer the <strong>static rebuild</strong> already prepared for this project
+      (Section 7), which structurally removes most of the attack surface described in this report.</p>
+
+    <table>
+      <tr><th style="width:6%">#</th><th>Priority recommendation</th><th style="width:20%">Addresses</th></tr>
+      <tr><td>1</td><td>Close all forms of user / email enumeration and rotate the administrator username away from <code>kishanachang</code>.</td><td>F-01</td></tr>
+      <tr><td>2</td><td>Deploy the full set of HTTP security headers, including HSTS, at the web-server or CDN edge.</td><td>F-02</td></tr>
+      <tr><td>3</td><td>Remove the staging site from search-engine indexes, place it behind authentication, and delete leftover test pages.</td><td>F-04</td></tr>
+      <tr><td>4</td><td>Enforce two-factor authentication and login rate-limiting on all administrative accounts.</td><td>F-05</td></tr>
+      <tr><td>5</td><td>Patch WordPress core, the theme and every plugin to current versions; remove unused plugins.</td><td>F-03</td></tr>
+      <tr><td>6</td><td>Disable the MCP / AI adapter and application passwords unless they are genuinely required in production.</td><td>F-06</td></tr>
+      <tr><td>7</td><td><strong>Strategically:</strong> migrate to the static rebuild and serve production only from an official <code>*.gov.gy</code> domain with a valid certificate.</td><td>All</td></tr>
+    </table>
+
+    <div class="note" style="margin-top:14px">
+      <strong>Bottom line for decision-makers.</strong> None of the issues found indicate that the site has been
+      breached. They are, however, exactly the conditions that make a future breach <em>easy</em> — and the site
+      carries the name and content of a Government ministry, which raises both the likelihood of being targeted and the
+      reputational cost of an incident. The remediation work is well understood and achievable in days, not months. The
+      static rebuild eliminates whole categories of this risk permanently and is the recommended path to a secure
+      launch.
+    </div>
+
+    <h4 style="margin-top:16px">What was assessed</h4>
+    <p style="font-size:10.5px">A single public WordPress staging instance was reviewed using read-only techniques
+      only — HTTP fingerprinting, inspection of publicly reachable endpoints, a review of security headers and TLS, and
+      mapping of disclosed software versions against published vulnerabilities. No exploitation, password attack,
+      fuzzing, automated scanning or state-changing request was performed. The full scope and rules of engagement are
+      set out in Section 3.</p>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 5</span></div>
+</div>
+
+<!-- ════════════════════════ 5 · INTRODUCTION ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>2 · Introduction</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 2</div>
+    <h2 class="sec">Introduction</h2>
+
+    <h3 class="sub">2.1 Background to the engagement</h3>
+    <p class="lead">The Government of Guyana is preparing to take over the hosting of the website for the Ministry of
+      Local Government &amp; Regional Development. The site currently runs as a WordPress instance on a third-party
+      commercial host (SiteGround) under a temporary staging address, <code>kishanac4.sg-host.com</code>. Before any
+      production cutover — and certainly before the site is served from an official Government domain — it is prudent to
+      understand its security posture: what an outside observer can learn about it, what protections it does and does
+      not provide, and what would need to change to host it safely.</p>
+    <p class="lead">This report documents an independent, external security assessment commissioned for that purpose. It
+      was deliberately conducted in a <strong>non-intrusive</strong> manner, using only information that any member of
+      the public could obtain, so that the live site was never placed at risk during the review.</p>
+
+    <h3 class="sub">2.2 Why this matters</h3>
+    <p class="lead">A Government ministry website is not an ordinary site. It carries the authority and identity of the
+      State; citizens reasonably trust that what it publishes is genuine and that interacting with it is safe.
+      That trust makes such sites attractive targets:</p>
+    <ul class="tight" style="font-size:10.5px">
+      <li><strong>Impersonation &amp; misinformation.</strong> An attacker who can alter content — or who can clone a
+        publicly indexable copy — can publish false notices, fraudulent forms, or phishing pages under the ministry's
+        name.</li>
+      <li><strong>Credential compromise.</strong> If an administrator account is taken over, the attacker inherits full
+        control of the site's content and configuration.</li>
+      <li><strong>Pivot to citizens.</strong> Personal data disclosed by the site (such as the staff email found in
+        this review) can be used to target individuals with convincing, tailored phishing.</li>
+      <li><strong>Reputational and political cost.</strong> A defacement or data incident on a Government site attracts
+        disproportionate public and media attention.</li>
+    </ul>
+    <p class="lead">Because the Government will own the consequences of any incident once it hosts the site, the
+      objective of this assessment is straightforward: to make sure the site is brought to an appropriate standard of
+      security <em>before</em> it goes live under a Government domain, and to recommend the architecture that keeps it
+      that way with the least ongoing effort.</p>
+
+    <h3 class="sub">2.3 Target fingerprint</h3>
+    <p class="lead">For reference, the table below summarises what the assessment was able to determine about the
+      technology stack from publicly available information alone.</p>
+    <table class="tight">
+      <tr><th style="width:30%">Property</th><th>Value (as disclosed publicly)</th></tr>
+      <tr><td>Web server</td><td>nginx (SiteGround managed hosting)</td></tr>
+      <tr><td>Platform</td><td>WordPress (meta generator reports <code>WordPress 7.0</code> — treat as reported)</td></tr>
+      <tr><td>Theme</td><td>Hello Elementor v3.4.9 (disclosed via readable <code>style.css</code>)</td></tr>
+      <tr><td>Page builder</td><td>Elementor 4.1.1 (+ feature flags in meta generator); ElementsKit</td></tr>
+      <tr><td>Other plugins</td><td>Hostinger suite: easy-onboarding, AI assistant, amplitude (analytics), reach (CRM/email), tools; Elementor Pro namespaces present</td></tr>
+      <tr><td>REST namespaces</td><td><code>wp/v2</code>, <code>elementor/v1</code>, <code>elementor-pro/v1</code>, <code>elementskit/v1</code>, <code>mcp</code>, <code>hostinger-*/v1</code>, <code>wp-abilities/v1</code></td></tr>
+      <tr><td>Hosting artifacts</td><td><code>X-Httpd-Modphp: 1</code>, <code>Host-Header</code> hash, <code>X-Proxy-Cache-Info</code> (SiteGround)</td></tr>
+      <tr><td>Developer attribution</td><td>User <code>kishanachang</code> profile URL <code>http://kishanachang.wpendgame.com</code> (a WordPress migration/staging service)</td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 6</span></div>
+</div>
+
+<!-- ════════════════════════ 6 · SCOPE & AUTHORISATION ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>3 · Scope &amp; Authorisation</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 3</div>
+    <h2 class="sec">Scope &amp; authorisation</h2>
+
+    <h3 class="sub">3.1 Assessed target</h3>
+    <p class="lead">The assessment was limited to a single system: the public WordPress staging instance of the MLGRD
+      website at <code>https://kishanac4.sg-host.com/</code>, together with the publicly reachable endpoints served
+      under that hostname (for example its <code>wp-json</code> REST interface, sitemaps and login pages).</p>
+
+    <h3 class="sub">3.2 In scope</h3>
+    <ul class="tight" style="font-size:10.5px">
+      <li>HTTP/HTTPS response behaviour and security headers of the target hostname.</li>
+      <li>Publicly reachable, unauthenticated endpoints (REST API collections, sitemaps, author archives, login and
+        password-reset pages, <code>robots.txt</code>, <code>wp-cron.php</code>).</li>
+      <li>TLS configuration and HTTP-to-HTTPS redirection behaviour.</li>
+      <li>Software and version information voluntarily disclosed by the application.</li>
+      <li>Mapping of the disclosed technology stack against published vulnerabilities (CVEs).</li>
+    </ul>
+
+    <h3 class="sub">3.3 Out of scope</h3>
+    <ul class="tight" style="font-size:10.5px">
+      <li>Any authenticated or administrative functionality (no credentials were held or used).</li>
+      <li>The underlying SiteGround hosting infrastructure, network, or other tenants on the platform.</li>
+      <li>Other domains, sub-domains or services not served under the target hostname.</li>
+      <li>Social engineering of staff, physical security, and denial-of-service testing.</li>
+      <li>Source-code review of the WordPress core, theme or plugins.</li>
+    </ul>
+
+    <h3 class="sub">3.4 Rules of engagement</h3>
+    <div class="note warn">
+      <p style="margin:0"><strong>This review was strictly read-only and non-intrusive.</strong> The following
+        constraints were applied throughout:</p>
+      <ul class="tight" style="margin-top:6px">
+        <li>Only <code>GET</code>, <code>HEAD</code>, <code>OPTIONS</code> and <code>TRACE</code> requests were issued;
+          no payloads or form data were submitted.</li>
+        <li><strong>No exploitation</strong> of any vulnerability was attempted. Impacts in this report are assessed
+          from configuration and disclosed information only.</li>
+        <li>No password attacks, brute-forcing, credential-stuffing or login attempts were made.</li>
+        <li>No fuzzing, automated vulnerability scanning, or high-volume requesting was performed.</li>
+        <li>No state-changing request (anything that could create, modify or delete data) was sent.</li>
+      </ul>
+    </div>
+    <p class="lead" style="margin-top:12px">As a result, the assessment carried negligible risk to the availability or
+      integrity of the live site. The trade-off is that some issues can only be confirmed definitively from inside an
+      authenticated session or with the host's cooperation — those are flagged in the relevant findings (for example,
+      the exact installed plugin versions behind the CVE watch-list in Section 9).</p>
+
+    <h3 class="sub">3.5 Authorisation</h3>
+    <p class="lead">This assessment was conducted as a pre-hosting security review for the Government of Guyana, using
+      only techniques available to any member of the public against a publicly published website. No special access,
+      credentials, or privileged position was used or required.</p>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 7</span></div>
+</div>
+
+<!-- ════════════════════════ 7 · METHODOLOGY ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>4 · Methodology</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 4</div>
+    <h2 class="sec">Methodology</h2>
+
+    <h3 class="sub">4.1 Approach</h3>
+    <p class="lead">The assessment followed a <strong>passive reconnaissance</strong> approach: the security posture of
+      the site was inferred from the information it volunteers and the way it responds to ordinary, well-formed
+      requests, rather than by attacking it. This mirrors the first stage of how a real attacker profiles a target, but
+      stops short of any action that could affect the system. The work proceeded in four stages:</p>
+    <ol class="steps" style="font-size:10.5px">
+      <li><strong>Fingerprinting.</strong> Identify the web server, platform, theme, plugins and versions from response
+        headers, the HTML <code>generator</code> tag, readable asset files and REST API namespaces.</li>
+      <li><strong>Endpoint inspection.</strong> Request publicly reachable endpoints (REST collections, sitemaps,
+        author archives, login and password-reset pages, <code>robots.txt</code>, common sensitive paths) and record
+        their status codes and content.</li>
+      <li><strong>Header &amp; transport review.</strong> Examine the HTTP security headers, cookie attributes, TLS
+        usage and HTTP-to-HTTPS redirection.</li>
+      <li><strong>CVE mapping.</strong> Match the disclosed software stack against published vulnerabilities using
+        public databases, to produce a patch-priority watch-list.</li>
+    </ol>
+
+    <h3 class="sub">4.2 Tools &amp; techniques</h3>
+    <p class="lead">Standard, widely-available techniques were used — command-line HTTP clients to retrieve headers and
+      endpoint responses, a browser to confirm rendering and redirects, and public vulnerability databases
+      (<strong>WPScan</strong>, <strong>Patchstack</strong> and the CVE catalogue) for the version mapping. No
+      intrusive scanners or exploitation frameworks were employed.</p>
+
+    <h3 class="sub">4.3 How severity was rated</h3>
+    <p class="lead">Each finding is rated <strong>High</strong>, <strong>Medium</strong> or <strong>Low</strong> using a
+      qualitative model that weighs two factors:</p>
+    <ul class="tight" style="font-size:10.5px">
+      <li><strong>Likelihood / ease of exploitation</strong> — how easy it is for an attacker to abuse the weakness, and
+        how widely the technique is known and automated.</li>
+      <li><strong>Business impact</strong> — the potential consequences for the Ministry if the weakness were abused,
+        including content integrity, confidentiality of data, and reputation.</li>
+    </ul>
+    <p class="lead">Plotting each finding on these two axes gives the risk matrix below. Items in the upper-right
+      quadrant — high likelihood and high impact — warrant the most urgent attention. This scoring is intended for
+      prioritisation and is qualitative; it is not a formal CVSS score, although indicative CVSS figures for the
+      relevant plugin CVEs are provided in Section 9.</p>
+
+    <div class="split top">
+      <div class="figwrap"><img class="chart" src="charts/riskmatrix.png" style="max-width:360px">
+        <div class="figcap">Figure 2 — Risk matrix: each finding plotted by likelihood (horizontal) against business impact (vertical).</div>
+      </div>
+      <div>
+        <div class="note warn">
+          <strong>Why F-01 sits top-right.</strong> Anyone can retrieve the administrator's login name and a second
+          user's personal email from a single unauthenticated request. Combined with the exposed login page (F-05),
+          that turns a two-unknown problem (username <em>and</em> password) into a one-unknown problem — the classic
+          set-up for credential-stuffing and targeted phishing.
+        </div>
+        <p class="muted" style="margin-top:10px;font-size:9.5px">Background shading on the matrix indicates the
+          combined risk level of each cell: green = low, amber = elevated, red = high.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 8</span></div>
+</div>
+
+<!-- ════════════════════════ 8 · DETAILED FINDINGS ════════════════════════ -->
+
+<!-- F-01 -->
+<div class="page">
+  <div class="rhead"><span>5 · Detailed Findings</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 5 · Detailed findings</div>
+    <h2 class="sec">5.1  F-01 — Username &amp; email enumeration / PII disclosure</h2>
+
+    <div class="note info" style="margin-bottom:10px"><strong>What is user enumeration?</strong> Many attacks need two
+      things: a valid username and its password. "User enumeration" is any technique that lets an outsider obtain valid
+      usernames without logging in. Once an attacker has a confirmed username, they only have to guess the password —
+      and they can also use it to craft convincing, personalised phishing emails. Leaking usernames therefore removes
+      half of the protection that login credentials are supposed to provide.</div>
+
+    <div class="finding high">
+      <h3>F-01 · Username &amp; email enumeration / PII disclosure <span class="pill high">High</span></h3>
+      <div class="row"><span class="lbl">Description</span> — The site exposes its list of registered authors to anyone,
+        with no authentication, through several independent channels. The exposed data includes the login name of an
+        <strong>administrator</strong> account and a user slug from which a <strong>personal email address</strong> can
+        be reconstructed.</div>
+      <div class="row"><span class="lbl">Evidence</span> —
+        <ul class="tight" style="margin-top:4px">
+          <li><code>GET /wp-json/wp/v2/users</code> returns <code>200</code> with the full author list:
+            <code>id:1</code> → name and slug <code>kishanachang</code> (an administrator login), and <code>id:3</code> →
+            slug <code>darrenxmhindsgmail-com</code>, which reconstructs the email
+            <strong>darrenxmhinds@gmail.com</strong>.</li>
+          <li><code>GET /?author=1</code> → <code>301</code> redirect to <code>/author/kishanachang/</code>, confirming
+            the username.</li>
+          <li><code>GET /wp-sitemap-users-1.xml</code> lists <code>/author/kishanachang/</code>.</li>
+        </ul>
+      </div>
+      <div class="row"><span class="lbl">Business impact</span> — Valid usernames are the first half of every credential
+        attack. One account is a personal Gmail (a phishing target and a credential-stuffing pivot); the other is the
+        site administrator. This converts a "guess username and password" problem into a "guess password only" problem
+        and enables highly targeted spear-phishing against named individuals.</div>
+      <div class="ratings">
+        <div class="rating"><div class="rk">Likelihood</div><div class="rv" style="color:var(--high)">High</div></div>
+        <div class="rating"><div class="rk">Business impact</div><div class="rv" style="color:var(--high)">High</div></div>
+        <div class="rating"><div class="rk">Severity</div><div class="rv"><span class="pill high">High</span></div></div>
+      </div>
+      <div class="row"><span class="lbl">Remediation</span></div>
+      <ol class="steps">
+        <li>Disable REST user enumeration for unauthenticated requests — either via a security plugin (Wordfence, Solid
+          Security) or by filtering <code>rest_endpoints</code> to remove <code>/wp/v2/users</code> for guests.</li>
+        <li>Block <code>?author=N</code> author-scan redirects and remove the users sitemap (the
+          <code>wp_sitemaps_add_provider</code> filter).</li>
+        <li>Set display names so they differ from login names; never derive a username or email from a public slug.</li>
+        <li>Rotate the administrator username away from <code>kishanachang</code>, and advise the owner of the leaked
+          personal email to be alert to targeted phishing.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 9</span></div>
+</div>
+
+<!-- F-02 -->
+<div class="page">
+  <div class="rhead"><span>5 · Detailed Findings</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 5 · Detailed findings</div>
+    <h2 class="sec">5.2  F-02 — Missing HTTP security headers</h2>
+
+    <div class="note info" style="margin-bottom:10px"><strong>What are HTTP security headers?</strong> When a browser
+      loads a page, the web server can attach a set of instructions — "headers" — that tell the browser how to protect
+      the visitor. They prevent the page being framed by a malicious site (clickjacking), stop the browser guessing
+      file types (MIME-sniffing), force the use of a secure encrypted connection (HSTS), and limit the damage a
+      content-injection bug could do (CSP). These headers cost nothing to add and are considered a basic standard for
+      any modern site, especially a Government one.</div>
+
+    <div class="finding high">
+      <h3>F-02 · Missing HTTP security headers <span class="pill high">High</span></h3>
+      <div class="row"><span class="lbl">Description</span> — The site's responses include <strong>none</strong> of the
+        modern HTTP security headers. Visitors' browsers are therefore left without the standard protections these
+        headers provide.</div>
+      <div class="row"><span class="lbl">Evidence</span> — Responses for <code>/</code> contain none of:
+        <code>Strict-Transport-Security</code>, <code>Content-Security-Policy</code>, <code>X-Frame-Options</code>,
+        <code>X-Content-Type-Options</code>, <code>Referrer-Policy</code> or <code>Permissions-Policy</code>. HTTP does
+        redirect (<code>301</code>) to HTTPS, but with no HSTS there is an SSL-strip window on a visitor's first
+        visit.</div>
+      <div class="row"><span class="lbl">Business impact</span> — No clickjacking protection (no <code>X-Frame-Options</code>
+        / <code>frame-ancestors</code>); MIME-sniffing is possible (<code>X-Content-Type-Options</code> absent); no
+        Content-Security-Policy to contain any cross-site scripting (XSS) — particularly relevant given the Elementor
+        stack's history of stored-XSS bugs; referrer leakage to third parties; and no transport pinning, leaving a
+        window for connection downgrade on first contact.</div>
+      <div class="ratings">
+        <div class="rating"><div class="rk">Likelihood</div><div class="rv" style="color:var(--med)">Medium</div></div>
+        <div class="rating"><div class="rk">Business impact</div><div class="rv" style="color:var(--high)">High</div></div>
+        <div class="rating"><div class="rk">Severity</div><div class="rv"><span class="pill high">High</span></div></div>
+      </div>
+      <div class="row"><span class="lbl">Remediation</span> — Add the following headers at the edge (nginx, SiteGround or
+        Cloudflare) for every response:</div>
+      <ol class="steps">
+        <li><code>Strict-Transport-Security: max-age=63072000; includeSubDomains; preload</code></li>
+        <li>A tested <code>Content-Security-Policy</code> appropriate to the site's assets.</li>
+        <li><code>X-Frame-Options: SAMEORIGIN</code> and <code>X-Content-Type-Options: nosniff</code>.</li>
+        <li><code>Referrer-Policy: strict-origin-when-cross-origin</code>.</li>
+        <li>A least-privilege <code>Permissions-Policy</code> disabling features the site does not use.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 10</span></div>
+</div>
+
+<!-- F-03 -->
+<div class="page">
+  <div class="rhead"><span>5 · Detailed Findings</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 5 · Detailed findings</div>
+    <h2 class="sec">5.3  F-03 — Software / version disclosure</h2>
+
+    <div class="note info" style="margin-bottom:10px"><strong>Why version disclosure matters.</strong> Software flaws
+      are catalogued publicly as "CVEs", each tied to specific affected versions. If a site openly advertises exactly
+      which versions of WordPress and its plugins it runs, an attacker can look up the matching known flaws in seconds —
+      without touching the site — and go straight to a working attack. Hiding versions does not fix the flaws, but it
+      removes an easy shortcut and is a sensible layer of defence.</div>
+
+    <div class="finding med">
+      <h3>F-03 · Software / version disclosure <span class="pill med">Medium</span></h3>
+      <div class="row"><span class="lbl">Description</span> — The application openly discloses the versions of its core
+        components, allowing precise matching against published vulnerabilities.</div>
+      <div class="row"><span class="lbl">Evidence</span> — The HTML meta generator leaks <code>WordPress 7.0</code> and
+        <code>Elementor 4.1.1</code> (plus feature flags); the theme's <code>style.css</code> is readable and reveals
+        <code>Hello Elementor 3.4.9</code>; and per-asset <code>?ver=</code> query strings expose component versions.</div>
+      <div class="row"><span class="lbl">Business impact</span> — An attacker can match the exact stack to public CVEs
+        without interacting with the application. The Elementor ecosystem is heavily targeted: recent examples include
+        <strong>CVE-2025-49387</strong> (unauthenticated file-upload to remote code execution in an Elementor Forms
+        upload add-on), <strong>CVE-2025-8081</strong> (Elementor arbitrary file read), <strong>CVE-2025-13067</strong>
+        (Royal Addons RCE), <strong>CVE-2026-4659</strong> (Unlimited Elements local file inclusion) and several
+        King-Addons criticals scoring up to CVSS 10.0. The full watch-list is in Section 9.</div>
+      <div class="ratings">
+        <div class="rating"><div class="rk">Likelihood</div><div class="rv" style="color:var(--high)">High</div></div>
+        <div class="rating"><div class="rk">Business impact</div><div class="rv" style="color:var(--med)">Medium</div></div>
+        <div class="rating"><div class="rk">Severity</div><div class="rv"><span class="pill med">Medium</span></div></div>
+      </div>
+      <div class="row"><span class="lbl">Remediation</span></div>
+      <ol class="steps">
+        <li>Strip the <code>generator</code> meta tag and remove asset <code>?ver=</code> query strings.</li>
+        <li>Suppress publicly readable theme/plugin version files where possible.</li>
+        <li>Treat version-hiding as defence-in-depth only — it is <strong>not</strong> a substitute for keeping every
+          component fully patched (see Section 9).</li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 11</span></div>
+</div>
+
+<!-- F-04 -->
+<div class="page">
+  <div class="rhead"><span>5 · Detailed Findings</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 5 · Detailed findings</div>
+    <h2 class="sec">5.4  F-04 — Public, indexable staging environment</h2>
+
+    <div class="note info" style="margin-bottom:10px"><strong>What is a staging environment?</strong> A "staging" site
+      is a work-in-progress copy used to build and test a website before it goes live. It should normally be hidden from
+      the public and from search engines. Here, the staging copy of the ministry site is fully public, crawlable, and
+      hosted on a commercial domain rather than a Government one.</div>
+
+    <div class="finding med">
+      <h3>F-04 · Public, indexable staging environment <span class="pill med">Medium</span></h3>
+      <div class="row"><span class="lbl">Description</span> — A live, crawlable staging site is serving real ministry
+        content on a non-government domain, and contains leftover scaffold pages from development.</div>
+      <div class="row"><span class="lbl">Evidence</span> — The site is fully crawlable (<code>robots.txt</code> allows
+        general crawling and a sitemap is published) and serves real ministry content on a non-government domain
+        (<code>*.sg-host.com</code>). A leftover <code>/test-about/</code> page is published.</div>
+      <div class="row"><span class="lbl">Business impact</span> — Search engines will index an unofficial copy of
+        Government content, causing citizen confusion and duplicate content, and providing a ready-made template for
+        phishing and impersonation. Staging sites also commonly run looser configuration and debug features, and
+        leftover test pages signal an unfinished, unreviewed surface.</div>
+      <div class="ratings">
+        <div class="rating"><div class="rk">Likelihood</div><div class="rv" style="color:var(--high)">High</div></div>
+        <div class="rating"><div class="rk">Business impact</div><div class="rv" style="color:var(--med)">Medium</div></div>
+        <div class="rating"><div class="rk">Severity</div><div class="rv"><span class="pill med">Medium</span></div></div>
+      </div>
+      <div class="row"><span class="lbl">Remediation</span></div>
+      <ol class="steps">
+        <li>Until launch, apply <code>noindex</code> plus HTTP Basic authentication or an IP allow-list to the staging
+          host so it is not publicly reachable or indexable.</li>
+        <li>Remove <code>test-about</code> and any other scaffold or test pages.</li>
+        <li>Serve production only from the official <code>*.gov.gy</code> domain with a valid certificate, and retire the
+          <code>sg-host.com</code> address once cutover is complete.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 12</span></div>
+</div>
+
+<!-- F-05 -->
+<div class="page">
+  <div class="rhead"><span>5 · Detailed Findings</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 5 · Detailed findings</div>
+    <h2 class="sec">5.5  F-05 — Exposed authentication surface, no MFA / rate-limiting</h2>
+
+    <div class="note info" style="margin-bottom:10px"><strong>Brute-force and credential-stuffing.</strong> If a login
+      page is openly reachable, has no limit on how many attempts can be made, and offers no second factor, an attacker
+      can try thousands of password guesses (brute-force) or replay passwords leaked from other breaches
+      (credential-stuffing). Two-factor authentication (2FA) and rate-limiting are the standard defences.</div>
+
+    <div class="finding med">
+      <h3>F-05 · Exposed login surface, no visible MFA / rate-limiting <span class="pill med">Medium</span></h3>
+      <div class="row"><span class="lbl">Description</span> — The WordPress login and password-reset pages are openly
+        reachable, with no observable second factor or attempt-limiting — and the usernames are already known from
+        F-01.</div>
+      <div class="row"><span class="lbl">Evidence</span> — <code>wp-login.php</code> → <code>200</code>;
+        <code>?action=lostpassword</code> → <code>200</code>; registration (<code>?action=register</code>) →
+        <code>302</code> (appears disabled — good). No challenge, throttling or 2FA was observed.</div>
+      <div class="row"><span class="lbl">Business impact</span> — The site is a direct target for credential-stuffing and
+        brute-force attacks, made materially easier by the known usernames from F-01. The lost-password flow can also
+        assist user enumeration.</div>
+      <div class="ratings">
+        <div class="rating"><div class="rk">Likelihood</div><div class="rv" style="color:var(--med)">Medium</div></div>
+        <div class="rating"><div class="rk">Business impact</div><div class="rv" style="color:var(--high)">High</div></div>
+        <div class="rating"><div class="rk">Severity</div><div class="rv"><span class="pill med">Medium</span></div></div>
+      </div>
+      <div class="row"><span class="lbl">Remediation</span></div>
+      <ol class="steps">
+        <li>Enforce two-factor authentication (2FA) for all administrator and editor accounts.</li>
+        <li>Add login rate-limiting and lockout (Wordfence, Solid Security or a Limit-Login plugin).</li>
+        <li>Restrict <code>wp-admin</code> and <code>wp-login.php</code> by IP allow-list, or place them behind SSO/VPN.</li>
+        <li>Require strong, unique passwords, and consider a custom (non-default) login path.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 13</span></div>
+</div>
+
+<!-- F-06 -->
+<div class="page">
+  <div class="rhead"><span>5 · Detailed Findings</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 5 · Detailed findings</div>
+    <h2 class="sec">5.6  F-06 — WordPress MCP / AI adapter endpoint exposed</h2>
+
+    <div class="note info" style="margin-bottom:10px"><strong>What is an MCP / AI adapter?</strong> "MCP" (Model Context
+      Protocol) is a newer mechanism that lets AI tools and automation drive a system through a single bridge endpoint.
+      On a website, such a bridge can be very powerful — potentially able to change or delete content. Because these
+      components are new and not yet well-tested, exposing one even in a locked-down state widens the attack surface.</div>
+
+    <div class="finding med">
+      <h3>F-06 · WordPress MCP / AI adapter endpoint exposed <span class="pill med">Medium</span></h3>
+      <div class="row"><span class="lbl">Description</span> — An AI/automation control endpoint is publicly discoverable.
+        It is currently authentication-gated (good), but its presence — including a destructive verb — broadens the
+        attack surface, and application passwords are enabled on the site.</div>
+      <div class="row"><span class="lbl">Evidence</span> — <code>/wp-json/mcp</code> is publicly listed and exposes
+        <code>/wp-json/mcp/mcp-adapter-default-server</code> accepting <code>POST</code>, <code>GET</code> and
+        <code>DELETE</code>. Unauthenticated calls currently return <code>401 rest_forbidden</code> (good), but the
+        AI/agent control surface is discoverable and includes a destructive verb.</div>
+      <div class="row"><span class="lbl">Business impact</span> — An AI "tools" bridge is a powerful, fast-evolving attack
+        surface. If any credential or <strong>application password</strong> were to leak, an attacker could potentially
+        drive AI/automation tools — including content deletion or configuration change — through a single endpoint. New
+        MCP / abilities plugins are immature and under-audited.</div>
+      <div class="ratings">
+        <div class="rating"><div class="rk">Likelihood</div><div class="rv" style="color:var(--low)">Low</div></div>
+        <div class="rating"><div class="rk">Business impact</div><div class="rv" style="color:var(--high)">High</div></div>
+        <div class="rating"><div class="rk">Severity</div><div class="rv"><span class="pill med">Medium</span></div></div>
+      </div>
+      <div class="row"><span class="lbl">Remediation</span></div>
+      <ol class="steps">
+        <li>If MCP / AI features are not required in production, <strong>disable</strong> the MCP adapter, the
+          <code>hostinger-ai-assistant</code> and the <code>wp-abilities</code> plugins.</li>
+        <li>If they are required, restrict the route to authenticated administrators over an allow-listed network.</li>
+        <li>Audit-log every call to the adapter.</li>
+        <li>Disable application passwords unless they are explicitly needed.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 14</span></div>
+</div>
+
+<!-- F-07 -->
+<div class="page">
+  <div class="rhead"><span>5 · Detailed Findings</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 5 · Detailed findings</div>
+    <h2 class="sec">5.7  F-07 — Lower-severity hygiene issues</h2>
+
+    <p class="lead">The following issues are individually low-risk, but each is a small piece of housekeeping that a
+      Government site should attend to. Collectively they reflect general configuration hygiene and are inexpensive to
+      fix.</p>
+
+    <div class="finding low">
+      <h3>F-07 · Lower-severity hygiene <span class="pill low">Low</span></h3>
+      <div class="row"><span class="lbl">Findings &amp; fixes</span></div>
+      <ul class="tight">
+        <li><strong><code>wp-cron.php</code> → 200.</strong> Anyone can trigger the site's scheduled tasks, a mild
+          resource-abuse / denial-of-service amplification vector. <em>Fix:</em> set
+          <code>define('DISABLE_WP_CRON', true)</code>, run a real system cron, and block external access to
+          <code>wp-cron.php</code>.</li>
+        <li><strong>Public REST collections.</strong> <code>wp/v2/media</code>, <code>comments</code>, <code>pages</code>
+          and <code>types</code> all return <code>200</code> (standard behaviour, but <code>media</code> enables full
+          attachment/author enumeration). <em>Fix:</em> restrict where feasible and ensure no draft or PII content is
+          exposed.</li>
+        <li><strong>No <code>/.well-known/security.txt</code></strong> (<code>404</code>). <em>Fix:</em> publish a
+          <code>security.txt</code> with a disclosure contact — this is expected of a Government site.</li>
+        <li><strong>Login cookie lacks <code>SameSite</code>.</strong> <code>Secure</code> and <code>HttpOnly</code> are
+          set, but <code>SameSite</code> is absent. <em>Fix:</em> add <code>SameSite=Lax</code> (or <code>Strict</code>).</li>
+        <li><strong>Developer-attribution leak.</strong> The profile URL <code>kishanachang.wpendgame.com</code> reveals
+          the build tooling and provenance. <em>Fix:</em> sanitise user profile URLs.</li>
+      </ul>
+      <div class="ratings">
+        <div class="rating"><div class="rk">Likelihood</div><div class="rv" style="color:var(--med)">Medium</div></div>
+        <div class="rating"><div class="rk">Business impact</div><div class="rv" style="color:var(--low)">Low</div></div>
+        <div class="rating"><div class="rk">Severity</div><div class="rv"><span class="pill low">Low</span></div></div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:12px"><strong>Note.</strong> Although these are individually minor, the
+      <code>security.txt</code> and cookie <code>SameSite</code> items in particular are quick wins that bring the site
+      in line with baseline expectations for a public-sector website.</div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 15</span></div>
+</div>
+
+<!-- ════════════════════════ 9 · CONTROL ASSESSMENT ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>6 · Security Control Assessment</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 6</div>
+    <h2 class="sec">Security control assessment</h2>
+    <p class="lead">Not everything about this site is weak — and it is important to be balanced. The hosting platform
+      provides a number of solid baseline controls that are confirmed to be working. The chart below contrasts the
+      controls that are present and effective (green) against those that are missing or weak (red). The host does well
+      on file and endpoint lockdown and on transport security, but HTTP security headers and authentication hardening
+      are largely absent.</p>
+
+    <div class="figwrap"><img class="chart" src="charts/controls.png" style="max-width:540px">
+      <div class="figcap">Figure 3 — Security control coverage: implemented controls (right) versus missing or weak controls (left).</div>
+    </div>
+
+    <div class="split top" style="margin-top:6px">
+      <div class="note">
+        <strong>Confirmed good (8 controls).</strong>
+        <ul class="tight">
+          <li>HTTPS enforced (<code>301</code> → HTTPS); valid TLS in use.</li>
+          <li><code>xmlrpc.php</code> blocked (<code>403</code>) — blocks pingback DDoS and XML-RPC brute-force.</li>
+          <li>Sensitive files all <code>403</code>: <code>.git/config</code>, <code>.env</code>, <code>wp-config</code>
+            backups, <code>backup.zip</code>, <code>debug.log</code>, <code>.user.ini</code>.</li>
+          <li>Directory listing disabled for uploads, plugins and themes.</li>
+          <li>Privileged REST routes require auth (<code>settings</code>, <code>plugins</code>, <code>themes</code> →
+            <code>401</code>).</li>
+          <li>Application-passwords page requires auth; MCP adapter calls → <code>401</code>.</li>
+          <li><code>TRACE</code> → <code>405</code> (no cross-site tracing); CORS is not wildcard-open.</li>
+          <li>User registration appears disabled (<code>302</code>).</li>
+        </ul>
+      </div>
+      <div class="note warn">
+        <strong>Missing / weak (12+ controls).</strong>
+        <ul class="tight">
+          <li>All six modern security headers absent (F-02).</li>
+          <li>No two-factor authentication and no login rate-limiting (F-05).</li>
+          <li>REST user enumeration open; software versions disclosed (F-01 / F-03).</li>
+          <li><code>wp-cron</code> externally triggerable; no <code>security.txt</code> (F-07).</li>
+          <li>Login cookie missing <code>SameSite</code> (F-07).</li>
+          <li>Public, indexable staging surface (F-04); MCP adapter discoverable (F-06).</li>
+        </ul>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:10px">The pattern is consistent: <strong>infrastructure-level controls supplied by
+      the host are good, but application-level and edge configuration is where the gaps lie.</strong> That is
+      encouraging, because the gaps are precisely the things that can be configured quickly — and that the static
+      rebuild (Section 7) provides by default.</p>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 16</span></div>
+</div>
+
+<!-- ════════════════════════ 10 · STATIC REBUILD ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>7 · Recommendation: Static Rebuild</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 7</div>
+    <h2 class="sec">Recommendation: the static rebuild</h2>
+    <p class="lead">The strongest single recommendation in this report is architectural. The Government should host a
+      <strong>statically-exported site</strong> (the replacement already prepared for this project) in place of the
+      WordPress instance. A static site has no server-side code, no database, no administrative panel and no plugins on
+      the host — it is simply a set of pre-built HTML, CSS and JavaScript files served from a content delivery network.
+      Structurally, it <strong>cannot</strong> have most of the vulnerabilities in this report, because the components
+      that produce them do not exist.</p>
+
+    <div class="figwrap"><img class="chart" src="charts/surface.png" style="max-width:560px">
+      <div class="figcap">Figure 4 — Attack-surface comparison: the WordPress site exposes eight classes of surface; the static rebuild exposes none.</div>
+    </div>
+
+    <table>
+      <tr><th style="width:50%">Existing WordPress risk</th><th>Static rebuild</th></tr>
+      <tr><td>PHP + database + admin panel + 10+ plugins running on the host</td><td>No server code, no database, no admin, no plugins — only static HTML/CSS/JS</td></tr>
+      <tr><td>User / email enumeration (F-01)</td><td>No user accounts on the host — nothing to enumerate</td></tr>
+      <tr><td>Plugin RCE / file-upload / LFI CVEs (F-03)</td><td>No plugins and no upload handlers — the entire CVE class is removed</td></tr>
+      <tr><td><code>xmlrpc</code>, <code>wp-cron</code>, MCP adapter, login surface (F-05 / F-06 / F-07)</td><td>None of these endpoints exist</td></tr>
+      <tr><td>Missing security headers (F-02)</td><td>Ships HSTS + CSP + X-Frame-Options + nosniff + Referrer-Policy + Permissions-Policy by default</td></tr>
+    </table>
+
+    <h3 class="sub">Additional hardening built into the rebuild</h3>
+    <ul class="tight" style="font-size:10.5px">
+      <li>Subresource-integrity-friendly bundling of assets.</li>
+      <li>No third-party trackers by default (consent-gated if any are added).</li>
+      <li>Form submissions handled via a vetted endpoint, with no PHP mailer to exploit.</li>
+      <li>Pinned dependencies with automated auditing (<code>npm audit</code> / Dependabot).</li>
+      <li>A published <code>security.txt</code> and deployment on an official domain with a valid certificate.</li>
+    </ul>
+
+    <div class="note" style="margin-top:8px"><strong>Net effect.</strong> The attack surface drops from "a full
+      content-management system" to "a CDN serving files." This does not remove the need for the immediate fixes in
+      Section 8 (which protect the site during any interim period), but it makes the secure state the default rather
+      than something that must be continuously maintained.</div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 17</span></div>
+</div>
+
+<!-- ════════════════════════ 11 · ROADMAP ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>8 · Remediation Roadmap</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 8</div>
+    <h2 class="sec">Remediation roadmap</h2>
+    <p class="lead">The actions below are prioritised into three phases — <strong>Immediate</strong> (before any
+      production cutover), <strong>Short-term</strong>, and <strong>Ongoing</strong>. Owner suggestions and effort are
+      indicative.</p>
+
+    <div class="figwrap" style="margin:6px 0"><img class="chart" src="charts/roadmap.png" style="max-width:440px">
+      <div class="figcap">Figure 5 — Indicative remediation timeline by phase.</div>
+    </div>
+
+    <table class="tight" style="margin-top:4px">
+      <tr><th style="width:30%">Action</th><th style="width:12%">Finding</th><th style="width:24%">Suggested owner</th><th>Effort</th></tr>
+      <tr><td colspan="4" style="background:var(--high);color:#fff;font-weight:700">Immediate — before any production cutover</td></tr>
+      <tr><td>Kill user / email enumeration; rotate the <code>kishanachang</code> admin name</td><td>F-01</td><td>ICT / WordPress admin</td><td>Low (hours)</td></tr>
+      <tr><td>Add the full security-header set + HSTS at the edge</td><td>F-02</td><td>Hosting partner / CDN</td><td>Low (hours)</td></tr>
+      <tr><td>De-index staging (noindex + auth/IP allow-list); delete <code>test-about</code></td><td>F-04</td><td>ICT / WordPress admin</td><td>Low (hours)</td></tr>
+      <tr><td>Enforce 2FA + login rate-limiting; restrict <code>wp-admin</code></td><td>F-05</td><td>ICT / WordPress admin</td><td>Low–Medium (1 day)</td></tr>
+      <tr><td>Patch WordPress core + all plugins/themes; remove unused plugins</td><td>F-03</td><td>ICT / WordPress admin</td><td>Medium (1–2 days)</td></tr>
+      <tr><td colspan="4" style="background:var(--med);color:#fff;font-weight:700">Short term — within ~2 weeks</td></tr>
+      <tr><td>Disable MCP / AI / abilities + application passwords unless needed; audit-log if kept</td><td>F-06</td><td>ICT / WordPress admin</td><td>Low (hours)</td></tr>
+      <tr><td>Disable HTTP <code>wp-cron</code>; publish <code>security.txt</code>; set cookie <code>SameSite</code>; strip version strings</td><td>F-03 / F-07</td><td>ICT / hosting partner</td><td>Low (hours)</td></tr>
+      <tr><td colspan="4" style="background:var(--ok);color:#fff;font-weight:700">Ongoing — continuous</td></tr>
+      <tr><td>Managed WAF (SiteGround / Cloudflare), file-integrity monitoring, off-site backups, least-privilege accounts, quarterly review</td><td>All</td><td>ICT + hosting partner</td><td>Ongoing</td></tr>
+      <tr><td>Migrate production to the static rebuild on an official <code>*.gov.gy</code> domain</td><td>All</td><td>Programme / ICT</td><td>Project</td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 18</span></div>
+</div>
+
+<!-- ════════════════════════ 12 · CVE WATCH-LIST ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>9 · CVE Watch-list</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 9</div>
+    <h2 class="sec">CVE watch-list</h2>
+    <p class="lead">The exact installed plugin builds could not be confirmed without authentication, so the list below is
+      a <strong>patch-priority watch-list</strong> rather than a confirmation that the site is vulnerable to each item.
+      The administrator should check the installed versions in <code>wp-admin → Plugins</code> against WPScan and
+      Patchstack, and patch or remove anything affected. The chart shows the indicative maximum CVSS severity for each
+      affected component family.</p>
+
+    <div class="figwrap"><img class="chart" src="charts/cvss.png" style="max-width:560px">
+      <div class="figcap">Figure 6 — Indicative CVSS v3.1 base scores for the most serious CVEs in the affected component families.</div>
+    </div>
+
+    <table class="tight">
+      <tr><th style="width:18%">CVE</th><th style="width:24%">Component</th><th>Impact</th><th style="width:22%">Action</th></tr>
+      <tr><td>CVE-2025-49387</td><td>Elementor Forms upload add-on</td><td>Unauthenticated file-upload → remote code execution (RCE)</td><td>Patch / remove add-on</td></tr>
+      <tr><td>CVE-2025-8081</td><td>Elementor (≤ 3.30.2)</td><td>Arbitrary file read</td><td>Update Elementor</td></tr>
+      <tr><td>CVE-2023-48777</td><td>Elementor (historic)</td><td>Authenticated file-upload → RCE</td><td>Confirm patched</td></tr>
+      <tr><td>(stored XSS)</td><td>Elementor Pro (&lt; 3.29.1)</td><td>Stored cross-site scripting (XSS)</td><td>Update Elementor Pro</td></tr>
+      <tr><td>(class)</td><td>ElementsKit</td><td>Recurring authenticated file-upload / LFI / SSRF issues across releases</td><td>Update / remove if unused</td></tr>
+      <tr><td>CVE-2025-6327 / 6325</td><td>King Addons</td><td>Critical (CVSS up to 10.0)</td><td>Remove if installed/unused</td></tr>
+      <tr><td>CVE-2025-13067</td><td>Royal Addons</td><td>Remote code execution (RCE)</td><td>Remove if installed/unused</td></tr>
+      <tr><td>CVE-2026-4659</td><td>Unlimited Elements</td><td>Local file inclusion (LFI)</td><td>Remove if installed/unused</td></tr>
+    </table>
+
+    <div class="note warn" style="margin-top:10px"><strong>Action.</strong> Update WordPress core and every plugin/theme
+      to the current release, enable auto-updates for security releases, and remove any unused plugins — each Hostinger
+      or Elementor add-on left installed is additional attack surface. Version-hiding (F-03) is not a substitute for
+      patching.</div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 19</span></div>
+</div>
+
+<!-- ════════════════════════ 13 · CONCLUSION ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>10 · Conclusion</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 10</div>
+    <h2 class="sec">Conclusion</h2>
+    <p class="lead">The MLGRD website, in its current WordPress form, is <strong>not ready to be hosted under a
+      Government domain without remediation</strong>. Nothing in this assessment indicates that the site has been
+      compromised; rather, the issues found are the conditions that make a future compromise easy — and the site's
+      Government identity raises both the chance of being targeted and the cost of an incident.</p>
+    <p class="lead">The two High-severity findings — open user/email enumeration (F-01) and the complete absence of HTTP
+      security headers (F-02) — should be closed before any cutover, alongside de-indexing the staging site, enforcing
+      two-factor authentication, and patching the plugin stack. Encouragingly, the hosting platform already provides a
+      solid set of baseline protections, and the application-level gaps that remain can be configured quickly.</p>
+    <p class="lead">The clearest path to a secure launch is the <strong>static rebuild</strong>. By removing the
+      server-side code, database, administrative panel and plugins entirely, it eliminates whole classes of risk
+      permanently rather than requiring them to be continuously managed. Combined with deployment on an official
+      <code>*.gov.gy</code> domain, a valid certificate, security headers shipped by default, and pinned, audited
+      dependencies, it reduces the attack surface from "a full content-management system" to "a CDN serving files."</p>
+
+    <div class="note" style="margin-top:6px">
+      <strong>Recommended path to a secure launch.</strong>
+      <ol class="steps" style="margin-top:6px">
+        <li>Apply the Immediate remediation actions (Section 8) to the current site to protect it during any interim
+          period.</li>
+        <li>Stand up the static rebuild on an official Government domain with a valid certificate and default security
+          headers.</li>
+        <li>Cut over to the rebuild, retire the <code>sg-host.com</code> staging address, and decommission the
+          WordPress instance.</li>
+        <li>Maintain the Ongoing controls — monitoring, backups, least-privilege accounts and periodic review.</li>
+      </ol>
+    </div>
+    <p class="lead" style="margin-top:12px">With these steps, the Ministry can launch its website on a footing
+      appropriate to a Government service — one that protects both the integrity of its content and the citizens who
+      rely on it.</p>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 20</span></div>
+</div>
+
+<!-- ════════════════════════ 14 · GLOSSARY ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>11 · Glossary</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Section 11</div>
+    <h2 class="sec">Glossary</h2>
+    <p class="lead">Plain-English definitions of the technical terms used in this report.</p>
+    <div class="gloss">
+      <div class="t">HSTS</div><div class="d">HTTP Strict Transport Security. A header that tells browsers to only ever connect to the site over an encrypted (HTTPS) connection, closing the window for a "downgrade" attack on first visit.</div>
+      <div class="t">CSP</div><div class="d">Content-Security-Policy. A header that restricts what content a page is allowed to load and run, which helps contain the damage from content-injection bugs such as XSS.</div>
+      <div class="t">XSS</div><div class="d">Cross-Site Scripting. A flaw that lets an attacker inject malicious scripts into a web page, which then run in other visitors' browsers — for example to steal sessions or deface content.</div>
+      <div class="t">CSRF</div><div class="d">Cross-Site Request Forgery. A trick that causes a logged-in user's browser to perform an unwanted action on a site without their intent. The <code>SameSite</code> cookie attribute helps prevent it.</div>
+      <div class="t">RCE</div><div class="d">Remote Code Execution. The most serious class of flaw: it lets an attacker run their own commands on the server, effectively taking it over.</div>
+      <div class="t">LFI</div><div class="d">Local File Inclusion. A flaw that lets an attacker make the application read or include files on the server that it should not expose.</div>
+      <div class="t">SSRF</div><div class="d">Server-Side Request Forgery. A flaw that tricks the server into making requests to systems the attacker could not otherwise reach (such as internal services).</div>
+      <div class="t">REST API</div><div class="d">A standard web interface (here, WordPress's <code>wp-json</code>) that lets software read and write data over HTTP. Useful, but it can over-share information if not locked down.</div>
+      <div class="t">CVE</div><div class="d">Common Vulnerabilities and Exposures. A public catalogue that gives each known software flaw a unique identifier (e.g. CVE-2025-49387).</div>
+      <div class="t">CVSS</div><div class="d">Common Vulnerability Scoring System. A 0–10 scale that rates how severe a CVE is; 9.0+ is "Critical".</div>
+      <div class="t">WAF</div><div class="d">Web Application Firewall. A protective layer in front of a site that filters out malicious requests before they reach the application.</div>
+      <div class="t">MFA / 2FA</div><div class="d">Multi-Factor / Two-Factor Authentication. Requiring a second proof of identity (such as a code from a phone) in addition to a password, so a stolen password alone is not enough to log in.</div>
+      <div class="t">User enumeration</div><div class="d">Any technique that reveals valid usernames to an outsider, making password-guessing and phishing much easier.</div>
+      <div class="t">Clickjacking</div><div class="d">An attack that hides a target site inside an invisible frame on a malicious page, tricking a user into clicking something they did not intend. The <code>X-Frame-Options</code> header prevents it.</div>
+      <div class="t">MIME-sniffing</div><div class="d">When a browser guesses a file's type instead of trusting the server's label, which can cause it to run a file as a script. The <code>X-Content-Type-Options: nosniff</code> header prevents it.</div>
+      <div class="t">Application password</div><div class="d">A special, separate password WordPress can issue so that software/automation can access the site's API. Convenient, but a leak can grant broad access.</div>
+      <div class="t">MCP</div><div class="d">Model Context Protocol. A newer mechanism that lets AI tools and automation control a system through a single bridge endpoint — powerful, and therefore sensitive.</div>
+      <div class="t">Brute-force</div><div class="d">Repeatedly guessing passwords (or other secrets) until one works. Rate-limiting and 2FA are the standard defences.</div>
+      <div class="t">Credential-stuffing</div><div class="d">Re-using username/password pairs leaked from other breaches against a site, in the hope that people reused them.</div>
+      <div class="t">Staging</div><div class="d">A work-in-progress copy of a website used to build and test it before it goes live. It should normally be hidden from the public.</div>
+    </div>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 21</span></div>
+</div>
+
+<!-- ════════════════════════ APPENDIX A — EVIDENCE ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>Appendix A · Evidence</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Appendix A</div>
+    <h2 class="sec">Evidence (selected raw responses)</h2>
+    <p class="lead">The following raw evidence was captured during the assessment using unauthenticated
+      <code>GET</code> / <code>HEAD</code> / <code>OPTIONS</code> / <code>TRACE</code> requests only. No payloads were
+      submitted. Sensitive values are quoted here because they are material to Finding F-01; this appendix should be
+      redacted before any wider circulation.</p>
+
+    <div class="evtitle">A.1 — Root response headers (no security headers present)</div>
+    <pre class="ev">HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 10 Jun 2026 16:25:25 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Vary: Accept-Encoding
+Link: &lt;https://kishanac4.sg-host.com/wp-json/&gt;; rel="https://api.w.org/"
+Link: &lt;https://kishanac4.sg-host.com/wp-json/wp/v2/pages/14&gt;; rel="alternate"; type="application/json"
+Link: &lt;https://kishanac4.sg-host.com/&gt;; rel=shortlink
+X-Httpd-Modphp: 1
+Host-Header: 8441280b0c35cbc1147f8ba998a563a7
+X-Proxy-Cache-Info: DT:1
+
+<span class="hl"># NOTE: none of Strict-Transport-Security, Content-Security-Policy, X-Frame-Options,</span>
+<span class="hl">#       X-Content-Type-Options, Referrer-Policy or Permissions-Policy are present (F-02).</span></pre>
+
+    <div class="evtitle">A.2 — <code>GET /wp-json/wp/v2/users</code> (unauthenticated user enumeration, F-01)</div>
+    <pre class="ev">[
+  {
+    "id": 3,
+    "name": "Darren Hinds",
+    "link": "https://kishanac4.sg-host.com/author/<span class="hl">darrenxmhindsgmail-com</span>/",
+    "slug": "<span class="hl">darrenxmhindsgmail-com</span>"   # reconstructs darrenxmhinds@gmail.com
+  },
+  {
+    "id": 1,
+    "name": "<span class="hl">kishanachang</span>",
+    "url":  "http://<span class="hl">kishanachang.wpendgame.com</span>",   # developer-attribution leak (F-07)
+    "link": "https://kishanac4.sg-host.com/author/<span class="hl">kishanachang</span>/",
+    "slug": "<span class="hl">kishanachang</span>"   # administrator login name
+  }
+]</pre>
+
+    <div class="evtitle">A.3 — Author-scan confirmation</div>
+    <pre class="ev">GET /?author=1           ->  301  Location: /author/kishanachang/
+GET /wp-sitemap-users-1.xml  ->  200  lists /author/kishanachang/</pre>
+
+    <p class="muted" style="font-size:9px;margin-top:8px">All probes were unauthenticated and read-only. Full header
+      dumps and endpoint responses are retained under <code>_audit/</code> (e.g. <code>root_headers.txt</code>,
+      <code>users_rest.json</code>).</p>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 22</span></div>
+</div>
+
+<!-- ════════════════════════ APPENDIX B — REFERENCES ════════════════════════ -->
+<div class="page">
+  <div class="rhead"><span>Appendix B · References</span><span class="cl">OFFICIAL · SENSITIVE</span></div>
+  <div class="content">
+    <div class="eyebrow">Appendix B</div>
+    <h2 class="sec">References</h2>
+    <p class="lead">Public sources used for the technology mapping, CVE watch-list and remediation guidance.</p>
+
+    <h3 class="sub">Vulnerability databases</h3>
+    <ul class="tight" style="font-size:10.5px">
+      <li>WPScan — WordPress vulnerability database. <a>https://wpscan.com/</a> (e.g. plugin record <a>https://wpscan.com/plugin/elementor-pro/</a>).</li>
+      <li>Patchstack — WordPress &amp; plugin vulnerability intelligence. <a>https://patchstack.com/database/</a></li>
+      <li>CVE / NVD — the public CVE catalogue and National Vulnerability Database. <a>https://nvd.nist.gov/</a></li>
+    </ul>
+
+    <h3 class="sub">CVEs referenced in this report</h3>
+    <ul class="tight" style="font-size:10.5px">
+      <li>CVE-2025-49387 — Elementor Forms upload add-on, unauthenticated upload → RCE.</li>
+      <li>CVE-2025-8081 — Elementor (≤ 3.30.2), arbitrary file read.</li>
+      <li>CVE-2023-48777 — Elementor, historic authenticated upload → RCE.</li>
+      <li>CVE-2025-6327 / CVE-2025-6325 — King Addons, critical (CVSS up to 10.0).</li>
+      <li>CVE-2025-13067 — Royal Addons, remote code execution.</li>
+      <li>CVE-2026-4659 — Unlimited Elements, local file inclusion.</li>
+    </ul>
+
+    <h3 class="sub">Standards &amp; guidance</h3>
+    <ul class="tight" style="font-size:10.5px">
+      <li>OWASP Secure Headers Project — guidance on HTTP security headers (HSTS, CSP, X-Frame-Options, etc.).</li>
+      <li>OWASP Top 10 — common web application security risks.</li>
+      <li>RFC 9116 — the <code>security.txt</code> standard for security disclosure contacts.</li>
+      <li>Mozilla MDN Web Docs — reference for HTTP headers and cookie <code>SameSite</code> attributes.</li>
+    </ul>
+
+    <div class="note info" style="margin-top:14px"><strong>Note on sources.</strong> CVE identifiers and severities in
+      this report are indicative and should be verified against the vulnerability databases above using the
+      <em>installed</em> plugin and theme versions, which could not be confirmed during this non-intrusive assessment.</div>
+
+    <div class="flag" style="max-width:200px;margin-top:24px"><i class="g"></i><i class="y"></i><i class="r"></i></div>
+    <p class="muted" style="margin-top:10px;font-size:9px">End of report · MLGRD Website Security Assessment · v1.0 · 10 June 2026 · OFFICIAL · SENSITIVE</p>
+  </div>
+  <div class="foot"><span>MLGRD Website Security Assessment · v1.0 · 10 June 2026</span><span>OFFICIAL · SENSITIVE · Page 23</span></div>
+</div>
+
+</body>
+</html>

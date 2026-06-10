@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 10 Jun 2026 16:25:25 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Vary: Accept-Encoding
+Link: <https://kishanac4.sg-host.com/wp-json/>; rel="https://api.w.org/"
+Link: <https://kishanac4.sg-host.com/wp-json/wp/v2/pages/14>; rel="alternate"; title="JSON"; type="application/json"
+Link: <https://kishanac4.sg-host.com/>; rel=shortlink
+X-Httpd-Modphp: 1
+Host-Header: 8441280b0c35cbc1147f8ba998a563a7
+X-Proxy-Cache-Info: DT:1
+

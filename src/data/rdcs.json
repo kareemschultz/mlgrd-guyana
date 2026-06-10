@@ -1,0 +1,12 @@
+[
+  { "region": "Region 1", "name": "Barima-Waini", "council": "Regional Democratic Council, Region 1" },
+  { "region": "Region 2", "name": "Pomeroon-Supenaam", "council": "Regional Democratic Council, Region 2" },
+  { "region": "Region 3", "name": "Essequibo Islands-West Demerara", "council": "Regional Democratic Council, Region 3" },
+  { "region": "Region 4", "name": "Demerara-Mahaica", "council": "Regional Democratic Council, Region 4" },
+  { "region": "Region 5", "name": "Mahaica-Berbice", "council": "Regional Democratic Council, Region 5" },
+  { "region": "Region 6", "name": "East Berbice-Corentyne", "council": "Regional Democratic Council, Region 6" },
+  { "region": "Region 7", "name": "Cuyuni-Mazaruni", "council": "Regional Democratic Council, Region 7" },
+  { "region": "Region 8", "name": "Potaro-Siparuni", "council": "Regional Democratic Council, Region 8" },
+  { "region": "Region 9", "name": "Upper Takutu-Upper Essequibo", "council": "Regional Democratic Council, Region 9" },
+  { "region": "Region 10", "name": "Upper Demerara-Berbice", "council": "Regional Democratic Council, Region 10" }
+]

@@ -1,0 +1,11 @@
+# HTTP security headers — honoured by hosts that read a _headers file
+# (Cloudflare Pages, Netlify, the ministry's own edge/CDN).
+# NOTE: GitHub Pages ignores this file; apply equivalent headers at the
+# production host. These directly remediate finding F-02 of the security audit.
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-src https://www.openstreetmap.org; connect-src 'self' https:; base-uri 'self'; form-action 'self' https:; object-src 'none'
