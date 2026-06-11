@@ -34,8 +34,11 @@ export function LoginCard({ onSuccess }: { onSuccess: () => void }) {
     if (busy) return;
     setBusy(true);
     try {
-      await data.auth.login(username.trim(), password);
-      toast.success("Signed in.");
+      const result = await data.auth.login(username.trim(), password);
+      const firstName = (result.user?.name ?? "").trim().split(/\s+/)[0];
+      toast.success(firstName ? `Welcome back, ${firstName}` : "Signed in", {
+        description: "You're signed in to the MLGRD admin console.",
+      });
       onSuccess();
     } catch (err) {
       toast.error(
