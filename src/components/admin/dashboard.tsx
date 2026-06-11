@@ -22,6 +22,7 @@ import {
   Cloud,
   Database,
   UserCog,
+  Search,
   type LucideIcon,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -36,7 +37,6 @@ import type {
 } from "@/lib/data/types";
 import { cn } from "@/lib/utils";
 import { LogoMark } from "@/components/site/logo";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -66,6 +66,11 @@ import { AppointmentsSection } from "@/components/admin/appointments-section";
 import { DatasetsSection } from "@/components/admin/datasets-section";
 import { UsersSection } from "@/components/admin/users-section";
 import { SettingsSection } from "@/components/admin/settings-section";
+import { AccountMenu } from "@/components/admin/account-menu";
+import {
+  CommandPalette,
+  useCommandPalette,
+} from "@/components/admin/command-palette";
 
 type SectionId =
   | "overview"
@@ -113,6 +118,7 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
   const me = data.auth.currentUser();
   const isAdmin = !me || me.role === "admin"; // demo / env-admin → full access
   const nav = NAV.filter((n) => !n.adminOnly || isAdmin);
+  const cmd = useCommandPalette();
 
   const [posts, setPosts] = React.useState<Post[]>([]);
   const [gallery, setGallery] = React.useState<GalleryItem[]>([]);
@@ -255,13 +261,33 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
                 {LABELS[section]}
               </span>
             </nav>
-            <div className="ml-auto">
-              <Button variant="outline" size="sm" onClick={logout}>
-                <LogOut className="size-4" />
-                <span className="hidden sm:inline">Log out</span>
-              </Button>
+            <div className="ml-auto flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => cmd.setOpen(true)}
+                className="flex items-center gap-2 rounded-lg border bg-card px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                aria-label="Search sections"
+              >
+                <Search className="size-4" />
+                <span className="hidden md:inline">Search…</span>
+                <kbd className="hidden rounded border bg-muted px-1.5 font-mono text-[10px] text-muted-foreground md:inline">
+                  ⌘K
+                </kbd>
+              </button>
+              <AccountMenu
+                user={me}
+                onLogout={logout}
+                onOpenSettings={() => setSection("settings")}
+              />
             </div>
           </header>
+
+          <CommandPalette
+            open={cmd.open}
+            onOpenChange={cmd.setOpen}
+            items={nav.map(({ id, label, icon }) => ({ id, label, icon }))}
+            onSelect={setSection}
+          />
 
           <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6">
             <AnimatePresence>
