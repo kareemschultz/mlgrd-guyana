@@ -71,19 +71,19 @@ export function HeroEmblemNews() {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* ── Emblem treatment (official ministry crest) ── */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-8 text-center backdrop-blur-sm">
+      <div className="relative overflow-hidden rounded-2xl border border-gold/25 bg-white/80 px-6 py-8 text-center shadow-sm backdrop-blur-sm">
         <BorderBeam
           size={140}
           duration={12}
-          className="from-brand via-gold to-transparent"
+          className="from-gold via-gold to-transparent"
         />
-        <div className="pointer-events-none absolute inset-0 bg-dot text-white/[0.04]" />
-        {/* soft gold glow behind the crest */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 size-60 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 blur-2xl" />
+        <div className="pointer-events-none absolute inset-0 bg-dot text-gold/[0.08]" />
+        {/* solid emblem-gold glow behind the crest */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 size-60 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/25 blur-2xl" />
         <motion.img
           src={asset("/emblem.png")}
           alt="Ministry of Local Government & Regional Development emblem"
-          className="relative mx-auto h-auto w-44 drop-shadow-[0_10px_28px_rgba(0,0,0,0.45)] sm:w-52"
+          className="relative mx-auto h-auto w-44 drop-shadow-[0_10px_28px_rgba(17,24,39,0.22)] sm:w-52"
           animate={reduce ? undefined : { y: [0, -7, 0] }}
           transition={
             reduce
@@ -94,13 +94,13 @@ export function HeroEmblemNews() {
         <p className="relative mt-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold">
           Government of Guyana
         </p>
-        <div className="relative mx-auto mt-3 h-0.5 w-16 rounded-full bg-gradient-to-r from-brand via-gold to-brand" />
+        <div className="relative mx-auto mt-3 h-0.5 w-16 rounded-full bg-gold" />
       </div>
 
       {/* ── Latest updates ── */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+      <div className="relative overflow-hidden rounded-2xl border bg-white/80 p-6 shadow-sm backdrop-blur-sm">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="flex items-center gap-2 font-heading text-base font-bold text-white">
+          <h3 className="flex items-center gap-2 font-heading text-base font-bold text-foreground">
             <Newspaper className="size-4 text-gold" /> Latest updates
           </h3>
           <Link
@@ -111,18 +111,18 @@ export function HeroEmblemNews() {
           </Link>
         </div>
 
-        <ul className="mt-4 flex flex-col divide-y divide-white/10">
+        <ul className="mt-4 flex flex-col divide-y divide-border">
           {posts.map((post) => (
             <li key={post.id}>
               <Link
                 href="/news"
                 className="group flex flex-col gap-1 py-3 transition-colors first:pt-0 last:pb-0"
               >
-                <span className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-white/45">
+                <span className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
                   <Calendar className="size-3" />
                   {fmtDate(post.date)}
                 </span>
-                <span className="text-sm font-semibold leading-snug text-white/90 transition-colors group-hover:text-gold">
+                <span className="text-sm font-semibold leading-snug text-foreground transition-colors group-hover:text-gold-700">
                   {post.title}
                 </span>
               </Link>

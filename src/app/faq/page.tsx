@@ -29,7 +29,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "How do I find which council serves my area?",
-    a: "Use the directories on this portal. You can browse Neighbourhood Democratic Councils, Regional Democratic Councils and municipalities by region to locate the body that serves your community, along with available contact details.",
+    a: "Use the directories on this portal. You can browse Neighborhood Democratic Councils, Regional Democratic Councils and municipalities by region to locate the body that serves your community, along with available contact details.",
   },
   {
     q: "How do I report a local problem such as a road, drain or sanitation issue?",

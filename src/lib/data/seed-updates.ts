@@ -52,7 +52,7 @@ export const seedUpdates: PortalUpdate[] = [
         type: "new",
         title: "Directory coverage",
         items: [
-          "Neighbourhood Democratic Councils, Regional Democratic Councils, and Municipalities are grouped into clearer directory journeys.",
+          "Neighborhood Democratic Councils, Regional Democratic Councils, and Municipalities are grouped into clearer directory journeys.",
           "Council detail pages provide regional context and easier navigation back to related authorities.",
         ],
       },
