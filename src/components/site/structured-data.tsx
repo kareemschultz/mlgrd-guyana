@@ -13,7 +13,7 @@ export function StructuredData() {
         name: ministry.name,
         alternateName: ministry.shortName,
         url: SITE_URL,
-        logo: `${SITE_URL}${asset("/icon.png")}`,
+        logo: `${SITE_URL}${asset("/mlgrd-icon.png")}`,
         email: ministry.email,
         telephone: ministry.phone,
         address: {

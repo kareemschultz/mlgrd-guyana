@@ -51,11 +51,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   icons: {
     icon: [
-      { url: asset("/favicon.ico"), sizes: "16x16 32x32" },
-      { url: asset("/icon.png"), type: "image/png", sizes: "512x512" },
+      { url: asset("/mlgrd-favicon.ico"), sizes: "16x16 32x32" },
+      { url: asset("/mlgrd-icon.png"), type: "image/png", sizes: "512x512" },
     ],
-    apple: [{ url: asset("/apple-icon.png"), type: "image/png", sizes: "512x512" }],
-    shortcut: asset("/favicon.ico"),
+    apple: [{ url: asset("/mlgrd-apple-icon.png"), type: "image/png", sizes: "512x512" }],
+    shortcut: asset("/mlgrd-favicon.ico"),
   },
   openGraph: {
     type: "website",
