@@ -26,6 +26,8 @@
  *   GET    /api/messages              (auth) list inbox
  *   POST   /api/messages              public submit (helpdesk/contact form)
  *   PUT|DELETE /api/messages/:id      (auth)
+ *   GET    /api/updates               public "What's New" changelog
+ *   POST|PUT|DELETE /api/updates[/:id] (auth)
  */
 
 interface Env {
@@ -231,6 +233,17 @@ function rowToDirectory(r: Record<string, unknown>) {
     officials = [];
   }
   return { ...r, officials };
+}
+
+// Map a D1 portal-update row (sections stored as a JSON string) to the API shape.
+function rowToUpdate(r: Record<string, unknown>) {
+  let sections: unknown = [];
+  try {
+    sections = r.sections ? JSON.parse(String(r.sections)) : [];
+  } catch {
+    sections = [];
+  }
+  return { ...r, sections };
 }
 
 // ── entry point ──────────────────────────────────────────────────────────────
@@ -535,6 +548,62 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
       }
       if (method === "DELETE" && id) {
         await env.DB.prepare("DELETE FROM directory WHERE id = ?").bind(id).run();
+        return json(null, 204);
+      }
+    }
+
+    // ── updates ("What's New" portal changelog) ─────────────────────────────
+    // GET is public (like published posts); writes require auth.
+    if (resource === "updates") {
+      if (method === "GET" && !id) {
+        const { results } = await env.DB.prepare(
+          'SELECT * FROM updates ORDER BY "order" ASC',
+        ).all<Record<string, unknown>>();
+        return json(results.map(rowToUpdate));
+      }
+      if (method === "POST") {
+        const guard = requireAuth();
+        if (guard) return guard;
+        const b = await readBody<Record<string, unknown>>(request);
+        const now = new Date().toISOString();
+        const newId = `update-${crypto.randomUUID().slice(0, 8)}`;
+        await env.DB.prepare(
+          `INSERT INTO updates (id,version,date,title,summary,icon,sections,"order",createdAt)
+           VALUES (?,?,?,?,?,?,?,?,?)`,
+        )
+          .bind(
+            newId,
+            asString(b.version, 40),
+            asString(b.date, 60),
+            asString(b.title, 200),
+            asString(b.summary, 1000),
+            asString(b.icon, 60),
+            JSON.stringify(Array.isArray(b.sections) ? b.sections : []),
+            typeof b.order === "number" ? b.order : 0,
+            now,
+          )
+          .run();
+        const row = await env.DB.prepare("SELECT * FROM updates WHERE id = ?").bind(newId).first<Record<string, unknown>>();
+        return json(rowToUpdate(row!), 201);
+      }
+      if (method === "PUT" && id) {
+        const guard = requireAuth();
+        if (guard) return guard;
+        const b = await readBody<Record<string, unknown>>(request);
+        if ("sections" in b) b.sections = JSON.stringify(b.sections);
+        const fields = ["version", "date", "title", "summary", "icon", "sections", "order"];
+        const sets = fields.filter((f) => f in b);
+        if (sets.length) {
+          const sql = `UPDATE updates SET ${sets.map((f) => `"${f}" = ?`).join(", ")} WHERE id = ?`;
+          await env.DB.prepare(sql).bind(...sets.map((f) => b[f]), id).run();
+        }
+        const row = await env.DB.prepare("SELECT * FROM updates WHERE id = ?").bind(id).first<Record<string, unknown>>();
+        return row ? json(rowToUpdate(row)) : err("Update not found.", 404);
+      }
+      if (method === "DELETE" && id) {
+        const guard = requireAuth();
+        if (guard) return guard;
+        await env.DB.prepare("DELETE FROM updates WHERE id = ?").bind(id).run();
         return json(null, 204);
       }
     }

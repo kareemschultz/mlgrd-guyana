@@ -1,104 +1,35 @@
-import { Building2, Megaphone, ShieldCheck, type LucideIcon } from "lucide-react";
+/**
+ * Presentation helpers for the public "What's New / Portal Updates" feature.
+ *
+ * The update CONTENT now lives in the data layer (admin-managed): the canonical
+ * seed is `seedUpdates` in `@/lib/data/seed-updates`, overlaid at runtime by
+ * `data.updates.list()`. The types are owned by `@/lib/data/types`.
+ *
+ * This module keeps only the view concerns: tone labels/classes and an
+ * icon-NAME → lucide component resolver (icons can't be stored in a database, so
+ * `PortalUpdate.icon` is a string like "ShieldCheck").
+ */
+import {
+  Building2,
+  Megaphone,
+  ShieldCheck,
+  Sparkles,
+  Wrench,
+  Bell,
+  Rocket,
+  Newspaper,
+  type LucideIcon,
+} from "lucide-react";
 
-export type PortalUpdateTone = "new" | "improved" | "notice" | "fixed";
+import { seedUpdates } from "@/lib/data/seed-updates";
+import type {
+  PortalUpdate,
+  PortalUpdateSection,
+  PortalUpdateTone,
+} from "@/lib/data/types";
 
-export type PortalUpdateSection = {
-  type: PortalUpdateTone;
-  title: string;
-  items: string[];
-};
-
-export type PortalUpdate = {
-  version: string;
-  date: string;
-  title: string;
-  summary: string;
-  icon: LucideIcon;
-  sections: PortalUpdateSection[];
-};
-
-export const portalUpdates: PortalUpdate[] = [
-  {
-    version: "2026.2",
-    date: "June 2026",
-    title: "Citizen service portal readiness",
-    summary:
-      "An update focused on safer online forms, clearer service pages, and a more reliable experience for citizens.",
-    icon: ShieldCheck,
-    sections: [
-      {
-        type: "improved",
-        title: "Public service journey",
-        items: [
-          "Service pages now place clearer next steps beside eligibility, requirements, and contact options.",
-          "Homepage movement remains polished while keeping information easy to see on slow devices and for people who prefer less motion.",
-          "Main buttons now make it easier to find a council, report a local problem, or contact the Ministry.",
-        ],
-      },
-      {
-        type: "fixed",
-        title: "Reliability and ease of use",
-        items: [
-          "Public forms now surface delivery errors instead of showing a misleading success state.",
-          "Field help and validation messages are linked to inputs for assistive technology.",
-          "Number counters now show useful values for search engines and assistive technology.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "2026.1",
-    date: "May 2026",
-    title: "Local authority directories expanded",
-    summary:
-      "Council directories and staff publishing tools were improved for citizens and Ministry teams.",
-    icon: Building2,
-    sections: [
-      {
-        type: "new",
-        title: "Directory coverage",
-        items: [
-          "Neighbourhood Democratic Councils, Regional Democratic Councils, and Municipalities are grouped into clearer directory journeys.",
-          "Council detail pages provide regional context and easier navigation back to related authorities.",
-        ],
-      },
-      {
-        type: "improved",
-        title: "Staff publishing workflow",
-        items: [
-          "The staff dashboard now highlights published posts, gallery items, minister profiles, and citizen messages.",
-          "Recent activity helps staff see what changed without digging through every management table.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "2026.0",
-    date: "April 2026",
-    title: "Digital services foundation",
-    summary:
-      "The first public portal structure for Ministry information, service guidance, notices, and citizen support.",
-    icon: Megaphone,
-    sections: [
-      {
-        type: "new",
-        title: "Public portal launch",
-        items: [
-          "Core Ministry pages, service guidance, laws and policies, news, vacancies, and helpdesk routes were established.",
-          "Public gallery and Minister's Desk sections give citizens a more human view of Ministry work.",
-        ],
-      },
-      {
-        type: "notice",
-        title: "Transparency foundations",
-        items: [
-          "The portal includes privacy, accessibility, FAQ, and official-contact pages to support public trust.",
-          "Robots and sitemap routes are generated for better search visibility and indexing hygiene.",
-        ],
-      },
-    ],
-  },
-];
+// Re-export the canonical types so existing importers keep working.
+export type { PortalUpdate, PortalUpdateSection, PortalUpdateTone };
 
 export const updateToneLabels: Record<PortalUpdateTone, string> = {
   new: "New",
@@ -114,4 +45,30 @@ export const updateToneClasses: Record<PortalUpdateTone, string> = {
   fixed: "bg-flag-red/10 text-flag-red border-flag-red/20",
 };
 
-export const latestPortalUpdate = portalUpdates[0];
+/**
+ * Map a stored lucide icon NAME (e.g. "ShieldCheck") to its component. Falls
+ * back to a sensible default so an unknown/empty name never breaks rendering.
+ */
+const UPDATE_ICONS: Record<string, LucideIcon> = {
+  ShieldCheck,
+  Building2,
+  Megaphone,
+  Sparkles,
+  Wrench,
+  Bell,
+  Rocket,
+  Newspaper,
+};
+
+export function updateIcon(name: string): LucideIcon {
+  return UPDATE_ICONS[name] ?? Megaphone;
+}
+
+/** The lucide icon names the admin can pick from (keys of UPDATE_ICONS). */
+export const updateIconNames = Object.keys(UPDATE_ICONS);
+
+/**
+ * The most recent update, derived from the seed. Kept for any consumer that
+ * needs a static fallback; live pages overlay `data.updates.list()`.
+ */
+export const latestPortalUpdate: PortalUpdate | undefined = seedUpdates[0];

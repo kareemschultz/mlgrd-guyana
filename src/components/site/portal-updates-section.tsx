@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Megaphone } from "lucide-react";
 
@@ -7,7 +8,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { portalUpdates, updateToneClasses, updateToneLabels, type PortalUpdate } from "@/data/portal-updates";
+import { updateIcon, updateToneClasses, updateToneLabels, type PortalUpdate } from "@/data/portal-updates";
+import { data } from "@/lib/data/client";
+import { seedUpdates } from "@/lib/data/seed-updates";
 import { cn } from "@/lib/utils";
 
 type PortalUpdatesSectionProps = {
@@ -17,8 +20,8 @@ type PortalUpdatesSectionProps = {
   className?: string;
 };
 
-function UpdateEntry({ update, index, compact = false }: { update: PortalUpdate; index: number; compact?: boolean }) {
-  const Icon = update.icon;
+function UpdateEntry({ update, index, total, compact = false }: { update: PortalUpdate; index: number; total: number; compact?: boolean }) {
+  const Icon = updateIcon(update.icon);
 
   return (
     <article id={`update-${update.version}`} className="relative flex scroll-mt-24 justify-end gap-2">
@@ -35,7 +38,7 @@ function UpdateEntry({ update, index, compact = false }: { update: PortalUpdate;
             <span className="size-3 rounded-full bg-brand" />
           </span>
         </div>
-        <span className={cn("-mt-3 w-px flex-1 border-l", index === portalUpdates.length - 1 && "border-transparent")} />
+        <span className={cn("-mt-3 w-px flex-1 border-l", index === total - 1 && "border-transparent")} />
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-4 pb-10 pl-3 md:pl-6 lg:pl-9">
@@ -86,7 +89,24 @@ function UpdateEntry({ update, index, compact = false }: { update: PortalUpdate;
 }
 
 export function PortalUpdatesSection({ compact = false, standalone = false, limit, className }: PortalUpdatesSectionProps) {
-  const updates = typeof limit === "number" ? portalUpdates.slice(0, limit) : portalUpdates;
+  const [all, setAll] = useState<PortalUpdate[]>(() => seedUpdates);
+
+  useEffect(() => {
+    let alive = true;
+    data.updates
+      .list()
+      .then((live) => {
+        if (alive && Array.isArray(live) && live.length) setAll(live);
+      })
+      .catch(() => {
+        /* keep seed fallback */
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const updates = typeof limit === "number" ? all.slice(0, limit) : all;
   const headingId = compact ? "portal-updates-compact-heading" : "portal-updates-heading";
 
   return (
@@ -126,7 +146,7 @@ export function PortalUpdatesSection({ compact = false, standalone = false, limi
 
         <div className={cn("mx-auto", compact ? "max-w-none" : "max-w-4xl")}>
           {updates.map((update, index) => (
-            <UpdateEntry key={update.version} update={update} index={index} compact={compact} />
+            <UpdateEntry key={update.id} update={update} index={index} total={updates.length} compact={compact} />
           ))}
         </div>
       </div>

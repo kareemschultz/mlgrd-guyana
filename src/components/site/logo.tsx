@@ -2,16 +2,16 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { asset } from "@/lib/site";
 
-/** The ministry emblem image. */
+/** The full official ministry emblem (crest with lettering + Guyana map). */
 export function LogoMark({ className }: { className?: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={asset("/logo.png")}
+      src={asset("/emblem.png")}
       alt="Ministry of Local Government & Regional Development emblem"
       className={cn("object-contain", className)}
       width={48}
-      height={48}
+      height={71}
     />
   );
 }
