@@ -1,0 +1,101 @@
+[
+ {
+  "id": "staff-02",
+  "name": "Anand Persaud",
+  "title": "Minister within the Ministry",
+  "department": "Executive",
+  "email": "minister.persaud@mlgrd.gov.gy",
+  "phone": "+592-225-6089",
+  "bio_short": "Supporting ministerial functions with focus on regional outreach and community engagement.",
+  "bio_long": "Minister Anand Persaud brings extensive experience in local governance and community development. He oversees special projects, regional coordination, and serves as the ministry's liaison with regional democratic councils. His work focuses on ensuring equitable development across all ten administrative regions.",
+  "photo": "/assets/img/staff/minister-within.jpg"
+ },
+ {
+  "id": "staff-03",
+  "name": "Prema Roopnarine",
+  "title": "Permanent Secretary",
+  "department": "Administration",
+  "email": "ps@mlgrd.gov.gy",
+  "phone": "+592-225-6090",
+  "bio_short": "Chief administrative officer ensuring efficient ministry operations and policy implementation.",
+  "bio_long": "Ms. Prema Roopnarine has over 25 years of experience in public service. As Permanent Secretary, she manages the day-to-day operations of the ministry, coordinates between departments, and ensures effective implementation of government policies. She holds a Master's degree in Public Administration and is committed to modernizing local government systems.",
+  "photo": "/assets/img/staff/ps.jpg"
+ },
+ {
+  "id": "staff-04",
+  "name": "Colin Cheong",
+  "title": "Deputy Permanent Secretary",
+  "department": "Administration",
+  "email": "dps@mlgrd.gov.gy",
+  "phone": "+592-225-6091",
+  "bio_short": "Supporting administrative leadership and coordinating technical departments.",
+  "bio_long": "Mr. Colin Cheong assists in managing ministry operations with particular focus on technical coordination and project management. He oversees the implementation of development projects and ensures alignment with national development strategies.",
+  "photo": "/assets/img/staff/dps.jpg"
+ },
+ {
+  "id": "staff-05",
+  "name": "Sharon Douglas",
+  "title": "Director of Regional Development",
+  "department": "Regional Development",
+  "email": "regional.director@mlgrd.gov.gy",
+  "phone": "+592-225-6092",
+  "bio_short": "Leading regional development initiatives and inter-regional coordination.",
+  "bio_long": "Ms. Sharon Douglas coordinates development programs across all administrative regions. With expertise in rural development and infrastructure planning, she ensures that regional needs are addressed through targeted interventions and sustainable development practices.",
+  "photo": "/assets/img/staff/regional-director.jpg"
+ },
+ {
+  "id": "staff-06",
+  "name": "Mark Thompson",
+  "title": "Chief Planning Officer",
+  "department": "Planning",
+  "email": "planning@mlgrd.gov.gy",
+  "phone": "+592-225-6093",
+  "bio_short": "Overseeing strategic planning and policy development for local government.",
+  "bio_long": "Mr. Mark Thompson leads the ministry's planning department, developing strategic frameworks for local government strengthening and regional development. He has been instrumental in designing the National Local Government Reform Strategy.",
+  "photo": "/assets/img/staff/planning-officer.jpg"
+ },
+ {
+  "id": "staff-07",
+  "name": "Patricia Chen",
+  "title": "Director of Community Development",
+  "department": "Community Development",
+  "email": "community@mlgrd.gov.gy",
+  "phone": "+592-225-6094",
+  "bio_short": "Championing community-driven development and grassroots empowerment.",
+  "bio_long": "Ms. Patricia Chen manages community development programs that empower local communities to participate in their own development. She oversees self-help initiatives, community infrastructure projects, and capacity building programs for community leaders.",
+  "photo": "/assets/img/staff/community-director.jpg"
+ },
+ {
+  "id": "staff-08",
+  "name": "David Williams",
+  "title": "Legal Officer",
+  "department": "Legal Affairs",
+  "email": "legal@mlgrd.gov.gy",
+  "phone": "+592-225-6095",
+  "bio_short": "Providing legal guidance on local government legislation and regulations.",
+  "bio_long": "Mr. David Williams ensures legal compliance and provides advisory services on all matters related to local government law. He has been instrumental in drafting amendments to strengthen the legal framework for local democracy.",
+  "photo": "/assets/img/staff/legal-officer.jpg"
+ },
+ {
+  "id": "staff-09",
+  "name": "Jennifer Adams",
+  "title": "Chief Finance Officer",
+  "department": "Finance",
+  "email": "finance@mlgrd.gov.gy",
+  "phone": "+592-225-6096",
+  "bio_short": "Managing financial resources and ensuring fiscal responsibility.",
+  "bio_long": "Ms. Jennifer Adams oversees the ministry's budget, financial planning, and resource allocation. She ensures transparent and efficient use of public funds in all ministry programs and projects.",
+  "photo": "/assets/img/staff/finance-officer.jpg"
+ },
+ {
+  "id": "staff-10",
+  "name": "Michael Lam",
+  "title": "Public Relations Officer",
+  "department": "Communications",
+  "email": "pro@mlgrd.gov.gy",
+  "phone": "+592-225-6097",
+  "bio_short": "Managing public communications and stakeholder engagement.",
+  "bio_long": "Mr. Michael Lam leads the ministry's communication strategy, ensuring effective information dissemination to the public and maintaining strong relationships with media and stakeholders. He coordinates press releases, public events, and digital communications.",
+  "photo": "/assets/img/staff/pro.jpg"
+ }
+]

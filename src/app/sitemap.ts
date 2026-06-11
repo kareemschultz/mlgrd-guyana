@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import ndcs from "@/data/ndcs.json";
 import services from "@/data/services.json";
 import laws from "@/data/laws.json";
+import { datasets } from "@/lib/data/datasets";
 
 export const dynamic = "force-static";
 
@@ -41,6 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticRoutes.map((r) => entry(r, r === "" ? 1 : 0.8)),
     ...services.map((s) => entry(`/services/${s.slug}`, 0.7)),
     ...laws.map((l) => entry(`/laws-policies/${l.slug}`, 0.6)),
+    ...datasets.map((d) => entry(d.route, 0.6)),
     ...ndcs.map((n) => entry(`/ndcs/${n.slug}`, 0.5)),
   ];
 }

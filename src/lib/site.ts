@@ -57,6 +57,31 @@ export const mainNav: NavItem[] = [
         description: "Active CDCs across the regions",
       },
       {
+        label: "Schools",
+        href: "/directories/schools",
+        description: "Nursery, primary & secondary schools by region",
+      },
+      {
+        label: "Health Centres",
+        href: "/directories/health-centres",
+        description: "Hospitals, health centres and posts",
+      },
+      {
+        label: "Police Stations",
+        href: "/directories/police-stations",
+        description: "Guyana Police Force stations by region",
+      },
+      {
+        label: "Amerindian Villages",
+        href: "/directories/amerindian-villages",
+        description: "Titled hinterland villages and their regions",
+      },
+      {
+        label: "Burial Grounds",
+        href: "/directories/burial-grounds",
+        description: "Public burial grounds and controlling authorities",
+      },
+      {
         label: "Book an REO Appointment",
         href: "/contact?intent=appointment",
         description: "Request a meeting with your Regional Executive Officer",
@@ -87,7 +112,20 @@ export const footerNav: { heading: string; links: NavLink[] }[] = [
       { label: "NDCs", href: "/ndcs" },
       { label: "RDCs", href: "/rdcs" },
       { label: "Municipalities", href: "/municipalities" },
-      { label: "Community Development Councils", href: "/cdcs" },
+      { label: "Schools", href: "/directories/schools" },
+      { label: "Health Centres", href: "/directories/health-centres" },
+      { label: "Police Stations", href: "/directories/police-stations" },
+      { label: "Amerindian Villages", href: "/directories/amerindian-villages" },
+    ],
+  },
+  {
+    heading: "Resources",
+    links: [
+      { label: "Tenders", href: "/directories/tenders" },
+      { label: "Resources & Downloads", href: "/directories/resources" },
+      { label: "Development Projects", href: "/directories/developments-2026" },
+      { label: "Burial Grounds", href: "/directories/burial-grounds" },
+      { label: "Ministry Staff", href: "/directories/staff" },
     ],
   },
   {

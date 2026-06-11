@@ -154,6 +154,53 @@ function nowIso(): string {
   return new Date().toISOString();
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Generic datasets (schools, health centres, villages, …) — registry-driven.
+// Each dataset's public seed lives in its own JSON chunk, lazy-imported by key
+// so the (large) reference data never enters the shared bundle.
+// ─────────────────────────────────────────────────────────────────────────────
+
+type DatasetRow = Record<string, unknown> & { id: string };
+
+async function datasetSeed(kind: string): Promise<DatasetRow[]> {
+  const mod = (await import(`../../data/datasets/${kind}.json`)) as {
+    default?: DatasetRow[];
+  };
+  return (mod.default ?? (mod as unknown as DatasetRow[])) ?? [];
+}
+
+function datasetKey(kind: string): string {
+  return `mlgrd:dataset:${kind}`;
+}
+
+async function datasetStore(kind: string): Promise<DatasetRow[]> {
+  if (typeof window === "undefined") return datasetSeed(kind);
+  const raw = window.localStorage.getItem(datasetKey(kind));
+  if (raw !== null) {
+    try {
+      return JSON.parse(raw) as DatasetRow[];
+    } catch {
+      /* fall through to reseed */
+    }
+  }
+  const seed = await datasetSeed(kind);
+  try {
+    window.localStorage.setItem(datasetKey(kind), JSON.stringify(seed));
+  } catch {
+    /* quota — still return the seed */
+  }
+  return seed;
+}
+
+function datasetWrite(kind: string, rows: DatasetRow[]): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(datasetKey(kind), JSON.stringify(rows));
+  } catch {
+    /* ignore quota */
+  }
+}
+
 const demo = {
   // posts -------------------------------------------------------------------
   listPosts: async (): Promise<Post[]> =>
@@ -371,6 +418,35 @@ const demo = {
     );
   },
 
+  // datasets (generic reference data) ---------------------------------------
+  listDatasets: (kind: string): Promise<DatasetRow[]> => datasetStore(kind),
+
+  createDatasetRow: async (
+    kind: string,
+    input: Record<string, unknown>,
+  ): Promise<DatasetRow> => {
+    const rows = await datasetStore(kind);
+    const row: DatasetRow = { ...input, id: uid("ds") };
+    datasetWrite(kind, [row, ...rows]);
+    return row;
+  },
+
+  updateDatasetRow: async (
+    kind: string,
+    id: string,
+    patch: Record<string, unknown>,
+  ): Promise<DatasetRow> => {
+    const rows = await datasetStore(kind);
+    const next = rows.map((r) => (r.id === id ? { ...r, ...patch } : r));
+    datasetWrite(kind, next);
+    return next.find((r) => r.id === id)!;
+  },
+
+  deleteDatasetRow: async (kind: string, id: string): Promise<void> => {
+    const rows = await datasetStore(kind);
+    datasetWrite(kind, rows.filter((r) => r.id !== id));
+  },
+
   // auth --------------------------------------------------------------------
   login: async (username: string, password: string): Promise<AuthResult> => {
     if (username !== demoAdmin.username || password !== demoAdmin.password) {
@@ -478,6 +554,15 @@ const http = {
   deleteAppointment: (id: string) =>
     api<void>(`/appointments/${id}`, { method: "DELETE", auth: true }),
 
+  // datasets: public reads (published reference data); writes are admin-only.
+  listDatasets: (kind: string) => api<DatasetRow[]>(`/datasets/${kind}`),
+  createDatasetRow: (kind: string, input: Record<string, unknown>) =>
+    api<DatasetRow>(`/datasets/${kind}`, { method: "POST", body: JSON.stringify(input), auth: true }),
+  updateDatasetRow: (kind: string, id: string, patch: Record<string, unknown>) =>
+    api<DatasetRow>(`/datasets/${kind}/${id}`, { method: "PUT", body: JSON.stringify(patch), auth: true }),
+  deleteDatasetRow: (kind: string, id: string) =>
+    api<void>(`/datasets/${kind}/${id}`, { method: "DELETE", auth: true }),
+
   login: async (username: string, password: string): Promise<AuthResult> => {
     const auth = await api<AuthResult>("/auth/login", {
       method: "POST",
@@ -536,6 +621,12 @@ export const data = {
     create: backend.createAppointment,
     update: backend.updateAppointment,
     remove: backend.deleteAppointment,
+  },
+  datasets: {
+    list: backend.listDatasets,
+    create: backend.createDatasetRow,
+    update: backend.updateDatasetRow,
+    remove: backend.deleteDatasetRow,
   },
   auth: {
     login: backend.login,

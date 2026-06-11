@@ -1,0 +1,1739 @@
+[
+ {
+  "id": "burial-001",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "ndc_name": "Port Kaituma/Matthew’s Ridge/ Arakaka",
+  "name": "Matthew's Ridge",
+  "location": "Matthew's Ridge",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-002",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "ndc_name": "Port Kaituma/Matthew’s Ridge/ Arakaka",
+  "name": "Port Kaituma",
+  "location": "Port Kaituma",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-003",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Charity/Urasara",
+  "name": "Charity",
+  "location": "Charity",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-004",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Charity/Urasara",
+  "name": "New Road",
+  "location": "New Road",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-005",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Evergreen/Paradise",
+  "name": "Exmouth",
+  "location": "Exmouth",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-006",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Evergreen/Paradise",
+  "name": "Plantation Andrews",
+  "location": "Plantation Andrews",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-007",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Evergreen/Paradise",
+  "name": "Eliza",
+  "location": "Eliza",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-008",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Aberdeen/Zorg-en-Vlygt",
+  "name": "Aberdeen",
+  "location": "Aberdeen",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-009",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Aberdeen/Zorg-en-Vlygt",
+  "name": "Columbia",
+  "location": "Columbia",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-010",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Aberdeen/Zorg-en-Vlygt",
+  "name": "Queenstown Methodist Church",
+  "location": "Queenstown Methodist Church",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-011",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Aberdeen/Zorg-en-Vlygt",
+  "name": "Queenstown St. Bartholomew",
+  "location": "Queenstown St. Bartholomew",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-012",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Annandale/Riverstown",
+  "name": "Colin Methodist Ground",
+  "location": "Colin Methodist Ground",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-013",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Annandale/Riverstown",
+  "name": "Persevarance Estate Ground",
+  "location": "Persevarance Estate Ground",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-014",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Annandale/Riverstown",
+  "name": "Golden Fleece Anglican Ground",
+  "location": "Golden Fleece Anglican Ground",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-015",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Annandale/Riverstown",
+  "name": "Zorg Methodist Ground",
+  "location": "Zorg Methodist Ground",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-016",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Annandale/Riverstown",
+  "name": "Mariah's Lodge Ground",
+  "location": "Mariah's Lodge Ground",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-017",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Annandale/Riverstown",
+  "name": "Walk and Rest Ground",
+  "location": "Walk and Rest Ground",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-018",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Annandale/Riverstown",
+  "name": "Adventure Sand",
+  "location": "Adventure Sand",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-019",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Annandale/Riverstown",
+  "name": "Airy Hall Andican Ground",
+  "location": "Airy Hall Andican Ground",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-020",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Good Hope/Pomona",
+  "name": "Anglican Church Burial Ground",
+  "location": "Anglican Church Burial Ground",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-021",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Moruka/Pheonix Park",
+  "name": "Muncker",
+  "location": "Muncker",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-022",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Moruka/Pheonix Park",
+  "name": "Hackney",
+  "location": "Hackney",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-023",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Moruka/Pheonix Park",
+  "name": "St. Johns",
+  "location": "St. Johns",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-024",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Moruka/Pheonix Park",
+  "name": "Liberty",
+  "location": "Liberty",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-025",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Kitty/Providence",
+  "name": "Lily Dale",
+  "location": "Lily Dale",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-026",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "ndc_name": "Nile/Cozier",
+  "name": "Marlborough",
+  "location": "Marlborough",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-027",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Wakenaam",
+  "name": "San Souci",
+  "location": "San Souci",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-028",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Wakenaam",
+  "name": "Mariah's Pleasure",
+  "location": "Mariah's Pleasure",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-029",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Wakenaam",
+  "name": "Zeelandia",
+  "location": "Zeelandia",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-030",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Wakenaam",
+  "name": "Fredricksburg",
+  "location": "Fredricksburg",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-031",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Leguan",
+  "name": "St. Peters",
+  "location": "St. Peters",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-032",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Leguan",
+  "name": "Success",
+  "location": "Success",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-033",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Leguan",
+  "name": "Waterloo",
+  "location": "Waterloo",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-034",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Mora/Parika",
+  "name": "Pearl",
+  "location": "Pearl",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-035",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Mora/Parika",
+  "name": "School",
+  "location": "School",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-036",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Mora/Parika",
+  "name": "Grove",
+  "location": "Grove",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-037",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Hydronie/Good Hope",
+  "name": "Good Hope",
+  "location": "Good Hope",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-038",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Hydronie/Good Hope",
+  "name": "Anglican",
+  "location": "Anglican",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-039",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Greenwich Park/ Vergenoegen",
+  "name": "Vergenoegen",
+  "location": "Vergenoegen",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-040",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Tuschen/Uitvlugt",
+  "name": "Utivlugt",
+  "location": "Utivlugt",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-041",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Tuschen/Uitvlugt",
+  "name": "Zeeburg",
+  "location": "Zeeburg",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-042",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Tuschen/Uitvlugt",
+  "name": "West Meten - Meer- Zorg",
+  "location": "West Meten - Meer- Zorg",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-043",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Tuschen/Uitvlugt",
+  "name": "Zeelugt",
+  "location": "Zeelugt",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-044",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Stewartville/Cornelia Ida",
+  "name": "Stewartville",
+  "location": "Stewartville",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-045",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Stewartville/Cornelia Ida",
+  "name": "Anna Catherina",
+  "location": "Anna Catherina",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-046",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Stewartville/Cornelia Ida",
+  "name": "Leonora Masjid",
+  "location": "Leonora Masjid",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-047",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Stewartville/Cornelia Ida",
+  "name": "Anna Catherina Masjid",
+  "location": "Anna Catherina Masjid",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-048",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Stewartville/Cornelia Ida",
+  "name": "Catherina Church",
+  "location": "Catherina Church",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-049",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Hague/Blankenburg",
+  "name": "Ebnezer Church",
+  "location": "Ebnezer Church",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-050",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Hague/Blankenburg",
+  "name": "St. Judes Anglican Church",
+  "location": "St. Judes Anglican Church",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-051",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Hague/Blankenburg",
+  "name": "Hague Back",
+  "location": "Hague Back",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-052",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Hague/Blankenburg",
+  "name": "Hague Front",
+  "location": "Hague Front",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-053",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Hague/Blankenburg",
+  "name": "Den Amstel",
+  "location": "Den Amstel",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-054",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "La Jalousie/Nouvelle Flanders",
+  "name": "Windsor Forest",
+  "location": "Windsor Forest",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-055",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "La Jalousie/Nouvelle Flanders",
+  "name": "La Jalousie",
+  "location": "La Jalousie",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-056",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Best Klien/ Pouderoyen",
+  "name": "Crane Old Road",
+  "location": "Crane Old Road",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-057",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Best Klien/ Pouderoyen",
+  "name": "Best",
+  "location": "Best",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-058",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Malgre Tout/Meer Zorgen",
+  "name": "Malgre Tout",
+  "location": "Malgre Tout",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-059",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "La Grange/Nimes",
+  "name": "La Grange",
+  "location": "La Grange",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-060",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "CanalsPolder",
+  "name": "Two Brothers",
+  "location": "Two Brothers",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-061",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "CanalsPolder",
+  "name": "Ostend",
+  "location": "Ostend",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-062",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "CanalsPolder",
+  "name": "New Annlegt",
+  "location": "New Annlegt",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-063",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Toevlugt/Patentia",
+  "name": "Good Intent",
+  "location": "Good Intent",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-064",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "ndc_name": "Toevlugt/Patentia",
+  "name": "Patentia",
+  "location": "Patentia",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-065",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Lamaha / Yarowkabra",
+  "name": "Lamaha Yarowkabra",
+  "location": "Lamaha Yarowkabra",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-066",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Hauraruni / Yarowkabra",
+  "name": "Nil",
+  "location": "Nil",
+  "control_type": "Nil"
+ },
+ {
+  "id": "burial-067",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Soesdyke/ Te Huis Te Coverden",
+  "name": "Nil",
+  "location": "Nil",
+  "control_type": "Nil"
+ },
+ {
+  "id": "burial-068",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Caledonia/Good Success",
+  "name": "Craig",
+  "location": "Craig",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-069",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Little Diamond/Herstelling",
+  "name": "Little Diamond",
+  "location": "Little Diamond",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-070",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Golden Grove/Diamond Place",
+  "name": "Grove Diamond",
+  "location": "Grove Diamond",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-071",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Mocha/Arcadia",
+  "name": "Mocha Burial Ground",
+  "location": "Mocha Burial Ground",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-072",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Mocha/Arcadia",
+  "name": "Arcadia Burial Ground",
+  "location": "Arcadia Burial Ground",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-073",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Mocha/Arcadia",
+  "name": "Prosperity Burial Ground",
+  "location": "Prosperity Burial Ground",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-074",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Ramsburg/Eccles",
+  "name": "Eccles",
+  "location": "Eccles",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-075",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Ramsburg/Eccles",
+  "name": "Providence",
+  "location": "Providence",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-076",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Industry/Plaisance",
+  "name": "Ogle",
+  "location": "Ogle",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-077",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Industry/Plaisance",
+  "name": "Goedverwagting",
+  "location": "Goedverwagting",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-078",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Better Hope/LBI",
+  "name": "LBI",
+  "location": "LBI",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-079",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Beterverwagting/Triumph",
+  "name": "Triumph",
+  "location": "Triumph",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-080",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Beterverwagting/Triumph",
+  "name": "Beterverwagting",
+  "location": "Beterverwagting",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-081",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Mon Repos/ La Reconnaissance",
+  "name": "Good Hope",
+  "location": "Good Hope",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-082",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Buxton/Foulis",
+  "name": "Buxton",
+  "location": "Buxton",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-083",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Buxton/Foulis",
+  "name": "Friendhip",
+  "location": "Friendhip",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-084",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Buxton/Foulis",
+  "name": "Batchelors Adventure",
+  "location": "Batchelors Adventure",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-085",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Buxton/Foulis",
+  "name": "Enterprise",
+  "location": "Enterprise",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-086",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Enmore/Hope",
+  "name": "Logwood",
+  "location": "Logwood",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-087",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Enmore/Hope",
+  "name": "Church Road",
+  "location": "Church Road",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-088",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Haslington/Grove",
+  "name": "Golden Grove",
+  "location": "Golden Grove",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-089",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Haslington/Grove",
+  "name": "Nabacalis",
+  "location": "Nabacalis",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-090",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Haslington/Grove",
+  "name": "Victoria",
+  "location": "Victoria",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-091",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Haslington/Grove",
+  "name": "Lowlands",
+  "location": "Lowlands",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-092",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Haslington/Grove",
+  "name": "Anns Grove Two Friends",
+  "location": "Anns Grove Two Friends",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-093",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Haslington/Grove",
+  "name": "Dutch Fort",
+  "location": "Dutch Fort",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-094",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Haslington/Grove",
+  "name": "Clonbrook",
+  "location": "Clonbrook",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-095",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Unity/Vereeniging",
+  "name": "Vereeniging",
+  "location": "Vereeniging",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-096",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Unity/Vereeniging",
+  "name": "Helena",
+  "location": "Helena",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-097",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Cane Grove",
+  "name": "Uplands",
+  "location": "Uplands",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-098",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "ndc_name": "Buxton / Foulis",
+  "name": "Anglican Church",
+  "location": "Anglican Church",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-099",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Woodlands/Farm",
+  "name": "Zeskenderen",
+  "location": "Zeskenderen",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-100",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "James - Perth",
+  "location": "James - Perth",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-101",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Morrison - Fortitude",
+  "location": "Morrison - Fortitude",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-102",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Reece - Spooner",
+  "location": "Reece - Spooner",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-103",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Chull - Spooner",
+  "location": "Chull - Spooner",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-104",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Charles - Spooner",
+  "location": "Charles - Spooner",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-105",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Gibbons - Strath Campbell",
+  "location": "Gibbons - Strath Campbell",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-106",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Alves - Supply",
+  "location": "Alves - Supply",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-107",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Jacob James - N0. 10",
+  "location": "Jacob James - N0. 10",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-108",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Sat Swah - Felicity",
+  "location": "Sat Swah - Felicity",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-109",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Richmond - Strath Campbell",
+  "location": "Richmond - Strath Campbell",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-110",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "D'Aguiar - Strath Campbell",
+  "location": "D'Aguiar - Strath Campbell",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-111",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Morrison - Strath Campbell",
+  "location": "Morrison - Strath Campbell",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-112",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Bacchus - Strath Campbell",
+  "location": "Bacchus - Strath Campbell",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-113",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Chow - WW Mahaicony",
+  "location": "Chow - WW Mahaicony",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-114",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Hamlet/Chance",
+  "name": "Burnett - Fortitude Sideline Dam",
+  "location": "Burnett - Fortitude Sideline Dam",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-115",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Mahaicony/Abary",
+  "name": "Nil",
+  "location": "Nil",
+  "control_type": "Nil"
+ },
+ {
+  "id": "burial-116",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Profit/Rising Sun",
+  "name": "St. Albion Anglican Church",
+  "location": "St. Albion Anglican Church",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-117",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Profit/Rising Sun",
+  "name": "Golden Fleece",
+  "location": "Golden Fleece",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-118",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Profit/Rising Sun",
+  "name": "Welldaad",
+  "location": "Welldaad",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-119",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "Seafield",
+  "location": "Seafield",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-120",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "No 41",
+  "location": "No 41",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-121",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "Lichfield School Compound",
+  "location": "Lichfield School Compound",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-122",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "Lichfield Backdam",
+  "location": "Lichfield Backdam",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-123",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "Pheonix",
+  "location": "Pheonix",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-124",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "Jacoba",
+  "location": "Jacoba",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-125",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "Kingelly",
+  "location": "Kingelly",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-126",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "Brahn",
+  "location": "Brahn",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-127",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "Ross",
+  "location": "Ross",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-128",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "Chester",
+  "location": "Chester",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-129",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "Britannia",
+  "location": "Britannia",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-130",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Seafield/Tempie",
+  "name": "Tempie",
+  "location": "Tempie",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-131",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Union/Naarstigheid",
+  "name": "Hopetown",
+  "location": "Hopetown",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-132",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Union/Naarstigheid",
+  "name": "Bush lot",
+  "location": "Bush lot",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-133",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Union/Naarstigheid",
+  "name": "Golden Grove",
+  "location": "Golden Grove",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-134",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Union/Naarstigheid",
+  "name": "Trafalgar",
+  "location": "Trafalgar",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-135",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Bath/WoodleyPark",
+  "name": "Bath",
+  "location": "Bath",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-136",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Bath/WoodleyPark",
+  "name": "Woodley Park",
+  "location": "Woodley Park",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-137",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Bath/WoodleyPark",
+  "name": "No. 12",
+  "location": "No. 12",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-138",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Woodlands/Bel Air",
+  "name": "Bel Air BG",
+  "location": "Bel Air BG",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-139",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Woodlands/Bel Air",
+  "name": "Willemstaad",
+  "location": "Willemstaad",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-140",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Woodlands/Bel Air",
+  "name": "Inverness",
+  "location": "Inverness",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-141",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Woodlands/Bel Air",
+  "name": "Expectation",
+  "location": "Expectation",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-142",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Woodlands/Bel Air",
+  "name": "Woodlands and Friends Retreat",
+  "location": "Woodlands and Friends Retreat",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-143",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Blairmont/Gelderland",
+  "name": "Blairmont",
+  "location": "Blairmont",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-144",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Blairmont/Gelderland",
+  "name": "Zorg - En - Hoop",
+  "location": "Zorg - En - Hoop",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-145",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Blairmont/Gelderland",
+  "name": "Dutch Quarter",
+  "location": "Dutch Quarter",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-146",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "ndc_name": "Blairmont/Gelderland",
+  "name": "Ithaca",
+  "location": "Ithaca",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-147",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Enfield/New Doe Park",
+  "name": "Sisters",
+  "location": "Sisters",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-148",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Enfield/New Doe Park",
+  "name": "Friends",
+  "location": "Friends",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-149",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Plegt-Anker/kortberaadt",
+  "name": "Kortberaadt",
+  "location": "Kortberaadt",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-150",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Plegt-Anker/kortberaadt",
+  "name": "Deutichem",
+  "location": "Deutichem",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-151",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Plegt-Anker/kortberaadt",
+  "name": "High Bury",
+  "location": "High Bury",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-152",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Wyburg/Caracus",
+  "name": "Sandvoort",
+  "location": "Sandvoort",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-153",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Ordance/Fortlands",
+  "name": "Cumberland",
+  "location": "Cumberland",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-154",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Canefiled Enterpise",
+  "name": "Reliance",
+  "location": "Reliance",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-155",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Canefiled Enterpise",
+  "name": "Reliance",
+  "location": "Reliance",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-156",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Canefiled Enterpise",
+  "name": "St.Patrick",
+  "location": "St.Patrick",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-157",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Fyrish/Gilbraltar",
+  "name": "Fyrish North",
+  "location": "Fyrish North",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-158",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Fyrish/Gilbraltar",
+  "name": "No.1 North",
+  "location": "No.1 North",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-159",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Fyrish/Gilbraltar",
+  "name": "Fyrish South",
+  "location": "Fyrish South",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-160",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Fyrish/Gilbraltar",
+  "name": "Gibraltar",
+  "location": "Gibraltar",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-161",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Port Mourant/John's",
+  "name": "Port Mourant",
+  "location": "Port Mourant",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-162",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Black Bush Polder",
+  "name": "Black Bush",
+  "location": "Black Bush",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-163",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Adventure / Bushlot",
+  "name": "Bush Lot Village",
+  "location": "Bush Lot Village",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-164",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Adventure / Bushlot",
+  "name": "Friendship",
+  "location": "Friendship",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-165",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Adventure / Bushlot",
+  "name": "Kildonan",
+  "location": "Kildonan",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-166",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Whim/Bloomfield",
+  "name": "Letter kenny",
+  "location": "Letter kenny",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-167",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Whim/Bloomfield",
+  "name": "Auchlyne Estate",
+  "location": "Auchlyne Estate",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-168",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Whim/Bloomfield",
+  "name": "Whim",
+  "location": "Whim",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-169",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Crabwood Creek /Moleson Creek",
+  "name": "Raghubar",
+  "location": "Raghubar",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-170",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Kilcoy/Hampshire",
+  "name": "Hampshire North",
+  "location": "Hampshire North",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-171",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Macedoina/Joppa",
+  "name": "Bengal Burial Ground",
+  "location": "Bengal Burial Ground",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-172",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Macedoina/Joppa",
+  "name": "Eversham",
+  "location": "Eversham",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-173",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Macedoina/Joppa",
+  "name": "Lyte's Family Burial Ground",
+  "location": "Lyte's Family Burial Ground",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-174",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Macedoina/Joppa",
+  "name": "Brighton Burial Bround",
+  "location": "Brighton Burial Bround",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-175",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Macedoina/Joppa",
+  "name": "No.36 Burial Ground Behind Service Station",
+  "location": "No.36 Burial Ground Behind Service Station",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-176",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Macedoina/Joppa",
+  "name": "No.36 Burial Ground Behind Primary School",
+  "location": "No.36 Burial Ground Behind Primary School",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-177",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Macedoina/Joppa",
+  "name": "No.35",
+  "location": "No.35",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-178",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Good Hope/No.51",
+  "name": "49 Cemetery",
+  "location": "49 Cemetery",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-179",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Good Hope/No.52",
+  "name": "47 Cemetery",
+  "location": "47 Cemetery",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-180",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Good Hope/No.53",
+  "name": "44 Cemetery",
+  "location": "44 Cemetery",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-181",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Kintyre/Bolram",
+  "name": "No.7",
+  "location": "No.7",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-182",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Kintyre/Bolram",
+  "name": "Susannah",
+  "location": "Susannah",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-183",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Kintyre/Bolram",
+  "name": "No.19",
+  "location": "No.19",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-184",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Kintyre/Bolram",
+  "name": "Warren",
+  "location": "Warren",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-185",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Madia/Targolie",
+  "name": "Phillippi",
+  "location": "Phillippi",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-186",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Madia/Targolie",
+  "name": "Cromarty",
+  "location": "Cromarty",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-187",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Madia/Targolie",
+  "name": "Madia Cemetery",
+  "location": "Madia Cemetery",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-188",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Madia/Targolie",
+  "name": "Tarlogie",
+  "location": "Tarlogie",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-189",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Good Hope / No.51",
+  "name": "No. 44",
+  "location": "No. 44",
+  "control_type": "Private"
+ },
+ {
+  "id": "burial-190",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Good Hope / No.51",
+  "name": "No. 47",
+  "location": "No. 47",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-191",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "ndc_name": "Good Hope / No.51",
+  "name": "No. 49",
+  "location": "No. 49",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-192",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "ndc_name": "Aranaputa / Upper Burro Burro",
+  "name": "Aranaputa",
+  "location": "Aranaputa",
+  "control_type": "NDC Controlled"
+ },
+ {
+  "id": "burial-193",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "ndc_name": "Kwakwani",
+  "name": "Kwakwani",
+  "location": "Kwakwani",
+  "control_type": "NDC Controlled"
+ }
+]

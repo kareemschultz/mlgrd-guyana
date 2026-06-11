@@ -1,0 +1,152 @@
+[
+ {
+  "id": "tend-01",
+  "ref_no": "MLGRD/PROC/2025/001",
+  "title": "Supply of Office Furniture for Regional Offices",
+  "category": "Goods",
+  "issue_date": "2025-11-01",
+  "close_date": "2025-12-01",
+  "status": "Open",
+  "description": "Supply and delivery of office furniture including desks, chairs, filing cabinets, and conference tables for regional offices in Regions 1, 7, 8, and 9.",
+  "documents": [
+   "/assets/docs/tender-001-furniture.pdf"
+  ],
+  "contact": "procurement@mlgrd.gov.gy",
+  "bid_security": "2% of bid value"
+ },
+ {
+  "id": "tend-02",
+  "ref_no": "MLGRD/PROC/2025/002",
+  "title": "Construction of Community Center - Mahaica",
+  "category": "Works",
+  "issue_date": "2025-10-15",
+  "close_date": "2025-11-30",
+  "status": "Open",
+  "description": "Construction of a 5,000 sq ft community center in Mahaica, Region 5, including all civil works, electrical, and plumbing installations.",
+  "documents": [
+   "/assets/docs/tender-002-community-center.pdf"
+  ],
+  "contact": "procurement@mlgrd.gov.gy",
+  "bid_security": "GYD 500,000"
+ },
+ {
+  "id": "tend-03",
+  "ref_no": "MLGRD/PROC/2025/003",
+  "title": "IT Equipment and Software Licenses",
+  "category": "Goods",
+  "issue_date": "2025-11-05",
+  "close_date": "2025-12-05",
+  "status": "Open",
+  "description": "Supply of computers, printers, networking equipment, and Microsoft Office licenses for ministry headquarters and regional offices.",
+  "documents": [
+   "/assets/docs/tender-003-it-equipment.pdf"
+  ],
+  "contact": "procurement@mlgrd.gov.gy",
+  "bid_security": "GYD 200,000"
+ },
+ {
+  "id": "tend-04",
+  "ref_no": "MLGRD/PROC/2025/004",
+  "title": "Consultancy - Regional Development Plans",
+  "category": "Services",
+  "issue_date": "2025-10-20",
+  "close_date": "2025-11-25",
+  "status": "Open",
+  "description": "Consultancy services for preparing comprehensive development plans for Regions 2, 3, and 4, including stakeholder consultations and environmental assessments.",
+  "documents": [
+   "/assets/docs/tender-004-consultancy.pdf"
+  ],
+  "contact": "procurement@mlgrd.gov.gy",
+  "bid_security": "Not required"
+ },
+ {
+  "id": "tend-05",
+  "ref_no": "MLGRD/PROC/2025/005",
+  "title": "Vehicle Maintenance Services",
+  "category": "Services",
+  "issue_date": "2025-11-10",
+  "close_date": "2025-12-10",
+  "status": "Open",
+  "description": "Annual maintenance contract for ministry's vehicle fleet including routine servicing, repairs, and parts supply.",
+  "documents": [
+   "/assets/docs/tender-005-vehicle-maintenance.pdf"
+  ],
+  "contact": "procurement@mlgrd.gov.gy",
+  "bid_security": "GYD 100,000"
+ },
+ {
+  "id": "tend-06",
+  "ref_no": "MLGRD/PROC/2025/006",
+  "title": "Supply of Garbage Collection Trucks",
+  "category": "Goods",
+  "issue_date": "2025-10-25",
+  "close_date": "2025-11-20",
+  "status": "Closed",
+  "description": "Supply of 10 garbage collection trucks (compactor type) for distribution to NDCs in Regions 3, 4, and 6.",
+  "documents": [
+   "/assets/docs/tender-006-garbage-trucks.pdf"
+  ],
+  "contact": "procurement@mlgrd.gov.gy",
+  "bid_security": "5% of bid value"
+ },
+ {
+  "id": "tend-07",
+  "ref_no": "MLGRD/PROC/2025/007",
+  "title": "Road Rehabilitation - Better Hope Access Road",
+  "category": "Works",
+  "issue_date": "2025-11-08",
+  "close_date": "2025-12-08",
+  "status": "Open",
+  "description": "Rehabilitation of 2.5km access road in Better Hope including asphaltic concrete overlay, drainage improvements, and road markings.",
+  "documents": [
+   "/assets/docs/tender-007-road-rehab.pdf"
+  ],
+  "contact": "procurement@mlgrd.gov.gy",
+  "bid_security": "GYD 1,000,000"
+ },
+ {
+  "id": "tend-08",
+  "ref_no": "MLGRD/PROC/2025/008",
+  "title": "Training Services - Financial Management",
+  "category": "Services",
+  "issue_date": "2025-11-12",
+  "close_date": "2025-12-12",
+  "status": "Open",
+  "description": "Provision of financial management training for 200 NDC officers across all regions, including training materials and certification.",
+  "documents": [
+   "/assets/docs/tender-008-training.pdf"
+  ],
+  "contact": "procurement@mlgrd.gov.gy",
+  "bid_security": "Not required"
+ },
+ {
+  "id": "tend-09",
+  "ref_no": "MLGRD/PROC/2024/015",
+  "title": "Security Services for Ministry Buildings",
+  "category": "Services",
+  "issue_date": "2025-09-01",
+  "close_date": "2025-10-01",
+  "status": "Closed",
+  "description": "24-hour security services for ministry headquarters and three regional offices for a period of two years.",
+  "documents": [
+   "/assets/docs/tender-015-security.pdf"
+  ],
+  "contact": "procurement@mlgrd.gov.gy",
+  "bid_security": "GYD 150,000"
+ },
+ {
+  "id": "tend-10",
+  "ref_no": "MLGRD/PROC/2025/010",
+  "title": "Supply of Water Pumps for Flood-Prone Areas",
+  "category": "Goods",
+  "issue_date": "2025-11-11",
+  "close_date": "2025-12-11",
+  "status": "Open",
+  "description": "Emergency procurement of 20 high-capacity water pumps for distribution to flood-prone NDCs in coastal regions.",
+  "documents": [
+   "/assets/docs/tender-010-water-pumps.pdf"
+  ],
+  "contact": "procurement@mlgrd.gov.gy",
+  "bid_security": "GYD 300,000"
+ }
+]

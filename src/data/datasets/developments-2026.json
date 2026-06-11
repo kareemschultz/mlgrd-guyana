@@ -1,0 +1,102 @@
+[
+ {
+  "region": "Region 1",
+  "title": "Community Roads and Access Works",
+  "location": "Mabaruma and surrounding communities",
+  "status": "Planned",
+  "category": "Infrastructure",
+  "summary": "Priority works for access roads, drainage and local public spaces in hinterland communities.",
+  "year": 2026,
+  "id": "dev-001"
+ },
+ {
+  "region": "Region 2",
+  "title": "Market and Sanitation Upgrades",
+  "location": "Anna Regina and neighbouring areas",
+  "status": "In Progress",
+  "category": "Markets & Sanitation",
+  "summary": "Improvement of municipal markets, drainage channels and waste collection points.",
+  "year": 2026,
+  "id": "dev-002"
+ },
+ {
+  "region": "Region 3",
+  "title": "Drainage and Community Enhancement",
+  "location": "West Demerara communities",
+  "status": "In Progress",
+  "category": "Drainage",
+  "summary": "Drainage maintenance, community roads and public infrastructure upgrades.",
+  "year": 2026,
+  "id": "dev-003"
+ },
+ {
+  "region": "Region 4",
+  "title": "Solid Waste and Urban Services Upgrade",
+  "location": "Georgetown and greater coastal communities",
+  "status": "In Progress",
+  "category": "Waste Management",
+  "summary": "Expansion of waste services, transfer points and community clean-up support.",
+  "year": 2026,
+  "id": "dev-004"
+ },
+ {
+  "region": "Region 5",
+  "title": "Neighbourhood Works Programme",
+  "location": "Mahaica-Berbice communities",
+  "status": "Planned",
+  "category": "Community Works",
+  "summary": "Targeted rehabilitation of bridges, roadsides and local drainage networks.",
+  "year": 2026,
+  "id": "dev-005"
+ },
+ {
+  "region": "Region 6",
+  "title": "Municipal Infrastructure Improvements",
+  "location": "New Amsterdam and Region Six NDCs",
+  "status": "In Progress",
+  "category": "Municipal Services",
+  "summary": "Upgrading high-traffic municipal spaces, culverts and community service points.",
+  "year": 2026,
+  "id": "dev-006"
+ },
+ {
+  "region": "Region 7",
+  "title": "Interior Access and Public Facility Works",
+  "location": "Bartica and satellite communities",
+  "status": "Planned",
+  "category": "Public Facilities",
+  "summary": "Works focused on roads, public buildings and service access in riverain communities.",
+  "year": 2026,
+  "id": "dev-007"
+ },
+ {
+  "region": "Region 8",
+  "title": "Hinterland Community Support Projects",
+  "location": "Mahdia district",
+  "status": "Planned",
+  "category": "Community Support",
+  "summary": "Small capital works to strengthen access, sanitation and local administration services.",
+  "year": 2026,
+  "id": "dev-008"
+ },
+ {
+  "region": "Region 9",
+  "title": "Village and NDC Support Works",
+  "location": "Lethem and surrounding communities",
+  "status": "Planned",
+  "category": "Local Services",
+  "summary": "Improvements to community infrastructure, public spaces and local service delivery points.",
+  "year": 2026,
+  "id": "dev-009"
+ },
+ {
+  "region": "Region 10",
+  "title": "Community Renewal and Drainage Works",
+  "location": "Linden and Upper Demerara communities",
+  "status": "In Progress",
+  "category": "Drainage",
+  "summary": "Projects supporting drainage, roads, markets and neighbourhood service access.",
+  "year": 2026,
+  "id": "dev-010"
+ }
+]

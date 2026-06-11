@@ -1,0 +1,2502 @@
+[
+ {
+  "id": "village-001",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Sebai",
+  "designation": "Toshao",
+  "address": "Sebai, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-002",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Baramita",
+  "designation": "Toshao",
+  "address": "Baramita, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-003",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Four Miles",
+  "designation": "Toshao",
+  "address": "Four Miles, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-004",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Matthew's Ridge",
+  "designation": "CDC",
+  "address": "Matthew's Ridge, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-005",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Minab",
+  "designation": "CDC",
+  "address": "Minab, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-006",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Wanakai",
+  "designation": "CDC",
+  "address": "Wanakai, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-007",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Tasawini",
+  "designation": "CDC",
+  "address": "Tasawini, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-008",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Arakaka",
+  "designation": "CDC",
+  "address": "Arakaka, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-009",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Falls Top/Eclipse Falls",
+  "designation": "ADC",
+  "address": "Falls Top/Eclipse Falls, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-010",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "One Mile",
+  "designation": "CDC",
+  "address": "One Mile, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-011",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Oronoque",
+  "designation": "CDC",
+  "address": "Oronoque, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-012",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Annisbisi",
+  "designation": "Senior Councillor",
+  "address": "Annisbisi, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-013",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Canal Bank",
+  "designation": "CDC",
+  "address": "Canal Bank, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-014",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Citrus Grove",
+  "designation": "CDC",
+  "address": "Citrus Grove, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-015",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Fitzburg",
+  "designation": "CDC",
+  "address": "Fitzburg, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-016",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Five Star",
+  "designation": "CDC",
+  "address": "Five Star, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-017",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Eye Lash",
+  "designation": "CDC",
+  "address": "Eye Lash, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-018",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Matarkai",
+  "village": "Big Creek",
+  "designation": "CDC",
+  "address": "Big Creek, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-019",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Manawarin",
+  "designation": "Toshao",
+  "address": "Manawarin, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-020",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Arwansa",
+  "designation": "Senior Councilllor",
+  "address": "Arwansa, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-021",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Waramuri",
+  "designation": "Toshao",
+  "address": "Waramuri, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-022",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Haimacabra",
+  "designation": "Senior Councillor",
+  "address": "Haimacabra, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-023",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "7Mile Branch Road",
+  "designation": "Senior Councillor",
+  "address": "7Mile Branch Road, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-024",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Para",
+  "designation": "Councilllor",
+  "address": "Para, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-025",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Skyland",
+  "designation": "Councilllor",
+  "address": "Skyland, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-026",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Santa Rosa",
+  "designation": "Toshao",
+  "address": "Santa Rosa, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-027",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Mora",
+  "designation": "Senior Councillor",
+  "address": "Mora, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-028",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Parakese Island",
+  "designation": "Senior Councillor",
+  "address": "Parakese Island, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-029",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Santa Rosa  &Islands",
+  "designation": "Senior Councillor",
+  "address": "Santa Rosa  &Islands, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-030",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Huridiah",
+  "designation": "Senior Councillor",
+  "address": "Huridiah, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-031",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Kamwatta(Moruca)",
+  "designation": "Senior Councillor",
+  "address": "Kamwatta(Moruca), Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-032",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Karaburi",
+  "designation": "Senior Councillor",
+  "address": "Karaburi, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-033",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Koko & Island",
+  "designation": "Senior Councillor",
+  "address": "Koko & Island, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-034",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Haimaruni",
+  "designation": "Senior Councillor",
+  "address": "Haimaruni, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-035",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Kumaka",
+  "designation": "Senior Councillor",
+  "address": "Kumaka, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-036",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Rincon",
+  "designation": "Senior Councillor",
+  "address": "Rincon, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-037",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Cabora",
+  "designation": "Senior Councillor",
+  "address": "Cabora, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-038",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Wallaba",
+  "designation": "Senior Councillor",
+  "address": "Wallaba, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-039",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Kairie",
+  "designation": "Councilllor",
+  "address": "Kairie, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-040",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Kwebana",
+  "designation": "Toshao",
+  "address": "Kwebana, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-041",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Assakata",
+  "designation": "Toshao",
+  "address": "Assakata, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-042",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Warapoka",
+  "designation": "Toshao",
+  "address": "Warapoka, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-043",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Santa Cruz",
+  "designation": "Toshao",
+  "address": "Santa Cruz, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-044",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Waikarebi",
+  "designation": "Toshao",
+  "address": "Waikarebi, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-045",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Chinese Landing",
+  "designation": "Toshao",
+  "address": "Chinese Landing, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-046",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Kokerite",
+  "designation": "Toshao",
+  "address": "Kokerite, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-047",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Kariako",
+  "designation": "Toshao",
+  "address": "Kariako, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-048",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Father’s Beach",
+  "designation": "CDC",
+  "address": "Father’s Beach, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-049",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Moruca",
+  "village": "Unity Grant",
+  "designation": "CDC",
+  "address": "Unity Grant, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-050",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Three Brothers",
+  "designation": "Toshao",
+  "address": "Three Brothers, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-051",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Almond Beach",
+  "designation": "CDC",
+  "address": "Almond Beach, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-052",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Imbotero",
+  "designation": "CDC",
+  "address": "Imbotero, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-053",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Morawannah",
+  "designation": "CDC",
+  "address": "Morawannah, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-054",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Smith Creek",
+  "designation": "CDC",
+  "address": "Smith Creek, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-055",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Red Hill",
+  "designation": "Toshao",
+  "address": "Red Hill, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-056",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Barima Koriabo",
+  "designation": "Toshao",
+  "address": "Barima Koriabo, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-057",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Lower Koriabo",
+  "designation": "CDC",
+  "address": "Lower Koriabo, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-058",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Black Water Savannah",
+  "designation": "CDC",
+  "address": "Black Water Savannah, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-059",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Barasina",
+  "designation": "CDC",
+  "address": "Barasina, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-060",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Black Water Barima",
+  "designation": "CDC",
+  "address": "Black Water Barima, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-061",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Unity Square",
+  "designation": "CDC",
+  "address": "Unity Square, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-062",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Kamwatta (Mab)",
+  "designation": "Toshao",
+  "address": "Kamwatta (Mab), Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-063",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "St. Anslym Barima River",
+  "designation": "CDC",
+  "address": "St. Anslym Barima River, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-064",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Aruka Mouth",
+  "designation": "CDC",
+  "address": "Aruka Mouth, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-065",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Waicarabi-Aruka",
+  "designation": "CDC",
+  "address": "Waicarabi-Aruka, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-066",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Hobodeia",
+  "designation": "Toshao",
+  "address": "Hobodeia, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-067",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Hotoquai",
+  "designation": "Toshao",
+  "address": "Hotoquai, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-068",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Aruau",
+  "designation": "CDC",
+  "address": "Aruau, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-069",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Sacred Heart",
+  "designation": "CDC",
+  "address": "Sacred Heart, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-070",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "St. Dominic’s",
+  "designation": "CDC",
+  "address": "St. Dominic’s, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-071",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Kinchee Creek",
+  "designation": "CDC",
+  "address": "Kinchee Creek, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-072",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Arukamai",
+  "designation": "Toshao",
+  "address": "Arukamai, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-073",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Powaikuru",
+  "designation": "CDC",
+  "address": "Powaikuru, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-074",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Lower Kaituma",
+  "designation": "CDC",
+  "address": "Lower Kaituma, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-075",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Yarakita",
+  "designation": "Toshao",
+  "address": "Yarakita, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-076",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "White Water",
+  "designation": "Toshao",
+  "address": "White Water, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-077",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Wauna and Settlement",
+  "designation": "CDC",
+  "address": "Wauna and Settlement, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-078",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Tobago Hill",
+  "designation": "Toshao",
+  "address": "Tobago Hill, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-079",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Wanaina",
+  "designation": "CDC",
+  "address": "Wanaina, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-080",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Bumbury Hill",
+  "designation": "Toshao",
+  "address": "Bumbury Hill, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-081",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Hosororo",
+  "designation": "CDC",
+  "address": "Hosororo, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-082",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Koberimo",
+  "designation": "CDC",
+  "address": "Koberimo, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-083",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Barabina",
+  "designation": "CDC",
+  "address": "Barabina, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-084",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Thomas Hill",
+  "designation": "CDC",
+  "address": "Thomas Hill, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-085",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Khanhill",
+  "designation": "CDC",
+  "address": "Khanhill, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-086",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Mabaruma Settlement",
+  "designation": "CDC",
+  "address": "Mabaruma Settlement, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-087",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Barimanabo",
+  "designation": "CDC",
+  "address": "Barimanabo, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-088",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Hobo Hill",
+  "designation": "CDC",
+  "address": "Hobo Hill, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-089",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Annisbisi (Redhill)",
+  "designation": "CDC",
+  "address": "Annisbisi (Redhill), Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-090",
+  "region": 1,
+  "region_name": "Barima-Waini",
+  "subregion": "Mabaruma",
+  "village": "Wauna",
+  "designation": "CDC",
+  "address": "Wauna, Guyana",
+  "notes": "Reg 1 directory entry."
+ },
+ {
+  "id": "village-091",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "subregion": "Pomeroon/ Supenaam",
+  "village": "Wakapoa",
+  "designation": "Toshao",
+  "address": "Wakapoa, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-092",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "subregion": "Pomeroon/ Supenaam",
+  "village": "Akawini",
+  "designation": "Toshao",
+  "address": "Akawini, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-093",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "subregion": "Pomeroon/ Supenaam",
+  "village": "Kabakaburi",
+  "designation": "Toshao",
+  "address": "Kabakaburi, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-094",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "subregion": "Pomeroon/ Supenaam",
+  "village": "St. Monica",
+  "designation": "Toshao",
+  "address": "St. Monica, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-095",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "subregion": "Pomeroon/ Supenaam",
+  "village": "Karawab",
+  "designation": "Snr Councillor",
+  "address": "Karawab, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-096",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "subregion": "Pomeroon/ Supenaam",
+  "village": "St. Denny’s",
+  "designation": "Toshao",
+  "address": "St. Denny’s, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-097",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "subregion": "Pomeroon/ Supenaam",
+  "village": "Mainstay/Whyaka",
+  "designation": "Toshao",
+  "address": "Mainstay/Whyaka, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-098",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "subregion": "Pomeroon/ Supenaam",
+  "village": "Capoey",
+  "designation": "Toshao",
+  "address": "Capoey, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-099",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "subregion": "Pomeroon/ Supenaam",
+  "village": "Mashabo",
+  "designation": "Toshao",
+  "address": "Mashabo, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-100",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "subregion": "Pomeroon/ Supenaam",
+  "village": "Bethany",
+  "designation": "Toshao",
+  "address": "Bethany, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-101",
+  "region": 2,
+  "region_name": "Pomeroon-Supenaam",
+  "subregion": "Essequibo/Demerara",
+  "village": "Santa Mission/Aratack",
+  "designation": "Toshao",
+  "address": "Santa Mission/Aratack, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-102",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "subregion": "Essequibo/Demerara",
+  "village": "Caria Caria",
+  "designation": "CDC Chair",
+  "address": "Caria Caria, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-103",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "subregion": "Essequibo/Demerara",
+  "village": "Lower Bonasika",
+  "designation": "CDC Chair",
+  "address": "Lower Bonasika, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-104",
+  "region": 3,
+  "region_name": "Essequibo Islands-West Demerara",
+  "subregion": "Essequibo/Demerara",
+  "village": "Saxacalli",
+  "designation": "CDC Chair",
+  "address": "Saxacalli, Guyana",
+  "notes": "Reg 2, 3 directory entry."
+ },
+ {
+  "id": "village-105",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "St. Cuthbert's Mission",
+  "designation": "Toshao",
+  "address": "St. Cuthbert's Mission, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-106",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "Laluni",
+  "designation": "CDC Chair",
+  "address": "Laluni, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-107",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "Kuru Kururu",
+  "designation": "CDC Chair",
+  "address": "Kuru Kururu, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-108",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "Waiakabra",
+  "designation": "CDC Chair",
+  "address": "Waiakabra, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-109",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "Swann",
+  "designation": "CDC Chair",
+  "address": "Swann, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-110",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "Circuitville",
+  "designation": "CDC Chair",
+  "address": "Circuitville, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-111",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "Long Creek/New Town",
+  "designation": "CDC Chair",
+  "address": "Long Creek/New Town, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-112",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "Tiger Bone Banakari",
+  "designation": "CDC Chair",
+  "address": "Tiger Bone Banakari, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-113",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "Kairuni",
+  "designation": "CDC Chair",
+  "address": "Kairuni, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-114",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "Silver Hill",
+  "designation": "CDC Chair",
+  "address": "Silver Hill, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-115",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "Adventure",
+  "designation": "CDC Chair",
+  "address": "Adventure, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-116",
+  "region": 4,
+  "region_name": "Demerara-Mahaica",
+  "subregion": "Region 4",
+  "village": "Loo Creek",
+  "designation": "CDC Chair",
+  "address": "Loo Creek, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-117",
+  "region": 5,
+  "region_name": "Mahaica-Berbice",
+  "subregion": "Mahaicony River",
+  "village": "Moraikobai",
+  "designation": "Toshao",
+  "address": "Moraikobai, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-118",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "subregion": "Corentyne River",
+  "village": "Orealla",
+  "designation": "Toshao",
+  "address": "Orealla, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-119",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "subregion": "Corentyne River",
+  "village": "Siparuta",
+  "designation": "Snr Councillor",
+  "address": "Siparuta, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-120",
+  "region": 6,
+  "region_name": "East Berbice-Corentyne",
+  "subregion": "Corentyne River",
+  "village": "Cashew Island",
+  "designation": "Community Toshao",
+  "address": "Cashew Island, Guyana",
+  "notes": "Reg 4 5 6 directory entry."
+ },
+ {
+  "id": "village-121",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Region 7",
+  "village": "Kaburi/72 Miles",
+  "designation": "Toshao",
+  "address": "Kaburi/72 Miles, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-122",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Region 7",
+  "village": "Batavia",
+  "designation": "Toshao",
+  "address": "Batavia, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-123",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Region 7",
+  "village": "Karrau",
+  "designation": "Toshao",
+  "address": "Karrau, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-124",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Region 7",
+  "village": "Agatash",
+  "designation": "CDC",
+  "address": "Agatash, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-125",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Region 7",
+  "village": "Dagg Point",
+  "designation": "CDC",
+  "address": "Dagg Point, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-126",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Region 7",
+  "village": "Kartabo",
+  "designation": "CDC",
+  "address": "Kartabo, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-127",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Region 7",
+  "village": "Itaballi",
+  "designation": "CDC",
+  "address": "Itaballi, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-128",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Region 7",
+  "village": "Mora Camp",
+  "designation": "CDC",
+  "address": "Mora Camp, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-129",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Region 7",
+  "village": "Kalcoon",
+  "designation": "CDC",
+  "address": "Kalcoon, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-130",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Middle Maz",
+  "village": "Kurutuku",
+  "designation": "Toshao",
+  "address": "Kurutuku, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-131",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Middle Maz",
+  "village": "Turungbang",
+  "designation": "Community Leader",
+  "address": "Turungbang, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-132",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Middle Maz",
+  "village": "Isseneru",
+  "designation": "Toshao ag",
+  "address": "Isseneru, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-133",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Middle Maz",
+  "village": "Kangaruma",
+  "designation": "Toshao",
+  "address": "Kangaruma, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-134",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Middle Maz",
+  "village": "Tasserene",
+  "designation": "Toshao",
+  "address": "Tasserene, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-135",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Arau",
+  "designation": "Toshao",
+  "address": "Arau, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-136",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Kaikan",
+  "designation": "Toshao",
+  "address": "Kaikan, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-137",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Kambaru/Ominike",
+  "designation": "Toshao",
+  "address": "Kambaru/Ominike, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-138",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Chinoweing",
+  "designation": "Toshao",
+  "address": "Chinoweing, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-139",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Wax Creek",
+  "designation": "Snr Councillor",
+  "address": "Wax Creek, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-140",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Phillipai",
+  "designation": "Toshao",
+  "address": "Phillipai, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-141",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Amokokopai",
+  "designation": "Snr Councillor",
+  "address": "Amokokopai, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-142",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Wayaleng",
+  "designation": "Snr Councillor",
+  "address": "Wayaleng, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-143",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Klaimalu",
+  "designation": "Snr Councillor",
+  "address": "Klaimalu, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-144",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Waramadong",
+  "designation": "Toshao",
+  "address": "Waramadong, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-145",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Kako",
+  "designation": "Toshao",
+  "address": "Kako, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-146",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Kamarang/Warwatta",
+  "designation": "Toshao",
+  "address": "Kamarang/Warwatta, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-147",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Jawalla",
+  "designation": "Toshao",
+  "address": "Jawalla, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-148",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Quebanang",
+  "designation": "Snr Councillor",
+  "address": "Quebanang, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-149",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Abou",
+  "designation": "Snr Councillor",
+  "address": "Abou, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-150",
+  "region": 7,
+  "region_name": "Cuyuni-Mazaruni",
+  "subregion": "Upper Maz",
+  "village": "Paruima",
+  "designation": "Toshao",
+  "address": "Paruima, Guyana",
+  "notes": "Reg 7 directory entry."
+ },
+ {
+  "id": "village-151",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Taruka",
+  "designation": "Reg",
+  "address": "Taruka, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-152",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Monkey Mountain",
+  "designation": "Toshao",
+  "address": "Monkey Mountain, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-153",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Paramakatoi",
+  "designation": "Toshao",
+  "address": "Paramakatoi, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-154",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Bashvale/Yawong",
+  "designation": "Snr Councillor",
+  "address": "Bashvale/Yawong, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-155",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Bamboo Creek",
+  "designation": "Snr Councillor",
+  "address": "Bamboo Creek, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-156",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Red Creek",
+  "designation": "Senior Councillor",
+  "address": "Red Creek, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-157",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Tuseneng",
+  "designation": "Toshao",
+  "address": "Tuseneng, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-158",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Kanapang /Penak",
+  "designation": "Toshao",
+  "address": "Kanapang /Penak, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-159",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Penak",
+  "designation": "Senior Councillor",
+  "address": "Penak, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-160",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Itabac",
+  "designation": "Toshao",
+  "address": "Itabac, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-161",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Kamana",
+  "designation": "Toshao",
+  "address": "Kamana, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-162",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Tumong",
+  "designation": "CDC",
+  "address": "Tumong, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-163",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Waipa",
+  "designation": "Toshao",
+  "address": "Waipa, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-164",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "SandHills",
+  "designation": "Snr Councillor",
+  "address": "SandHills, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-165",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Kaibarupai",
+  "designation": "Toshao",
+  "address": "Kaibarupai, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-166",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Kurukabaru",
+  "designation": "Toshao",
+  "address": "Kurukabaru, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-167",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Arasawa",
+  "designation": "Snr Councillor",
+  "address": "Arasawa, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-168",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Kato",
+  "designation": "Toshao",
+  "address": "Kato, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-169",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Chiung Mouth",
+  "designation": "Snr Councillor",
+  "address": "Chiung Mouth, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-170",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Maikwak",
+  "designation": "CDC",
+  "address": "Maikwak, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-171",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Katch-Cow",
+  "designation": "Snr Councillor",
+  "address": "Katch-Cow, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-172",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Region 8",
+  "village": "Kopinang",
+  "designation": "Toshao",
+  "address": "Kopinang, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-173",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Sub District 1",
+  "village": "Chenapou",
+  "designation": "Toshao",
+  "address": "Chenapou, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-174",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Sub District 1",
+  "village": "Karisparu",
+  "designation": "Toshao",
+  "address": "Karisparu, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-175",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Sub District 1",
+  "village": "Campbelltown",
+  "designation": "Toshao",
+  "address": "Campbelltown, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-176",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Sub District 1",
+  "village": "Princeville",
+  "designation": "Snr Councillor",
+  "address": "Princeville, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-177",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Sub District 1",
+  "village": "Micobie",
+  "designation": "Toshao",
+  "address": "Micobie, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-178",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Sub District 1",
+  "village": "El Paso",
+  "designation": "CDC",
+  "address": "El Paso, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-179",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Sub District 1",
+  "village": "Murawa",
+  "designation": "CDC",
+  "address": "Murawa, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-180",
+  "region": 8,
+  "region_name": "Potaro-Siparuni",
+  "subregion": "Sub District 1",
+  "village": "Wailang Kurobrang",
+  "designation": "CDC",
+  "address": "Wailang Kurobrang, Guyana",
+  "notes": "Reg 8 directory entry."
+ },
+ {
+  "id": "village-181",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Katoka",
+  "designation": "Toshao",
+  "address": "Katoka, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-182",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Semonie",
+  "designation": "Snr Councillor",
+  "address": "Semonie, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-183",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Yupukari",
+  "designation": "Toshao",
+  "address": "Yupukari, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-184",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Fly Hill",
+  "designation": "Snr Councillor",
+  "address": "Fly Hill, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-185",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Quatata",
+  "designation": "Snr Councillor",
+  "address": "Quatata, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-186",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Kaicumbay",
+  "designation": "Snr Councillor",
+  "address": "Kaicumbay, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-187",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "St. Ignatius",
+  "designation": "Toshao",
+  "address": "St. Ignatius, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-188",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Kumu",
+  "designation": "Snr Councillor",
+  "address": "Kumu, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-189",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Quarrie",
+  "designation": "Snr Councillor",
+  "address": "Quarrie, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-190",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Nappi",
+  "designation": "Toshao",
+  "address": "Nappi, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-191",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Hiawa",
+  "designation": "Snr Councillor",
+  "address": "Hiawa, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-192",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Parishara",
+  "designation": "Snr Councillor",
+  "address": "Parishara, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-193",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Region 9",
+  "village": "Moco Moco",
+  "designation": "Toshao",
+  "address": "Moco Moco, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-194",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "South Central",
+  "village": "Shulinab",
+  "designation": "Toshao",
+  "address": "Shulinab, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-195",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "South Central",
+  "village": "Quiko",
+  "designation": "Snr Councillor",
+  "address": "Quiko, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-196",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "South Central",
+  "village": "Meriwau",
+  "designation": "Snr Councillor",
+  "address": "Meriwau, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-197",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "South Central",
+  "village": "Potarinau",
+  "designation": "Toshao",
+  "address": "Potarinau, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-198",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "South Central",
+  "village": "Katuur",
+  "designation": "Snr Councillor",
+  "address": "Katuur, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-199",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "South Central",
+  "village": "Shriri",
+  "designation": "Snr Councillor",
+  "address": "Shriri, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-200",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "South Central",
+  "village": "Baitoon",
+  "designation": "Snr Councillor",
+  "address": "Baitoon, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-201",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "South Central",
+  "village": "Parikwaranau",
+  "designation": "Toshao",
+  "address": "Parikwaranau, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-202",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Yakarinta",
+  "designation": "Toshao",
+  "address": "Yakarinta, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-203",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Massara",
+  "designation": "Toshao",
+  "address": "Massara, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-204",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Kwaimatta",
+  "designation": "Snr Councillor",
+  "address": "Kwaimatta, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-205",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Toka",
+  "designation": "Toshao",
+  "address": "Toka, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-206",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Annai Village",
+  "designation": "Toshao",
+  "address": "Annai Village, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-207",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Annai Central",
+  "designation": "Snr Councillor",
+  "address": "Annai Central, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-208",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Wowetta",
+  "designation": "Snr Councillor",
+  "address": "Wowetta, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-209",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Rupertee",
+  "designation": "Snr Councillor",
+  "address": "Rupertee, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-210",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Kwatamang",
+  "designation": "Snr Councillor",
+  "address": "Kwatamang, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-211",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Surama",
+  "designation": "Snr Councillor",
+  "address": "Surama, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-212",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Fairview",
+  "designation": "Toshao",
+  "address": "Fairview, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-213",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Rewa",
+  "designation": "Toshao",
+  "address": "Rewa, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-214",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Crashwater",
+  "designation": "Toshao",
+  "address": "Crashwater, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-215",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Apoteri",
+  "designation": "Toshao",
+  "address": "Apoteri, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-216",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "North Rupununi",
+  "village": "Aranaputa",
+  "designation": "CDC",
+  "address": "Aranaputa, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-217",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Karasabai",
+  "village": "Karasabai Incl - Wichabai, Cra Crana, Curicock, Jawari, Mahoe",
+  "designation": "Toshao",
+  "address": "Karasabai Incl - Wichabai, Cra Crana, Curicock, Jawari, Mahoe, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-218",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Karasabai",
+  "village": "Taushida",
+  "designation": "Toshao",
+  "address": "Taushida, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-219",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Karasabai",
+  "village": "Kakshibai",
+  "designation": "Snr Councillor",
+  "address": "Kakshibai, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-220",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Karasabai",
+  "village": "Rukumuta",
+  "designation": "Toshao",
+  "address": "Rukumuta, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-221",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Karasabai",
+  "village": "Tiger Pond",
+  "designation": "Toshao",
+  "address": "Tiger Pond, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-222",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Karasabai",
+  "village": "Pai Pang",
+  "designation": "Snr Councillor",
+  "address": "Pai Pang, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-223",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Karasabai",
+  "village": "Yurong Paru",
+  "designation": "Toshao",
+  "address": "Yurong Paru, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-224",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Karasabai",
+  "village": "Tiperu",
+  "designation": "Toshao",
+  "address": "Tiperu, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-225",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Aishalton",
+  "designation": "Toshao",
+  "address": "Aishalton, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-226",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Churikadarnau",
+  "designation": "Snr Councillor",
+  "address": "Churikadarnau, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-227",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Shea",
+  "designation": "Toshao",
+  "address": "Shea, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-228",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Karaudarnau",
+  "designation": "Toshao",
+  "address": "Karaudarnau, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-229",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Achiwib",
+  "designation": "Toshao",
+  "address": "Achiwib, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-230",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Bashaizon",
+  "designation": "Snr Councillor",
+  "address": "Bashaizon, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-231",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Mururanau",
+  "designation": "Toshao",
+  "address": "Mururanau, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-232",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Awarewaunau",
+  "designation": "Toshao",
+  "address": "Awarewaunau, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-233",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Rupunau",
+  "designation": "Toshao",
+  "address": "Rupunau, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-234",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Sand Creek",
+  "designation": "Toshao",
+  "address": "Sand Creek, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-235",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Katoonarib",
+  "designation": "Toshao",
+  "address": "Katoonarib, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-236",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Sawariwau",
+  "designation": "Toshao",
+  "address": "Sawariwau, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-237",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Parabara",
+  "designation": "Toshao",
+  "address": "Parabara, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-238",
+  "region": 9,
+  "region_name": "Upper Takutu-Upper Essequibo",
+  "subregion": "Deep South",
+  "village": "Masakaneri, Konashen",
+  "designation": "Toshao",
+  "address": "Masakaneri, Konashen, Guyana",
+  "notes": "Reg 9 directory entry."
+ },
+ {
+  "id": "village-239",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "Great Falls",
+  "designation": "Toshao",
+  "address": "Great Falls, Guyana",
+  "notes": "Reg 10 directory entry."
+ },
+ {
+  "id": "village-240",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "Wiruni",
+  "designation": "Toshao",
+  "address": "Wiruni, Guyana",
+  "notes": "Reg 10 directory entry."
+ },
+ {
+  "id": "village-241",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "Hururu",
+  "designation": "Toshao",
+  "address": "Hururu, Guyana",
+  "notes": "Reg 10 directory entry."
+ },
+ {
+  "id": "village-242",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "Wikki-Calcuni",
+  "designation": "Toshao",
+  "address": "Wikki-Calcuni, Guyana",
+  "notes": "Reg 10 directory entry."
+ },
+ {
+  "id": "village-243",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "Malali",
+  "designation": "Toshao",
+  "address": "Malali, Guyana",
+  "notes": "Reg 10 directory entry."
+ },
+ {
+  "id": "village-244",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "Muritaro",
+  "designation": "Toshao",
+  "address": "Muritaro, Guyana",
+  "notes": "Reg 10 directory entry."
+ },
+ {
+  "id": "village-245",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "Rockstone",
+  "designation": "Community Toshao",
+  "address": "Rockstone, Guyana",
+  "notes": "Reg 10 directory entry."
+ },
+ {
+  "id": "village-246",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "Riversview",
+  "designation": "Toshao",
+  "address": "Riversview, Guyana",
+  "notes": "Reg 10 directory entry."
+ },
+ {
+  "id": "village-247",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "Fallmouth",
+  "designation": "Snr Councillor",
+  "address": "Fallmouth, Guyana",
+  "notes": "Reg 10 directory entry."
+ },
+ {
+  "id": "village-248",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "Kimbia",
+  "designation": "Chairman",
+  "address": "Kimbia, Guyana",
+  "notes": "Reg 10 directory entry."
+ },
+ {
+  "id": "village-249",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "Hattia/Sandhills",
+  "designation": "Chairman",
+  "address": "Hattia/Sandhills, Guyana",
+  "notes": "Reg 10 directory entry."
+ },
+ {
+  "id": "village-250",
+  "region": 10,
+  "region_name": "Upper Demerara-Berbice",
+  "subregion": "Region 10",
+  "village": "47 Miles",
+  "designation": "CDC",
+  "address": "47 Miles, Guyana",
+  "notes": "Reg 10 directory entry."
+ }
+]
