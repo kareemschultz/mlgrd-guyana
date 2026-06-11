@@ -17,9 +17,19 @@ import {
   Tag as TagIcon,
   type LucideIcon,
 } from "lucide-react";
+import Link from "next/link";
 import { data } from "@/lib/data/client";
 import { seedPosts } from "@/lib/data/seed";
 import type { Post } from "@/lib/data/types";
+
+/**
+ * Slugs that have a statically-generated /news/[slug] page (built from the
+ * published seed). Posts created live in the admin aren't pre-rendered, so they
+ * open in the in-page reader until the next deploy bakes their page in.
+ */
+const ARTICLE_SLUGS = new Set(
+  seedPosts.filter((p) => p.status === "published").map((p) => p.slug),
+);
 import { useModalA11y } from "@/hooks/use-modal-a11y";
 import { Reveal } from "@/components/site/reveal";
 import { Badge } from "@/components/ui/badge";
@@ -387,15 +397,26 @@ export function NewsFeed() {
                 )}
 
                 <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
-                  <button
-                    type="button"
-                    onClick={() => setActive(item)}
-                    className="inline-flex w-fit items-center gap-1 text-sm font-semibold text-brand-600 transition-colors hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
-                    aria-label={`Read more: ${item.title}`}
-                  >
-                    Read more
-                    <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-                  </button>
+                  {ARTICLE_SLUGS.has(item.slug) ? (
+                    <Link
+                      href={`/news/${item.slug}`}
+                      className="inline-flex w-fit items-center gap-1 text-sm font-semibold text-brand-600 transition-colors hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                      aria-label={`Read more: ${item.title}`}
+                    >
+                      Read more
+                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setActive(item)}
+                      className="inline-flex w-fit items-center gap-1 text-sm font-semibold text-brand-600 transition-colors hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                      aria-label={`Read more: ${item.title}`}
+                    >
+                      Read more
+                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+                    </button>
+                  )}
                   {item.sourceUrl && (
                     <a
                       href={item.sourceUrl}
