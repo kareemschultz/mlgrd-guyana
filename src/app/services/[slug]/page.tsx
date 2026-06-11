@@ -5,7 +5,7 @@ import { ArrowLeft, CheckCircle2, MapPin, Phone, Mail, Building2 } from "lucide-
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
-import { getServiceIcon } from "@/components/services/service-icons";
+import { ServiceIcon } from "@/components/services/service-icons";
 import { ServiceFormSlot, serviceHasForm } from "@/components/forms/service-form-slot";
 import services from "@/data/services.json";
 
@@ -42,7 +42,6 @@ export default async function ServiceDetailPage({
   const service = getService(slug);
   if (!service) notFound();
 
-  const Icon = getServiceIcon(service.slug);
   const documents = service.documents ?? [];
 
   return (
@@ -62,7 +61,7 @@ export default async function ServiceDetailPage({
             <Reveal>
               <div className="flex items-start gap-4">
                 <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand-600">
-                  <Icon className="size-6" />
+                  <ServiceIcon slug={service.slug} className="size-6" />
                 </div>
                 <p className="text-base leading-relaxed text-muted-foreground">{service.body}</p>
               </div>

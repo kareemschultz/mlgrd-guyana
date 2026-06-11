@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useMemo } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -23,22 +23,22 @@ export const Meteors = ({
   angle = 215,
   className,
 }: MeteorsProps) => {
-  const [meteorStyles, setMeteorStyles] = useState<Array<React.CSSProperties>>(
-    []
+  const meteorStyles = useMemo<Array<React.CSSProperties>>(
+    () =>
+      [...new Array(number)].map((_, index) => {
+        const ratio = (index + 1) / (number + 1);
+        const duration = minDuration + ((index * 7) % 10) / 10 * (maxDuration - minDuration);
+        const delay = minDelay + ((index * 5) % 10) / 10 * (maxDelay - minDelay);
+        return {
+          "--angle": -angle + "deg",
+          top: "-5%",
+          left: `calc(${Math.round(ratio * 100)}% - 24px)`,
+          animationDelay: delay + "s",
+          animationDuration: duration + "s",
+        } as React.CSSProperties;
+      }),
+    [number, minDelay, maxDelay, minDuration, maxDuration, angle],
   )
-
-  useEffect(() => {
-    const styles = [...new Array(number)].map(() => ({
-      "--angle": -angle + "deg",
-      top: "-5%",
-      left: `calc(0% + ${Math.floor(Math.random() * window.innerWidth)}px)`,
-      animationDelay: Math.random() * (maxDelay - minDelay) + minDelay + "s",
-      animationDuration:
-        Math.floor(Math.random() * (maxDuration - minDuration) + minDuration) +
-        "s",
-    }))
-    setMeteorStyles(styles)
-  }, [number, minDelay, maxDelay, minDuration, maxDuration, angle])
 
   return (
     <>

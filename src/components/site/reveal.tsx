@@ -4,8 +4,11 @@ import { motion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
 
 const variants: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0 },
+  // Keep the motion, but never gate readability behind a fully hidden state.
+  // Starting at near-visible opacity prevents blank exported/static sections in
+  // screenshots, slow browsers, and reduced/blocked IntersectionObserver cases.
+  hidden: { opacity: 0.96, y: 14, scale: 0.995, filter: "blur(2px)" },
+  show: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
 };
 
 /**

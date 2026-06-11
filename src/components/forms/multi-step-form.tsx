@@ -81,24 +81,37 @@ export function MultiStepForm({ configId }: { configId: keyof typeof formConfigs
       const ref = makeRef();
       const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
       try {
+        let delivered = false;
         // Always log the submission to the data layer so it appears in the admin
         // helpdesk inbox (localStorage in demo mode, Cloudflare D1 in live mode).
         try {
           await data.messages.create(
             buildMessage(config, configId, value as Record<string, string>, ref),
           );
-        } catch {
-          /* non-fatal — still attempt email delivery and show the reference */
+          delivered = true;
+        } catch (error) {
+          console.error("MLGRD form data-layer submission failed", error);
         }
         // Optional: also email a copy if a form endpoint (e.g. Formspree) is set.
         if (endpoint) {
-          await fetch(endpoint, {
+          const response = await fetch(endpoint, {
             method: "POST",
             headers: { "Content-Type": "application/json", Accept: "application/json" },
             body: JSON.stringify({ _subject: `${config.subject} (${ref})`, reference: ref, ...value }),
           });
+          delivered = delivered || response.ok;
+        }
+        if (!delivered) {
+          throw new Error("We could not send your message. Please try again or contact the Ministry by phone or email.");
         }
         setDone(ref);
+      } catch (error) {
+        setErrors({
+          form:
+            error instanceof Error
+              ? error.message
+              : "We could not send your message. Please try again.",
+        });
       } finally {
         setSubmitting(false);
       }
@@ -205,6 +218,14 @@ export function MultiStepForm({ configId }: { configId: keyof typeof formConfigs
           }
         }}
       >
+        {errors.form && (
+          <div
+            role="alert"
+            className="mb-5 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive"
+          >
+            {errors.form}
+          </div>
+        )}
         <AnimatePresence mode="wait" custom={dir}>
           <motion.div
             key={current.id}
@@ -288,6 +309,9 @@ function FieldControl({
   error?: string;
 }) {
   const id = `f-${def.name}`;
+  const helpId = `${id}-help`;
+  const errorId = `${id}-error`;
+  const describedBy = error ? errorId : def.help ? helpId : undefined;
   const span = def.colSpan === 2 ? "sm:col-span-2" : "";
   return (
     <div className={cn("flex flex-col gap-1.5", span)}>
@@ -304,10 +328,11 @@ function FieldControl({
           placeholder={def.placeholder}
           rows={4}
           aria-invalid={!!error}
+          aria-describedby={describedBy}
         />
       ) : def.type === "select" ? (
         <Select value={value} onValueChange={onChange}>
-          <SelectTrigger id={id} aria-invalid={!!error} className="w-full">
+          <SelectTrigger id={id} aria-invalid={!!error} aria-describedby={describedBy} className="w-full">
             <SelectValue placeholder="Select…" />
           </SelectTrigger>
           <SelectContent>
@@ -327,11 +352,12 @@ function FieldControl({
           onBlur={onBlur}
           placeholder={def.placeholder}
           aria-invalid={!!error}
+          aria-describedby={describedBy}
         />
       )}
 
-      {def.help && !error && <p className="text-xs text-muted-foreground">{def.help}</p>}
-      {error && <p className="text-xs font-medium text-destructive">{error}</p>}
+      {def.help && !error && <p id={helpId} className="text-xs text-muted-foreground">{def.help}</p>}
+      {error && <p id={errorId} className="text-xs font-medium text-destructive">{error}</p>}
     </div>
   );
 }

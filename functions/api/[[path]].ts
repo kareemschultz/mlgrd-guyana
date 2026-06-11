@@ -57,6 +57,12 @@ interface EventContext {
 }
 
 const TOKEN_TTL_MS = 1000 * 60 * 60 * 8; // 8 hours
+const MAX_JSON_BYTES = 32_768;
+const ALLOWED_MESSAGE_CHANNELS = new Set(["contact", "helpdesk"]);
+const ALLOWED_MESSAGE_STATUSES = new Set(["new", "open", "resolved"]);
+const ALLOWED_POST_STATUSES = new Set(["draft", "published", "archived"]);
+const ALLOWED_IMAGE_SCHEMES = new Set(["https:", "data:"]);
+
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -68,9 +74,17 @@ const json = (data: unknown, status = 200, extra: HeadersInit = {}) =>
 
 const err = (message: string, status = 400) => json({ error: message }, status);
 
-function corsHeaders(): Record<string, string> {
+function corsHeaders(request?: Request): Record<string, string> {
+  const origin = request?.headers.get("Origin") ?? "";
+  const allowed = new Set([
+    "https://kareemschultz.github.io",
+    "https://mlgrd.gov.gy",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+  ]);
   return {
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": allowed.has(origin) ? origin : "https://kareemschultz.github.io",
+    "Vary": "Origin",
     "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type,Authorization",
   };
@@ -100,8 +114,17 @@ async function hmacKey(secret: string): Promise<CryptoKey> {
   );
 }
 
+function adminSecret(env: Env): string | null {
+  return env.ADMIN_SECRET && env.ADMIN_SECRET.length >= 32 ? env.ADMIN_SECRET : null;
+}
+
+function hasConfiguredAdminPassword(env: Env): boolean {
+  return !!(env.ADMIN_PASSWORD_HASH || env.ADMIN_PASSWORD);
+}
+
 async function signToken(env: Env): Promise<{ token: string; expiresAt: number }> {
-  const secret = env.ADMIN_SECRET || "mlgrd-dev-secret-change-me";
+  const secret = adminSecret(env);
+  if (!secret) throw new Error("ADMIN_SECRET is not configured securely.");
   const expiresAt = Date.now() + TOKEN_TTL_MS;
   const payload = b64url(enc.encode(JSON.stringify({ exp: expiresAt })));
   const key = await hmacKey(secret);
@@ -113,7 +136,8 @@ async function verifyToken(env: Env, token: string | null): Promise<boolean> {
   if (!token) return false;
   const [payload, sig] = token.split(".");
   if (!payload || !sig) return false;
-  const secret = env.ADMIN_SECRET || "mlgrd-dev-secret-change-me";
+  const secret = adminSecret(env);
+  if (!secret) return false;
   const key = await hmacKey(secret);
   const expected = await crypto.subtle.sign("HMAC", key, enc.encode(payload));
   if (b64url(expected) !== sig) return false;
@@ -133,10 +157,52 @@ function bearer(request: Request): string | null {
 }
 
 async function readBody<T>(request: Request): Promise<T> {
+  const length = Number(request.headers.get("Content-Length") || "0");
+  if (length > MAX_JSON_BYTES) throw new Error("Request body is too large.");
   try {
     return (await request.json()) as T;
   } catch {
     return {} as T;
+  }
+}
+
+function asString(value: unknown, max = 500): string {
+  return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
+
+function optionalString(value: unknown, max = 500): string | null {
+  const s = asString(value, max);
+  return s || null;
+}
+
+function isEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function cleanUrl(value: unknown, max = 2048): string | null {
+  const raw = optionalString(value, max);
+  if (!raw) return null;
+  if (raw.startsWith("/")) return raw;
+  try {
+    const url = new URL(raw);
+    return url.protocol === "https:" ? raw : null;
+  } catch {
+    return null;
+  }
+}
+
+function cleanImage(value: unknown): string | null {
+  const raw = optionalString(value, 20_000);
+  if (!raw) return null;
+  if (raw.startsWith("/")) return raw;
+  try {
+    const url = new URL(raw);
+    if (url.protocol === "data:") {
+      return raw.startsWith("data:image/") ? raw : null;
+    }
+    return ALLOWED_IMAGE_SCHEMES.has(url.protocol) ? raw : null;
+  } catch {
+    return null;
   }
 }
 
@@ -172,11 +238,11 @@ function rowToDirectory(r: Record<string, unknown>) {
 export const onRequest = async (ctx: EventContext): Promise<Response> => {
   const { request, env } = ctx;
   if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: corsHeaders() });
+    return new Response(null, { status: 204, headers: corsHeaders(request) });
   }
 
   const segments = ctx.params.path || [];
-  const [resource, id, sub] = segments;
+  const [resource, id] = segments;
   const method = request.method;
   const authed = await verifyToken(env, bearer(request));
 
@@ -194,13 +260,16 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         username?: string;
         password?: string;
       }>(request);
+      if (!adminSecret(env) || !hasConfiguredAdminPassword(env)) {
+        return err("Admin authentication is not configured.", 503);
+      }
       const expectedUser = env.ADMIN_USERNAME || "admin";
       let ok = username === expectedUser;
       if (ok && password) {
         if (env.ADMIN_PASSWORD_HASH) {
           ok = (await sha256Hex(password)) === env.ADMIN_PASSWORD_HASH.toLowerCase();
         } else {
-          ok = password === (env.ADMIN_PASSWORD || "mlgrd2026");
+          ok = password === env.ADMIN_PASSWORD;
         }
       } else {
         ok = false;
@@ -230,16 +299,16 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         )
           .bind(
             newId,
-            b.slug ?? "",
-            b.title ?? "",
-            b.excerpt ?? "",
-            b.body ?? "",
-            b.category ?? "",
-            JSON.stringify(b.tags ?? []),
-            b.coverImage ?? null,
-            b.sourceUrl ?? null,
-            b.status ?? "draft",
-            b.date ?? now.slice(0, 10),
+            asString(b.slug, 120),
+            asString(b.title, 200),
+            asString(b.excerpt, 500),
+            asString(b.body, 10_000),
+            asString(b.category, 80),
+            JSON.stringify(Array.isArray(b.tags) ? b.tags.map((t) => asString(t, 40)).filter(Boolean).slice(0, 12) : []),
+            cleanImage(b.coverImage),
+            cleanUrl(b.sourceUrl),
+            ALLOWED_POST_STATUSES.has(String(b.status)) ? String(b.status) : "draft",
+            asString(b.date, 20) || now.slice(0, 10),
             now,
             now,
           )
@@ -259,7 +328,7 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
           await env.DB.prepare(sql).bind(...sets.map((f) => b[f]), new Date().toISOString(), id).run();
         }
         const updated = await env.DB.prepare("SELECT * FROM posts WHERE id = ?").bind(id).first<Record<string, unknown>>();
-        return json(rowToPost(updated!));
+        return updated ? json(rowToPost(updated)) : err("Post not found.", 404);
       }
       if (method === "DELETE" && id) {
         const guard = requireAuth();
@@ -298,7 +367,8 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
           const sql = `UPDATE gallery SET ${sets.map((f) => `"${f}" = ?`).join(", ")} WHERE id = ?`;
           await env.DB.prepare(sql).bind(...sets.map((f) => b[f]), id).run();
         }
-        return json(await env.DB.prepare("SELECT * FROM gallery WHERE id = ?").bind(id).first());
+        const row = await env.DB.prepare("SELECT * FROM gallery WHERE id = ?").bind(id).first();
+        return row ? json(row) : err("Gallery item not found.", 404);
       }
       if (method === "DELETE" && id) {
         const guard = requireAuth();
@@ -354,7 +424,7 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
           await env.DB.prepare(sql).bind(...sets.map((f) => b[f]), id).run();
         }
         const row = await env.DB.prepare("SELECT * FROM ministers WHERE id = ?").bind(id).first<Record<string, unknown>>();
-        return json(rowToMinister(row!));
+        return row ? json(rowToMinister(row)) : err("Minister not found.", 404);
       }
       if (method === "DELETE" && id) {
         const guard = requireAuth();
@@ -375,6 +445,13 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
       if (method === "POST") {
         // Public: anyone can submit a helpdesk/contact message.
         const b = await readBody<Record<string, unknown>>(request);
+        const channel = ALLOWED_MESSAGE_CHANNELS.has(String(b.channel)) ? String(b.channel) : "contact";
+        const name = asString(b.name, 120);
+        const email = asString(b.email, 254).toLowerCase();
+        const body = asString(b.body, 5_000);
+        if (!name) return err("Name is required.", 422);
+        if (!email || !isEmail(email)) return err("A valid email address is required.", 422);
+        if (!body) return err("Message body is required.", 422);
         const now = new Date().toISOString();
         const newId = `msg-${crypto.randomUUID().slice(0, 8)}`;
         await env.DB.prepare(
@@ -383,12 +460,12 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         )
           .bind(
             newId,
-            b.channel ?? "contact",
-            b.name ?? "",
-            b.email ?? "",
-            b.subject ?? null,
-            b.category ?? null,
-            b.body ?? "",
+            channel,
+            name,
+            email,
+            optionalString(b.subject, 180),
+            optionalString(b.category, 120),
+            body,
             "new",
             now,
           )
@@ -399,10 +476,14 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         const guard = requireAuth();
         if (guard) return guard;
         const b = await readBody<{ status?: string }>(request);
+        if (b.status && !ALLOWED_MESSAGE_STATUSES.has(b.status)) {
+          return err("Invalid message status.", 422);
+        }
         if (b.status) {
           await env.DB.prepare("UPDATE messages SET status = ? WHERE id = ?").bind(b.status, id).run();
         }
-        return json(await env.DB.prepare("SELECT * FROM messages WHERE id = ?").bind(id).first());
+        const row = await env.DB.prepare("SELECT * FROM messages WHERE id = ?").bind(id).first();
+        return row ? json(row) : err("Message not found.", 404);
       }
       if (method === "DELETE" && id) {
         const guard = requireAuth();
@@ -450,7 +531,7 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
           await env.DB.prepare(sql).bind(...sets.map((f) => b[f]), id).run();
         }
         const row = await env.DB.prepare("SELECT * FROM directory WHERE id = ?").bind(id).first<Record<string, unknown>>();
-        return json(rowToDirectory(row!));
+        return row ? json(rowToDirectory(row)) : err("Directory record not found.", 404);
       }
       if (method === "DELETE" && id) {
         await env.DB.prepare("DELETE FROM directory WHERE id = ?").bind(id).run();

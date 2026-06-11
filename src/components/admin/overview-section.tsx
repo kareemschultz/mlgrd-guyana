@@ -23,6 +23,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { AnimatedList, AnimatedListItem } from "@/components/ui/animated-list";
+import { PortalUpdatesSection } from "@/components/site/portal-updates-section";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/components/admin/shared";
 
@@ -177,6 +178,12 @@ export function OverviewSection({
           );
         })}
       </AnimatedList>
+
+      <Card className="overflow-hidden border-brand/10 bg-gradient-to-br from-background to-secondary/40">
+        <CardContent className="p-5 sm:p-6">
+          <PortalUpdatesSection compact limit={1} />
+        </CardContent>
+      </Card>
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Recent activity feed */}

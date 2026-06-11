@@ -10,6 +10,7 @@ import { NumberTicker } from "@/components/ui/number-ticker";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { HeroFx } from "@/components/site/hero-fx";
 import { HeroEmblemNews } from "@/components/site/latest-news";
+import { PortalUpdatesSection } from "@/components/site/portal-updates-section";
 import ndcs from "@/data/ndcs.json";
 
 const stats = [
@@ -113,6 +114,8 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      <PortalUpdatesSection />
 
       {/* ───── Services ───── */}
       <section className="py-20">

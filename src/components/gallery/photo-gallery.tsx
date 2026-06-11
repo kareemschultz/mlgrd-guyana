@@ -47,6 +47,24 @@ function iconFor(category?: string): LucideIcon {
   return ImageIcon;
 }
 
+function CategoryIcon({ category, className }: { category?: string; className?: string }) {
+  switch (category) {
+    case "Capacity-building":
+    case "Regional":
+      return <Landmark className={className} />;
+    case "Community":
+      return <HandHelping className={className} />;
+    case "Events":
+      return <CalendarDays className={className} />;
+    case "Leadership":
+    case "Engagements":
+    case "Minister":
+      return <Users className={className} />;
+    default:
+      return <ImageIcon className={className} />;
+  }
+}
+
 /** A fixed-size card used inside the moving marquee rows. */
 function MarqueeCard({
   item,
@@ -57,7 +75,6 @@ function MarqueeCard({
   onPick: (it: GalleryItem) => void;
   reduce: boolean | null;
 }) {
-  const Icon = iconFor(item.category);
   return (
     <motion.button
       type="button"
@@ -75,7 +92,7 @@ function MarqueeCard({
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand-600 to-brand-700 text-white">
-          <Icon className="size-9 text-white/90" />
+          <CategoryIcon category={item.category} className="size-9 text-white/90" />
         </div>
       )}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/20 to-transparent" />

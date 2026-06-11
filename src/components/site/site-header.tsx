@@ -34,7 +34,10 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    const timeout = window.setTimeout(() => setOpen(false), 0);
+    return () => window.clearTimeout(timeout);
+  }, [pathname]);
 
   return (
     <header className="sticky top-0 z-50">

@@ -167,20 +167,15 @@ export function NewsFeed() {
     return [...set].sort();
   }, [sorted]);
 
-  // Drop filters that no longer exist when live data changes.
-  useEffect(() => {
-    if (year !== ALL && !years.includes(year)) setYear(ALL);
-  }, [year, years]);
-  useEffect(() => {
-    if (category !== ALL && !categories.includes(category)) setCategory(ALL);
-  }, [category, categories]);
+  const activeYear = year !== ALL && years.includes(year) ? year : ALL;
+  const activeCategory = category !== ALL && categories.includes(category) ? category : ALL;
 
   const matcher = useMemo(() => buildMatcher(query), [query]);
 
   const visible = useMemo(() => {
     return sorted.filter((p) => {
-      if (year !== ALL && yearOf(p.date) !== year) return false;
-      if (category !== ALL && p.category !== category) return false;
+      if (activeYear !== ALL && yearOf(p.date) !== activeYear) return false;
+      if (activeCategory !== ALL && p.category !== activeCategory) return false;
       if (tags.size > 0) {
         const pt = new Set(p.tags ?? []);
         for (const t of tags) if (!pt.has(t)) return false;
@@ -188,10 +183,10 @@ export function NewsFeed() {
       if (matcher && !matcher(haystack(p))) return false;
       return true;
     });
-  }, [sorted, year, category, tags, matcher]);
+  }, [activeCategory, activeYear, sorted, tags, matcher]);
 
   const filtersActive =
-    query.trim() !== "" || year !== ALL || category !== ALL || tags.size > 0;
+    query.trim() !== "" || activeYear !== ALL || activeCategory !== ALL || tags.size > 0;
 
   const toggleTag = (t: string) =>
     setTags((prev) => {
@@ -209,7 +204,7 @@ export function NewsFeed() {
   };
 
   // Re-animate the grid when the chip filters change (not on every keystroke).
-  const gridKey = `${year}|${category}|${[...tags].sort().join(",")}`;
+  const gridKey = `${activeYear}|${activeCategory}|${[...tags].sort().join(",")}`;
 
   return (
     <>
