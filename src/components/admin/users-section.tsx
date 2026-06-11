@@ -200,16 +200,19 @@ export function UsersSection() {
             <Field label="Email (optional)" htmlFor="u-email">
               <Input id="u-email" type="email" value={draft.email} onChange={(e) => setDraft((d) => ({ ...d, email: e.target.value }))} placeholder="jane@mlgrd.gov.gy" />
             </Field>
-            <Field label="Role" htmlFor="u-role">
+            <Field
+              label="Role"
+              htmlFor="u-role"
+              hint={ROLES.find((r) => r.value === draft.role)?.desc}
+            >
               <Select value={draft.role} onValueChange={(v) => setDraft((d) => ({ ...d, role: v as UserRole }))}>
-                <SelectTrigger id="u-role" className="w-full"><SelectValue /></SelectTrigger>
+                <SelectTrigger id="u-role" className="w-full">
+                  <SelectValue placeholder="Select a role" />
+                </SelectTrigger>
                 <SelectContent>
                   {ROLES.map((r) => (
                     <SelectItem key={r.value} value={r.value}>
-                      <span className="flex flex-col">
-                        <span className="font-medium">{r.label}</span>
-                        <span className="text-xs text-muted-foreground">{r.desc}</span>
-                      </span>
+                      {r.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
