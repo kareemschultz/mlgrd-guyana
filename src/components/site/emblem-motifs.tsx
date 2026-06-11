@@ -55,15 +55,15 @@ type Motif = {
 };
 
 const MOTIFS: Motif[] = [
-  { key: "leaf", Icon: Leaf, pos: "left-[7%] top-[13%]", size: "size-7", color: "text-emerald-400/35", dur: 9, rot: 9, drift: 10 },
-  { key: "shake", Icon: Handshake, pos: "right-[7%] top-[11%]", size: "size-8", color: "text-gold/40", dur: 11, rot: -7, drift: 12 },
-  { key: "star", Icon: Star, pos: "left-[46%] top-[5%]", size: "size-4", color: "text-gold/35", dur: 7, rot: 12, drift: 7 },
-  { key: "puzzle", Icon: Puzzle, pos: "left-[12%] top-[44%]", size: "size-5", color: "text-gold/30", dur: 13, rot: -6, drift: 9 },
-  { key: "users", Icon: Users, pos: "right-[12%] top-[42%]", size: "size-5", color: "text-white/25", dur: 12, rot: 6, drift: 8 },
-  { key: "house", Icon: House, pos: "left-[10%] bottom-[20%]", size: "size-6", color: "text-white/22", dur: 10, rot: 7, drift: 10 },
-  { key: "heart", Icon: HeartPulse, pos: "right-[8%] bottom-[24%]", size: "size-6", color: "text-red-400/35", dur: 8, rot: -9, drift: 9 },
-  { key: "flag", custom: (cls) => <GuyanaFlag className={cls} />, pos: "left-[40%] bottom-[8%]", size: "w-9", color: "opacity-60", dur: 10, rot: -5, drift: 8 },
-  { key: "map", custom: (cls) => <GuyanaMap className={cls} />, pos: "right-[40%] top-[14%]", size: "size-6", color: "text-gold/25", dur: 14, rot: 8, drift: 7 },
+  { key: "leaf", Icon: Leaf, pos: "left-[7%] top-[13%]", size: "size-7", color: "text-emerald-400/40", dur: 7, rot: 16, drift: 30 },
+  { key: "shake", Icon: Handshake, pos: "right-[7%] top-[11%]", size: "size-8", color: "text-gold/45", dur: 8, rot: -14, drift: 34 },
+  { key: "star", Icon: Star, pos: "left-[46%] top-[5%]", size: "size-4", color: "text-gold/40", dur: 5.5, rot: 22, drift: 22 },
+  { key: "puzzle", Icon: Puzzle, pos: "left-[12%] top-[44%]", size: "size-5", color: "text-gold/35", dur: 9, rot: -12, drift: 28 },
+  { key: "users", Icon: Users, pos: "right-[12%] top-[42%]", size: "size-5", color: "text-white/30", dur: 8.5, rot: 12, drift: 26 },
+  { key: "house", Icon: House, pos: "left-[10%] bottom-[20%]", size: "size-6", color: "text-white/28", dur: 7.5, rot: 14, drift: 30 },
+  { key: "heart", Icon: HeartPulse, pos: "right-[8%] bottom-[24%]", size: "size-6", color: "text-red-400/40", dur: 6.5, rot: -16, drift: 28 },
+  { key: "flag", custom: (cls) => <GuyanaFlag className={cls} />, pos: "left-[40%] bottom-[8%]", size: "w-9", color: "opacity-70", dur: 8, rot: -10, drift: 26 },
+  { key: "map", custom: (cls) => <GuyanaMap className={cls} />, pos: "right-[40%] top-[14%]", size: "size-6", color: "text-gold/30", dur: 10, rot: 14, drift: 24 },
 ];
 
 export function EmblemMotifs() {
@@ -83,9 +83,10 @@ export function EmblemMotifs() {
               reduce
                 ? { opacity: 0.5 }
                 : {
-                    opacity: [0.35, 0.8, 0.35],
-                    y: [0, -m.drift, 0],
-                    rotate: [-m.rot, m.rot, -m.rot],
+                    opacity: [0.4, 0.9, 0.6, 0.4],
+                    y: [0, -m.drift, -m.drift * 0.35, 0],
+                    x: [0, m.drift * 0.55, -m.drift * 0.5, 0],
+                    rotate: [-m.rot, m.rot, -m.rot * 0.5, -m.rot],
                   }
             }
             transition={
@@ -95,7 +96,7 @@ export function EmblemMotifs() {
                     duration: m.dur,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: i * 0.4,
+                    delay: i * 0.3,
                   }
             }
           >
