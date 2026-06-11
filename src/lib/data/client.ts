@@ -26,11 +26,14 @@ import type {
   NewGalleryItem,
   NewMessage,
   NewMinister,
+  NewPortalUpdate,
   NewPost,
+  PortalUpdate,
   Post,
 } from "./types";
 import { seedGallery, seedMinisters, seedPosts, demoAdmin } from "./seed";
 import { seedDirectory } from "./seed-directory";
+import { seedUpdates } from "./seed-updates";
 
 const API_BASE =
   typeof process !== "undefined" ? process.env.NEXT_PUBLIC_API_BASE : undefined;
@@ -84,6 +87,7 @@ const KEYS = {
   ministers: "mlgrd:ministers",
   messages: "mlgrd:messages",
   directory: "mlgrd:directory",
+  updates: "mlgrd:updates",
 } as const;
 
 /**
@@ -91,13 +95,13 @@ const KEYS = {
  * `mlgrd:*` store in localStorage from a previous visit) get the new content.
  * Citizen-submitted messages are preserved; only seeded collections are reset.
  */
-const SEED_VERSION = "2026.06-tags";
+const SEED_VERSION = "2026.06-updates";
 
 function ensureSeedVersion() {
   if (typeof window === "undefined") return;
   try {
     if (window.localStorage.getItem("mlgrd:seedv") === SEED_VERSION) return;
-    for (const k of [KEYS.posts, KEYS.gallery, KEYS.ministers, KEYS.directory]) {
+    for (const k of [KEYS.posts, KEYS.gallery, KEYS.ministers, KEYS.directory, KEYS.updates]) {
       window.localStorage.removeItem(k);
     }
     window.localStorage.setItem("mlgrd:seedv", SEED_VERSION);
@@ -290,6 +294,34 @@ const demo = {
     );
   },
 
+  // updates (portal "What's New") --------------------------------------------
+  listUpdates: async (): Promise<PortalUpdate[]> =>
+    readStore<PortalUpdate>(KEYS.updates, seedUpdates).sort((a, b) => a.order - b.order),
+
+  createUpdate: async (input: NewPortalUpdate): Promise<PortalUpdate> => {
+    const items = readStore<PortalUpdate>(KEYS.updates, seedUpdates);
+    const entry: PortalUpdate = { ...input, id: uid("update"), createdAt: nowIso() };
+    writeStore(KEYS.updates, [...items, entry]);
+    return entry;
+  },
+
+  updateUpdate: async (
+    id: string,
+    patch: Partial<NewPortalUpdate>,
+  ): Promise<PortalUpdate> => {
+    const items = readStore<PortalUpdate>(KEYS.updates, seedUpdates);
+    const next = items.map((u) => (u.id === id ? { ...u, ...patch } : u));
+    writeStore(KEYS.updates, next);
+    return next.find((u) => u.id === id)!;
+  },
+
+  deleteUpdate: async (id: string): Promise<void> => {
+    writeStore(
+      KEYS.updates,
+      readStore<PortalUpdate>(KEYS.updates, seedUpdates).filter((u) => u.id !== id),
+    );
+  },
+
   // auth --------------------------------------------------------------------
   login: async (username: string, password: string): Promise<AuthResult> => {
     if (username !== demoAdmin.username || password !== demoAdmin.password) {
@@ -380,6 +412,14 @@ const http = {
   deleteDirectory: (id: string) =>
     api<void>(`/directory/${id}`, { method: "DELETE", auth: true }),
 
+  listUpdates: () => api<PortalUpdate[]>("/updates"),
+  createUpdate: (input: NewPortalUpdate) =>
+    api<PortalUpdate>("/updates", { method: "POST", body: JSON.stringify(input), auth: true }),
+  updateUpdate: (id: string, patch: Partial<NewPortalUpdate>) =>
+    api<PortalUpdate>(`/updates/${id}`, { method: "PUT", body: JSON.stringify(patch), auth: true }),
+  deleteUpdate: (id: string) =>
+    api<void>(`/updates/${id}`, { method: "DELETE", auth: true }),
+
   login: async (username: string, password: string): Promise<AuthResult> => {
     const auth = await api<AuthResult>("/auth/login", {
       method: "POST",
@@ -426,6 +466,12 @@ export const data = {
     create: backend.createDirectory,
     update: backend.updateDirectory,
     remove: backend.deleteDirectory,
+  },
+  updates: {
+    list: backend.listUpdates,
+    create: backend.createUpdate,
+    update: backend.updateUpdate,
+    remove: backend.deleteUpdate,
   },
   auth: {
     login: backend.login,

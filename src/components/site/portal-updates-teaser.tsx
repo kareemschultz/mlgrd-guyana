@@ -1,14 +1,37 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CalendarDays, Megaphone } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { portalUpdates, updateToneClasses, updateToneLabels } from "@/data/portal-updates";
+import { updateToneClasses, updateToneLabels } from "@/data/portal-updates";
+import { data } from "@/lib/data/client";
+import { seedUpdates } from "@/lib/data/seed-updates";
+import type { PortalUpdate } from "@/lib/data/types";
 import { cn } from "@/lib/utils";
 
 export function PortalUpdatesTeaser() {
-  const latest = portalUpdates[0];
+  const [updates, setUpdates] = useState<PortalUpdate[]>(() => seedUpdates);
+
+  useEffect(() => {
+    let alive = true;
+    data.updates
+      .list()
+      .then((live) => {
+        if (alive && Array.isArray(live) && live.length) setUpdates(live);
+      })
+      .catch(() => {
+        /* keep seed fallback */
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const latest = updates[0];
   const visibleSections = latest.sections.slice(0, 2);
 
   return (

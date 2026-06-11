@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from "motion/react";
 import {
   LayoutDashboard,
   Newspaper,
+  Megaphone,
   Images,
   Users,
   Network,
@@ -50,12 +51,14 @@ import { PostsSection } from "@/components/admin/posts-section";
 import { GallerySection } from "@/components/admin/gallery-section";
 import { MinistersSection } from "@/components/admin/ministers-section";
 import { DirectorySection } from "@/components/admin/directory-section";
+import { UpdatesSection } from "@/components/admin/updates-section";
 import { MessagesSection } from "@/components/admin/messages-section";
 import { SettingsSection } from "@/components/admin/settings-section";
 
 type SectionId =
   | "overview"
   | "posts"
+  | "updates"
   | "gallery"
   | "ministers"
   | "directory"
@@ -65,6 +68,7 @@ type SectionId =
 const NAV: { id: SectionId; label: string; icon: LucideIcon }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "posts", label: "Posts", icon: Newspaper },
+  { id: "updates", label: "Updates", icon: Megaphone },
   { id: "gallery", label: "Gallery", icon: Images },
   { id: "ministers", label: "Ministers", icon: Users },
   { id: "directory", label: "Directories", icon: Network },
@@ -75,6 +79,7 @@ const NAV: { id: SectionId; label: string; icon: LucideIcon }[] = [
 const LABELS: Record<SectionId, string> = {
   overview: "Overview",
   posts: "News posts",
+  updates: "Portal updates",
   gallery: "Gallery",
   ministers: "Ministers & officials",
   directory: "Directories",
@@ -267,6 +272,7 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
                     loading={loading}
                   />
                 )}
+                {section === "updates" && <UpdatesSection />}
                 {section === "directory" && <DirectorySection />}
                 {section === "messages" && (
                   <MessagesSection

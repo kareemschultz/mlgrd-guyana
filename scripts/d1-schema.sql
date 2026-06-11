@@ -80,3 +80,19 @@ CREATE TABLE IF NOT EXISTS directory (
   createdAt     TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_directory_kind ON directory (kind, region);
+
+-- "What's New at the Ministry" portal updates (changelog/announcements).
+-- Public content: GET is unauthenticated (like published posts); writes require auth.
+-- `icon` is a lucide icon NAME; `sections` is a JSON array of {type,title,items[]}.
+CREATE TABLE IF NOT EXISTS updates (
+  id        TEXT PRIMARY KEY,
+  version   TEXT NOT NULL,
+  date      TEXT NOT NULL,
+  title     TEXT NOT NULL,
+  summary   TEXT,
+  icon      TEXT,
+  sections  TEXT,             -- JSON array of {type,title,items[]}
+  "order"   INTEGER NOT NULL DEFAULT 0,
+  createdAt TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_updates_order ON updates ("order");

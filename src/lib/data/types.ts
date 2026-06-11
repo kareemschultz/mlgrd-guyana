@@ -129,7 +129,40 @@ export interface DirectoryEntry {
   createdAt: string;
 }
 
-export type Collection = "posts" | "gallery" | "ministers" | "messages" | "directory";
+export type PortalUpdateTone = "new" | "improved" | "notice" | "fixed";
+
+/** A grouped block of bullet points within a portal update. */
+export interface PortalUpdateSection {
+  type: PortalUpdateTone;
+  title: string;
+  items: string[];
+}
+
+/**
+ * A "What's New at the Ministry" entry (changelog/announcement). Managed in the
+ * admin; the public Updates section renders these. `icon` is a lucide icon NAME
+ * (e.g. "ShieldCheck") resolved to a component on render — components can't be
+ * stored in a database.
+ */
+export interface PortalUpdate {
+  id: ID;
+  version: string;
+  date: string;
+  title: string;
+  summary: string;
+  icon: string;
+  sections: PortalUpdateSection[];
+  order: number;
+  createdAt: string;
+}
+
+export type Collection =
+  | "posts"
+  | "gallery"
+  | "ministers"
+  | "messages"
+  | "directory"
+  | "updates";
 
 /** Shape returned by the auth endpoint / demo login. */
 export interface AuthResult {
@@ -144,3 +177,4 @@ export type NewGalleryItem = Omit<GalleryItem, "id" | "createdAt">;
 export type NewMinister = Omit<Minister, "id" | "createdAt">;
 export type NewMessage = Omit<Message, "id" | "createdAt" | "status">;
 export type NewDirectoryEntry = Omit<DirectoryEntry, "id" | "createdAt">;
+export type NewPortalUpdate = Omit<PortalUpdate, "id" | "createdAt">;

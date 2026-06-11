@@ -27,7 +27,8 @@ import { Badge } from "@/components/ui/badge";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { AnimatedList, AnimatedListItem } from "@/components/ui/animated-list";
 import { Button } from "@/components/ui/button";
-import { portalUpdates, updateToneClasses, updateToneLabels } from "@/data/portal-updates";
+import { updateToneClasses, updateToneLabels } from "@/data/portal-updates";
+import { seedUpdates } from "@/lib/data/seed-updates";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/components/admin/shared";
 
@@ -96,7 +97,7 @@ function buildActivity(posts: Post[], messages: Message[]): ActivityItem[] {
 }
 
 function AdminUpdatesCard() {
-  const latest = portalUpdates[0];
+  const latest = seedUpdates[0];
   const sections = latest.sections.slice(0, 2);
 
   return (
