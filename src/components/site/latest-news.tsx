@@ -70,21 +70,29 @@ export function HeroEmblemNews() {
       animate={entrance.animate}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* ── Emblem treatment (official ministry crest) ── */}
-      <div className="relative overflow-hidden rounded-2xl border border-gold/25 bg-white/80 px-6 py-8 text-center shadow-sm backdrop-blur-sm">
+      {/* ── Emblem treatment (official ministry crest on a dark tile) ── */}
+      <div className="relative overflow-hidden rounded-2xl border border-gold/30 bg-gradient-to-br from-ink via-ink to-[#161514] px-6 py-8 text-center shadow-xl shadow-ink/30">
         <BorderBeam
-          size={140}
-          duration={12}
+          size={160}
+          duration={10}
           className="from-gold via-gold to-transparent"
         />
-        <div className="pointer-events-none absolute inset-0 bg-dot text-gold/[0.08]" />
-        {/* solid emblem-gold glow behind the crest */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 size-60 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/25 blur-2xl" />
+        <div className="pointer-events-none absolute inset-0 bg-dot text-gold/[0.12]" />
+        {/* pulsing gold glow behind the crest */}
+        <motion.div
+          className="pointer-events-none absolute left-1/2 top-1/2 size-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/25 blur-3xl"
+          animate={reduce ? undefined : { opacity: [0.5, 0.85, 0.5], scale: [1, 1.08, 1] }}
+          transition={
+            reduce
+              ? undefined
+              : { duration: 5, repeat: Infinity, ease: "easeInOut" }
+          }
+        />
         <motion.img
           src={asset("/emblem.png")}
           alt="Ministry of Local Government & Regional Development emblem"
-          className="relative mx-auto h-auto w-56 drop-shadow-[0_10px_28px_rgba(17,24,39,0.22)] sm:w-72"
-          animate={reduce ? undefined : { y: [0, -7, 0] }}
+          className="relative mx-auto h-auto w-56 drop-shadow-[0_8px_30px_rgba(212,160,23,0.35)] sm:w-72"
+          animate={reduce ? undefined : { y: [0, -8, 0] }}
           transition={
             reduce
               ? undefined
