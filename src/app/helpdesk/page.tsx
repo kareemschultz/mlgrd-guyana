@@ -4,6 +4,7 @@ import { LifeBuoy, Phone, Mail, MessageSquareText, BookOpen, MapPin } from "luci
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { MultiStepForm } from "@/components/forms/multi-step-form";
+import { HelpdeskEmbed } from "@/components/helpdesk/helpdesk-embed";
 import { ministry } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -53,6 +54,30 @@ export default function HelpdeskPage() {
               </div>
             </Reveal>
           ))}
+        </div>
+      </section>
+
+      {/* Online helpdesk — embedded single-window app */}
+      <section className="pb-10">
+        <div className="container-gov">
+          <Reveal>
+            <div className="mb-6 flex items-center gap-3">
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand-600">
+                <LifeBuoy className="size-5" />
+              </span>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
+                  Online helpdesk
+                </p>
+                <h2 className="font-heading text-2xl font-extrabold">
+                  Submit &amp; track requests online
+                </h2>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <HelpdeskEmbed />
+          </Reveal>
         </div>
       </section>
 
