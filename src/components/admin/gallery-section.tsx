@@ -16,6 +16,13 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -255,18 +262,21 @@ export function GallerySection({
             </Field>
             <div className="grid gap-4 sm:grid-cols-3">
               <Field label="Category" htmlFor="gal-category" className="sm:col-span-1">
-                <Input
-                  id="gal-category"
-                  list="gal-categories"
-                  value={draft.category ?? ""}
-                  onChange={(e) => patch({ category: e.target.value })}
-                  placeholder="Events"
-                />
-                <datalist id="gal-categories">
-                  {CATEGORIES.map((c) => (
-                    <option key={c} value={c} />
-                  ))}
-                </datalist>
+                <Select
+                  value={draft.category || undefined}
+                  onValueChange={(v) => patch({ category: v })}
+                >
+                  <SelectTrigger id="gal-category" className="w-full">
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {CATEGORIES.map((c) => (
+                      <SelectItem key={c} value={c}>
+                        {c}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </Field>
               <Field label="Date" htmlFor="gal-date">
                 <Input

@@ -13,6 +13,7 @@ import { Database, Pencil, Plus, Search, Trash2 } from "lucide-react";
 
 import { datasets, getDataset } from "@/lib/data/datasets";
 import type { DatasetColumn } from "@/lib/data/datasets";
+import { regions } from "@/lib/site";
 import { data } from "@/lib/data/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,6 +37,7 @@ import { ConfirmDelete } from "@/components/admin/confirm-delete";
 
 type Row = Record<string, unknown> & { id: string };
 const PAGE = 12;
+const REGION_NAMES = regions.map((r) => r.name);
 
 function str(v: unknown): string {
   if (v === undefined || v === null) return "";
@@ -247,6 +249,7 @@ export function DatasetsSection() {
                 col={c}
                 value={draft[c.key] ?? ""}
                 onChange={(v) => setDraft((d) => ({ ...d, [c.key]: v }))}
+                options={c.key === def.regionField ? REGION_NAMES : undefined}
               />
             ))}
           </div>
@@ -278,10 +281,13 @@ function DatasetField({
   col,
   value,
   onChange,
+  options,
 }: {
   col: DatasetColumn;
   value: string;
   onChange: (v: string) => void;
+  /** When present, the field is a strict dropdown (e.g. region). */
+  options?: string[];
 }) {
   const id = `ds-f-${col.key}`;
   const span = col.type === "textarea" ? "sm:col-span-2" : "";
@@ -292,7 +298,20 @@ function DatasetField({
       className={span}
       hint={col.sensitive ? "Personal/sensitive — live mode only; never in public data." : undefined}
     >
-      {col.type === "textarea" ? (
+      {options ? (
+        <Select value={value || undefined} onValueChange={onChange}>
+          <SelectTrigger id={id} className="w-full">
+            <SelectValue placeholder={`Select ${col.label.toLowerCase()}`} />
+          </SelectTrigger>
+          <SelectContent>
+            {options.map((o) => (
+              <SelectItem key={o} value={o}>
+                {o}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      ) : col.type === "textarea" ? (
         <Textarea id={id} value={value} onChange={(e) => onChange(e.target.value)} rows={3} />
       ) : (
         <Input
