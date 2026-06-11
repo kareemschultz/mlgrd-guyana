@@ -20,8 +20,8 @@ binding = "DB"
 database_name = "mlgrd"
 database_id = "196224ba-a08e-4c9f-ae1d-1018108c1ac3"
 
-# Non-secret defaults. Set ADMIN_SECRET and ADMIN_PASSWORD as SECRETS, not here:
+# Admin auth is configured as Pages SECRETS (set once via the dashboard or
+# `wrangler pages secret put`), NOT here, to avoid duplicate-binding conflicts:
 #   wrangler pages secret put ADMIN_SECRET
 #   wrangler pages secret put ADMIN_PASSWORD
-[vars]
-ADMIN_USERNAME = "admin"
+#   wrangler pages secret put ADMIN_USERNAME   # optional; code defaults to "admin"
