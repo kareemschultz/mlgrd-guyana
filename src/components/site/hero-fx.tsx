@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Meteors } from "@/components/ui/meteors";
 import { FloatingMotifs } from "@/components/site/floating-motifs";
 
 /**
- * Purely-decorative hero animations (meteors + floating ministry motifs),
- * mounted AFTER first paint so they never block the hero's largest-contentful
- * paint or compete for the main thread during hydration. They're absolutely
- * positioned behind the content, so deferring them causes no layout shift.
+ * Purely-decorative floating ministry motifs behind the hero, mounted AFTER
+ * first paint so they never block the hero's largest-contentful paint or compete
+ * for the main thread during hydration. Tinted charcoal so they read as subtle
+ * line-art on the light (#fffaf0) hero; absolutely positioned behind content.
  */
 export function HeroFx() {
   const [show, setShow] = useState(false);
@@ -27,10 +26,5 @@ export function HeroFx() {
   }, []);
 
   if (!show) return null;
-  return (
-    <>
-      <Meteors number={14} />
-      <FloatingMotifs preset="hero" className="text-white/[0.07]" />
-    </>
-  );
+  return <FloatingMotifs preset="hero" className="text-ink/[0.08]" />;
 }

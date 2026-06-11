@@ -11,6 +11,7 @@ import { toast } from "sonner";
 
 import { data } from "@/lib/data/client";
 import type { NewPost, Post, PostStatus } from "@/lib/data/types";
+import { CreatableCombobox } from "@/components/admin/creatable-combobox";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -75,6 +76,15 @@ export function PostsSection({
   onChange: () => Promise<void> | void;
   loading: boolean;
 }) {
+  const categoryOptions = React.useMemo(
+    () =>
+      Array.from(
+        new Set([...CATEGORIES, ...posts.map((p) => p.category)]),
+      )
+        .filter(Boolean)
+        .sort((a, b) => a.localeCompare(b)),
+    [posts],
+  );
   const [editorOpen, setEditorOpen] = React.useState(false);
   const [editing, setEditing] = React.useState<Post | null>(null);
   const [draft, setDraft] = React.useState<NewPost>(emptyDraft);
@@ -302,22 +312,18 @@ export function PostsSection({
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Category" htmlFor="post-category">
-                <Select
+              <Field
+                label="Category"
+                htmlFor="post-category"
+                hint="Pick one, or type to add a new category."
+              >
+                <CreatableCombobox
+                  id="post-category"
                   value={draft.category}
                   onValueChange={(v) => patch({ category: v })}
-                >
-                  <SelectTrigger id="post-category" className="w-full">
-                    <SelectValue placeholder="Category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {CATEGORIES.map((c) => (
-                      <SelectItem key={c} value={c}>
-                        {c}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  options={categoryOptions}
+                  noun="category"
+                />
               </Field>
               <Field label="Status" htmlFor="post-status">
                 <Select
