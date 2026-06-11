@@ -17,6 +17,7 @@
  * adapters are interchangeable.
  */
 import type {
+  Appointment,
   AuthResult,
   DirectoryEntry,
   GalleryItem,
@@ -25,6 +26,7 @@ import type {
   NewDirectoryEntry,
   NewGalleryItem,
   NewMessage,
+  NewAppointment,
   NewMinister,
   NewPortalUpdate,
   NewPost,
@@ -88,6 +90,7 @@ const KEYS = {
   messages: "mlgrd:messages",
   directory: "mlgrd:directory",
   updates: "mlgrd:updates",
+  appointments: "mlgrd:appointments",
 } as const;
 
 /**
@@ -322,6 +325,41 @@ const demo = {
     );
   },
 
+  // appointments (REO booking inbox) -----------------------------------------
+  listAppointments: async (): Promise<Appointment[]> =>
+    readStore<Appointment>(KEYS.appointments, []).sort((a, b) =>
+      b.createdAt.localeCompare(a.createdAt),
+    ),
+
+  createAppointment: async (input: NewAppointment): Promise<Appointment> => {
+    const items = readStore<Appointment>(KEYS.appointments, []);
+    const appt: Appointment = {
+      ...input,
+      id: uid("appt"),
+      status: "requested",
+      createdAt: nowIso(),
+    };
+    writeStore(KEYS.appointments, [appt, ...items]);
+    return appt;
+  },
+
+  updateAppointment: async (
+    id: string,
+    patch: Partial<Pick<Appointment, "status">>,
+  ): Promise<Appointment> => {
+    const items = readStore<Appointment>(KEYS.appointments, []);
+    const next = items.map((a) => (a.id === id ? { ...a, ...patch } : a));
+    writeStore(KEYS.appointments, next);
+    return next.find((a) => a.id === id)!;
+  },
+
+  deleteAppointment: async (id: string): Promise<void> => {
+    writeStore(
+      KEYS.appointments,
+      readStore<Appointment>(KEYS.appointments, []).filter((a) => a.id !== id),
+    );
+  },
+
   // auth --------------------------------------------------------------------
   login: async (username: string, password: string): Promise<AuthResult> => {
     if (username !== demoAdmin.username || password !== demoAdmin.password) {
@@ -420,6 +458,15 @@ const http = {
   deleteUpdate: (id: string) =>
     api<void>(`/updates/${id}`, { method: "DELETE", auth: true }),
 
+  // appointments: public create; list/update/delete are admin-only.
+  listAppointments: () => api<Appointment[]>("/appointments", { auth: true }),
+  createAppointment: (input: NewAppointment) =>
+    api<Appointment>("/appointments", { method: "POST", body: JSON.stringify(input) }),
+  updateAppointment: (id: string, patch: Partial<Pick<Appointment, "status">>) =>
+    api<Appointment>(`/appointments/${id}`, { method: "PUT", body: JSON.stringify(patch), auth: true }),
+  deleteAppointment: (id: string) =>
+    api<void>(`/appointments/${id}`, { method: "DELETE", auth: true }),
+
   login: async (username: string, password: string): Promise<AuthResult> => {
     const auth = await api<AuthResult>("/auth/login", {
       method: "POST",
@@ -472,6 +519,12 @@ export const data = {
     create: backend.createUpdate,
     update: backend.updateUpdate,
     remove: backend.deleteUpdate,
+  },
+  appointments: {
+    list: backend.listAppointments,
+    create: backend.createAppointment,
+    update: backend.updateAppointment,
+    remove: backend.deleteAppointment,
   },
   auth: {
     login: backend.login,
