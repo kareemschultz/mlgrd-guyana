@@ -83,7 +83,7 @@ export function HeroEmblemNews() {
         <motion.img
           src={asset("/emblem.png")}
           alt="Ministry of Local Government & Regional Development emblem"
-          className="relative mx-auto h-auto w-44 drop-shadow-[0_10px_28px_rgba(17,24,39,0.22)] sm:w-52"
+          className="relative mx-auto h-auto w-56 drop-shadow-[0_10px_28px_rgba(17,24,39,0.22)] sm:w-72"
           animate={reduce ? undefined : { y: [0, -7, 0] }}
           transition={
             reduce
