@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { regions } from "@/lib/site";
+import type { NewMessage } from "@/lib/data/types";
 
 export type FieldType = "text" | "email" | "tel" | "textarea" | "select";
 
@@ -31,6 +32,14 @@ export type FormConfig = {
   successText: string;
   /** Subject line used when emailing the submission. */
   subject: string;
+  /**
+   * Fields force-applied to the built message on submit (e.g. a fixed
+   * `category` or `channel`). Used by scoped forms like an individual NDC's
+   * enquiry form. Merged last, so it overrides values inferred from inputs.
+   */
+  fixed?: Partial<NewMessage>;
+  /** Extra context appended to the message body (e.g. which NDC / region). */
+  contextNote?: string;
 };
 
 const regionOptions = regions.map((r) => ({
@@ -301,3 +310,62 @@ export const formConfigs = {
   "vendor-enquiry": vendorEnquiryConfig,
   helpdesk: helpdeskConfig,
 } as const;
+
+/* ───────────────────────── NDC enquiry (scoped) ───────────────────────── */
+/**
+ * Build a wizard config for a single Neighbourhood Democratic Council. The
+ * submission lands in the admin inbox tagged "NDC — <name> (<region>)" and is
+ * routed centrally for now (per the client). Same engine/look as every other
+ * public form, so an NDC enquiry never feels like a one-off.
+ */
+export function makeNdcConfig(
+  ndcName: string,
+  region: string,
+  regionName: string,
+): FormConfig {
+  return {
+    id: `ndc-${region}`,
+    title: `Contact the ${ndcName} NDC`,
+    intro: `Send an enquiry to the ${ndcName} Neighbourhood Democratic Council. It is routed to the Ministry, who will respond.`,
+    subject: `NDC enquiry — ${ndcName} (${region})`,
+    submitLabel: "Send enquiry",
+    successTitle: "Enquiry sent",
+    successText: `Thank you. Your enquiry for the ${ndcName} NDC has been received and routed to the Ministry. You'll get a reply by email.`,
+    fixed: { channel: "contact", category: `NDC — ${ndcName} (${region})` },
+    contextNote: `Sent via the ${ndcName} NDC contact form (${region}, ${regionName}).`,
+    steps: [
+      {
+        id: "enquiry",
+        title: "Your enquiry",
+        fields: [
+          { name: "subject", label: "Subject", type: "text", colSpan: 2 },
+          {
+            name: "message",
+            label: "Your message",
+            type: "textarea",
+            placeholder: `How can the ${ndcName} NDC help?`,
+            colSpan: 2,
+          },
+        ],
+        schema: z.object({
+          subject: z.string().min(3, "Please add a short subject"),
+          message: z.string().min(10, "Please enter your message"),
+        }),
+      },
+      {
+        id: "contact",
+        title: "Your details",
+        fields: [
+          { name: "name", label: "Full name", type: "text" },
+          { name: "phone", label: "Phone (optional)", type: "tel" },
+          { name: "email", label: "Email", type: "email", colSpan: 2 },
+        ],
+        schema: z.object({
+          name: contactName,
+          phone: phoneOptional,
+          email,
+        }),
+      },
+    ],
+  };
+}

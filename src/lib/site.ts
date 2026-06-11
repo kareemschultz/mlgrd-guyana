@@ -58,7 +58,7 @@ export const mainNav: NavItem[] = [
       },
       {
         label: "Book an REO Appointment",
-        href: "/appointments",
+        href: "/contact?intent=appointment",
         description: "Request a meeting with your Regional Executive Officer",
       },
     ],

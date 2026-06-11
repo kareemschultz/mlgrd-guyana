@@ -1,20 +1,22 @@
 "use client";
 
 /**
- * Public REO appointment booking form. A citizen picks a Region / Regional
- * Executive Officer, a preferred date (no past dates) and time slot, and gives
- * their contact details + reason. On submit it posts through the data layer
- * (`data.appointments.create`) — localStorage in demo mode, Cloudflare D1 live —
- * and shows a success card with the reference id. Seed-then-overlay does not
- * apply here (write-only public surface).
+ * Public REO appointment booking — a two-step wizard (Schedule → Your details)
+ * that shares the look of the site's other multi-step forms. The citizen picks
+ * a Region / Regional Executive Officer and a date + time slot (calendar
+ * picker), then gives their contact details + reason. On submit it posts the
+ * structured booking through the data layer (`data.appointments.create`) —
+ * localStorage in demo mode, Cloudflare D1 live — so it lands in the admin
+ * appointments inbox, and shows a success card with the reference id.
  */
 import * as React from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { z } from "zod";
 import {
   CalendarCheck,
-  CalendarClock,
-  CheckCircle2,
+  Check,
+  ChevronLeft,
+  ChevronRight,
   Loader2,
   Mail,
   MapPin,
@@ -30,7 +32,7 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { DatePicker } from "@/components/ui/date-picker";
+import { AppointmentPicker } from "@/components/appointments/appointment-picker";
 import {
   Select,
   SelectContent,
@@ -39,25 +41,26 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-/** Today as `yyyy-mm-dd` in local time (min for the date input). */
+/** Today as `yyyy-mm-dd` in local time (min selectable date). */
 function todayISO(): string {
   const d = new Date();
   const off = d.getTimezoneOffset();
   return new Date(d.getTime() - off * 60_000).toISOString().slice(0, 10);
 }
 
-const schema = z.object({
+const scheduleSchema = z.object({
   region: z.string().min(1, "Please choose a region / REO."),
   date: z.string().min(1, "Please choose a preferred date."),
   time: z.string().optional(),
+});
+const detailsSchema = z.object({
   name: z.string().trim().min(2, "Please enter your full name."),
   email: z.string().trim().email("Please enter a valid email address."),
   phone: z.string().optional(),
   subject: z.string().trim().min(3, "Please add a short subject."),
   notes: z.string().optional(),
 });
-
-type Values = z.infer<typeof schema>;
+type Values = z.infer<typeof scheduleSchema> & z.infer<typeof detailsSchema>;
 type FieldErrors = Partial<Record<keyof Values, string>>;
 
 const EMPTY: Values = {
@@ -90,8 +93,19 @@ function fmtDate(iso: string): string {
   });
 }
 
-export function BookingForm() {
-  const [values, setValues] = React.useState<Values>(EMPTY);
+const STEPS = [
+  { id: "schedule", title: "Schedule" },
+  { id: "details", title: "Your details" },
+] as const;
+
+export function BookingForm({ defaultRegion }: { defaultRegion?: string }) {
+  const [values, setValues] = React.useState<Values>(() =>
+    defaultRegion && reoByRegion(defaultRegion)
+      ? { ...EMPTY, region: defaultRegion }
+      : EMPTY,
+  );
+  const [step, setStep] = React.useState(0);
+  const [dir, setDir] = React.useState(1);
   const [errors, setErrors] = React.useState<FieldErrors>({});
   const [submitting, setSubmitting] = React.useState(false);
   const [formError, setFormError] = React.useState<string | null>(null);
@@ -106,30 +120,51 @@ export function BookingForm() {
     setErrors((e) => (e[key] ? { ...e, [key]: undefined } : e));
   }
 
+  function validateStep(): boolean {
+    const s = step === 0 ? scheduleSchema : detailsSchema;
+    const res = s.safeParse(values);
+    if (res.success) {
+      // Extra guard: no past dates on the schedule step.
+      if (step === 0 && values.date < min) {
+        setErrors({ date: "Please choose today or a future date." });
+        return false;
+      }
+      setErrors({});
+      return true;
+    }
+    const next: FieldErrors = {};
+    for (const issue of res.error.issues) {
+      const key = issue.path[0] as keyof Values;
+      if (!next[key]) next[key] = issue.message;
+    }
+    setErrors(next);
+    return false;
+  }
+
+  function goNext() {
+    if (!validateStep()) return;
+    setDir(1);
+    setStep((s) => Math.min(s + 1, STEPS.length - 1));
+  }
+  function goBack() {
+    setErrors({});
+    setDir(-1);
+    setStep((s) => Math.max(s - 1, 0));
+  }
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (step < STEPS.length - 1) {
+      goNext();
+      return;
+    }
+    if (!validateStep()) return;
     setFormError(null);
 
-    const parsed = schema.safeParse(values);
-    if (!parsed.success) {
-      const next: FieldErrors = {};
-      for (const issue of parsed.error.issues) {
-        const key = issue.path[0] as keyof Values;
-        if (!next[key]) next[key] = issue.message;
-      }
-      setErrors(next);
-      return;
-    }
-
-    const reo = reoByRegion(parsed.data.region);
+    const reo = reoByRegion(values.region);
     if (!reo) {
+      setStep(0);
       setErrors({ region: "Please choose a valid region / REO." });
-      return;
-    }
-
-    // Guard against a past date slipping through (e.g. typed input).
-    if (parsed.data.date < min) {
-      setErrors({ date: "Please choose today or a future date." });
       return;
     }
 
@@ -139,22 +174,21 @@ export function BookingForm() {
         region: reo.region,
         regionName: reo.regionName,
         reoName: reo.reoName,
-        name: parsed.data.name,
-        email: parsed.data.email,
-        phone: parsed.data.phone || undefined,
-        date: parsed.data.date,
-        time: parsed.data.time || undefined,
-        subject: parsed.data.subject,
-        notes: parsed.data.notes || undefined,
+        name: values.name.trim(),
+        email: values.email.trim(),
+        phone: values.phone || undefined,
+        date: values.date,
+        time: values.time || undefined,
+        subject: values.subject.trim(),
+        notes: values.notes || undefined,
       });
       setSuccess({
         id: created.id,
         reoName: reo.reoName,
         regionName: reo.regionName,
-        date: parsed.data.date,
-        time: parsed.data.time || undefined,
+        date: values.date,
+        time: values.time || undefined,
       });
-      setValues(EMPTY);
     } catch (err) {
       setFormError(
         err instanceof Error
@@ -166,6 +200,7 @@ export function BookingForm() {
     }
   }
 
+  // ── success ──
   if (success) {
     return (
       <motion.div
@@ -177,7 +212,7 @@ export function BookingForm() {
         <div className="h-1.5 w-full bg-gradient-to-r from-brand via-gold to-brand" />
         <div className="p-7 sm:p-8">
           <div className="flex size-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600">
-            <CheckCircle2 className="size-7" />
+            <CalendarCheck className="size-7" />
           </div>
           <h2 className="mt-5 font-heading text-2xl font-extrabold tracking-tight">
             Request received
@@ -213,7 +248,11 @@ export function BookingForm() {
           <div className="mt-6 flex flex-wrap gap-3">
             <button
               type="button"
-              onClick={() => setSuccess(null)}
+              onClick={() => {
+                setSuccess(null);
+                setValues(EMPTY);
+                setStep(0);
+              }}
               className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
             >
               <CalendarCheck className="size-4" />
@@ -226,226 +265,209 @@ export function BookingForm() {
   }
 
   return (
-    <motion.form
-      onSubmit={onSubmit}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="overflow-hidden rounded-2xl border bg-card shadow-sm"
-      noValidate
-    >
-      <div className="flex items-center gap-3 border-b bg-muted/30 px-7 py-5">
-        <span className="flex size-11 items-center justify-center rounded-xl bg-brand/10 text-brand-600">
-          <CalendarClock className="size-6" />
-        </span>
-        <div>
-          <h2 className="font-heading text-lg font-bold tracking-tight">
-            Book an appointment
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Request a meeting with your Regional Executive Officer.
-          </p>
-        </div>
-      </div>
+    <div className="rounded-2xl border bg-card p-6 shadow-sm sm:p-8">
+      {/* Stepper */}
+      <ol className="mb-7 flex items-center gap-2">
+        {STEPS.map((s, i) => {
+          const state = i < step ? "done" : i === step ? "active" : "todo";
+          return (
+            <li key={s.id} className="flex flex-1 items-center gap-2">
+              <span
+                className={cn(
+                  "flex size-8 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition-colors",
+                  state === "done" && "border-brand-600 bg-brand-600 text-white",
+                  state === "active" && "border-brand-600 text-brand-600",
+                  state === "todo" && "border-border text-muted-foreground",
+                )}
+              >
+                {state === "done" ? <Check className="size-4" /> : i + 1}
+              </span>
+              <span
+                className={cn(
+                  "text-sm font-medium",
+                  state === "active" ? "text-foreground" : "text-muted-foreground",
+                )}
+              >
+                {s.title}
+              </span>
+              {i < STEPS.length - 1 && (
+                <span className="mx-1 h-px flex-1 bg-border" aria-hidden />
+              )}
+            </li>
+          );
+        })}
+      </ol>
 
-      <div className="grid gap-5 p-7 sm:p-8">
-        {/* Region / REO */}
-        <FormField
-          label="Region & REO"
-          htmlFor="appt-region"
-          required
-          error={errors.region}
-          icon={MapPin}
-        >
-          <Select
-            value={values.region}
-            onValueChange={(v) => set("region", v)}
-          >
-            <SelectTrigger
-              id="appt-region"
-              className="w-full"
-              aria-invalid={!!errors.region}
-            >
-              <SelectValue placeholder="Choose your region…" />
-            </SelectTrigger>
-            <SelectContent>
-              {reoOptions.map((o) => (
-                <SelectItem key={o.region} value={o.region}>
-                  {o.region} — {o.regionName}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {selectedReo && (
-            <p className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-brand/5 px-3 py-1.5 text-sm text-brand-700">
-              <UserCheck className="size-4" />
-              Your REO:{" "}
-              <span className="font-semibold">{selectedReo.reoName}</span>
-            </p>
-          )}
-        </FormField>
-
-        {/* Date + time */}
-        <div className="grid gap-5 sm:grid-cols-2">
-          <FormField
-            label="Preferred date"
-            htmlFor="appt-date"
-            required
-            error={errors.date}
-            icon={CalendarCheck}
-          >
-            <DatePicker
-              id="appt-date"
-              value={values.date}
-              onChange={(iso) => set("date", iso)}
-              min={min}
-              invalid={!!errors.date}
-              placeholder="Choose a date"
-            />
-          </FormField>
-
-          <FormField
-            label="Preferred time slot"
-            htmlFor="appt-time"
-            error={errors.time}
-            icon={CalendarClock}
-          >
-            <Select value={values.time} onValueChange={(v) => set("time", v)}>
-              <SelectTrigger id="appt-time" className="w-full">
-                <SelectValue placeholder="Any office-hours slot" />
-              </SelectTrigger>
-              <SelectContent>
-                {TIME_SLOTS.map((slot) => (
-                  <SelectItem key={slot} value={slot}>
-                    {slot}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormField>
-        </div>
-
-        {/* Name + email */}
-        <div className="grid gap-5 sm:grid-cols-2">
-          <FormField
-            label="Full name"
-            htmlFor="appt-name"
-            required
-            error={errors.name}
-            icon={User2}
-          >
-            <Input
-              id="appt-name"
-              value={values.name}
-              onChange={(e) => set("name", e.target.value)}
-              placeholder="Jane Citizen"
-              autoComplete="name"
-              aria-invalid={!!errors.name}
-            />
-          </FormField>
-
-          <FormField
-            label="Email"
-            htmlFor="appt-email"
-            required
-            error={errors.email}
-            icon={Mail}
-          >
-            <Input
-              id="appt-email"
-              type="email"
-              value={values.email}
-              onChange={(e) => set("email", e.target.value)}
-              placeholder="you@example.com"
-              autoComplete="email"
-              aria-invalid={!!errors.email}
-            />
-          </FormField>
-        </div>
-
-        {/* Phone */}
-        <FormField
-          label="Phone (optional)"
-          htmlFor="appt-phone"
-          error={errors.phone}
-          icon={Phone}
-        >
-          <Input
-            id="appt-phone"
-            type="tel"
-            value={values.phone}
-            onChange={(e) => set("phone", e.target.value)}
-            placeholder="+592 …"
-            autoComplete="tel"
-          />
-        </FormField>
-
-        {/* Subject */}
-        <FormField
-          label="Subject"
-          htmlFor="appt-subject"
-          required
-          error={errors.subject}
-        >
-          <Input
-            id="appt-subject"
-            value={values.subject}
-            onChange={(e) => set("subject", e.target.value)}
-            placeholder="What is your appointment about?"
-            aria-invalid={!!errors.subject}
-          />
-        </FormField>
-
-        {/* Notes */}
-        <FormField
-          label="Additional notes (optional)"
-          htmlFor="appt-notes"
-          error={errors.notes}
-        >
-          <Textarea
-            id="appt-notes"
-            value={values.notes}
-            onChange={(e) => set("notes", e.target.value)}
-            rows={4}
-            placeholder="Any background or details that will help the REO's office prepare."
-          />
-        </FormField>
-
+      <form onSubmit={onSubmit} noValidate>
         {formError && (
-          <p
+          <div
             role="alert"
-            className="rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive"
+            className="mb-5 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive"
           >
             {formError}
-          </p>
+          </div>
         )}
 
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-5">
-          <p className="text-xs text-muted-foreground">
-            The REO&rsquo;s office will follow up by email to confirm.
-          </p>
+        <div>
+          <motion.div
+            key={STEPS[step].id}
+            initial={reduce ? false : { opacity: 0, x: dir * 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-brand-600">
+              Step {step + 1} of {STEPS.length}
+            </div>
+
+            {step === 0 ? (
+              <div className="space-y-5">
+                <h3 className="font-heading text-xl font-bold">Schedule</h3>
+                <FormField
+                  label="Region & REO"
+                  htmlFor="appt-region"
+                  required
+                  error={errors.region}
+                  icon={MapPin}
+                >
+                  <Select value={values.region} onValueChange={(v) => set("region", v)}>
+                    <SelectTrigger
+                      id="appt-region"
+                      className="w-full"
+                      aria-invalid={!!errors.region}
+                    >
+                      <SelectValue placeholder="Choose your region…" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {reoOptions.map((o) => (
+                        <SelectItem key={o.region} value={o.region}>
+                          {o.region} — {o.regionName}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {selectedReo && (
+                    <p className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-brand/5 px-3 py-1.5 text-sm text-brand-700">
+                      <UserCheck className="size-4" />
+                      Your REO:{" "}
+                      <span className="font-semibold">{selectedReo.reoName}</span>
+                    </p>
+                  )}
+                </FormField>
+
+                <div className="flex flex-col gap-1.5">
+                  <Label className="flex items-center gap-1.5 text-sm">
+                    <CalendarCheck className="size-3.5 text-muted-foreground" />
+                    <span>Preferred date &amp; time</span>
+                    <span className="text-flag-red">*</span>
+                  </Label>
+                  <AppointmentPicker
+                    date={values.date}
+                    time={values.time ?? ""}
+                    onDateChange={(iso) => set("date", iso)}
+                    onTimeChange={(slot) => set("time", slot)}
+                    min={min}
+                    slots={TIME_SLOTS}
+                    invalid={!!errors.date}
+                  />
+                  {errors.date && (
+                    <p className="text-xs font-medium text-destructive">{errors.date}</p>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-5">
+                <h3 className="font-heading text-xl font-bold">Your details</h3>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <FormField label="Full name" htmlFor="appt-name" required error={errors.name} icon={User2}>
+                    <Input
+                      id="appt-name"
+                      value={values.name}
+                      onChange={(e) => set("name", e.target.value)}
+                      placeholder="Jane Citizen"
+                      autoComplete="name"
+                      aria-invalid={!!errors.name}
+                    />
+                  </FormField>
+                  <FormField label="Email" htmlFor="appt-email" required error={errors.email} icon={Mail}>
+                    <Input
+                      id="appt-email"
+                      type="email"
+                      value={values.email}
+                      onChange={(e) => set("email", e.target.value)}
+                      placeholder="you@example.com"
+                      autoComplete="email"
+                      aria-invalid={!!errors.email}
+                    />
+                  </FormField>
+                </div>
+                <FormField label="Phone (optional)" htmlFor="appt-phone" icon={Phone}>
+                  <Input
+                    id="appt-phone"
+                    type="tel"
+                    value={values.phone}
+                    onChange={(e) => set("phone", e.target.value)}
+                    placeholder="+592 …"
+                    autoComplete="tel"
+                  />
+                </FormField>
+                <FormField label="Subject" htmlFor="appt-subject" required error={errors.subject}>
+                  <Input
+                    id="appt-subject"
+                    value={values.subject}
+                    onChange={(e) => set("subject", e.target.value)}
+                    placeholder="What is your appointment about?"
+                    aria-invalid={!!errors.subject}
+                  />
+                </FormField>
+                <FormField label="Additional notes (optional)" htmlFor="appt-notes">
+                  <Textarea
+                    id="appt-notes"
+                    value={values.notes}
+                    onChange={(e) => set("notes", e.target.value)}
+                    rows={4}
+                    placeholder="Any background or details that will help the REO's office prepare."
+                  />
+                </FormField>
+              </div>
+            )}
+          </motion.div>
+        </div>
+
+        <div className="mt-8 flex items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={goBack}
+            disabled={step === 0 || submitting}
+            className={cn(
+              "inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground disabled:opacity-0",
+              step === 0 && "invisible",
+            )}
+          >
+            <ChevronLeft className="size-4" /> Back
+          </button>
+
           <button
             type="submit"
             disabled={submitting}
-            className={cn(
-              "inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60",
-            )}
+            className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {submitting ? (
               <>
-                <Loader2 className="size-4 animate-spin" />
-                Submitting…
+                <Loader2 className="size-4 animate-spin" /> Submitting…
+              </>
+            ) : step < STEPS.length - 1 ? (
+              <>
+                Continue <ChevronRight className="size-4" />
               </>
             ) : (
               <>
-                <Send className="size-4" />
-                Request appointment
+                <Send className="size-4" /> Request appointment
               </>
             )}
           </button>
         </div>
-      </div>
-    </motion.form>
+      </form>
+    </div>
   );
 }
 
@@ -473,9 +495,7 @@ function FormField({
         {required && <span className="text-flag-red">*</span>}
       </Label>
       {children}
-      {error && (
-        <p className="text-xs font-medium text-destructive">{error}</p>
-      )}
+      {error && <p className="text-xs font-medium text-destructive">{error}</p>}
     </div>
   );
 }
