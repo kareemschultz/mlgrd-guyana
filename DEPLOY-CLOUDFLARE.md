@@ -38,6 +38,14 @@ wrangler d1 execute mlgrd --remote --file=scripts/d1-seed.sql
 #     then apply it (admin-only data — only exists in D1, never in the public bundle):
 wrangler d1 execute mlgrd --remote --file=scripts/d1-seed-directory.sql
 
+# 2c. Reference datasets (schools, health, police, villages, tenders, …).
+#     Public datasets (committed, ~1,750 rows):
+wrangler d1 execute mlgrd --remote --file=scripts/d1-seed-datasets.sql
+#     Amerindian villages WITH personal Toshao contacts (sensitive, git-ignored).
+#     Regenerate locally then apply — never commit this file:
+#       python scripts/gen-datasets-seed.py --villages "path/to/amerindian-villages.json"
+wrangler d1 execute mlgrd --remote --file=scripts/d1-seed-datasets-villages.sql
+
 # 3. Admin secrets (run once; you'll be prompted for the value)
 wrangler pages secret put ADMIN_SECRET      # any long random string (signs sessions)
 wrangler pages secret put ADMIN_PASSWORD    # the admin login password

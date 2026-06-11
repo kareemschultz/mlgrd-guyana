@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 !.env.example
+# Cloudflare local credentials / secrets (API token, ADMIN_SECRET, etc.)
+.dev.vars
+.dev.vars.*
 
 # throwaway QA / verification screenshots
 /_reference/_check_*.png
@@ -53,6 +56,7 @@ yarn-error.log*
 # FULL D1 seed is generated locally by scripts/import-agencies.py for live DB
 # seeding only and must never be committed to the public repo.
 /scripts/d1-seed-directory.sql
+/scripts/d1-seed-datasets-villages.sql
 *Agencies & Administrators*.xlsx
 
 # typescript
