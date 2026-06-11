@@ -71,7 +71,7 @@ export function SiteHeader() {
             : "border-transparent bg-background"
         )}
       >
-        <div className="container-gov flex h-16 items-center justify-between gap-4">
+        <div className="container-gov flex h-20 items-center justify-between gap-4">
           <Logo />
 
           {/* Desktop nav */}
