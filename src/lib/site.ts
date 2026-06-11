@@ -19,6 +19,12 @@ export const ministry = {
   hours: "Monday – Friday, 08:00 – 16:30",
 } as const;
 
+export const socialLinks = [
+  { label: "Facebook", href: "https://www.facebook.com/MLGRD.Guyana/" },
+  { label: "Instagram", href: "https://www.instagram.com/mlgrdguyana/" },
+  { label: "TikTok", href: "https://www.tiktok.com/@mlgrdguyana" },
+] as const;
+
 export type NavLink = { label: string; href: string; description?: string };
 export type NavItem = NavLink & { children?: NavLink[] };
 
