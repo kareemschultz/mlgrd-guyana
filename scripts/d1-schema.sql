@@ -132,3 +132,21 @@ CREATE TABLE IF NOT EXISTS datasets (
   createdAt TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_datasets_kind ON datasets (kind);
+
+-- Admin staff accounts with roles. Login verifies against this table (PBKDF2
+-- salted hash); the ADMIN_PASSWORD env var remains a bootstrap fallback so the
+-- first admin can always get in. Roles: 'admin' (full incl. user management),
+-- 'editor' (manage content), 'viewer' (read-only). All /users routes are
+-- admin-only. Passwords are never returned by the API.
+CREATE TABLE IF NOT EXISTS users (
+  id           TEXT PRIMARY KEY,
+  username     TEXT NOT NULL UNIQUE,
+  name         TEXT NOT NULL,
+  email        TEXT,
+  role         TEXT NOT NULL DEFAULT 'editor',
+  passwordSalt TEXT NOT NULL,
+  passwordHash TEXT NOT NULL,
+  active       INTEGER NOT NULL DEFAULT 1,
+  createdAt    TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_users_username ON users (username);

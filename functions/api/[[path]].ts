@@ -115,6 +115,35 @@ async function sha256Hex(input: string): Promise<string> {
   return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
+function toHex(buf: ArrayBuffer | Uint8Array): string {
+  const a = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
+  return [...a].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function randomSaltHex(): string {
+  return toHex(crypto.getRandomValues(new Uint8Array(16)));
+}
+
+/** PBKDF2-SHA256 (100k iterations) salted password hash → hex. */
+async function hashPassword(password: string, saltHex: string): Promise<string> {
+  const salt = Uint8Array.from(saltHex.match(/.{1,2}/g)!.map((h) => parseInt(h, 16)));
+  const keyMaterial = await crypto.subtle.importKey(
+    "raw",
+    enc.encode(password),
+    "PBKDF2",
+    false,
+    ["deriveBits"],
+  );
+  const bits = await crypto.subtle.deriveBits(
+    { name: "PBKDF2", salt, iterations: 100_000, hash: "SHA-256" },
+    keyMaterial,
+    256,
+  );
+  return toHex(bits);
+}
+
+const ALLOWED_ROLES = new Set(["admin", "editor", "viewer"]);
+
 async function hmacKey(secret: string): Promise<CryptoKey> {
   return crypto.subtle.importKey(
     "raw",
@@ -133,32 +162,38 @@ function hasConfiguredAdminPassword(env: Env): boolean {
   return !!(env.ADMIN_PASSWORD_HASH || env.ADMIN_PASSWORD);
 }
 
-async function signToken(env: Env): Promise<{ token: string; expiresAt: number }> {
+type AuthClaims = { exp: number; sub: string; role: string; name: string; username: string };
+
+async function signToken(
+  env: Env,
+  claims: Omit<AuthClaims, "exp">,
+): Promise<{ token: string; expiresAt: number }> {
   const secret = adminSecret(env);
   if (!secret) throw new Error("ADMIN_SECRET is not configured securely.");
   const expiresAt = Date.now() + TOKEN_TTL_MS;
-  const payload = b64url(enc.encode(JSON.stringify({ exp: expiresAt })));
+  const payload = b64url(enc.encode(JSON.stringify({ exp: expiresAt, ...claims })));
   const key = await hmacKey(secret);
   const sig = await crypto.subtle.sign("HMAC", key, enc.encode(payload));
   return { token: `${payload}.${b64url(sig)}`, expiresAt };
 }
 
-async function verifyToken(env: Env, token: string | null): Promise<boolean> {
-  if (!token) return false;
+/** Verify the token signature + expiry; returns the claims or null. */
+async function getAuth(env: Env, token: string | null): Promise<AuthClaims | null> {
+  if (!token) return null;
   const [payload, sig] = token.split(".");
-  if (!payload || !sig) return false;
+  if (!payload || !sig) return null;
   const secret = adminSecret(env);
-  if (!secret) return false;
+  if (!secret) return null;
   const key = await hmacKey(secret);
   const expected = await crypto.subtle.sign("HMAC", key, enc.encode(payload));
-  if (b64url(expected) !== sig) return false;
+  if (b64url(expected) !== sig) return null;
   try {
     const decoded = JSON.parse(
       atob(payload.replace(/-/g, "+").replace(/_/g, "/")),
-    ) as { exp: number };
-    return decoded.exp > Date.now();
+    ) as AuthClaims;
+    return decoded.exp > Date.now() ? decoded : null;
   } catch {
-    return false;
+    return null;
   }
 }
 
@@ -291,10 +326,14 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
   const segments = ctx.params.path || [];
   const [resource, id] = segments;
   const method = request.method;
-  const authed = await verifyToken(env, bearer(request));
+  const auth = await getAuth(env, bearer(request));
+  const authed = !!auth;
+  const role = auth?.role ?? null;
 
   const requireAuth = (): Response | null =>
     authed ? null : err("Unauthorized", 401);
+  const requireAdmin = (): Response | null =>
+    role === "admin" ? null : err("Forbidden — administrators only.", 403);
 
   try {
     if (!env.DB && resource !== "auth") {
@@ -307,22 +346,56 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         username?: string;
         password?: string;
       }>(request);
-      if (!adminSecret(env) || !hasConfiguredAdminPassword(env)) {
+      if (!adminSecret(env)) {
         return err("Admin authentication is not configured.", 503);
       }
-      const expectedUser = env.ADMIN_USERNAME || "admin";
-      let ok = username === expectedUser;
-      if (ok && password) {
-        if (env.ADMIN_PASSWORD_HASH) {
-          ok = (await sha256Hex(password)) === env.ADMIN_PASSWORD_HASH.toLowerCase();
-        } else {
-          ok = password === env.ADMIN_PASSWORD;
+      const uname = (username || "").trim();
+      const pass = password || "";
+      const invalid = () => err("Invalid username or password.", 401);
+      if (!uname || !pass) return invalid();
+
+      // 1) A staff account in the users table (PBKDF2 salted hash).
+      if (env.DB) {
+        const u = await env.DB.prepare(
+          "SELECT * FROM users WHERE username = ? AND active = 1",
+        )
+          .bind(uname)
+          .first<Record<string, unknown>>();
+        if (u) {
+          const hash = await hashPassword(pass, String(u.passwordSalt));
+          if (hash !== String(u.passwordHash)) return invalid();
+          const signed = await signToken(env, {
+            sub: String(u.id),
+            role: String(u.role),
+            name: String(u.name),
+            username: String(u.username),
+          });
+          return json({
+            ...signed,
+            user: { id: u.id, name: u.name, role: u.role, username: u.username },
+          });
         }
-      } else {
-        ok = false;
       }
-      if (!ok) return err("Invalid username or password.", 401);
-      return json(await signToken(env));
+
+      // 2) Bootstrap admin from the ADMIN_PASSWORD env (always full admin).
+      if (hasConfiguredAdminPassword(env) && uname === (env.ADMIN_USERNAME || "admin")) {
+        const ok = env.ADMIN_PASSWORD_HASH
+          ? (await sha256Hex(pass)) === env.ADMIN_PASSWORD_HASH.toLowerCase()
+          : pass === env.ADMIN_PASSWORD;
+        if (!ok) return invalid();
+        const signed = await signToken(env, {
+          sub: "env-admin",
+          role: "admin",
+          name: "Administrator",
+          username: uname,
+        });
+        return json({
+          ...signed,
+          user: { id: "env-admin", name: "Administrator", role: "admin", username: uname },
+        });
+      }
+
+      return invalid();
     }
 
     // ── posts ─────────────────────────────────────────────────────────────────
@@ -773,6 +846,75 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         const guard = requireAuth();
         if (guard) return guard;
         await env.DB.prepare("DELETE FROM datasets WHERE id = ?").bind(rowId).run();
+        return json(null, 204);
+      }
+    }
+
+    // ── users (staff accounts + roles) — ADMIN ONLY ─────────────────────────
+    if (resource === "users") {
+      const guard = requireAdmin();
+      if (guard) return guard;
+      const rowToUser = (r: Record<string, unknown>) => ({
+        id: r.id,
+        username: r.username,
+        name: r.name,
+        email: r.email,
+        role: r.role,
+        active: Number(r.active) === 1,
+        createdAt: r.createdAt,
+      });
+
+      if (method === "GET" && !id) {
+        const { results } = await env.DB.prepare(
+          "SELECT * FROM users ORDER BY name",
+        ).all<Record<string, unknown>>();
+        return json(results.map(rowToUser));
+      }
+      if (method === "POST") {
+        const b = await readBody<Record<string, unknown>>(request);
+        const username = asString(b.username, 60).toLowerCase().replace(/\s+/g, "");
+        const name = asString(b.name, 120);
+        const password = asString(b.password, 200);
+        const userRole = ALLOWED_ROLES.has(String(b.role)) ? String(b.role) : "editor";
+        if (!username) return err("Username is required.", 422);
+        if (!name) return err("Name is required.", 422);
+        if (password.length < 8) return err("Password must be at least 8 characters.", 422);
+        const exists = await env.DB.prepare("SELECT id FROM users WHERE username = ?").bind(username).first();
+        if (exists) return err("That username is already taken.", 409);
+        const salt = randomSaltHex();
+        const hash = await hashPassword(password, salt);
+        const newId = `user-${crypto.randomUUID().slice(0, 8)}`;
+        await env.DB.prepare(
+          `INSERT INTO users (id,username,name,email,role,passwordSalt,passwordHash,active,createdAt)
+           VALUES (?,?,?,?,?,?,?,?,?)`,
+        )
+          .bind(newId, username, name, optionalString(b.email, 254), userRole, salt, hash, 1, new Date().toISOString())
+          .run();
+        const row = await env.DB.prepare("SELECT * FROM users WHERE id = ?").bind(newId).first<Record<string, unknown>>();
+        return json(rowToUser(row!), 201);
+      }
+      if (method === "PUT" && id) {
+        const b = await readBody<Record<string, unknown>>(request);
+        const sets: string[] = [];
+        const vals: unknown[] = [];
+        if (typeof b.name === "string") { sets.push("name = ?"); vals.push(asString(b.name, 120)); }
+        if ("email" in b) { sets.push("email = ?"); vals.push(optionalString(b.email, 254)); }
+        if (ALLOWED_ROLES.has(String(b.role))) { sets.push("role = ?"); vals.push(String(b.role)); }
+        if (typeof b.active === "boolean") { sets.push("active = ?"); vals.push(b.active ? 1 : 0); }
+        if (typeof b.password === "string" && b.password) {
+          if (b.password.length < 8) return err("Password must be at least 8 characters.", 422);
+          const salt = randomSaltHex();
+          sets.push("passwordSalt = ?"); vals.push(salt);
+          sets.push("passwordHash = ?"); vals.push(await hashPassword(b.password, salt));
+        }
+        if (!sets.length) return err("Nothing to update.", 422);
+        await env.DB.prepare(`UPDATE users SET ${sets.join(", ")} WHERE id = ?`).bind(...vals, id).run();
+        const row = await env.DB.prepare("SELECT * FROM users WHERE id = ?").bind(id).first<Record<string, unknown>>();
+        return row ? json(rowToUser(row)) : err("User not found.", 404);
+      }
+      if (method === "DELETE" && id) {
+        if (auth && auth.sub === id) return err("You cannot delete your own account.", 422);
+        await env.DB.prepare("DELETE FROM users WHERE id = ?").bind(id).run();
         return json(null, 204);
       }
     }
