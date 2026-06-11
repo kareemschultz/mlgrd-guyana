@@ -338,7 +338,8 @@ export function NewsFeed() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={item.coverImage}
-                      alt=""
+                      alt={item.title}
+                      loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
@@ -446,7 +447,7 @@ export function NewsFeed() {
               {active.coverImage ? (
                 <div className="aspect-[2/1] w-full overflow-hidden border-b">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={active.coverImage} alt="" className="h-full w-full object-cover" />
+                  <img src={active.coverImage} alt={active.title} loading="lazy" className="h-full w-full object-cover" />
                 </div>
               ) : (
                 <div className="h-2 w-full bg-gradient-to-r from-brand via-gold to-brand" />

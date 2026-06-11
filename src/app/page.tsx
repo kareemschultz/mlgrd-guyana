@@ -11,7 +11,12 @@ import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { HeroFx } from "@/components/site/hero-fx";
 import { HeroEmblemNews } from "@/components/site/latest-news";
 import { PortalUpdatesTeaser } from "@/components/site/portal-updates-teaser";
+import type { Metadata } from "next";
 import ndcs from "@/data/ndcs.json";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const stats = [
   { value: 10, label: "Administrative Regions", suffix: "" },

@@ -9,6 +9,7 @@
  * icon-NAME → lucide component resolver (icons can't be stored in a database, so
  * `PortalUpdate.icon` is a string like "ShieldCheck").
  */
+import { createElement } from "react";
 import {
   Building2,
   Megaphone,
@@ -41,7 +42,7 @@ export const updateToneLabels: Record<PortalUpdateTone, string> = {
 export const updateToneClasses: Record<PortalUpdateTone, string> = {
   new: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20",
   improved: "bg-brand/10 text-brand-700 border-brand/20",
-  notice: "bg-gold/15 text-[#8a6500] border-gold/25",
+  notice: "bg-gold/15 text-gold-700 border-gold/25",
   fixed: "bg-flag-red/10 text-flag-red border-flag-red/20",
 };
 
@@ -62,6 +63,21 @@ const UPDATE_ICONS: Record<string, LucideIcon> = {
 
 export function updateIcon(name: string): LucideIcon {
   return UPDATE_ICONS[name] ?? Megaphone;
+}
+
+/**
+ * Render a portal-update icon by NAME. Declared at module scope (stable
+ * identity) so consumers don't resolve a component inside their render — which
+ * the React Compiler flags as a component created during render.
+ */
+export function UpdateIcon({
+  name,
+  className,
+}: {
+  name: string;
+  className?: string;
+}) {
+  return createElement(updateIcon(name), { className });
 }
 
 /** The lucide icon names the admin can pick from (keys of UPDATE_ICONS). */

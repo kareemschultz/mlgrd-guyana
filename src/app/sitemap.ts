@@ -15,7 +15,9 @@ const staticRoutes = [
   "/ndcs",
   "/rdcs",
   "/municipalities",
+  "/cdcs",
   "/news",
+  "/gallery",
   "/updates",
   "/contact",
   "/faq",
@@ -27,7 +29,7 @@ const staticRoutes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date("2026-06-10");
+  const now = new Date();
   const entry = (path: string, priority: number): MetadataRoute.Sitemap[number] => ({
     url: `${SITE_URL}${path}/`.replace(/\/+$/, "/"),
     lastModified: now,

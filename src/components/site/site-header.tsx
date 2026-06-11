@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Mail, Phone, Menu, ChevronRight } from "lucide-react";
@@ -205,37 +205,81 @@ function NavTopLink({
   );
 }
 
-/** Directories mega-menu (hover/focus dropdown). */
+/**
+ * Directories dropdown — a keyboard-operable disclosure. Opens on click
+ * (Enter/Space) with `aria-expanded`, and also on hover for mouse users; closes
+ * on Escape, outside click, route change, or selecting a link.
+ */
 function DirectoriesMenu({ pathname }: { pathname: string }) {
   const item = mainNav.find((i) => i.children)!;
   const active = item.children!.some((c) => isActive(pathname, c.href));
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   return (
-    <div className="group relative">
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <button
+        type="button"
+        aria-expanded={open}
+        aria-haspopup="menu"
+        onClick={() => setOpen((o) => !o)}
         className={cn(
           "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
           active ? "text-brand-600" : "text-foreground/80 hover:text-foreground"
         )}
       >
         {item.label}
-        <ChevronRight className="size-3.5 rotate-90 transition-transform group-hover:rotate-[270deg]" />
+        <ChevronRight
+          className={cn(
+            "size-3.5 transition-transform",
+            open ? "rotate-[270deg]" : "rotate-90"
+          )}
+        />
       </button>
-      <div className="invisible absolute left-0 top-full w-80 translate-y-1 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-        <div className="overflow-hidden rounded-xl border bg-popover p-2 shadow-xl">
-          {item.children!.map((c) => (
-            <Link
-              key={c.href}
-              href={c.href}
-              className="flex flex-col rounded-lg px-3 py-2.5 transition-colors hover:bg-accent"
-            >
-              <span className="text-sm font-semibold text-foreground">{c.label}</span>
-              {c.description && (
-                <span className="text-xs text-muted-foreground">{c.description}</span>
-              )}
-            </Link>
-          ))}
+      {open && (
+        <div className="absolute left-0 top-full w-80 pt-2">
+          <div
+            role="menu"
+            className="overflow-hidden rounded-xl border bg-popover p-2 shadow-xl"
+          >
+            {item.children!.map((c) => (
+              <Link
+                key={c.href}
+                href={c.href}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className="flex flex-col rounded-lg px-3 py-2.5 transition-colors hover:bg-accent focus-visible:bg-accent focus-visible:outline-none"
+              >
+                <span className="text-sm font-semibold text-foreground">{c.label}</span>
+                {c.description && (
+                  <span className="text-xs text-muted-foreground">{c.description}</span>
+                )}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

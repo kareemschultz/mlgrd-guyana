@@ -15,12 +15,14 @@
  * for static export).
  */
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowLeft,
   Briefcase,
   CalendarClock,
   ChevronRight,
+  Loader2,
   MessageSquareText,
   TriangleAlert,
   type LucideIcon,
@@ -28,7 +30,20 @@ import {
 
 import { cn } from "@/lib/utils";
 import { MultiStepForm } from "@/components/forms/multi-step-form";
-import { BookingForm } from "@/components/appointments/booking-form";
+
+// The booking flow pulls in react-day-picker + date-fns; load it only when the
+// citizen actually opens the appointment intent so it stays out of the initial
+// /contact payload.
+const BookingForm = dynamic(
+  () => import("@/components/appointments/booking-form").then((m) => m.BookingForm),
+  {
+    loading: () => (
+      <div className="flex items-center justify-center gap-2 rounded-2xl border bg-card p-12 text-sm text-muted-foreground shadow-sm">
+        <Loader2 className="size-4 animate-spin" /> Loading booking…
+      </div>
+    ),
+  },
+);
 
 type IntentId = "message" | "appointment" | "report" | "vendor";
 

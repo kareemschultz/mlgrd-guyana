@@ -45,11 +45,17 @@ export function DataTable<TData>({
   pageSize?: number;
   emptyLabel?: string;
 }) {
+  // TanStack Table returns non-memoizable instances; opt this component out of
+  // the React Compiler (per TanStack guidance) to silence the incompatible-
+  // library warning. No behavioural change.
+  "use no memo";
+
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
     pageSize,
   });
 
+  // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Table returns non-memoizable functions by design
   const table = useReactTable({
     data,
     columns,

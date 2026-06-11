@@ -3,7 +3,27 @@ import { ChevronRight, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FloatingMotifs } from "@/components/site/floating-motifs";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://mlgrd.gov.gy";
+
 export type Crumb = { label: string; href?: string };
+
+/** BreadcrumbList JSON-LD built from Home + the visible crumbs. */
+function breadcrumbJsonLd(crumbs: Crumb[]) {
+  const items = [
+    { name: "Home", href: "/" },
+    ...crumbs.map((c) => ({ name: c.label, href: c.href })),
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      ...(it.href ? { item: `${SITE_URL}${it.href}` } : {}),
+    })),
+  };
+}
 
 /** Standard interior-page header: deep-ink band, breadcrumb, title, lead. */
 export function PageHero({
@@ -24,6 +44,12 @@ export function PageHero({
 }) {
   return (
     <section className="relative overflow-hidden bg-ink text-ink-foreground">
+      {crumbs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(crumbs)) }}
+        />
+      )}
       {/* decorative layers */}
       <div className="pointer-events-none absolute inset-0 bg-dot text-white/[0.06]" />
       <div className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-brand/25 blur-3xl" />
@@ -43,7 +69,7 @@ export function PageHero({
       >
         {/* breadcrumb */}
         <nav aria-label="Breadcrumb" className={cn("mb-4", align === "center" && "flex justify-center")}>
-          <ol className="flex flex-wrap items-center gap-1.5 text-xs text-white/60">
+          <ol className="flex flex-wrap items-center gap-1.5 text-xs text-white/70">
             <li>
               <Link href="/" className="flex items-center gap-1 hover:text-gold">
                 <Home className="size-3.5" />

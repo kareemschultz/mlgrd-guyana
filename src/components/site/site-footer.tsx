@@ -20,7 +20,7 @@ export function SiteFooter() {
               </span>
               <div className="leading-tight">
                 <p className="font-heading text-lg font-extrabold text-white">MLGRD</p>
-                <p className="text-xs text-white/60">Government of Guyana</p>
+                <p className="text-xs text-white/70">Government of Guyana</p>
               </div>
             </div>
             <p className="mt-5 text-left text-sm leading-relaxed text-white/70 lg:max-w-xs">{ministry.name}.</p>
@@ -79,7 +79,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="container-gov flex flex-col items-center justify-between gap-4 py-5 text-center text-xs text-white/55 md:flex-row md:text-left">
+        <div className="container-gov flex flex-col items-center justify-between gap-4 py-5 text-center text-xs text-white/70 md:flex-row md:text-left">
           <p className="max-w-sm leading-relaxed md:max-w-none">
             © {year} {ministry.name}. All rights reserved.
           </p>

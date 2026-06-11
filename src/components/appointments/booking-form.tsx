@@ -271,7 +271,11 @@ export function BookingForm({ defaultRegion }: { defaultRegion?: string }) {
         {STEPS.map((s, i) => {
           const state = i < step ? "done" : i === step ? "active" : "todo";
           return (
-            <li key={s.id} className="flex flex-1 items-center gap-2">
+            <li
+              key={s.id}
+              className="flex flex-1 items-center gap-2"
+              aria-current={state === "active" ? "step" : undefined}
+            >
               <span
                 className={cn(
                   "flex size-8 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition-colors",
@@ -487,6 +491,7 @@ function FormField({
   icon?: React.ComponentType<{ className?: string }>;
   children: React.ReactNode;
 }) {
+  const errorId = `${htmlFor}-error`;
   return (
     <div className="flex flex-col gap-1.5">
       <Label htmlFor={htmlFor} className="flex items-center gap-1.5 text-sm">
@@ -494,8 +499,17 @@ function FormField({
         <span>{label}</span>
         {required && <span className="text-flag-red">*</span>}
       </Label>
-      {children}
-      {error && <p className="text-xs font-medium text-destructive">{error}</p>}
+      {error && React.isValidElement(children)
+        ? React.cloneElement(
+            children as React.ReactElement<{ "aria-describedby"?: string }>,
+            { "aria-describedby": errorId },
+          )
+        : children}
+      {error && (
+        <p id={errorId} className="text-xs font-medium text-destructive">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
