@@ -46,6 +46,14 @@ function fmtTerm(m: Minister): string | null {
   return null;
 }
 
+function portraitFitClass(m: Minister): string {
+  return cn(
+    "object-cover",
+    // Portrait source: keep the face high in the crop while still filling the card.
+    m.id === "minister-manickchand" ? "object-top" : "object-center",
+  );
+}
+
 export function MinisterGallery() {
   const [ministers, setMinisters] = useState<Minister[]>(seedMinisters);
   const [active, setActive] = useState<Minister | null>(null);
@@ -108,7 +116,7 @@ export function MinisterGallery() {
                       alt={`Portrait of ${m.name}`}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-contain"
+                      className={portraitFitClass(m)}
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">
