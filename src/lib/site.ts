@@ -20,9 +20,9 @@ export const ministry = {
 } as const;
 
 export const socialLinks = [
-  { label: "Facebook", href: "https://www.facebook.com/MLGRD.Guyana/" },
-  { label: "Instagram", href: "https://www.instagram.com/mlgrdguyana/" },
-  { label: "TikTok", href: "https://www.tiktok.com/@mlgrdguyana" },
+  { label: "Facebook", href: "https://www.facebook.com/share/18v1DoRCZN/" },
+  { label: "Instagram", href: "https://www.instagram.com/localgov.gy" },
+  { label: "TikTok", href: "https://www.tiktok.com/@localgov.gy" },
 ] as const;
 
 export type NavLink = { label: string; href: string; description?: string };
