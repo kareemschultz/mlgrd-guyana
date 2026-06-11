@@ -101,7 +101,7 @@ export default function RootLayout({
           <ChromeGate>
             <SiteFooter />
           </ChromeGate>
-          <Toaster position="top-center" richColors />
+          <Toaster position="top-right" closeButton />
         </Providers>
       </body>
     </html>
