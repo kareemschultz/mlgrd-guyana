@@ -96,3 +96,23 @@ CREATE TABLE IF NOT EXISTS updates (
   createdAt TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_updates_order ON updates ("order");
+
+-- REO appointment requests. Citizens book a meeting with a Regional Executive
+-- Officer from the public booking form (POST is public); the admin "Appointments"
+-- inbox lists/updates/deletes (auth-only). Mirrors the messages table shape.
+CREATE TABLE IF NOT EXISTS appointments (
+  id         TEXT PRIMARY KEY,
+  region     TEXT NOT NULL,
+  regionName TEXT,
+  reoName    TEXT NOT NULL,
+  name       TEXT NOT NULL,
+  email      TEXT NOT NULL,
+  phone      TEXT,
+  date       TEXT NOT NULL,
+  time       TEXT,
+  subject    TEXT NOT NULL,
+  notes      TEXT,
+  status     TEXT NOT NULL DEFAULT 'requested',
+  createdAt  TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_appointments_created ON appointments (createdAt DESC);

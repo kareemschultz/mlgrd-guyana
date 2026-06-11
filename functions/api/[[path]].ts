@@ -28,6 +28,9 @@
  *   PUT|DELETE /api/messages/:id      (auth)
  *   GET    /api/updates               public "What's New" changelog
  *   POST|PUT|DELETE /api/updates[/:id] (auth)
+ *   GET    /api/appointments          (auth) list REO booking requests
+ *   POST   /api/appointments          public submit (citizen REO booking)
+ *   PUT|DELETE /api/appointments/:id  (auth) (PUT updates status)
  */
 
 interface Env {
@@ -62,6 +65,12 @@ const TOKEN_TTL_MS = 1000 * 60 * 60 * 8; // 8 hours
 const MAX_JSON_BYTES = 32_768;
 const ALLOWED_MESSAGE_CHANNELS = new Set(["contact", "helpdesk"]);
 const ALLOWED_MESSAGE_STATUSES = new Set(["new", "open", "resolved"]);
+const ALLOWED_APPOINTMENT_STATUSES = new Set([
+  "requested",
+  "confirmed",
+  "declined",
+  "completed",
+]);
 const ALLOWED_POST_STATUSES = new Set(["draft", "published", "archived"]);
 const ALLOWED_IMAGE_SCHEMES = new Set(["https:", "data:"]);
 
@@ -502,6 +511,81 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         const guard = requireAuth();
         if (guard) return guard;
         await env.DB.prepare("DELETE FROM messages WHERE id = ?").bind(id).run();
+        return json(null, 204);
+      }
+    }
+
+    // ── appointments (REO booking) ──────────────────────────────────────────
+    // POST is public (citizen booking); list/update/delete require auth.
+    if (resource === "appointments") {
+      if (method === "GET" && !id) {
+        const guard = requireAuth();
+        if (guard) return guard;
+        const { results } = await env.DB.prepare(
+          "SELECT * FROM appointments ORDER BY createdAt DESC",
+        ).all();
+        return json(results);
+      }
+      if (method === "POST") {
+        // Public: anyone can request an appointment with their REO.
+        const b = await readBody<Record<string, unknown>>(request);
+        const name = asString(b.name, 120);
+        const email = asString(b.email, 254).toLowerCase();
+        const region = asString(b.region, 40);
+        const reoName = asString(b.reoName, 120);
+        const date = asString(b.date, 20);
+        const subject = asString(b.subject, 180);
+        if (!name) return err("Name is required.", 422);
+        if (!email || !isEmail(email)) {
+          return err("A valid email address is required.", 422);
+        }
+        if (!region) return err("A region is required.", 422);
+        if (!date) return err("A preferred date is required.", 422);
+        if (!subject) return err("A subject is required.", 422);
+        const now = new Date().toISOString();
+        const newId = `appt-${crypto.randomUUID().slice(0, 8)}`;
+        await env.DB.prepare(
+          `INSERT INTO appointments (id,region,regionName,reoName,name,email,phone,date,time,subject,notes,status,createdAt)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        )
+          .bind(
+            newId,
+            region,
+            optionalString(b.regionName, 120),
+            reoName,
+            name,
+            email,
+            optionalString(b.phone, 40),
+            date,
+            optionalString(b.time, 40),
+            subject,
+            optionalString(b.notes, 3_000),
+            "requested",
+            now,
+          )
+          .run();
+        return json(
+          await env.DB.prepare("SELECT * FROM appointments WHERE id = ?").bind(newId).first(),
+          201,
+        );
+      }
+      if (method === "PUT" && id) {
+        const guard = requireAuth();
+        if (guard) return guard;
+        const b = await readBody<{ status?: string }>(request);
+        if (b.status && !ALLOWED_APPOINTMENT_STATUSES.has(b.status)) {
+          return err("Invalid appointment status.", 422);
+        }
+        if (b.status) {
+          await env.DB.prepare("UPDATE appointments SET status = ? WHERE id = ?").bind(b.status, id).run();
+        }
+        const row = await env.DB.prepare("SELECT * FROM appointments WHERE id = ?").bind(id).first();
+        return row ? json(row) : err("Appointment not found.", 404);
+      }
+      if (method === "DELETE" && id) {
+        const guard = requireAuth();
+        if (guard) return guard;
+        await env.DB.prepare("DELETE FROM appointments WHERE id = ?").bind(id).run();
         return json(null, 204);
       }
     }

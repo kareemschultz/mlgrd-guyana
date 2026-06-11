@@ -156,13 +156,44 @@ export interface PortalUpdate {
   createdAt: string;
 }
 
+export type AppointmentStatus =
+  | "requested"
+  | "confirmed"
+  | "declined"
+  | "completed";
+
+/**
+ * A citizen's request to meet a Regional Executive Officer (REO). Submitted
+ * from the public booking form; managed in the admin "Appointments" inbox.
+ */
+export interface Appointment {
+  id: ID;
+  /** e.g. "Region 4". */
+  region: string;
+  regionName?: string;
+  /** The REO for that region (snapshot at booking time). */
+  reoName: string;
+  name: string;
+  email: string;
+  phone?: string;
+  /** Preferred date, ISO `yyyy-mm-dd`. */
+  date: string;
+  /** Preferred time slot, e.g. "09:00–10:00". */
+  time?: string;
+  subject: string;
+  notes?: string;
+  status: AppointmentStatus;
+  createdAt: string;
+}
+
 export type Collection =
   | "posts"
   | "gallery"
   | "ministers"
   | "messages"
   | "directory"
-  | "updates";
+  | "updates"
+  | "appointments";
 
 /** Shape returned by the auth endpoint / demo login. */
 export interface AuthResult {
@@ -178,3 +209,4 @@ export type NewMinister = Omit<Minister, "id" | "createdAt">;
 export type NewMessage = Omit<Message, "id" | "createdAt" | "status">;
 export type NewDirectoryEntry = Omit<DirectoryEntry, "id" | "createdAt">;
 export type NewPortalUpdate = Omit<PortalUpdate, "id" | "createdAt">;
+export type NewAppointment = Omit<Appointment, "id" | "createdAt" | "status">;

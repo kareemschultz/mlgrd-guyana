@@ -56,6 +56,11 @@ export const mainNav: NavItem[] = [
         href: "/cdcs",
         description: "Active CDCs across the regions",
       },
+      {
+        label: "Book an REO Appointment",
+        href: "/appointments",
+        description: "Request a meeting with your Regional Executive Officer",
+      },
     ],
   },
   { label: "Services", href: "/services" },
