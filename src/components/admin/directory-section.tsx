@@ -1,15 +1,15 @@
 "use client";
 
 /**
- * Directories — read-only browse/search across the full local-government
- * directory (NDC / RDC / Municipality / CDC, ~440 records). Filter by kind,
- * region and free text. Wired to data.directory.list().
+ * Directories — browse, search AND manage the full local-government directory
+ * (NDC / RDC / Municipality / CDC). Filter by kind, region and free text;
+ * add / edit / delete councils and their officials. Wired to data.directory.*.
  *
- * Sensitive fields (personal mobile numbers, personal emails, internal
- * comments) only exist in LIVE (Cloudflare) mode; the committed local seed is
- * the public-safe subset.
+ * Sensitive fields (personal mobile numbers, personal emails, internal notes)
+ * are for official use only and are never shown on the public website.
  */
 import * as React from "react";
+import { toast } from "sonner";
 import {
   Network,
   Search,
@@ -21,13 +21,22 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  Plus,
+  Pencil,
+  Trash2,
 } from "lucide-react";
 
 import { data } from "@/lib/data/client";
-import type { DirectoryEntry, DirectoryKind } from "@/lib/data/types";
+import type {
+  DirectoryEntry,
+  DirectoryKind,
+  DirectoryOfficial,
+  NewDirectoryEntry,
+} from "@/lib/data/types";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -36,7 +45,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LoadingState, EmptyState } from "@/components/admin/shared";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Field, LoadingState, EmptyState } from "@/components/admin/shared";
+import { ConfirmDelete } from "@/components/admin/confirm-delete";
 
 const ALL = "all";
 const PAGE_SIZE = 24;
@@ -64,6 +81,84 @@ function KindBadge({ kind }: { kind: DirectoryKind }) {
   return <Badge className={KIND_STYLES[kind]}>{KIND_LABELS[kind]}</Badge>;
 }
 
+type Draft = {
+  kind: DirectoryKind;
+  region: string;
+  regionName: string;
+  name: string;
+  council: string;
+  status: string;
+  officeAddress: string;
+  officePhone: string;
+  email: string;
+  facebook: string;
+  website: string;
+  comments: string;
+  officials: DirectoryOfficial[];
+};
+
+const EMPTY: Draft = {
+  kind: "ndc",
+  region: "",
+  regionName: "",
+  name: "",
+  council: "",
+  status: "",
+  officeAddress: "",
+  officePhone: "",
+  email: "",
+  facebook: "",
+  website: "",
+  comments: "",
+  officials: [],
+};
+
+function toDraft(e: DirectoryEntry): Draft {
+  return {
+    kind: e.kind,
+    region: e.region ?? "",
+    regionName: e.regionName ?? "",
+    name: e.name ?? "",
+    council: e.council ?? "",
+    status: e.status ?? "",
+    officeAddress: e.officeAddress ?? "",
+    officePhone: e.officePhone ?? "",
+    email: e.email ?? "",
+    facebook: e.facebook ?? "",
+    website: e.website ?? "",
+    comments: e.comments ?? "",
+    officials: e.officials.map((o) => ({ ...o })),
+  };
+}
+
+/** Strip blank optional fields/officials into a write-safe payload. */
+function toPayload(d: Draft): NewDirectoryEntry {
+  const opt = (v: string) => (v.trim() ? v.trim() : undefined);
+  return {
+    kind: d.kind,
+    region: d.region.trim(),
+    regionName: opt(d.regionName),
+    name: d.name.trim(),
+    council: opt(d.council),
+    status: opt(d.status),
+    officeAddress: opt(d.officeAddress),
+    officePhone: opt(d.officePhone),
+    email: opt(d.email),
+    facebook: opt(d.facebook),
+    website: opt(d.website),
+    comments: opt(d.comments),
+    officials: d.officials
+      .filter((o) => o.role.trim() || o.name.trim())
+      .map((o) => ({
+        role: o.role.trim(),
+        name: o.name.trim(),
+        officePhone: o.officePhone?.trim() || undefined,
+        personalPhone: o.personalPhone?.trim() || undefined,
+        email: o.email?.trim() || undefined,
+      })),
+  };
+}
+
 export function DirectorySection() {
   const [entries, setEntries] = React.useState<DirectoryEntry[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -72,22 +167,26 @@ export function DirectorySection() {
   const [region, setRegion] = React.useState<string>(ALL);
   const [page, setPage] = React.useState(1);
 
-  React.useEffect(() => {
-    let active = true;
-    (async () => {
-      try {
-        const list = await data.directory.list();
-        if (active) setEntries(list);
-      } finally {
-        if (active) setLoading(false);
-      }
-    })();
-    return () => {
-      active = false;
-    };
+  const [editing, setEditing] = React.useState<DirectoryEntry | "new" | null>(null);
+  const [draft, setDraft] = React.useState<Draft>(EMPTY);
+  const [saving, setSaving] = React.useState(false);
+  const [toDelete, setToDelete] = React.useState<DirectoryEntry | null>(null);
+
+  const load = React.useCallback(async () => {
+    try {
+      setEntries(await data.directory.list());
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not load the directory.");
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  // Filter changes reset to the first page (handlers, not an effect).
+  React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void load();
+  }, [load]);
+
   const onQuery = (v: string) => { setQuery(v); setPage(1); };
   const onKind = (v: "all" | DirectoryKind) => { setKind(v); setPage(1); };
   const onRegion = (v: string) => { setRegion(v); setPage(1); };
@@ -141,6 +240,48 @@ export function DirectorySection() {
   const safePage = Math.min(page, pageCount);
   const pageItems = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
+  function openCreate() {
+    setDraft(EMPTY);
+    setEditing("new");
+  }
+  function openEdit(e: DirectoryEntry) {
+    setDraft(toDraft(e));
+    setEditing(e);
+  }
+
+  // Officials sub-editor helpers.
+  const setOfficial = (i: number, patch: Partial<DirectoryOfficial>) =>
+    setDraft((d) => ({
+      ...d,
+      officials: d.officials.map((o, idx) => (idx === i ? { ...o, ...patch } : o)),
+    }));
+  const addOfficial = () =>
+    setDraft((d) => ({ ...d, officials: [...d.officials, { role: "", name: "" }] }));
+  const removeOfficial = (i: number) =>
+    setDraft((d) => ({ ...d, officials: d.officials.filter((_, idx) => idx !== i) }));
+
+  async function save() {
+    if (!draft.name.trim()) return toast.error("Name is required.");
+    if (!draft.region.trim()) return toast.error("Region is required (e.g. Region 4).");
+    setSaving(true);
+    try {
+      const payload = toPayload(draft);
+      if (editing === "new") {
+        await data.directory.create(payload);
+        toast.success("Directory entry added.");
+      } else if (editing) {
+        await data.directory.update(editing.id, payload);
+        toast.success("Directory entry updated.");
+      }
+      setEditing(null);
+      await load();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not save.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
@@ -149,10 +290,13 @@ export function DirectorySection() {
             Directories
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Browse and search the full local-government directory — councils,
+            Browse, search and manage the local-government directory — councils,
             municipalities and their officials.
           </p>
         </div>
+        <Button onClick={openCreate} className="bg-brand-600 hover:bg-brand-700">
+          <Plus className="size-4" /> Add entry
+        </Button>
       </div>
 
       {/* Confidentiality note */}
@@ -239,7 +383,12 @@ export function DirectorySection() {
         <EmptyState
           icon={Network}
           title="No directory records"
-          description="Local-government directory records will appear here."
+          description="Add the first council or office."
+          action={
+            <Button variant="outline" size="sm" onClick={openCreate}>
+              <Plus className="size-4" /> Add entry
+            </Button>
+          }
         />
       ) : filtered.length === 0 ? (
         <EmptyState
@@ -256,7 +405,12 @@ export function DirectorySection() {
         <>
           <div className="grid gap-4 lg:grid-cols-2">
             {pageItems.map((e) => (
-              <EntryCard key={e.id} entry={e} />
+              <EntryCard
+                key={e.id}
+                entry={e}
+                onEdit={() => openEdit(e)}
+                onDelete={() => setToDelete(e)}
+              />
             ))}
           </div>
 
@@ -286,11 +440,139 @@ export function DirectorySection() {
           )}
         </>
       )}
+
+      {/* ── Editor ── */}
+      <Dialog open={editing !== null} onOpenChange={(o) => !o && setEditing(null)}>
+        <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>
+              {editing === "new" ? "Add directory entry" : "Edit directory entry"}
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Type" htmlFor="d-kind">
+              <Select value={draft.kind} onValueChange={(v) => setDraft((d) => ({ ...d, kind: v as DirectoryKind }))}>
+                <SelectTrigger id="d-kind" className="w-full"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ndc">NDC</SelectItem>
+                  <SelectItem value="rdc">RDC</SelectItem>
+                  <SelectItem value="municipality">Municipality</SelectItem>
+                  <SelectItem value="cdc">CDC</SelectItem>
+                </SelectContent>
+              </Select>
+            </Field>
+            <Field label="Name" htmlFor="d-name">
+              <Input id="d-name" value={draft.name} onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value }))} placeholder="e.g. Hyde Park / Mocha" />
+            </Field>
+            <Field label="Region" htmlFor="d-region" hint="e.g. Region 4">
+              <Input id="d-region" value={draft.region} onChange={(e) => setDraft((d) => ({ ...d, region: e.target.value }))} placeholder="Region 4" />
+            </Field>
+            <Field label="Region name (optional)" htmlFor="d-regionname">
+              <Input id="d-regionname" value={draft.regionName} onChange={(e) => setDraft((d) => ({ ...d, regionName: e.target.value }))} placeholder="Demerara-Mahaica" />
+            </Field>
+            <Field label="Council (optional)" htmlFor="d-council">
+              <Input id="d-council" value={draft.council} onChange={(e) => setDraft((d) => ({ ...d, council: e.target.value }))} />
+            </Field>
+            <Field label="Status (optional)" htmlFor="d-status" hint="e.g. active / inactive (CDCs)">
+              <Input id="d-status" value={draft.status} onChange={(e) => setDraft((d) => ({ ...d, status: e.target.value }))} />
+            </Field>
+            <Field label="Office phone (optional)" htmlFor="d-ophone">
+              <Input id="d-ophone" value={draft.officePhone} onChange={(e) => setDraft((d) => ({ ...d, officePhone: e.target.value }))} />
+            </Field>
+            <Field label="Office email (optional)" htmlFor="d-email">
+              <Input id="d-email" type="email" value={draft.email} onChange={(e) => setDraft((d) => ({ ...d, email: e.target.value }))} />
+            </Field>
+            <Field label="Office address (optional)" htmlFor="d-addr" className="sm:col-span-2">
+              <Input id="d-addr" value={draft.officeAddress} onChange={(e) => setDraft((d) => ({ ...d, officeAddress: e.target.value }))} />
+            </Field>
+            <Field label="Facebook (optional)" htmlFor="d-fb">
+              <Input id="d-fb" value={draft.facebook} onChange={(e) => setDraft((d) => ({ ...d, facebook: e.target.value }))} />
+            </Field>
+            <Field label="Website (optional)" htmlFor="d-web">
+              <Input id="d-web" value={draft.website} onChange={(e) => setDraft((d) => ({ ...d, website: e.target.value }))} />
+            </Field>
+          </div>
+
+          {/* Officials sub-editor */}
+          <div className="mt-2 space-y-3">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">Officials</p>
+              <Button variant="outline" size="sm" onClick={addOfficial}>
+                <Plus className="size-3.5" /> Add official
+              </Button>
+            </div>
+            {draft.officials.length === 0 ? (
+              <p className="rounded-lg border border-dashed px-3 py-4 text-center text-xs text-muted-foreground">
+                No officials yet. Add the chairperson, overseer, councillors, etc.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {draft.officials.map((o, i) => (
+                  <div key={i} className="rounded-lg border p-3">
+                    <div className="mb-2 flex items-center justify-between">
+                      <span className="text-xs font-medium text-muted-foreground">Official {i + 1}</span>
+                      <Button variant="ghost" size="icon" onClick={() => removeOfficial(i)} aria-label="Remove official" className="size-7 text-destructive hover:text-destructive">
+                        <Trash2 className="size-3.5" />
+                      </Button>
+                    </div>
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      <Input value={o.role} onChange={(e) => setOfficial(i, { role: e.target.value })} placeholder="Role (e.g. Chairperson)" />
+                      <Input value={o.name} onChange={(e) => setOfficial(i, { name: e.target.value })} placeholder="Full name" />
+                      <Input value={o.officePhone ?? ""} onChange={(e) => setOfficial(i, { officePhone: e.target.value })} placeholder="Office phone" />
+                      <Input value={o.personalPhone ?? ""} onChange={(e) => setOfficial(i, { personalPhone: e.target.value })} placeholder="Personal mobile (confidential)" />
+                      <Input value={o.email ?? ""} onChange={(e) => setOfficial(i, { email: e.target.value })} placeholder="Email (confidential)" className="sm:col-span-2" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Field label="Internal notes (optional, confidential)" htmlFor="d-comments" className="mt-2">
+            <Textarea id="d-comments" value={draft.comments} onChange={(e) => setDraft((d) => ({ ...d, comments: e.target.value }))} rows={2} />
+          </Field>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditing(null)}>Cancel</Button>
+            <Button onClick={save} disabled={saving} className="bg-brand-600 hover:bg-brand-700">
+              {saving ? "Saving…" : "Save"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <ConfirmDelete
+        open={toDelete !== null}
+        onOpenChange={(o) => !o && setToDelete(null)}
+        title={`Delete ${toDelete?.name ?? "this entry"}?`}
+        description="This removes the council/office and its officials from the directory."
+        onConfirm={async () => {
+          if (toDelete) {
+            try {
+              await data.directory.remove(toDelete.id);
+              toast.success("Directory entry deleted.");
+              await load();
+            } catch (err) {
+              toast.error(err instanceof Error ? err.message : "Could not delete.");
+            }
+          }
+          setToDelete(null);
+        }}
+      />
     </div>
   );
 }
 
-function EntryCard({ entry }: { entry: DirectoryEntry }) {
+function EntryCard({
+  entry,
+  onEdit,
+  onDelete,
+}: {
+  entry: DirectoryEntry;
+  onEdit: () => void;
+  onDelete: () => void;
+}) {
   const contacts = entry.officeAddress || entry.officePhone || entry.email;
 
   return (
@@ -311,11 +593,19 @@ function EntryCard({ entry }: { entry: DirectoryEntry }) {
             <p className="mt-0.5 text-sm text-muted-foreground">{entry.council}</p>
           )}
         </div>
-        <div className="flex shrink-0 flex-col items-end gap-1.5">
-          <KindBadge kind={entry.kind} />
-          <Badge variant="secondary" className="rounded-full text-xs">
-            {entry.region}
-          </Badge>
+        <div className="flex shrink-0 items-start gap-1">
+          <div className="flex flex-col items-end gap-1.5">
+            <KindBadge kind={entry.kind} />
+            <Badge variant="secondary" className="rounded-full text-xs">
+              {entry.region}
+            </Badge>
+          </div>
+          <Button variant="ghost" size="icon" onClick={onEdit} aria-label="Edit" className="size-8">
+            <Pencil className="size-4" />
+          </Button>
+          <Button variant="ghost" size="icon" onClick={onDelete} aria-label="Delete" className="size-8 text-destructive hover:text-destructive">
+            <Trash2 className="size-4" />
+          </Button>
         </div>
       </div>
 
@@ -331,7 +621,6 @@ function EntryCard({ entry }: { entry: DirectoryEntry }) {
                 <span className="block text-sm font-medium leading-snug">
                   {o.name}
                 </span>
-                {/* Sensitive fields only present in live mode. */}
                 {(o.personalPhone || o.email) && (
                   <span className="mt-0.5 block text-xs text-muted-foreground">
                     {[o.personalPhone, o.email].filter(Boolean).join(" · ")}
