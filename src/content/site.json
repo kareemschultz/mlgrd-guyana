@@ -5,7 +5,7 @@
     "government": "Government of Guyana",
     "address": "Fort Street, Georgetown, Guyana",
     "phone": "+592-225-6088",
-    "email": "info@mlgrd.gov.gy"
+    "email": "pr@mlgrd.gov.gy"
   },
   "nav": [
     { "label": "Home", "href": "/" },
@@ -54,7 +54,7 @@
       "tiers": [
         { "name": "Regional Democratic Councils", "count": 10, "note": "Regions 1-10" },
         { "name": "Municipalities", "count": 10, "note": "Georgetown, Mabaruma, Anna Regina, New Amsterdam, Rose Hall, Corriverton, Linden, Mahdia, Lethem, Bartica" },
-        { "name": "Neighbourhood Democratic Councils", "count": "70+", "note": "Distributed across regions" }
+        { "name": "Neighborhood Democratic Councils", "count": 70, "note": "Distributed across regions" }
       ]
     },
     "legalFramework": "The system operates under the Local Democratic Organs Act, Chapter 28:09, which establishes the authority and responsibilities of local democratic organs."

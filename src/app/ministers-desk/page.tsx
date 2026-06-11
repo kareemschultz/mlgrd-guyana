@@ -65,7 +65,7 @@ export default function MinistersDeskPage() {
                   <img
                     src={minister.portrait}
                     alt={`Portrait of ${minister.name}`}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover object-[center_12%]"
                   />
                 ) : (
                   <span className="flex h-full w-full items-center justify-center font-heading text-5xl font-extrabold tracking-wide">
@@ -88,26 +88,8 @@ export default function MinistersDeskPage() {
             <div className="relative">
               <Quote className="size-10 text-brand/30" aria-hidden />
               <div className="mt-4 space-y-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
-                <p>
-                  Local government is where democracy is felt most directly. It is
-                  in our neighbourhoods, towns and regions that citizens
-                  experience the quality of public services and the strength of
-                  their voice in shaping the places they call home.
-                </p>
-                <p>
-                  Our mission is to empower local democratic organs to serve their
-                  communities with competence, integrity and care. By
-                  strengthening councils, improving the delivery of everyday
-                  services, and partnering with residents on development that
-                  matters, we move closer to a Guyana where opportunity reaches
-                  every region.
-                </p>
-                <p>
-                  I encourage every citizen to participate — to know your council,
-                  to raise the issues that affect your community, and to hold us
-                  all to the high standards that good local government demands.
-                  Together, with strong councils and engaged communities, we will
-                  build a more responsive, transparent and prosperous nation.
+                <p className="rounded-2xl border border-dashed bg-muted/40 p-5 italic">
+                  Minister&rsquo;s message placeholder — updated quote to be supplied by the client.
                 </p>
               </div>
               <p className="mt-8 font-heading text-lg font-bold text-foreground">

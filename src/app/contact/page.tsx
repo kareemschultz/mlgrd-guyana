@@ -11,12 +11,18 @@ export const metadata: Metadata = {
     "Contact the Ministry of Local Government & Regional Development, Guyana — send a message, book an REO appointment, report a local problem or make a vendor enquiry. Address, phone, email, office hours and location map.",
 };
 
-// Kingston, Georgetown (approx. — Fort Street area)
-const LAT = 6.8156;
-const LON = -58.1645;
+// Easily swappable map pin: currently set next to the Ministry of Public Works,
+// Fort Street, Kingston, Georgetown, near the Marriott area.
+const MINISTRY_MAP_PIN = {
+  lat: 6.8245226,
+  lon: -58.1638171,
+  label: "Ministry of Local Government & Regional Development, Fort Street, Georgetown",
+} as const;
+const LAT = MINISTRY_MAP_PIN.lat;
+const LON = MINISTRY_MAP_PIN.lon;
 const OSM_EMBED = `https://www.openstreetmap.org/export/embed.html?bbox=${LON - 0.02}%2C${LAT - 0.015}%2C${LON + 0.02}%2C${LAT + 0.015}&layer=mapnik&marker=${LAT}%2C${LON}`;
-const OSM_LINK = `https://www.openstreetmap.org/?mlat=${LAT}&mlon=${LON}#map=15/${LAT}/${LON}`;
-const GMAPS = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ministry.address)}`;
+const OSM_LINK = `https://www.openstreetmap.org/?mlat=${LAT}&mlon=${LON}#map=16/${LAT}/${LON}`;
+const GMAPS = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${MINISTRY_MAP_PIN.label} ${LAT},${LON}`)}`;
 
 const details = [
   { icon: MapPin, label: "Address", value: ministry.address },
