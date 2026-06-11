@@ -48,6 +48,14 @@ export const metadata: Metadata = {
     "municipalities",
   ],
   metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "16x16 32x32" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "512x512" }],
+    shortcut: "/favicon.ico",
+  },
   openGraph: {
     type: "website",
     siteName: "MLGRD Guyana",
