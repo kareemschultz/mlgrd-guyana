@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   Landmark, Building2, Users, ScrollText, Target, Network,
-  ArrowRight, Trees, HeartPulse, GraduationCap, Mountain,
+  ArrowRight, Trees, HeartPulse, GraduationCap, ShieldCheck, ChevronRight,
 } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
@@ -19,16 +19,16 @@ export const metadata: Metadata = {
     "Learn how local government works in Guyana — its mission, the role of local democratic organs, the three-tier structure of RDCs, municipalities and NDCs, and the legal framework underpinning it.",
 };
 
-const { about, home } = site;
+const { about } = site;
 
 const tierIcons = [Landmark, Building2, Users];
 
-const directoryIcons: Record<string, typeof Trees> = {
-  "Burial Grounds": Trees,
-  "Health Centres": HeartPulse,
-  Schools: GraduationCap,
-  "Hinterland Support Contacts": Mountain,
-};
+const communityDirectories = [
+  { label: "Schools", href: "/directories/schools", icon: GraduationCap },
+  { label: "Health Centres", href: "/directories/health-centres", icon: HeartPulse },
+  { label: "Police Stations", href: "/directories/police-stations", icon: ShieldCheck },
+  { label: "Amerindian Villages", href: "/directories/amerindian-villages", icon: Trees },
+];
 
 export default function AboutPage() {
   return (
@@ -137,6 +137,12 @@ export default function AboutPage() {
                   <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
                     {about.legalFramework}
                   </p>
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                    The system draws on foundational documents including the State
+                    Paper on the Re-organisation of the Local Government System in
+                    Guyana and the Summary Report on the National Conference of
+                    Local Democratic Organs.
+                  </p>
                   <Button asChild className="mt-6 bg-brand-600 text-white hover:bg-brand-700">
                     <Link href="/laws-policies">
                       Browse laws &amp; policies <ArrowRight className="size-4" />
@@ -166,19 +172,20 @@ export default function AboutPage() {
           </Reveal>
 
           <div className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2">
-            {home.communityDirectories.map((d, i) => {
-              const Icon = directoryIcons[d] ?? Trees;
-              return (
-                <Reveal key={d} delay={(i % 2) * 0.06}>
-                  <div className="flex items-center gap-4 rounded-xl border bg-card p-5 transition-colors hover:border-brand/40">
-                    <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand-600">
-                      <Icon className="size-5" />
-                    </div>
-                    <span className="font-heading font-bold">{d}</span>
+            {communityDirectories.map((d, i) => (
+              <Reveal key={d.href} delay={(i % 2) * 0.06}>
+                <Link
+                  href={d.href}
+                  className="group flex items-center gap-4 rounded-xl border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-md"
+                >
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand-600">
+                    <d.icon className="size-5" />
                   </div>
-                </Reveal>
-              );
-            })}
+                  <span className="flex-1 font-heading font-bold">{d.label}</span>
+                  <ChevronRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" />
+                </Link>
+              </Reveal>
+            ))}
           </div>
 
           <Separator className="mx-auto mt-12 max-w-xs" />
