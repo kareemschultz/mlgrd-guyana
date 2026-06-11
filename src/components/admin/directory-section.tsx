@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 
 import { data } from "@/lib/data/client";
+import { regionSelectOptions, regionNameFor } from "@/lib/site";
 import type {
   DirectoryEntry,
   DirectoryKind,
@@ -465,18 +466,44 @@ export function DirectorySection() {
             <Field label="Name" htmlFor="d-name">
               <Input id="d-name" value={draft.name} onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value }))} placeholder="e.g. Hyde Park / Mocha" />
             </Field>
-            <Field label="Region" htmlFor="d-region" hint="e.g. Region 4">
-              <Input id="d-region" value={draft.region} onChange={(e) => setDraft((d) => ({ ...d, region: e.target.value }))} placeholder="Region 4" />
-            </Field>
-            <Field label="Region name (optional)" htmlFor="d-regionname">
-              <Input id="d-regionname" value={draft.regionName} onChange={(e) => setDraft((d) => ({ ...d, regionName: e.target.value }))} placeholder="Demerara-Mahaica" />
+            <Field label="Region" htmlFor="d-region">
+              <Select
+                value={draft.region || undefined}
+                onValueChange={(v) =>
+                  setDraft((d) => ({ ...d, region: v, regionName: regionNameFor(v) }))
+                }
+              >
+                <SelectTrigger id="d-region" className="w-full">
+                  <SelectValue placeholder="Select a region" />
+                </SelectTrigger>
+                <SelectContent>
+                  {regionSelectOptions.map((r) => (
+                    <SelectItem key={r.value} value={r.value}>
+                      {r.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </Field>
             <Field label="Council (optional)" htmlFor="d-council">
               <Input id="d-council" value={draft.council} onChange={(e) => setDraft((d) => ({ ...d, council: e.target.value }))} />
             </Field>
-            <Field label="Status (optional)" htmlFor="d-status" hint="e.g. active / inactive (CDCs)">
-              <Input id="d-status" value={draft.status} onChange={(e) => setDraft((d) => ({ ...d, status: e.target.value }))} />
-            </Field>
+            {draft.kind === "cdc" && (
+              <Field label="Status" htmlFor="d-status">
+                <Select
+                  value={draft.status || undefined}
+                  onValueChange={(v) => setDraft((d) => ({ ...d, status: v }))}
+                >
+                  <SelectTrigger id="d-status" className="w-full">
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="active">Active</SelectItem>
+                    <SelectItem value="inactive">Inactive</SelectItem>
+                  </SelectContent>
+                </Select>
+              </Field>
+            )}
             <Field label="Office phone (optional)" htmlFor="d-ophone">
               <Input id="d-ophone" value={draft.officePhone} onChange={(e) => setDraft((d) => ({ ...d, officePhone: e.target.value }))} />
             </Field>

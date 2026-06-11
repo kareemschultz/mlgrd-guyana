@@ -172,3 +172,21 @@ export const regions: { id: number; name: string }[] = [
   { id: 9, name: "Upper Takutu-Upper Essequibo" },
   { id: 10, name: "Upper Demerara-Berbice" },
 ];
+
+/**
+ * Canonical region options for admin form dropdowns (value = the stored
+ * "Region N" code; name = the official region name). Sharing this keeps the
+ * directory, datasets and the public pages perfectly consistent — staff pick
+ * from the list instead of typing, so the front-end always matches.
+ */
+export const regionSelectOptions: { value: string; label: string; name: string }[] =
+  regions.map((r) => ({
+    value: `Region ${r.id}`,
+    label: `Region ${r.id} — ${r.name}`,
+    name: r.name,
+  }));
+
+/** The region name for a stored "Region N" code (e.g. for auto-filling). */
+export function regionNameFor(code: string): string {
+  return regionSelectOptions.find((o) => o.value === code)?.name ?? "";
+}
