@@ -30,7 +30,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Field, LoadingState, EmptyState } from "@/components/admin/shared";
+import { Field, LoadingState, EmptyState, IconAction } from "@/components/admin/shared";
 import { ConfirmDelete } from "@/components/admin/confirm-delete";
 
 const ROLES: { value: UserRole; label: string; desc: string }[] = [
@@ -162,19 +162,17 @@ export function UsersSection() {
               <Badge variant="outline" className={cn("rounded-full", roleBadge[u.role])}>
                 {u.role}
               </Badge>
-              <Button variant="ghost" size="icon" onClick={() => openEdit(u)} aria-label="Edit">
+              <IconAction label="Edit staff member" onClick={() => openEdit(u)}>
                 <Pencil className="size-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
+              </IconAction>
+              <IconAction
+                label={me?.id === u.id ? "You can't remove yourself" : "Remove staff member"}
                 onClick={() => setDeleteUser(u)}
                 disabled={me?.id === u.id}
-                aria-label="Delete"
                 className="text-destructive hover:text-destructive disabled:opacity-30"
               >
                 <Trash2 className="size-4" />
-              </Button>
+              </IconAction>
             </li>
           ))}
         </ul>
