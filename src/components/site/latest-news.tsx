@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Calendar, Newspaper } from "lucide-react";
 import { asset } from "@/lib/site";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { EmblemMotifs } from "@/components/site/emblem-motifs";
 import { data } from "@/lib/data/client";
 import { seedPosts } from "@/lib/data/seed";
 import type { Post } from "@/lib/data/types";
@@ -78,6 +79,8 @@ export function HeroEmblemNews() {
           className="from-gold via-gold to-transparent"
         />
         <div className="pointer-events-none absolute inset-0 bg-dot text-gold/[0.12]" />
+        {/* floating national + emblem motifs */}
+        <EmblemMotifs />
         {/* pulsing gold glow behind the crest */}
         <motion.div
           className="pointer-events-none absolute left-1/2 top-1/2 size-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/25 blur-3xl"
