@@ -9,7 +9,7 @@
  */
 import * as React from "react";
 import { toast } from "sonner";
-import { Database, Pencil, Plus, Search, Trash2 } from "lucide-react";
+import { Library, Pencil, Plus, Search, Trash2 } from "lucide-react";
 
 import { datasets, getDataset } from "@/lib/data/datasets";
 import type { DatasetColumn } from "@/lib/data/datasets";
@@ -146,7 +146,7 @@ export function DatasetsSection() {
       {/* Dataset picker + add */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div className="w-full sm:max-w-xs">
-          <Field label="Dataset" htmlFor="ds-kind">
+          <Field label="Category" htmlFor="ds-kind">
             <Select value={kind} onValueChange={selectKind}>
               <SelectTrigger id="ds-kind" className="w-full">
                 <SelectValue />
@@ -183,7 +183,7 @@ export function DatasetsSection() {
       {loading ? (
         <LoadingState label={`Loading ${def.label.toLowerCase()}…`} />
       ) : filtered.length === 0 ? (
-        <EmptyState icon={Database} title={`No ${def.label.toLowerCase()} yet`} description="Add the first record to get started." />
+        <EmptyState icon={Library} title={`No ${def.label.toLowerCase()} yet`} description="Add the first record to get started." />
       ) : (
         <>
           <p className="text-sm text-muted-foreground">
