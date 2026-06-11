@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {
-  Building2, Landmark, Users, FileText, ScrollText, HandHelping,
+  Building2, Landmark, Users, FileText, ScrollText, HandHelping, UserRoundCog,
   ArrowRight, MapPin, ShieldCheck, ReceiptText, Hammer, Megaphone, Briefcase,
 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
@@ -12,16 +12,15 @@ import { HeroFx } from "@/components/site/hero-fx";
 import { HeroEmblemNews } from "@/components/site/latest-news";
 import { PortalUpdatesTeaser } from "@/components/site/portal-updates-teaser";
 import type { Metadata } from "next";
-import ndcs from "@/data/ndcs.json";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
 const stats = [
-  { value: 10, label: "Administrative Regions", suffix: "" },
-  { value: ndcs.length, label: "Neighbourhood Councils", suffix: "" },
   { value: 10, label: "Regional Democratic Councils", suffix: "" },
+  { value: 10, label: "Municipalities", suffix: "" },
+  { value: 70, label: "Neighborhood Democratic Councils", suffix: "" },
   { value: 6, label: "Digital Services", suffix: "" },
 ];
 
@@ -35,9 +34,10 @@ const services = [
 ];
 
 const directories = [
-  { icon: Users, title: "Neighbourhood Democratic Councils", desc: "Find your NDC, its leadership and region across the country.", href: "/ndcs", count: `${ndcs.length} councils` },
-  { icon: Landmark, title: "Regional Democratic Councils", desc: "The ten RDCs coordinating development at the regional level.", href: "/rdcs", count: "10 regions" },
-  { icon: Building2, title: "Municipalities", desc: "Towns and the city delivering urban local-government services.", href: "/municipalities", count: "10 towns" },
+  { icon: Users, title: "Neighborhood Democratic Councils", desc: "Find your NDC, its leadership and region across the country.", href: "/ndcs", count: "70 councils" },
+  { icon: Landmark, title: "Regional Democratic Councils", desc: "The 10 RDCs coordinating development at the regional level.", href: "/rdcs", count: "10 regions" },
+  { icon: Building2, title: "Municipalities", desc: "Towns and the city delivering urban local-government services.", href: "/municipalities", count: "10 municipalities" },
+  { icon: UserRoundCog, title: "Regional Executive Officers", desc: "Book an appointment with the REO for your region.", href: "/contact?intent=appointment", count: "10 REOs" },
 ];
 
 const updates = [
@@ -51,11 +51,11 @@ export default function HomePage() {
   return (
     <>
       {/* ───── Hero ───── */}
-      <section className="relative overflow-hidden bg-ink text-ink-foreground">
-        <div className="pointer-events-none absolute inset-0 bg-dot text-white/[0.05]" />
+      <section className="relative overflow-hidden border-b bg-[#fffaf0] text-foreground">
+        <div className="pointer-events-none absolute inset-0 bg-dot text-ink/[0.06]" />
         <HeroFx />
-        <div className="pointer-events-none absolute -left-32 top-10 size-96 rounded-full bg-brand/25 blur-[120px]" />
-        <div className="pointer-events-none absolute -right-32 bottom-0 size-96 rounded-full bg-gold/10 blur-[120px]" />
+        <div className="pointer-events-none absolute -left-32 top-10 size-96 rounded-full bg-gold/25 blur-[120px]" />
+        <div className="pointer-events-none absolute -right-32 bottom-0 size-96 rounded-full bg-brand/10 blur-[120px]" />
 
         <div className="container-gov relative grid gap-10 py-16 text-center sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:py-28 lg:text-left">
           <div>
@@ -66,7 +66,7 @@ export default function HomePage() {
               Strong councils,{" "}
               <span className="text-gradient-brand">thriving communities.</span>
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/75 lg:mx-0">
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground lg:mx-0">
               The Ministry of Local Government &amp; Regional Development empowers
               Guyana&apos;s regions, towns and neighbourhood councils to deliver
               services, infrastructure and democratic representation to every citizen.
@@ -77,15 +77,15 @@ export default function HomePage() {
                   <MapPin className="size-4" /> Find your council
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/25 bg-white/5 text-white hover:bg-white/10 hover:text-white">
+              <Button asChild size="lg" variant="outline" className="border-brand/25 bg-white/70 text-brand-700 hover:bg-white hover:text-brand-700">
                 <Link href="/services/reporting-local-problems">
                   Report a problem <ArrowRight className="size-4" />
                 </Link>
               </Button>
             </div>
-            <div className="mt-8 flex items-center justify-center gap-2 text-sm text-white/55 lg:justify-start">
+            <div className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground lg:justify-start">
               <ShieldCheck className="size-4 text-gold" />
-              An official Government of Guyana service
+              An official Government of Guyana website
             </div>
           </div>
 
@@ -158,10 +158,10 @@ export default function HomePage() {
         <div className="container-gov">
           <Reveal className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">Local authorities</p>
-            <h2 className="mt-2 font-heading text-3xl font-extrabold text-white sm:text-4xl">Find your local council</h2>
-            <p className="mt-3 text-white/70">Browse Guyana&apos;s neighbourhood, regional and municipal councils.</p>
+            <h2 className="mt-2 font-heading text-3xl font-extrabold text-white sm:text-4xl">Find your local organ</h2>
+            <p className="mt-3 text-white/70">Browse Guyana&apos;s Neighborhood Democratic Councils, Regional Democratic Councils, Municipalities and REO appointment options.</p>
           </Reveal>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {directories.map((d, i) => (
               <Reveal key={d.href} delay={i * 0.08}>
                 <Link

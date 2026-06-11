@@ -1,10 +1,10 @@
 "use client";
 
 /**
- * Public REO appointment booking — a two-step wizard (Schedule → Your details)
- * that shares the look of the site's other multi-step forms. The citizen picks
- * a Region / Regional Executive Officer and a date + time slot (calendar
- * picker), then gives their contact details + reason. On submit it posts the
+ * Public REO appointment booking — a four-step wizard (Region & REO → Schedule
+ * → Reason → Your details) that shares the look of the site's other multi-step
+ * forms. The citizen picks a Region / Regional Executive Officer, a date + time
+ * slot, explains the appointment purpose, then gives contact details. On submit it posts the
  * structured booking through the data layer (`data.appointments.create`) —
  * localStorage in demo mode, Cloudflare D1 live — so it lands in the admin
  * appointments inbox, and shows a success card with the reference id.
@@ -22,6 +22,7 @@ import {
   MapPin,
   Phone,
   Send,
+  FileText,
   User2,
   UserCheck,
 } from "lucide-react";
@@ -48,19 +49,28 @@ function todayISO(): string {
   return new Date(d.getTime() - off * 60_000).toISOString().slice(0, 10);
 }
 
-const scheduleSchema = z.object({
+const regionSchema = z.object({
   region: z.string().min(1, "Please choose a region / REO."),
+});
+const scheduleSchema = z.object({
   date: z.string().min(1, "Please choose a preferred date."),
   time: z.string().optional(),
+});
+const reasonSchema = z.object({
+  appointmentType: z.string().min(1, "Please choose the type of appointment."),
+  urgency: z.string().min(1, "Please choose an urgency level."),
+  subject: z.string().trim().min(3, "Please add a short subject."),
+  notes: z.string().optional(),
 });
 const detailsSchema = z.object({
   name: z.string().trim().min(2, "Please enter your full name."),
   email: z.string().trim().email("Please enter a valid email address."),
   phone: z.string().optional(),
-  subject: z.string().trim().min(3, "Please add a short subject."),
-  notes: z.string().optional(),
 });
-type Values = z.infer<typeof scheduleSchema> & z.infer<typeof detailsSchema>;
+type Values = z.infer<typeof regionSchema> &
+  z.infer<typeof scheduleSchema> &
+  z.infer<typeof reasonSchema> &
+  z.infer<typeof detailsSchema>;
 type FieldErrors = Partial<Record<keyof Values, string>>;
 
 const EMPTY: Values = {
@@ -70,6 +80,8 @@ const EMPTY: Values = {
   name: "",
   email: "",
   phone: "",
+  appointmentType: "",
+  urgency: "Routine",
   subject: "",
   notes: "",
 };
@@ -94,9 +106,22 @@ function fmtDate(iso: string): string {
 }
 
 const STEPS = [
+  { id: "region", title: "Region & REO" },
   { id: "schedule", title: "Schedule" },
+  { id: "reason", title: "Reason" },
   { id: "details", title: "Your details" },
 ] as const;
+
+const APPOINTMENT_TYPES = [
+  "Regional development matter",
+  "Community infrastructure",
+  "Local authority / NDC concern",
+  "Drainage, roads or sanitation",
+  "Vendor / supplier matter",
+  "Other",
+] as const;
+
+const URGENCY_LEVELS = ["Routine", "Time-sensitive", "Urgent / safety concern"] as const;
 
 export function BookingForm({ defaultRegion }: { defaultRegion?: string }) {
   const [values, setValues] = React.useState<Values>(() =>
@@ -121,11 +146,11 @@ export function BookingForm({ defaultRegion }: { defaultRegion?: string }) {
   }
 
   function validateStep(): boolean {
-    const s = step === 0 ? scheduleSchema : detailsSchema;
+    const s = step === 0 ? regionSchema : step === 1 ? scheduleSchema : step === 2 ? reasonSchema : detailsSchema;
     const res = s.safeParse(values);
     if (res.success) {
       // Extra guard: no past dates on the schedule step.
-      if (step === 0 && values.date < min) {
+      if (step === 1 && values.date < min) {
         setErrors({ date: "Please choose today or a future date." });
         return false;
       }
@@ -180,7 +205,13 @@ export function BookingForm({ defaultRegion }: { defaultRegion?: string }) {
         date: values.date,
         time: values.time || undefined,
         subject: values.subject.trim(),
-        notes: values.notes || undefined,
+        notes: [
+          `Appointment type: ${values.appointmentType}`,
+          `Urgency: ${values.urgency}`,
+          values.notes ? `Notes: ${values.notes}` : "",
+        ]
+          .filter(Boolean)
+          .join("\n\n") || undefined,
       });
       setSuccess({
         id: created.id,
@@ -325,7 +356,10 @@ export function BookingForm({ defaultRegion }: { defaultRegion?: string }) {
 
             {step === 0 ? (
               <div className="space-y-5">
-                <h3 className="font-heading text-xl font-bold">Schedule</h3>
+                <h3 className="font-heading text-xl font-bold">Choose your Region &amp; REO</h3>
+                <p className="text-sm text-muted-foreground">
+                  Select the region connected to your community or matter. The system will show the Regional Executive Officer for that region.
+                </p>
                 <FormField
                   label="Region & REO"
                   htmlFor="appt-region"
@@ -357,7 +391,10 @@ export function BookingForm({ defaultRegion }: { defaultRegion?: string }) {
                     </p>
                   )}
                 </FormField>
-
+              </div>
+            ) : step === 1 ? (
+              <div className="space-y-5">
+                <h3 className="font-heading text-xl font-bold">Preferred schedule</h3>
                 <div className="flex flex-col gap-1.5">
                   <Label className="flex items-center gap-1.5 text-sm">
                     <CalendarCheck className="size-3.5 text-muted-foreground" />
@@ -377,6 +414,54 @@ export function BookingForm({ defaultRegion }: { defaultRegion?: string }) {
                     <p className="text-xs font-medium text-destructive">{errors.date}</p>
                   )}
                 </div>
+              </div>
+            ) : step === 2 ? (
+              <div className="space-y-5">
+                <h3 className="font-heading text-xl font-bold">Reason for appointment</h3>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <FormField label="Appointment type" htmlFor="appt-type" required error={errors.appointmentType} icon={FileText}>
+                    <Select value={values.appointmentType} onValueChange={(v) => set("appointmentType", v)}>
+                      <SelectTrigger id="appt-type" className="w-full" aria-invalid={!!errors.appointmentType}>
+                        <SelectValue placeholder="Choose a type…" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {APPOINTMENT_TYPES.map((type) => (
+                          <SelectItem key={type} value={type}>{type}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormField>
+                  <FormField label="Urgency" htmlFor="appt-urgency" required error={errors.urgency}>
+                    <Select value={values.urgency} onValueChange={(v) => set("urgency", v)}>
+                      <SelectTrigger id="appt-urgency" className="w-full" aria-invalid={!!errors.urgency}>
+                        <SelectValue placeholder="Choose urgency…" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {URGENCY_LEVELS.map((level) => (
+                          <SelectItem key={level} value={level}>{level}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormField>
+                </div>
+                <FormField label="Subject" htmlFor="appt-subject" required error={errors.subject}>
+                  <Input
+                    id="appt-subject"
+                    value={values.subject}
+                    onChange={(e) => set("subject", e.target.value)}
+                    placeholder="What is your appointment about?"
+                    aria-invalid={!!errors.subject}
+                  />
+                </FormField>
+                <FormField label="Additional notes (optional)" htmlFor="appt-notes">
+                  <Textarea
+                    id="appt-notes"
+                    value={values.notes}
+                    onChange={(e) => set("notes", e.target.value)}
+                    rows={4}
+                    placeholder="Any background, location, reference number, or documents the REO's office should know about."
+                  />
+                </FormField>
               </div>
             ) : (
               <div className="space-y-5">
@@ -412,24 +497,6 @@ export function BookingForm({ defaultRegion }: { defaultRegion?: string }) {
                     onChange={(e) => set("phone", e.target.value)}
                     placeholder="+592 …"
                     autoComplete="tel"
-                  />
-                </FormField>
-                <FormField label="Subject" htmlFor="appt-subject" required error={errors.subject}>
-                  <Input
-                    id="appt-subject"
-                    value={values.subject}
-                    onChange={(e) => set("subject", e.target.value)}
-                    placeholder="What is your appointment about?"
-                    aria-invalid={!!errors.subject}
-                  />
-                </FormField>
-                <FormField label="Additional notes (optional)" htmlFor="appt-notes">
-                  <Textarea
-                    id="appt-notes"
-                    value={values.notes}
-                    onChange={(e) => set("notes", e.target.value)}
-                    rows={4}
-                    placeholder="Any background or details that will help the REO's office prepare."
                   />
                 </FormField>
               </div>

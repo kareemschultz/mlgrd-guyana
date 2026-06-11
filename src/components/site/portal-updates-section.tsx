@@ -132,7 +132,7 @@ export function PortalUpdatesSection({ compact = false, standalone = false, limi
             <div className="flex flex-wrap justify-center gap-3">
               <Button asChild>
                 <Link href="/news">
-                  Read ministry news <ArrowRight className="size-4" />
+                  Read Ministry News <ArrowRight className="size-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline">

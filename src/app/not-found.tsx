@@ -11,7 +11,7 @@ const quickLinks = [
   {
     icon: Users,
     label: "Directories",
-    desc: "Find your local council",
+    desc: "Find your local organ",
     href: "/ndcs",
   },
   {

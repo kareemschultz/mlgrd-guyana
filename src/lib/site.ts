@@ -15,8 +15,8 @@ export const ministry = {
   tagline: "Empowering communities through effective local democracy",
   address: "Fort Street, Georgetown, Guyana",
   phone: "+592-225-6088",
-  email: "info@mlgrd.gov.gy",
-  hours: "Monday – Friday, 08:00 – 16:30",
+  email: "pr@mlgrd.gov.gy",
+  hours: "Monday to Thursday: 08:00 - 16:30; Friday: 08:00 - 15:30",
 } as const;
 
 export const socialLinks = [
@@ -37,7 +37,7 @@ export const mainNav: NavItem[] = [
     href: "/ndcs",
     children: [
       {
-        label: "Neighbourhood Democratic Councils",
+        label: "Neighborhood Democratic Councils",
         href: "/ndcs",
         description: "All 70 NDCs across Guyana's ten regions",
       },

@@ -60,7 +60,7 @@ export default function AboutPage() {
               <Network className="size-6" />
             </div>
             <h2 className="mt-5 font-heading text-2xl font-extrabold sm:text-3xl">
-              The role of local government
+              The role of Local Government
             </h2>
             <p className="mt-4 leading-relaxed text-muted-foreground">
               {about.function}
@@ -82,8 +82,9 @@ export default function AboutPage() {
               A three-tier system
             </h2>
             <p className="mt-3 text-white/70">
-              Local democratic organs serve citizens across three connected
-              tiers, each with distinct responsibilities and reach.
+              Local democratic organs serve citizens through 10 Regional
+              Democratic Councils, 10 Municipalities, and 70 Neighborhood
+              Democratic Councils, each with distinct responsibilities and reach.
             </p>
           </Reveal>
 
@@ -94,8 +95,6 @@ export default function AboutPage() {
                 typeof tier.count === "number"
                   ? tier.count
                   : parseInt(String(tier.count), 10);
-              const hasPlus =
-                typeof tier.count === "string" && tier.count.includes("+");
               return (
                 <Reveal key={tier.name} delay={i * 0.08}>
                   <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-7 transition-colors hover:border-gold/40 hover:bg-white/[0.07]">
@@ -104,7 +103,6 @@ export default function AboutPage() {
                     </div>
                     <div className="mt-5 font-heading text-4xl font-extrabold text-white sm:text-5xl">
                       <NumberTicker value={numeric} className="text-white" />
-                      {hasPlus && <span>+</span>}
                     </div>
                     <h3 className="mt-2 font-heading text-lg font-bold text-white">
                       {tier.name}
@@ -159,7 +157,7 @@ export default function AboutPage() {
               Community resources
             </p>
             <h2 className="mt-2 font-heading text-3xl font-extrabold sm:text-4xl">
-              Local directories
+              Local Directories
             </h2>
             <p className="mt-3 text-muted-foreground">
               The Ministry maintains community-level directories to help citizens

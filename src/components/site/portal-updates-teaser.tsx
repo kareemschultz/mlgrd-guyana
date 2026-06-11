@@ -57,7 +57,7 @@ export function PortalUpdatesTeaser() {
                   </Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link href="/news">Read ministry news</Link>
+                  <Link href="/news">Read Ministry News</Link>
                 </Button>
               </div>
             </div>
