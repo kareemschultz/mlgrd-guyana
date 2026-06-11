@@ -135,7 +135,7 @@ export function GallerySection({
             Gallery
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Manage the ministry photo gallery shown on the portal.
+            Manage the Ministry photo gallery shown on the portal.
           </p>
         </div>
         <Button onClick={openCreate} className="shrink-0">
@@ -149,7 +149,7 @@ export function GallerySection({
         <EmptyState
           icon={Images}
           title="No gallery items"
-          description="Add your first photo to the ministry gallery."
+          description="Add your first photo to the Ministry gallery."
           action={
             <Button onClick={openCreate}>
               <Plus className="size-4" /> Add photo
@@ -231,7 +231,7 @@ export function GallerySection({
             <DialogDescription>
               {editing
                 ? "Update this photo."
-                : "Add a photo to the ministry gallery."}
+                : "Add a photo to the Ministry gallery."}
             </DialogDescription>
           </DialogHeader>
 

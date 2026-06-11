@@ -64,7 +64,7 @@ export function LoginCard({ onSuccess }: { onSuccess: () => void }) {
 
         <div className="relative flex items-center gap-3">
           <span className="flex size-12 items-center justify-center rounded-2xl bg-white/10 backdrop-blur">
-            <LogoMark className="size-8" />
+            <LogoMark className="h-8" />
           </span>
           <div className="leading-tight">
             <p className="font-heading text-sm font-extrabold tracking-tight">
@@ -104,7 +104,7 @@ export function LoginCard({ onSuccess }: { onSuccess: () => void }) {
           {/* Compact crest header — also shown on mobile where the panel is hidden */}
           <div className="mb-8 flex flex-col items-center gap-3 text-center lg:items-start lg:text-left">
             <span className="flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 text-white shadow-sm lg:hidden">
-              <LogoMark className="size-9" />
+              <LogoMark className="h-9" />
             </span>
             <div>
               <h2 className="font-heading text-2xl font-extrabold tracking-tight">

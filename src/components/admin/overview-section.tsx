@@ -192,7 +192,7 @@ export function OverviewSection({
           Overview
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          A snapshot of the ministry portal&apos;s content and citizen messages.
+          A snapshot of the Ministry portal&apos;s content and citizen messages.
         </p>
       </div>
 
