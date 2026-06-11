@@ -11,6 +11,7 @@
  * storage (R2). Manage/replace all of this from the admin — never hard-code it in pages.
  */
 import type { GalleryItem, Minister, Post } from "./types";
+import { asset } from "@/lib/site";
 
 const IMG = "https://i0.wp.com/dpi.gov.gy/wp-content/uploads";
 const q = "?w=1000&quality=82&ssl=1";
@@ -183,7 +184,7 @@ export const seedMinisters: Minister[] = [
     id: "minister-manickchand",
     name: "Hon. Priya Manickchand, MP",
     title: "Minister of Local Government & Regional Development",
-    portrait: `${IMG}/2025/09/547983471_1109632137997077_619129028257987321_n-1.jpg${q}`,
+    portrait: asset("/minister-manickchand.jpg"),
     initials: "PM",
     bio: "Hon. Priya Manickchand, MP, assumed office as Minister of Local Government and Regional Development in September 2025. She leads the Ministry's mandate to strengthen local governance, empower communities and advance regional development across Guyana.",
     profileUrl: "https://www.facebook.com/LocalGovGuyana",
