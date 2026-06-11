@@ -63,9 +63,11 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="container-gov flex flex-col items-center justify-between gap-3 py-5 text-xs text-white/55 sm:flex-row">
-          <p>© {year} {ministry.name}. All rights reserved.</p>
-          <div className="flex items-center gap-5">
+        <div className="container-gov flex flex-col items-center justify-between gap-4 py-5 text-center text-xs text-white/55 md:flex-row md:text-left">
+          <p className="max-w-sm leading-relaxed md:max-w-none">
+            © {year} {ministry.name}. All rights reserved.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:justify-end">
             <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
             <Link href="/accessibility" className="hover:text-white">Accessibility</Link>
             <Link href="/contact" className="hover:text-white">Contact</Link>

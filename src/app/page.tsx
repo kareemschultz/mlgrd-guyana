@@ -52,21 +52,21 @@ export default function HomePage() {
         <div className="pointer-events-none absolute -left-32 top-10 size-96 rounded-full bg-brand/25 blur-[120px]" />
         <div className="pointer-events-none absolute -right-32 bottom-0 size-96 rounded-full bg-gold/10 blur-[120px]" />
 
-        <div className="container-gov relative grid gap-10 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:py-28">
+        <div className="container-gov relative grid gap-10 py-16 text-center sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:py-28 lg:text-left">
           <div>
-            <AnimatedGradientText className="mb-5 text-sm font-medium">
+            <AnimatedGradientText className="mx-auto mb-5 max-w-[20rem] justify-center text-balance text-sm font-medium sm:max-w-none lg:mx-0 lg:justify-start">
               🇬🇾 Government of Guyana · Local Government &amp; Regional Development
             </AnimatedGradientText>
-            <h1 className="font-heading text-4xl font-extrabold leading-[1.05] sm:text-5xl md:text-6xl">
+            <h1 className="mx-auto max-w-[11ch] font-heading text-4xl font-extrabold leading-[1.05] sm:max-w-none sm:text-5xl md:text-6xl lg:mx-0">
               Strong councils,{" "}
               <span className="text-gradient-brand">thriving communities.</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/75 lg:mx-0">
               The Ministry of Local Government &amp; Regional Development empowers
               Guyana&apos;s regions, towns and neighbourhood councils to deliver
               services, infrastructure and democratic representation to every citizen.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
               <Button asChild size="lg" className="bg-brand-600 text-white hover:bg-brand-700">
                 <Link href="/ndcs">
                   <MapPin className="size-4" /> Find your council
@@ -78,7 +78,7 @@ export default function HomePage() {
                 </Link>
               </Button>
             </div>
-            <div className="mt-8 flex items-center gap-2 text-sm text-white/55">
+            <div className="mt-8 flex items-center justify-center gap-2 text-sm text-white/55 lg:justify-start">
               <ShieldCheck className="size-4 text-gold" />
               An official Government of Guyana service
             </div>
