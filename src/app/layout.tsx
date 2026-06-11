@@ -7,6 +7,7 @@ import { ChromeGate } from "@/components/site/chrome-gate";
 import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "@/components/providers";
 import { StructuredData } from "@/components/site/structured-data";
+import { asset } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -48,6 +49,14 @@ export const metadata: Metadata = {
     "municipalities",
   ],
   metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: [
+      { url: asset("/favicon.ico"), sizes: "16x16 32x32" },
+      { url: asset("/icon.png"), type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: asset("/apple-icon.png"), type: "image/png", sizes: "512x512" }],
+    shortcut: asset("/favicon.ico"),
+  },
   openGraph: {
     type: "website",
     siteName: "MLGRD Guyana",

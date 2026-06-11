@@ -5,7 +5,7 @@ import { asset } from "@/lib/site";
 /**
  * The official ministry emblem mark — the SAME emblem (public/emblem.png) used
  * in the header, so the logo is consistent everywhere it appears (footer,
- * admin, sign-in). The emblem is portrait, so size it by height (pass an `h-*`
+ * admin, sign-in). The emblem is portrait, so size it by height (pass an `h-*`)
  * class) and let the width auto-scale. Only the favicon and SEO schema logo use
  * the compact crest (public/logo.png), where a tiny square mark is appropriate.
  */

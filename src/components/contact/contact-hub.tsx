@@ -2,8 +2,8 @@
 
 /**
  * Unified "Get in touch" hub. One entry point for every public form so the site
- * never feels fragmented: the citizen picks an intent and the matching wizard
- * renders below — all sharing the same multi-step look.
+ * never feels fragmented: the citizen picks an intent and follows a real route
+ * to the matching wizard or service page.
  *
  * - message      → general / feedback / council / service enquiry  (→ messages)
  * - appointment  → REO appointment booking  (→ appointments)
@@ -15,6 +15,7 @@
  * for static export).
  */
 import * as React from "react";
+import Link from "next/link";
 import dynamic from "next/dynamic";
 import { motion, useReducedMotion } from "motion/react";
 import {
@@ -53,6 +54,7 @@ const INTENTS: {
   description: string;
   icon: LucideIcon;
   accent: string;
+  href: string;
 }[] = [
   {
     id: "message",
@@ -60,6 +62,7 @@ const INTENTS: {
     description: "General enquiries, feedback, a council or a service.",
     icon: MessageSquareText,
     accent: "bg-brand/10 text-brand-600",
+    href: "/helpdesk",
   },
   {
     id: "appointment",
@@ -67,6 +70,7 @@ const INTENTS: {
     description: "Request a meeting with your Regional Executive Officer.",
     icon: CalendarClock,
     accent: "bg-gold/15 text-gold",
+    href: "/appointments",
   },
   {
     id: "report",
@@ -74,6 +78,7 @@ const INTENTS: {
     description: "Roads, drainage, sanitation and other community issues.",
     icon: TriangleAlert,
     accent: "bg-flag-red/10 text-flag-red",
+    href: "/services/reporting-local-problems",
   },
   {
     id: "vendor",
@@ -81,6 +86,7 @@ const INTENTS: {
     description: "Procurement, supplier registration and payment queries.",
     icon: Briefcase,
     accent: "bg-ink/10 text-ink",
+    href: "/services/vendor-and-supplier-enquiries",
   },
 ];
 
@@ -127,10 +133,9 @@ export function ContactHub() {
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {INTENTS.map((it) => (
-                <button
+                <Link
                   key={it.id}
-                  type="button"
-                  onClick={() => setIntent(it.id)}
+                  href={it.href}
                   className="group flex items-start gap-4 rounded-2xl border bg-card p-5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
                 >
                   <span
@@ -152,7 +157,7 @@ export function ContactHub() {
                       {it.description}
                     </span>
                   </span>
-                </button>
+                </Link>
               ))}
             </div>
           </motion.div>

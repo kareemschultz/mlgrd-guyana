@@ -83,7 +83,7 @@ function MarqueeCard({
       onClick={() => onPick(item)}
       whileHover={reduce ? undefined : { scale: 1.03, y: -4 }}
       transition={{ duration: 0.18 }}
-      className="group relative h-40 w-60 shrink-0 overflow-hidden rounded-2xl bg-ink text-left shadow-md ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold sm:h-44 sm:w-72"
+      className="group relative h-40 w-60 shrink-0 overflow-hidden rounded-2xl bg-secondary text-left shadow-md ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold sm:h-44 sm:w-72"
     >
       {item.image ? (
         <Image
@@ -91,7 +91,7 @@ function MarqueeCard({
           alt={item.caption || item.title}
           fill
           sizes="(min-width: 640px) 18rem, 15rem"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          className="object-contain"
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand-600 to-brand-700 text-white">
@@ -251,13 +251,13 @@ export function PhotoGallery() {
                 className="group relative block w-full overflow-hidden rounded-2xl bg-ink text-left shadow-md ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               >
                 {it.image ? (
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
                     <Image
                       src={it.image}
                       alt={it.caption || it.title}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                      className="object-contain"
                     />
                   </div>
                 ) : (
@@ -333,7 +333,7 @@ export function PhotoGallery() {
                 <X className="size-5" />
               </button>
 
-              <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-gradient-to-br from-brand-600 to-brand-700">
+              <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-secondary">
                 <div className="pointer-events-none absolute inset-0 bg-dot text-white/10" />
                 {active.image ? (
                   <Image
@@ -341,7 +341,7 @@ export function PhotoGallery() {
                     alt={active.caption || active.title}
                     fill
                     sizes="(min-width: 768px) 42rem, 100vw"
-                    className="object-cover"
+                    className="object-contain"
                   />
                 ) : (
                   (() => {
