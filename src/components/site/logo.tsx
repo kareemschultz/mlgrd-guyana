@@ -3,20 +3,21 @@ import { cn } from "@/lib/utils";
 import { asset } from "@/lib/site";
 
 /**
- * The compact ministry mark (circular crest) — used in small placements
- * (header, footer, favicon, sign-in) where the full emblem's lettering would be
- * illegible. The full lettered emblem (public/emblem.png) is used large in the
- * hero and the admin sign-in panel.
+ * The official ministry emblem mark — the SAME emblem (public/emblem.png) used
+ * in the header, so the logo is consistent everywhere it appears (footer,
+ * admin, sign-in). The emblem is portrait, so size it by height (pass an `h-*`
+ * class) and let the width auto-scale. Only the favicon and SEO schema logo use
+ * the compact crest (public/logo.png), where a tiny square mark is appropriate.
  */
 export function LogoMark({ className }: { className?: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={asset("/logo.png")}
-      alt="Ministry of Local Government & Regional Development emblem"
-      className={cn("object-contain", className)}
-      width={48}
-      height={48}
+      src={asset("/emblem.png")}
+      alt="Ministry of Local Government & Regional Development"
+      className={cn("w-auto object-contain", className)}
+      width={49}
+      height={71}
     />
   );
 }

@@ -16,7 +16,7 @@ export function SiteFooter() {
           <div className="mx-auto w-full max-w-sm min-[430px]:col-span-2 lg:col-span-1 lg:mx-0 lg:max-w-none">
             <div className="flex items-center justify-center gap-3 lg:justify-start">
               <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-white p-1">
-                <LogoMark className="size-10" />
+                <LogoMark className="h-11" />
               </span>
               <div className="leading-tight">
                 <p className="font-heading text-lg font-extrabold text-white">MLGRD</p>

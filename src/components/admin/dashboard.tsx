@@ -158,7 +158,7 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
           <SidebarHeader className="border-sidebar-border border-b">
             <div className="flex items-center gap-2.5 px-1 py-1.5">
               <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white/10">
-                <LogoMark className="size-7" />
+                <LogoMark className="h-7" />
               </span>
               <div className="flex flex-col leading-none">
                 <span className="font-heading text-sm font-extrabold tracking-tight text-sidebar-foreground">
