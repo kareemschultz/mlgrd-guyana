@@ -15,13 +15,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { CreatableCombobox } from "@/components/admin/creatable-combobox";
 import {
   Dialog,
   DialogContent,
@@ -62,6 +56,15 @@ export function GallerySection({
   onChange: () => Promise<void> | void;
   loading: boolean;
 }) {
+  const categoryOptions = React.useMemo(
+    () =>
+      Array.from(
+        new Set([...CATEGORIES, ...items.map((i) => i.category ?? "")]),
+      )
+        .filter(Boolean)
+        .sort((a, b) => a.localeCompare(b)),
+    [items],
+  );
   const [editorOpen, setEditorOpen] = React.useState(false);
   const [editing, setEditing] = React.useState<GalleryItem | null>(null);
   const [draft, setDraft] = React.useState<NewGalleryItem>(() => emptyDraft(0));
@@ -262,21 +265,13 @@ export function GallerySection({
             </Field>
             <div className="grid gap-4 sm:grid-cols-3">
               <Field label="Category" htmlFor="gal-category" className="sm:col-span-1">
-                <Select
-                  value={draft.category || undefined}
+                <CreatableCombobox
+                  id="gal-category"
+                  value={draft.category ?? ""}
                   onValueChange={(v) => patch({ category: v })}
-                >
-                  <SelectTrigger id="gal-category" className="w-full">
-                    <SelectValue placeholder="Select category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {CATEGORIES.map((c) => (
-                      <SelectItem key={c} value={c}>
-                        {c}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  options={categoryOptions}
+                  noun="category"
+                />
               </Field>
               <Field label="Date" htmlFor="gal-date">
                 <Input

@@ -17,7 +17,14 @@ type MotifKind =
   | "water"
   | "law"
   | "pin"
-  | "handshake";
+  | "handshake"
+  | "leaf"
+  | "star"
+  | "map"
+  | "sun"
+  | "book"
+  | "health"
+  | "house";
 
 const Motif = ({ kind }: { kind: MotifKind }) => {
   const common = {
@@ -83,6 +90,54 @@ const Motif = ({ kind }: { kind: MotifKind }) => {
           <path d="M3 12v3l3 3" />
         </svg>
       );
+    case "leaf": // environment / green
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <path d="M4 20c0-8 6-14 16-14 0 8-6 14-16 14Z" />
+          <path d="M4 20C8 16 12 13 18 11" />
+        </svg>
+      );
+    case "star": // Golden Arrowhead star
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <path d="M12 3l2.5 5.6 6.1.6-4.6 4 1.4 6-5.4-3.2L6.6 19l1.4-6-4.6-4 6.1-.6L12 3Z" />
+        </svg>
+      );
+    case "map": // simplified Guyana outline
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <path d="M7 3l8 1 1.5 5-2 4-1.5 8-2.5-7-4-3.5L7 3Z" />
+        </svg>
+      );
+    case "sun": // development / sunrise
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M6.4 17.6 5 19" />
+        </svg>
+      );
+    case "book": // education
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <path d="M4 5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2V5Z" />
+          <path d="M4 18a2 2 0 0 0 2 2h13" />
+        </svg>
+      );
+    case "health": // heart + cross
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.2A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" />
+          <path d="M12 8.5v4M10 10.5h4" />
+        </svg>
+      );
+    case "house": // housing
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <path d="M3 11 12 4l9 7" />
+          <path d="M5 10v10h14V10" />
+          <path d="M10 20v-6h4v6" />
+        </svg>
+      );
   }
 };
 
@@ -97,12 +152,19 @@ type Item = {
 
 const PRESETS: Record<string, Item[]> = {
   hero: [
-    { kind: "council", className: "left-[4%] top-[18%]", size: 46, dur: 9, drift: 14 },
-    { kind: "permit", className: "left-[20%] top-[64%]", size: 34, dur: 11, delay: 1, drift: 10 },
-    { kind: "community", className: "right-[30%] top-[12%]", size: 40, dur: 10, delay: 0.5, drift: 12 },
-    { kind: "water", className: "right-[8%] top-[58%]", size: 38, dur: 12, delay: 1.5, drift: 16 },
-    { kind: "pin", className: "left-[46%] top-[78%]", size: 30, dur: 8, delay: 0.8, drift: 10 },
-    { kind: "recycle", className: "right-[16%] top-[30%]", size: 34, dur: 13, delay: 0.3, drift: 14 },
+    { kind: "council", className: "left-[4%] top-[16%]", size: 46, dur: 9, drift: 18 },
+    { kind: "leaf", className: "left-[14%] top-[40%]", size: 34, dur: 12, delay: 0.6, drift: 16 },
+    { kind: "permit", className: "left-[22%] top-[70%]", size: 32, dur: 11, delay: 1, drift: 14 },
+    { kind: "community", className: "right-[30%] top-[10%]", size: 40, dur: 10, delay: 0.5, drift: 16 },
+    { kind: "water", className: "right-[7%] top-[56%]", size: 38, dur: 12, delay: 1.5, drift: 20 },
+    { kind: "pin", className: "left-[44%] top-[80%]", size: 30, dur: 8, delay: 0.8, drift: 14 },
+    { kind: "recycle", className: "right-[15%] top-[28%]", size: 34, dur: 13, delay: 0.3, drift: 18 },
+    { kind: "star", className: "left-[34%] top-[24%]", size: 24, dur: 7, delay: 0.2, drift: 14 },
+    { kind: "sun", className: "right-[40%] top-[68%]", size: 32, dur: 14, delay: 1.2, drift: 16 },
+    { kind: "house", className: "left-[8%] top-[74%]", size: 32, dur: 10, delay: 0.9, drift: 16 },
+    { kind: "health", className: "right-[22%] top-[78%]", size: 30, dur: 9, delay: 0.4, drift: 14 },
+    { kind: "book", className: "right-[4%] top-[16%]", size: 30, dur: 11, delay: 1.3, drift: 16 },
+    { kind: "map", className: "left-[60%] top-[8%]", size: 30, dur: 15, delay: 0.7, drift: 14 },
   ],
   band: [
     { kind: "law", className: "left-[6%] top-[20%]", size: 40, dur: 11, drift: 12 },
@@ -128,12 +190,11 @@ export function FloatingMotifs({
           key={i}
           className={cn("absolute", it.className)}
           style={{ width: it.size, height: it.size }}
-          initial={{ y: 0, rotate: -4, opacity: 0.0 }}
-          animate={{ y: [0, -(it.drift ?? 12), 0], rotate: [-4, 4, -4], opacity: 1 }}
+          initial={{ y: 0, rotate: -4 }}
+          animate={{ y: [0, -(it.drift ?? 12), 0], rotate: [-4, 4, -4] }}
           transition={{
             y: { duration: it.dur, repeat: Infinity, ease: "easeInOut", delay: it.delay ?? 0 },
             rotate: { duration: it.dur * 1.3, repeat: Infinity, ease: "easeInOut" },
-            opacity: { duration: 1.2, delay: it.delay ?? 0 },
           }}
         >
           <Motif kind={it.kind} />
