@@ -195,11 +195,44 @@ export type Collection =
   | "updates"
   | "appointments";
 
+/** Staff role: full admin, content editor, or read-only viewer. */
+export type UserRole = "admin" | "editor" | "viewer";
+
+/** The signed-in account (no password). */
+export interface AuthUser {
+  id: string;
+  username: string;
+  name: string;
+  role: UserRole;
+}
+
 /** Shape returned by the auth endpoint / demo login. */
 export interface AuthResult {
   token: string;
   /** Epoch millis. */
   expiresAt: number;
+  /** The account that signed in (live mode). */
+  user?: AuthUser;
+}
+
+/** A managed staff account (admin Users section). */
+export interface User {
+  id: ID;
+  username: string;
+  name: string;
+  email?: string;
+  role: UserRole;
+  active: boolean;
+  createdAt: string;
+}
+
+/** Create input: includes the plaintext password (hashed server-side). */
+export interface NewUser {
+  username: string;
+  name: string;
+  email?: string;
+  role: UserRole;
+  password: string;
 }
 
 /** Public, write-safe input shapes (server assigns id/timestamps). */

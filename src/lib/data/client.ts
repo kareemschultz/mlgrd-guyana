@@ -19,6 +19,9 @@
 import type {
   Appointment,
   AuthResult,
+  AuthUser,
+  User,
+  NewUser,
   DirectoryEntry,
   GalleryItem,
   Message,
@@ -88,6 +91,20 @@ export function isAuthenticated(): boolean {
   return getToken() !== null;
 }
 
+/** The signed-in account (for role-gating the admin UI). null if logged out. */
+export function getCurrentUser(): AuthUser | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(TOKEN_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as AuthResult;
+    if (parsed.expiresAt && parsed.expiresAt < Date.now()) return null;
+    return parsed.user ?? null;
+  } catch {
+    return null;
+  }
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // localStorage (demo) adapter
 // ─────────────────────────────────────────────────────────────────────────────
@@ -100,7 +117,21 @@ const KEYS = {
   directory: "mlgrd:directory",
   updates: "mlgrd:updates",
   appointments: "mlgrd:appointments",
+  users: "mlgrd:users",
 } as const;
+
+/** Demo seed for the Users admin (localStorage mode); no real auth here. */
+const demoUsers: User[] = [
+  {
+    id: "demo-admin",
+    username: "admin",
+    name: "Administrator",
+    email: "",
+    role: "admin",
+    active: true,
+    createdAt: "2026-01-01T00:00:00.000Z",
+  },
+];
 
 /**
  * Bump when the seed content changes so returning visitors (who already have a
@@ -447,6 +478,38 @@ const demo = {
     datasetWrite(kind, rows.filter((r) => r.id !== id));
   },
 
+  // users (staff accounts + roles) ------------------------------------------
+  listUsers: async (): Promise<User[]> => readStore<User>(KEYS.users, demoUsers),
+  createUser: async (input: NewUser): Promise<User> => {
+    const items = readStore<User>(KEYS.users, demoUsers);
+    if (items.some((u) => u.username === input.username.toLowerCase())) {
+      throw new Error("That username is already taken.");
+    }
+    // Password isn't stored in the demo (no server to verify against).
+    const { password: _pw, ...rest } = input;
+    void _pw;
+    const user: User = {
+      ...rest,
+      username: input.username.toLowerCase(),
+      id: uid("user"),
+      active: true,
+      createdAt: nowIso(),
+    };
+    writeStore(KEYS.users, [...items, user]);
+    return user;
+  },
+  updateUser: async (id: string, patch: Partial<NewUser> & { active?: boolean }): Promise<User> => {
+    const items = readStore<User>(KEYS.users, demoUsers);
+    const { password: _pw, ...rest } = patch;
+    void _pw;
+    const next = items.map((u) => (u.id === id ? { ...u, ...rest } : u));
+    writeStore(KEYS.users, next);
+    return next.find((u) => u.id === id)!;
+  },
+  deleteUser: async (id: string): Promise<void> => {
+    writeStore(KEYS.users, readStore<User>(KEYS.users, demoUsers).filter((u) => u.id !== id));
+  },
+
   // auth --------------------------------------------------------------------
   login: async (username: string, password: string): Promise<AuthResult> => {
     if (username !== demoAdmin.username || password !== demoAdmin.password) {
@@ -455,6 +518,7 @@ const demo = {
     const auth: AuthResult = {
       token: `demo.${uid("tok")}`,
       expiresAt: Date.now() + 1000 * 60 * 60 * 8, // 8h
+      user: { id: "demo-admin", username: "admin", name: "Administrator", role: "admin" },
     };
     setSession(auth);
     return auth;
@@ -563,6 +627,15 @@ const http = {
   deleteDatasetRow: (kind: string, id: string) =>
     api<void>(`/datasets/${kind}/${id}`, { method: "DELETE", auth: true }),
 
+  // users (staff accounts + roles) — all admin-only.
+  listUsers: () => api<User[]>("/users", { auth: true }),
+  createUser: (input: NewUser) =>
+    api<User>("/users", { method: "POST", body: JSON.stringify(input), auth: true }),
+  updateUser: (id: string, patch: Partial<NewUser> & { active?: boolean }) =>
+    api<User>(`/users/${id}`, { method: "PUT", body: JSON.stringify(patch), auth: true }),
+  deleteUser: (id: string) =>
+    api<void>(`/users/${id}`, { method: "DELETE", auth: true }),
+
   login: async (username: string, password: string): Promise<AuthResult> => {
     const auth = await api<AuthResult>("/auth/login", {
       method: "POST",
@@ -628,11 +701,18 @@ export const data = {
     update: backend.updateDatasetRow,
     remove: backend.deleteDatasetRow,
   },
+  users: {
+    list: backend.listUsers,
+    create: backend.createUser,
+    update: backend.updateUser,
+    remove: backend.deleteUser,
+  },
   auth: {
     login: backend.login,
     logout: clearSession,
     isAuthenticated,
     getToken,
+    currentUser: getCurrentUser,
   },
   /** "live" (Cloudflare) or "demo" (localStorage). */
   mode: isLiveBackend ? ("live" as const) : ("demo" as const),

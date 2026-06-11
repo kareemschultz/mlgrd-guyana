@@ -21,6 +21,7 @@ import {
   HardDrive,
   Cloud,
   Database,
+  UserCog,
   type LucideIcon,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -63,6 +64,7 @@ import { UpdatesSection } from "@/components/admin/updates-section";
 import { MessagesSection } from "@/components/admin/messages-section";
 import { AppointmentsSection } from "@/components/admin/appointments-section";
 import { DatasetsSection } from "@/components/admin/datasets-section";
+import { UsersSection } from "@/components/admin/users-section";
 import { SettingsSection } from "@/components/admin/settings-section";
 
 type SectionId =
@@ -75,9 +77,10 @@ type SectionId =
   | "datasets"
   | "messages"
   | "appointments"
+  | "users"
   | "settings";
 
-const NAV: { id: SectionId; label: string; icon: LucideIcon }[] = [
+const NAV: { id: SectionId; label: string; icon: LucideIcon; adminOnly?: boolean }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "posts", label: "Posts", icon: Newspaper },
   { id: "updates", label: "Updates", icon: Megaphone },
@@ -87,6 +90,7 @@ const NAV: { id: SectionId; label: string; icon: LucideIcon }[] = [
   { id: "datasets", label: "Reference Data", icon: Database },
   { id: "messages", label: "Messages", icon: Inbox },
   { id: "appointments", label: "Appointments", icon: CalendarCheck },
+  { id: "users", label: "Staff & Roles", icon: UserCog, adminOnly: true },
   { id: "settings", label: "Settings", icon: Settings },
 ];
 
@@ -98,6 +102,7 @@ const LABELS: Record<SectionId, string> = {
   ministers: "Ministers & officials",
   directory: "Directories",
   datasets: "Reference data",
+  users: "Staff & roles",
   messages: "Inbox",
   appointments: "Appointments",
   settings: "Settings",
@@ -105,6 +110,9 @@ const LABELS: Record<SectionId, string> = {
 
 export function Dashboard({ onLogout }: { onLogout: () => void }) {
   const [section, setSection] = React.useState<SectionId>("overview");
+  const me = data.auth.currentUser();
+  const isAdmin = !me || me.role === "admin"; // demo / env-admin → full access
+  const nav = NAV.filter((n) => !n.adminOnly || isAdmin);
 
   const [posts, setPosts] = React.useState<Post[]>([]);
   const [gallery, setGallery] = React.useState<GalleryItem[]>([]);
@@ -191,7 +199,7 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
               <SidebarGroupLabel>Manage</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {NAV.map((item) => {
+                  {nav.map((item) => {
                     const Icon = item.icon;
                     return (
                       <SidebarMenuItem key={item.id}>
@@ -302,6 +310,7 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
                 {section === "updates" && <UpdatesSection />}
                 {section === "directory" && <DirectorySection />}
                 {section === "datasets" && <DatasetsSection />}
+                {section === "users" && isAdmin && <UsersSection />}
                 {section === "messages" && (
                   <MessagesSection
                     messages={messages}
