@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { MapPin, Phone, Mail, Clock, ExternalLink } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
-import { MultiStepForm } from "@/components/forms/multi-step-form";
+import { ContactHub } from "@/components/contact/contact-hub";
 import { ministry } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact the Ministry",
   description:
-    "Contact the Ministry of Local Government & Regional Development, Guyana — address, phone, email, office hours, location map and an online contact form.",
+    "Contact the Ministry of Local Government & Regional Development, Guyana — send a message, book an REO appointment, report a local problem or make a vendor enquiry. Address, phone, email, office hours and location map.",
 };
 
 // Kingston, Georgetown (approx. — Fort Street area)
@@ -31,16 +31,25 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Get in touch"
         title="Contact the Ministry"
-        lead="Reach the Ministry of Local Government & Regional Development by phone, email or the online form below. We'll route your message to the right team."
+        lead="Send a message, book an appointment with your Regional Executive Officer, report a local problem or make a vendor enquiry — every request is routed to the right team."
         crumbs={[{ label: "Contact" }]}
       />
 
-      <section className="py-16">
+      {/* Primary: pick what you'd like to do */}
+      <ContactHub />
+
+      {/* Reference: address, phone, map */}
+      <section className="border-t bg-secondary/30 py-14 sm:py-16">
         <div className="container-gov grid gap-10 lg:grid-cols-[1fr_1.1fr]">
-          {/* Left: details + map */}
           <div>
             <Reveal>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <h2 className="font-heading text-xl font-bold tracking-tight">
+                Visit or call us
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Head office of the {ministry.name}.
+              </p>
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 {details.map((d) => (
                   <div key={d.label} className="rounded-2xl border bg-card p-5">
                     <div className="flex size-10 items-center justify-center rounded-xl bg-brand/10 text-brand-600">
@@ -60,34 +69,29 @@ export default function ContactPage() {
                 ))}
               </div>
             </Reveal>
-
-            <Reveal delay={0.1}>
-              <div className="mt-5 overflow-hidden rounded-2xl border">
-                <iframe
-                  title="Ministry location map"
-                  src={OSM_EMBED}
-                  className="h-72 w-full"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-                <div className="flex items-center justify-between gap-3 border-t bg-card px-4 py-3 text-sm">
-                  <span className="text-muted-foreground">{ministry.address}</span>
-                  <span className="flex gap-3">
-                    <a href={OSM_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-medium text-brand-600 hover:underline">
-                      OpenStreetMap <ExternalLink className="size-3.5" />
-                    </a>
-                    <a href={GMAPS} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-medium text-brand-600 hover:underline">
-                      Google Maps <ExternalLink className="size-3.5" />
-                    </a>
-                  </span>
-                </div>
-              </div>
-            </Reveal>
           </div>
 
-          {/* Right: form */}
-          <Reveal delay={0.05}>
-            <MultiStepForm configId="helpdesk" />
+          <Reveal delay={0.1}>
+            <div className="overflow-hidden rounded-2xl border">
+              <iframe
+                title="Ministry location map"
+                src={OSM_EMBED}
+                className="h-72 w-full lg:h-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <div className="flex items-center justify-between gap-3 border-t bg-card px-4 py-3 text-sm">
+                <span className="text-muted-foreground">{ministry.address}</span>
+                <span className="flex gap-3">
+                  <a href={OSM_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-medium text-brand-600 hover:underline">
+                    OpenStreetMap <ExternalLink className="size-3.5" />
+                  </a>
+                  <a href={GMAPS} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-medium text-brand-600 hover:underline">
+                    Google Maps <ExternalLink className="size-3.5" />
+                  </a>
+                </span>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>

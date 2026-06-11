@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { useForm } from "@tanstack/react-form";
-import { AnimatePresence, motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { Check, ChevronLeft, ChevronRight, Loader2, PartyPopper, Send } from "lucide-react";
-import type { FieldDef } from "@/components/forms/configs";
+import type { FieldDef, FormConfig } from "@/components/forms/configs";
 import { formConfigs } from "@/components/forms/configs";
 import { data } from "@/lib/data/client";
 import type { NewMessage } from "@/lib/data/types";
@@ -32,8 +32,7 @@ function makeRef() {
  * all the contextual fields (region, urgency, company, etc.) using their labels.
  */
 function buildMessage(
-  config: (typeof formConfigs)[keyof typeof formConfigs],
-  configId: keyof typeof formConfigs,
+  config: FormConfig,
   value: Record<string, string>,
   ref: string,
 ): NewMessage {
@@ -46,22 +45,30 @@ function buildMessage(
     .filter(([k, v]) => v && !omit.has(k))
     .map(([k, v]) => `${labels[k] ?? k}: ${v}`);
 
-  const body = [lead, extras.join("\n"), `Reference: ${ref}`]
+  const body = [lead, extras.join("\n"), config.contextNote, `Reference: ${ref}`]
     .filter(Boolean)
     .join("\n\n");
 
   return {
-    channel: configId === "helpdesk" ? "helpdesk" : "contact",
+    channel: config.id === "helpdesk" ? "helpdesk" : "contact",
     name: value.name || value.company || "Website visitor",
     email: value.email || "",
     subject: value.subject || config.title,
     category: value.topic || value.category || value.interest || config.subject,
     body,
+    ...config.fixed,
   };
 }
 
-export function MultiStepForm({ configId }: { configId: keyof typeof formConfigs }) {
-  const config = formConfigs[configId];
+export function MultiStepForm({
+  configId,
+  config: configProp,
+}: {
+  configId?: keyof typeof formConfigs;
+  config?: FormConfig;
+}) {
+  const config = configProp ?? formConfigs[configId ?? "helpdesk"];
+  const reduce = useReducedMotion();
   const [step, setStep] = useState(0);
   const [dir, setDir] = useState(1);
   const [submitting, setSubmitting] = useState(false);
@@ -86,7 +93,7 @@ export function MultiStepForm({ configId }: { configId: keyof typeof formConfigs
         // helpdesk inbox (localStorage in demo mode, Cloudflare D1 in live mode).
         try {
           await data.messages.create(
-            buildMessage(config, configId, value as Record<string, string>, ref),
+            buildMessage(config, value as Record<string, string>, ref),
           );
           delivered = true;
         } catch (error) {
@@ -226,13 +233,11 @@ export function MultiStepForm({ configId }: { configId: keyof typeof formConfigs
             {errors.form}
           </div>
         )}
-        <AnimatePresence mode="wait" custom={dir}>
+        <div>
           <motion.div
             key={current.id}
-            custom={dir}
-            initial={{ opacity: 0, x: dir * 24 }}
+            initial={reduce ? false : { opacity: 0, x: dir * 24 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: dir * -24 }}
             transition={{ duration: 0.25 }}
           >
             <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-brand-600">
@@ -259,7 +264,7 @@ export function MultiStepForm({ configId }: { configId: keyof typeof formConfigs
               ))}
             </div>
           </motion.div>
-        </AnimatePresence>
+        </div>
 
         <div className="mt-8 flex items-center justify-between gap-3">
           <Button
