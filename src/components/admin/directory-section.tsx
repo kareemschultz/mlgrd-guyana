@@ -53,7 +53,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Field, LoadingState, EmptyState } from "@/components/admin/shared";
+import { Field, LoadingState, EmptyState, IconAction } from "@/components/admin/shared";
 import { ConfirmDelete } from "@/components/admin/confirm-delete";
 
 const ALL = "all";
@@ -627,12 +627,12 @@ function EntryCard({
               {entry.region}
             </Badge>
           </div>
-          <Button variant="ghost" size="icon" onClick={onEdit} aria-label="Edit" className="size-8">
+          <IconAction label="Edit" onClick={onEdit} className="size-8">
             <Pencil className="size-4" />
-          </Button>
-          <Button variant="ghost" size="icon" onClick={onDelete} aria-label="Delete" className="size-8 text-destructive hover:text-destructive">
+          </IconAction>
+          <IconAction label="Delete" onClick={onDelete} className="size-8 text-destructive hover:text-destructive">
             <Trash2 className="size-4" />
-          </Button>
+          </IconAction>
         </div>
       </div>
 

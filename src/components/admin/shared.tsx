@@ -6,6 +6,51 @@ import { Loader2, ImagePlus, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+/**
+ * Icon-only button with a hover/focus tooltip and an accessible label — for
+ * compact row actions (edit, delete, …) so staff aren't guessing what an icon
+ * does. The label doubles as the aria-label.
+ */
+export function IconAction({
+  label,
+  onClick,
+  disabled,
+  className,
+  children,
+}: {
+  label: string;
+  onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          onClick={onClick}
+          disabled={disabled}
+          aria-label={label}
+          className={className}
+        >
+          {children}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
+  );
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Animation presets
@@ -174,11 +219,26 @@ export function ImageUpload({
 // Empty + loading states
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function LoadingState({ label = "Loading…" }: { label?: string }) {
+export function LoadingState({
+  label = "Loading…",
+  rows = 5,
+}: {
+  label?: string;
+  rows?: number;
+}) {
   return (
-    <div className="flex items-center justify-center gap-2 py-16 text-sm text-muted-foreground">
-      <Loader2 className="size-4 animate-spin" />
-      {label}
+    <div className="space-y-3 py-2" role="status" aria-label={label}>
+      {Array.from({ length: rows }).map((_, i) => (
+        <div key={i} className="flex items-center gap-3 rounded-xl border p-4">
+          <Skeleton className="size-10 shrink-0 rounded-full" />
+          <div className="flex-1 space-y-2">
+            <Skeleton className="h-4 w-1/3" />
+            <Skeleton className="h-3 w-2/3" />
+          </div>
+          <Skeleton className="hidden h-6 w-16 rounded-full sm:block" />
+        </div>
+      ))}
+      <span className="sr-only">{label}</span>
     </div>
   );
 }
