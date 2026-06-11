@@ -1,0 +1,48 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: cf-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build (live CF Pages mode)
+        env:
+          NEXT_PUBLIC_API_BASE: ""
+        run: bun run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@392082e81ffbcb9ebdde289c5f43a773b9ee06d6 # v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out --project-name=mlgrd-guyana --commit-dirty=true
+
+      - name: Set CF Pages secrets (idempotent)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          ADMIN_SECRET_VAL: ${{ secrets.ADMIN_SECRET }}
+          ADMIN_PASSWORD_VAL: ${{ secrets.ADMIN_PASSWORD }}
+        run: |
+          echo "$ADMIN_SECRET_VAL" | npx wrangler pages secret put ADMIN_SECRET --project-name=mlgrd-guyana
+          echo "$ADMIN_PASSWORD_VAL" | npx wrangler pages secret put ADMIN_PASSWORD --project-name=mlgrd-guyana

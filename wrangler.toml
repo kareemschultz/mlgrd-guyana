@@ -18,7 +18,7 @@ pages_build_output_dir = "out"
 [[d1_databases]]
 binding = "DB"
 database_name = "mlgrd"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "196224ba-a08e-4c9f-ae1d-1018108c1ac3"
 
 # Non-secret defaults. Set ADMIN_SECRET and ADMIN_PASSWORD as SECRETS, not here:
 #   wrangler pages secret put ADMIN_SECRET
