@@ -34,8 +34,17 @@ import type {
   Post,
 } from "./types";
 import { seedGallery, seedMinisters, seedPosts, demoAdmin } from "./seed";
-import { seedDirectory } from "./seed-directory";
 import { seedUpdates } from "./seed-updates";
+
+/**
+ * The committed directory seed is large (~230 KB), so load it on demand from a
+ * separate chunk — only the admin/directory demo adapter ever needs it. This
+ * keeps it out of the shared bundle that public pages (incl. the homepage) ship.
+ */
+async function loadSeedDirectory(): Promise<DirectoryEntry[]> {
+  const mod = await import("./seed-directory");
+  return mod.seedDirectory;
+}
 
 const API_BASE =
   typeof process !== "undefined" ? process.env.NEXT_PUBLIC_API_BASE : undefined;
@@ -271,10 +280,10 @@ const demo = {
 
   // directory (admin) -------------------------------------------------------
   listDirectory: async (): Promise<DirectoryEntry[]> =>
-    readStore<DirectoryEntry>(KEYS.directory, seedDirectory),
+    readStore<DirectoryEntry>(KEYS.directory, await loadSeedDirectory()),
 
   createDirectory: async (input: NewDirectoryEntry): Promise<DirectoryEntry> => {
-    const items = readStore<DirectoryEntry>(KEYS.directory, seedDirectory);
+    const items = readStore<DirectoryEntry>(KEYS.directory, await loadSeedDirectory());
     const entry: DirectoryEntry = { ...input, id: uid("dir"), createdAt: nowIso() };
     writeStore(KEYS.directory, [...items, entry]);
     return entry;
@@ -284,7 +293,7 @@ const demo = {
     id: string,
     patch: Partial<NewDirectoryEntry>,
   ): Promise<DirectoryEntry> => {
-    const items = readStore<DirectoryEntry>(KEYS.directory, seedDirectory);
+    const items = readStore<DirectoryEntry>(KEYS.directory, await loadSeedDirectory());
     const next = items.map((d) => (d.id === id ? { ...d, ...patch } : d));
     writeStore(KEYS.directory, next);
     return next.find((d) => d.id === id)!;
@@ -293,7 +302,9 @@ const demo = {
   deleteDirectory: async (id: string): Promise<void> => {
     writeStore(
       KEYS.directory,
-      readStore<DirectoryEntry>(KEYS.directory, seedDirectory).filter((d) => d.id !== id),
+      readStore<DirectoryEntry>(KEYS.directory, await loadSeedDirectory()).filter(
+        (d) => d.id !== id,
+      ),
     );
   },
 

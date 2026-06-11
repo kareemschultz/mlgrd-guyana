@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -14,6 +14,7 @@ import { seedMinisters } from "@/lib/data/seed";
 import type { Minister } from "@/lib/data/types";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useModalA11y } from "@/hooks/use-modal-a11y";
 
 /**
  * Animated leadership gallery for the Minister's Desk.
@@ -49,6 +50,8 @@ export function MinisterGallery() {
   const [ministers, setMinisters] = useState<Minister[]>(seedMinisters);
   const [active, setActive] = useState<Minister | null>(null);
   const reduce = useReducedMotion();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useModalA11y(!!active, () => setActive(null), dialogRef);
 
   useEffect(() => {
     let alive = true;
@@ -152,7 +155,6 @@ export function MinisterGallery() {
             className="fixed inset-0 z-50 flex items-end justify-center p-4 sm:items-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setActive(null)}
             role="dialog"
@@ -161,10 +163,11 @@ export function MinisterGallery() {
           >
             <div className="absolute inset-0 bg-ink/70 backdrop-blur-sm" />
             <motion.div
-              className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border bg-card shadow-2xl"
+              ref={dialogRef}
+              tabIndex={-1}
+              className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border bg-card shadow-2xl focus:outline-none"
               initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.97 }}
               animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
-              exit={reduce ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.98 }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
               onClick={(e) => e.stopPropagation()}
             >
