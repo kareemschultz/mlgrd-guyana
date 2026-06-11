@@ -537,12 +537,16 @@ function FilterRow({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-2 sm:flex-row sm:items-start">
-      <span className="flex w-20 shrink-0 items-center gap-1 pt-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-2">
+      <span className="flex shrink-0 items-center gap-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground sm:w-20 sm:pt-1.5">
         {Icon && <Icon className="size-3.5" />}
         {label}
       </span>
-      <div className="flex flex-wrap gap-2">{children}</div>
+      {/* Mobile: one horizontally-scrollable strip (saves vertical space).
+          Desktop: wrap onto multiple lines where there's room. */}
+      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
+        {children}
+      </div>
     </div>
   );
 }
@@ -565,7 +569,7 @@ function FilterChip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "rounded-full border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2",
+        "shrink-0 whitespace-nowrap rounded-full border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2",
         variant === "tag" ? "px-3 py-1 text-xs" : "px-4 py-1.5",
         active
           ? "border-brand-600 bg-brand-600 text-white shadow-sm"
