@@ -15,6 +15,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { NdcContactForm } from "@/components/ndc/ndc-contact-form";
 import ndcs from "@/data/ndcs.json";
 import { ministry } from "@/lib/site";
 
@@ -200,6 +201,15 @@ export default async function NdcDetailPage({
             </div>
           </Reveal>
         </div>
+
+        {/* ───── Contact this NDC ───── */}
+        <Reveal className="mx-auto mt-12 max-w-3xl">
+          <NdcContactForm
+            ndcName={ndc.name}
+            region={ndc.region}
+            regionName={ndc.regionName}
+          />
+        </Reveal>
 
         {/* ───── Prev / Next ───── */}
         <Reveal className="mt-12 grid gap-4 sm:grid-cols-2">
