@@ -29,7 +29,7 @@ import type {
   PortalUpdateTone,
 } from "@/lib/data/types";
 import {
-  updateIcon,
+  UpdateIcon,
   updateIconNames,
   updateToneClasses,
   updateToneLabels,
@@ -148,6 +148,8 @@ export function UpdatesSection() {
   }, []);
 
   React.useEffect(() => {
+    // One-time load on mount; refresh() owns its own loading/state updates.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     void refresh();
   }, [refresh]);
 
@@ -328,17 +330,14 @@ export function UpdatesSection() {
                   <SelectValue placeholder="Icon" />
                 </SelectTrigger>
                 <SelectContent>
-                  {updateIconNames.map((name) => {
-                    const Icon = updateIcon(name);
-                    return (
-                      <SelectItem key={name} value={name}>
-                        <span className="flex items-center gap-2">
-                          <Icon className="size-4" />
-                          {name}
-                        </span>
-                      </SelectItem>
-                    );
-                  })}
+                  {updateIconNames.map((name) => (
+                    <SelectItem key={name} value={name}>
+                      <span className="flex items-center gap-2">
+                        <UpdateIcon name={name} className="size-4" />
+                        {name}
+                      </span>
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </Field>
@@ -483,11 +482,10 @@ function UpdateRow({
   onEdit: () => void;
   onDelete: () => void;
 }) {
-  const Icon = updateIcon(update.icon);
   return (
     <Card className="flex items-start gap-4 p-4 transition-shadow hover:border-gold/40 hover:shadow-md">
       <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand-700 ring-1 ring-brand/10">
-        <Icon className="size-5" />
+        <UpdateIcon name={update.icon} className="size-5" />
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">

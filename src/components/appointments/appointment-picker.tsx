@@ -68,13 +68,20 @@ export function AppointmentPicker({
         {/* Time slots */}
         <div className="inset-y-0 right-0 flex w-full flex-col border-t md:absolute md:w-52 md:border-l md:border-t-0">
           <div className="border-b bg-muted/30 px-4 py-2.5">
-            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <p
+              id="appt-slot-label"
+              className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               <CalendarClock className="size-3.5" />
               Time slot
             </p>
           </div>
           <ScrollArea className="h-44 md:h-full">
-            <div className="grid grid-cols-2 gap-2 p-3 md:grid-cols-1">
+            <div
+              role="group"
+              aria-labelledby="appt-slot-label"
+              className="grid grid-cols-2 gap-2 p-3 md:grid-cols-1"
+            >
               {slots.map((slot) => {
                 const active = time === slot;
                 return (

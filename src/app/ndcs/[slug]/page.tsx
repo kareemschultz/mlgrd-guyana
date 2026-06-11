@@ -42,6 +42,7 @@ export async function generateMetadata({
   return {
     title: `${ndc.name} NDC`,
     description: `Leadership and Ministry contact information for the ${ndc.name} Neighbourhood Democratic Council in ${ndc.region} (${ndc.regionName}), Guyana.`,
+    alternates: { canonical: `/ndcs/${ndc.slug}/` },
   };
 }
 

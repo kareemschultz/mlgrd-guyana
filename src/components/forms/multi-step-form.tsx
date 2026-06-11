@@ -188,7 +188,11 @@ export function MultiStepForm({
         {config.steps.map((s, i) => {
           const state = i < step ? "done" : i === step ? "active" : "todo";
           return (
-            <li key={s.id} className="flex flex-1 items-center gap-2">
+            <li
+              key={s.id}
+              className="flex flex-1 items-center gap-2"
+              aria-current={state === "active" ? "step" : undefined}
+            >
               <span
                 className={cn(
                   "flex size-8 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition-colors",

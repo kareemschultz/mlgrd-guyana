@@ -17,6 +17,7 @@
   --color-brand-700: var(--brand-700);
   --color-brand-foreground: var(--brand-foreground);
   --color-gold: var(--gold);
+  --color-gold-700: var(--gold-700);
   --color-gold-foreground: var(--gold-foreground);
   --color-flag-red: var(--flag-red);
   --color-ink: var(--ink);
@@ -175,6 +176,7 @@
   --brand-700: #b85614;
   --brand-foreground: #ffffff;
   --gold: #e6a817;         /* emblem gold — highlights / accents on dark */
+  --gold-700: #8a6500;     /* dark gold — readable gold text on light bg */
   --gold-foreground: #422a00;
   --flag-red: #ce1126;     /* emblem red — sparing accent */
   --leaf: #2f9e4f;         /* emblem green — sparing accent */

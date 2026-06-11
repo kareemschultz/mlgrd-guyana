@@ -8,7 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { updateIcon, updateToneClasses, updateToneLabels, type PortalUpdate } from "@/data/portal-updates";
+import { UpdateIcon, updateToneClasses, updateToneLabels, type PortalUpdate } from "@/data/portal-updates";
 import { data } from "@/lib/data/client";
 import { seedUpdates } from "@/lib/data/seed-updates";
 import { cn } from "@/lib/utils";
@@ -21,8 +21,6 @@ type PortalUpdatesSectionProps = {
 };
 
 function UpdateEntry({ update, index, total, compact = false }: { update: PortalUpdate; index: number; total: number; compact?: boolean }) {
-  const Icon = updateIcon(update.icon);
-
   return (
     <article id={`update-${update.version}`} className="relative flex scroll-mt-24 justify-end gap-2">
       <div className="sticky top-24 hidden w-32 flex-col items-end gap-2 self-start pb-4 md:flex">
@@ -52,7 +50,7 @@ function UpdateEntry({ update, index, total, compact = false }: { update: Portal
           <div className={cn("space-y-4 p-5 sm:p-6", compact && "p-4 sm:p-5")}>
             <div className="flex items-start gap-4">
               <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand-700 ring-1 ring-brand/10 transition-colors group-hover:bg-brand-600 group-hover:text-white">
-                <Icon className="size-5" />
+                <UpdateIcon name={update.icon} className="size-5" />
               </span>
               <div className="min-w-0 flex-1">
                 <h3 className={cn("font-heading text-xl font-bold leading-tight", compact && "text-lg")}>{update.title}</h3>

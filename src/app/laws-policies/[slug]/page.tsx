@@ -37,6 +37,7 @@ export async function generateMetadata({
   return {
     title: law.title,
     description: law.summary,
+    alternates: { canonical: `/laws-policies/${law.slug}/` },
   };
 }
 
