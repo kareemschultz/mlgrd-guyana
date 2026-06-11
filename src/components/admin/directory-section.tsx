@@ -19,6 +19,8 @@ import {
   Phone,
   UserRound,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 import { data } from "@/lib/data/client";
@@ -34,10 +36,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AnimatedList } from "@/components/ui/animated-list";
 import { LoadingState, EmptyState } from "@/components/admin/shared";
 
 const ALL = "all";
+const PAGE_SIZE = 24;
 
 const KIND_LABELS: Record<DirectoryKind, string> = {
   ndc: "NDC",
@@ -68,6 +70,7 @@ export function DirectorySection() {
   const [query, setQuery] = React.useState("");
   const [kind, setKind] = React.useState<"all" | DirectoryKind>("all");
   const [region, setRegion] = React.useState<string>(ALL);
+  const [page, setPage] = React.useState(1);
 
   React.useEffect(() => {
     let active = true;
@@ -84,7 +87,10 @@ export function DirectorySection() {
     };
   }, []);
 
-  const live = data.mode === "live";
+  // Filter changes reset to the first page (handlers, not an effect).
+  const onQuery = (v: string) => { setQuery(v); setPage(1); };
+  const onKind = (v: "all" | DirectoryKind) => { setKind(v); setPage(1); };
+  const onRegion = (v: string) => { setRegion(v); setPage(1); };
 
   const regionOptions = React.useMemo(() => {
     const map = new Map<string, string>();
@@ -128,7 +134,12 @@ export function DirectorySection() {
     setQuery("");
     setKind("all");
     setRegion(ALL);
+    setPage(1);
   }
+
+  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, pageCount);
+  const pageItems = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
   return (
     <div className="flex flex-col gap-6">
@@ -144,16 +155,14 @@ export function DirectorySection() {
         </div>
       </div>
 
-      {/* Mode note */}
+      {/* Confidentiality note */}
       <div className="flex items-start gap-2.5 rounded-lg border border-dashed bg-muted/30 px-4 py-3 text-sm text-muted-foreground">
         <Info className="mt-0.5 size-4 shrink-0 text-brand-600" />
         <p>
-          Personal mobile numbers, personal emails and internal comments are only
-          present in{" "}
-          <span className="font-medium text-foreground">live (Cloudflare) mode</span>.
-          {live
-            ? " This dashboard is connected to live data."
-            : " This view shows the public-safe subset."}
+          Personal contact numbers, personal emails and internal notes shown here
+          are for{" "}
+          <span className="font-medium text-foreground">official use only</span> and
+          are never published on the public website.
         </p>
       </div>
 
@@ -163,7 +172,7 @@ export function DirectorySection() {
           <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => onQuery(e.target.value)}
             placeholder="Search by name, region or official…"
             className="pl-9 pr-9"
             autoComplete="off"
@@ -172,7 +181,7 @@ export function DirectorySection() {
           {query && (
             <button
               type="button"
-              onClick={() => setQuery("")}
+              onClick={() => onQuery("")}
               aria-label="Clear search"
               className="absolute right-2.5 top-1/2 flex size-6 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
@@ -180,7 +189,7 @@ export function DirectorySection() {
             </button>
           )}
         </div>
-        <Select value={kind} onValueChange={(v) => setKind(v as typeof kind)}>
+        <Select value={kind} onValueChange={(v) => onKind(v as typeof kind)}>
           <SelectTrigger className="w-[160px]" aria-label="Filter by kind">
             <SelectValue />
           </SelectTrigger>
@@ -192,7 +201,7 @@ export function DirectorySection() {
             <SelectItem value="cdc">CDCs</SelectItem>
           </SelectContent>
         </Select>
-        <Select value={region} onValueChange={setRegion}>
+        <Select value={region} onValueChange={onRegion}>
           <SelectTrigger className="w-[200px]" aria-label="Filter by region">
             <span className="flex items-center gap-2">
               <MapPin className="size-4 text-brand-600" />
@@ -244,11 +253,38 @@ export function DirectorySection() {
           }
         />
       ) : (
-        <AnimatedList className="grid gap-4 lg:grid-cols-2">
-          {filtered.map((e) => (
-            <EntryCard key={e.id} entry={e} />
-          ))}
-        </AnimatedList>
+        <>
+          <div className="grid gap-4 lg:grid-cols-2">
+            {pageItems.map((e) => (
+              <EntryCard key={e.id} entry={e} />
+            ))}
+          </div>
+
+          {pageCount > 1 && (
+            <div className="flex items-center justify-between gap-3 pt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={safePage <= 1}
+              >
+                <ChevronLeft className="size-4" /> Previous
+              </Button>
+              <span className="text-sm text-muted-foreground">
+                Page <span className="font-semibold text-foreground">{safePage}</span> of{" "}
+                <span className="font-semibold text-foreground">{pageCount}</span>
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+                disabled={safePage >= pageCount}
+              >
+                Next <ChevronRight className="size-4" />
+              </Button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

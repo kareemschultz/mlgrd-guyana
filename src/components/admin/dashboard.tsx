@@ -190,7 +190,7 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
               ) : (
                 <HardDrive className="size-3" />
               )}
-              {live ? "Live • Cloudflare" : "Local data"}
+              {live ? "Live" : "Preview"}
             </Badge>
           </SidebarHeader>
 

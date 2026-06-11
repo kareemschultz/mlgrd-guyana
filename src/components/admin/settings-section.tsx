@@ -1,7 +1,7 @@
 "use client";
 
 /** Settings — shows the active data mode with explanation and a logout action. */
-import { Cloud, HardDrive, LogOut, Info, ShieldCheck } from "lucide-react";
+import { Cloud, HardDrive, LogOut, ShieldCheck } from "lucide-react";
 
 import { data } from "@/lib/data/client";
 import { Button } from "@/components/ui/button";
@@ -47,34 +47,23 @@ export function SettingsSection({ onLogout }: { onLogout: () => void }) {
                 : "bg-gold/15 text-[#8a6500]"
             }
           >
-            {live ? "Live • Cloudflare" : "Local data"}
+            {live ? "Live" : "Preview"}
           </Badge>
         </CardHeader>
         <CardContent className="flex flex-col gap-3 text-sm text-muted-foreground">
           {live ? (
             <p>
-              This admin is connected to the{" "}
-              <strong className="text-foreground">Cloudflare D1</strong>{" "}
-              database via Pages Functions. Changes are shared across all
-              visitors and persist on the server.
+              This admin is <strong className="text-foreground">live</strong>.
+              Changes you save are published to the website and shared with all
+              staff right away.
             </p>
           ) : (
             <p>
-              This admin is using{" "}
-              <strong className="text-foreground">local data</strong>. Content
-              is stored in this browser&apos;s <code>localStorage</code> only —
-              changes are not shared with other devices and reset if you clear
-              site data. Deploy on Cloudflare Pages to enable shared, persistent
-              storage.
+              This is a <strong className="text-foreground">preview</strong>.
+              Changes are kept on this device only, are not shared with other
+              staff, and may reset — use the live site to make official updates.
             </p>
           )}
-          <div className="flex items-start gap-2 rounded-lg border bg-muted/30 p-3">
-            <Info className="mt-0.5 size-4 shrink-0 text-brand-600" />
-            <p>
-              The same admin code powers both modes — the backend is selected
-              automatically at build time.
-            </p>
-          </div>
         </CardContent>
       </Card>
 
