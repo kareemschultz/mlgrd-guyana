@@ -15,6 +15,7 @@ import {
   Users,
   Network,
   Inbox,
+  CalendarCheck,
   Settings,
   LogOut,
   HardDrive,
@@ -24,7 +25,13 @@ import {
 import { toast } from "sonner";
 
 import { data } from "@/lib/data/client";
-import type { GalleryItem, Message, Minister, Post } from "@/lib/data/types";
+import type {
+  Appointment,
+  GalleryItem,
+  Message,
+  Minister,
+  Post,
+} from "@/lib/data/types";
 import { cn } from "@/lib/utils";
 import { LogoMark } from "@/components/site/logo";
 import { Button } from "@/components/ui/button";
@@ -53,6 +60,7 @@ import { MinistersSection } from "@/components/admin/ministers-section";
 import { DirectorySection } from "@/components/admin/directory-section";
 import { UpdatesSection } from "@/components/admin/updates-section";
 import { MessagesSection } from "@/components/admin/messages-section";
+import { AppointmentsSection } from "@/components/admin/appointments-section";
 import { SettingsSection } from "@/components/admin/settings-section";
 
 type SectionId =
@@ -63,6 +71,7 @@ type SectionId =
   | "ministers"
   | "directory"
   | "messages"
+  | "appointments"
   | "settings";
 
 const NAV: { id: SectionId; label: string; icon: LucideIcon }[] = [
@@ -73,6 +82,7 @@ const NAV: { id: SectionId; label: string; icon: LucideIcon }[] = [
   { id: "ministers", label: "Ministers", icon: Users },
   { id: "directory", label: "Directories", icon: Network },
   { id: "messages", label: "Messages", icon: Inbox },
+  { id: "appointments", label: "Appointments", icon: CalendarCheck },
   { id: "settings", label: "Settings", icon: Settings },
 ];
 
@@ -84,6 +94,7 @@ const LABELS: Record<SectionId, string> = {
   ministers: "Ministers & officials",
   directory: "Directories",
   messages: "Inbox",
+  appointments: "Appointments",
   settings: "Settings",
 };
 
@@ -94,20 +105,23 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
   const [gallery, setGallery] = React.useState<GalleryItem[]>([]);
   const [ministers, setMinisters] = React.useState<Minister[]>([]);
   const [messages, setMessages] = React.useState<Message[]>([]);
+  const [appointments, setAppointments] = React.useState<Appointment[]>([]);
   const [loading, setLoading] = React.useState(true);
 
   const refresh = React.useCallback(async () => {
     try {
-      const [p, g, m, msg] = await Promise.all([
+      const [p, g, m, msg, appt] = await Promise.all([
         data.posts.list(),
         data.gallery.list(),
         data.ministers.list(),
         data.messages.list(),
+        data.appointments.list(),
       ]);
       setPosts(p);
       setGallery(g);
       setMinisters(m);
       setMessages(msg);
+      setAppointments(appt);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not load content.");
     } finally {
@@ -122,6 +136,9 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
 
   const live = data.mode === "live";
   const newMessages = messages.filter((m) => m.status === "new").length;
+  const newAppointments = appointments.filter(
+    (a) => a.status === "requested",
+  ).length;
 
   function logout() {
     data.auth.logout();
@@ -185,6 +202,12 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
                             {newMessages}
                           </SidebarMenuBadge>
                         )}
+                        {item.id === "appointments" &&
+                          newAppointments > 0 && (
+                            <SidebarMenuBadge className="bg-gold text-ink">
+                              {newAppointments}
+                            </SidebarMenuBadge>
+                          )}
                       </SidebarMenuItem>
                     );
                   })}
@@ -277,6 +300,13 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
                 {section === "messages" && (
                   <MessagesSection
                     messages={messages}
+                    onChange={refresh}
+                    loading={loading}
+                  />
+                )}
+                {section === "appointments" && (
+                  <AppointmentsSection
+                    appointments={appointments}
                     onChange={refresh}
                     loading={loading}
                   />
