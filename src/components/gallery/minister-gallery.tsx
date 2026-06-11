@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   AnimatePresence,
@@ -99,10 +100,12 @@ export function MinisterGallery() {
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-brand-600 to-brand-700">
                   <div className="pointer-events-none absolute inset-0 bg-dot text-white/10" />
                   {m.portrait ? (
-                    <img
+                    <Image
                       src={m.portrait}
                       alt={`Portrait of ${m.name}`}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">
@@ -177,10 +180,12 @@ export function MinisterGallery() {
               <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-gradient-to-br from-brand-600 to-brand-700">
                 <div className="pointer-events-none absolute inset-0 bg-dot text-white/10" />
                 {active.portrait ? (
-                  <img
+                  <Image
                     src={active.portrait}
                     alt={`Portrait of ${active.name}`}
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="(min-width: 640px) 32rem, 100vw"
+                    className="object-cover"
                   />
                 ) : (
                   <span className="font-heading text-6xl font-extrabold tracking-wide text-white/95">

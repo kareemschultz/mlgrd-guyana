@@ -33,7 +33,13 @@ Scope: public website, admin dashboard, source code, UI/UX, accessibility, perfo
 ## High-impact improvements implemented
 
 - Added a public, citizen-friendly **“What’s New at the Ministry”** section.
-- Added a compact admin dashboard version of the same update block for non-technical staff.
+- Promoted **“What’s New at the Ministry”** to a dedicated `/updates/` page for mobile and desktop users.
+- Replaced the homepage timeline with a lighter teaser card and clear **View all updates** CTA.
+- Added **What’s New** to main navigation and footer navigation.
+- Replaced the oversized admin timeline with a compact staff-facing **Latest portal update** card.
+- Added Playwright smoke tests for homepage CTA flow, updates page, helpdesk validation, and admin login on desktop and mobile.
+- Converted gallery and minister portrait `<img>` usage to static-export-safe `next/image` with reserved dimensions/sizes.
+- Added `/updates/` to the sitemap.
 - Adapted the free/public shadcn/studio `timeline-component-05` pattern:
   - sticky date/version badges,
   - vertical timeline,
@@ -74,20 +80,21 @@ Commands run:
 npm run lint
 npx tsc --noEmit
 NEXT_PUBLIC_BASE_PATH=/mlgrd-guyana npm run build
+npm run test:smoke
 ```
 
 Results:
 
-- Lint: passed with 0 errors and 6 warnings.
+- Lint: passed with 0 errors and 1 warning.
 - Typecheck: passed.
 - Build: passed.
-- Static pages generated: 110.
-- Tests: no test script exists in package.json.
+- Static pages generated: 111.
+- Playwright smoke tests: 8 passed across desktop and mobile.
+- Tests cover homepage CTA flow, dedicated updates page, helpdesk validation, and admin login/dashboard update card.
 
 Known warnings:
 
 - TanStack Table is skipped by React Compiler because `useReactTable()` returns non-memoizable functions.
-- Gallery and minister components still use `<img>` in a few places; these are performance follow-ups, not build blockers.
 
 ## Screenshot evidence
 

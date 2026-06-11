@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
@@ -84,11 +85,12 @@ function MarqueeCard({
       className="group relative h-40 w-60 shrink-0 overflow-hidden rounded-2xl bg-ink text-left shadow-md ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold sm:h-44 sm:w-72"
     >
       {item.image ? (
-        <img
+        <Image
           src={item.image}
           alt={item.caption || item.title}
-          loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          fill
+          sizes="(min-width: 640px) 18rem, 15rem"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand-600 to-brand-700 text-white">
@@ -246,12 +248,15 @@ export function PhotoGallery() {
                 className="group relative block w-full overflow-hidden rounded-2xl bg-ink text-left shadow-md ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               >
                 {it.image ? (
-                  <img
-                    src={it.image}
-                    alt={it.caption || it.title}
-                    loading="lazy"
-                    className="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-                  />
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                    <Image
+                      src={it.image}
+                      alt={it.caption || it.title}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                    />
+                  </div>
                 ) : (
                   <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-gradient-to-br from-brand-600 to-brand-700 text-white">
                     <div className="pointer-events-none absolute inset-0 bg-dot text-white/10" />
@@ -328,10 +333,12 @@ export function PhotoGallery() {
               <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-gradient-to-br from-brand-600 to-brand-700">
                 <div className="pointer-events-none absolute inset-0 bg-dot text-white/10" />
                 {active.image ? (
-                  <img
+                  <Image
                     src={active.image}
                     alt={active.caption || active.title}
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="(min-width: 768px) 42rem, 100vw"
+                    className="object-cover"
                   />
                 ) : (
                   (() => {

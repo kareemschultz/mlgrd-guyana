@@ -16,6 +16,7 @@ const staticRoutes = [
   "/rdcs",
   "/municipalities",
   "/news",
+  "/updates",
   "/contact",
   "/faq",
   "/ministers-desk",

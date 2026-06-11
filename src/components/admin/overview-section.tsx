@@ -6,6 +6,7 @@
  * count-ups via NumberTicker, plus a premium animated "Recent activity" feed
  * (newest posts + inbound messages) built on the AnimatedList primitive.
  */
+import Link from "next/link";
 import {
   Newspaper,
   Images,
@@ -15,6 +16,8 @@ import {
   Clock3,
   Mail,
   FileText,
+  Megaphone,
+  ArrowRight,
   type LucideIcon,
 } from "lucide-react";
 
@@ -23,7 +26,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { AnimatedList, AnimatedListItem } from "@/components/ui/animated-list";
-import { PortalUpdatesSection } from "@/components/site/portal-updates-section";
+import { Button } from "@/components/ui/button";
+import { portalUpdates, updateToneClasses, updateToneLabels } from "@/data/portal-updates";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/components/admin/shared";
 
@@ -89,6 +93,53 @@ function buildActivity(posts: Post[], messages: Message[]): ActivityItem[] {
   return [...fromPosts, ...fromMessages]
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
     .slice(0, 6);
+}
+
+function AdminUpdatesCard() {
+  const latest = portalUpdates[0];
+  const sections = latest.sections.slice(0, 2);
+
+  return (
+    <Card className="border-brand/10 bg-gradient-to-br from-background to-secondary/50 shadow-sm">
+      <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex gap-3">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand-700">
+            <Megaphone className="size-5" />
+          </span>
+          <div>
+            <p className="font-semibold leading-tight">Latest portal update</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Staff summary of the newest citizen-facing improvements.
+            </p>
+          </div>
+        </div>
+        <Badge className="w-fit bg-brand/10 text-brand-700 hover:bg-brand/10">
+          {latest.date}
+        </Badge>
+      </CardHeader>
+      <CardContent className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div>
+          <h2 className="font-heading text-xl font-bold">{latest.title}</h2>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">{latest.summary}</p>
+          <div className="mt-4 grid gap-2 sm:grid-cols-2">
+            {sections.map((section) => (
+              <div key={section.title} className="rounded-xl border bg-background/80 p-3">
+                <Badge className={cn("h-6 rounded-sm border font-medium", updateToneClasses[section.type])}>
+                  {updateToneLabels[section.type]}
+                </Badge>
+                <p className="mt-2 text-sm font-medium leading-6">{section.title}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <Button asChild variant="outline" className="justify-self-start lg:justify-self-end">
+          <Link href="/updates">
+            View public page <ArrowRight className="size-4" />
+          </Link>
+        </Button>
+      </CardContent>
+    </Card>
+  );
 }
 
 export function OverviewSection({
@@ -179,11 +230,7 @@ export function OverviewSection({
         })}
       </AnimatedList>
 
-      <Card className="overflow-hidden border-brand/10 bg-gradient-to-br from-background to-secondary/40">
-        <CardContent className="p-5 sm:p-6">
-          <PortalUpdatesSection compact limit={1} />
-        </CardContent>
-      </Card>
+      <AdminUpdatesCard />
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Recent activity feed */}

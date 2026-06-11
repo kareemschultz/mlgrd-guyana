@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 
 type PortalUpdatesSectionProps = {
   compact?: boolean;
+  standalone?: boolean;
   limit?: number;
   className?: string;
 };
@@ -84,11 +85,15 @@ function UpdateEntry({ update, index, compact = false }: { update: PortalUpdate;
   );
 }
 
-export function PortalUpdatesSection({ compact = false, limit, className }: PortalUpdatesSectionProps) {
+export function PortalUpdatesSection({ compact = false, standalone = false, limit, className }: PortalUpdatesSectionProps) {
   const updates = typeof limit === "number" ? portalUpdates.slice(0, limit) : portalUpdates;
+  const headingId = compact ? "portal-updates-compact-heading" : "portal-updates-heading";
 
   return (
-    <section className={cn(compact ? "py-0" : "bg-secondary/30 py-20", className)} aria-labelledby="portal-updates-heading">
+    <section
+      className={cn(compact ? "py-0" : standalone ? "py-16 sm:py-20" : "bg-secondary/30 py-20", className)}
+      aria-labelledby={headingId}
+    >
       <div className={cn(!compact && "container-gov")}>
         <div className={cn("mb-10 flex flex-col gap-4", compact ? "mb-5" : "text-center md:mb-12")}>
           <div className={cn("flex items-center gap-2", !compact && "justify-center")}>
@@ -98,7 +103,7 @@ export function PortalUpdatesSection({ compact = false, limit, className }: Port
             </Badge>
           </div>
           <div className={cn(!compact && "mx-auto max-w-2xl")}>
-            <h2 id="portal-updates-heading" className={cn("font-heading font-extrabold tracking-tight", compact ? "text-xl" : "text-3xl sm:text-4xl")}>
+            <h2 id={headingId} className={cn("font-heading font-extrabold tracking-tight", compact ? "text-xl" : "text-3xl sm:text-4xl")}>
               What&apos;s New at the Ministry
             </h2>
             <p className={cn("mt-3 text-muted-foreground", compact ? "text-sm" : "text-base")}>
