@@ -20,6 +20,7 @@ import {
   LogOut,
   HardDrive,
   Cloud,
+  Database,
   type LucideIcon,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -61,6 +62,7 @@ import { DirectorySection } from "@/components/admin/directory-section";
 import { UpdatesSection } from "@/components/admin/updates-section";
 import { MessagesSection } from "@/components/admin/messages-section";
 import { AppointmentsSection } from "@/components/admin/appointments-section";
+import { DatasetsSection } from "@/components/admin/datasets-section";
 import { SettingsSection } from "@/components/admin/settings-section";
 
 type SectionId =
@@ -70,6 +72,7 @@ type SectionId =
   | "gallery"
   | "ministers"
   | "directory"
+  | "datasets"
   | "messages"
   | "appointments"
   | "settings";
@@ -81,6 +84,7 @@ const NAV: { id: SectionId; label: string; icon: LucideIcon }[] = [
   { id: "gallery", label: "Gallery", icon: Images },
   { id: "ministers", label: "Ministers", icon: Users },
   { id: "directory", label: "Directories", icon: Network },
+  { id: "datasets", label: "Reference Data", icon: Database },
   { id: "messages", label: "Messages", icon: Inbox },
   { id: "appointments", label: "Appointments", icon: CalendarCheck },
   { id: "settings", label: "Settings", icon: Settings },
@@ -93,6 +97,7 @@ const LABELS: Record<SectionId, string> = {
   gallery: "Gallery",
   ministers: "Ministers & officials",
   directory: "Directories",
+  datasets: "Reference data",
   messages: "Inbox",
   appointments: "Appointments",
   settings: "Settings",
@@ -251,12 +256,11 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
           </header>
 
           <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6">
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               <motion.div
                 key={section}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               >
                 {section === "overview" && (
@@ -297,6 +301,7 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
                 )}
                 {section === "updates" && <UpdatesSection />}
                 {section === "directory" && <DirectorySection />}
+                {section === "datasets" && <DatasetsSection />}
                 {section === "messages" && (
                   <MessagesSection
                     messages={messages}
