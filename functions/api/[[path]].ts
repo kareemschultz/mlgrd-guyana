@@ -255,6 +255,31 @@ function rowToUpdate(r: Record<string, unknown>) {
   return { ...r, sections };
 }
 
+// Dataset fields that must never reach unauthenticated callers (mirrors the
+// `sensitive` flags in src/lib/data/datasets.ts). The D1 row may hold the full
+// record; public GETs strip these. Keep in sync if more sensitive fields appear.
+const SENSITIVE_DATASET_FIELDS: Record<string, string[]> = {
+  "amerindian-villages": ["leader_name", "contact"],
+};
+
+function rowToDataset(
+  r: Record<string, unknown>,
+  authed: boolean,
+  kind: string,
+): Record<string, unknown> {
+  let data: Record<string, unknown> = {};
+  try {
+    data = JSON.parse(String(r.data)) as Record<string, unknown>;
+  } catch {
+    /* corrupt row — return id only */
+  }
+  const out: Record<string, unknown> = { ...data, id: r.id };
+  if (!authed) {
+    for (const f of SENSITIVE_DATASET_FIELDS[kind] ?? []) delete out[f];
+  }
+  return out;
+}
+
 // ── entry point ──────────────────────────────────────────────────────────────
 
 export const onRequest = async (ctx: EventContext): Promise<Response> => {
@@ -688,6 +713,66 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         const guard = requireAuth();
         if (guard) return guard;
         await env.DB.prepare("DELETE FROM updates WHERE id = ?").bind(id).run();
+        return json(null, 204);
+      }
+    }
+
+    // ── datasets (generic reference data) ────────────────────────────────────
+    // /datasets/:kind  and  /datasets/:kind/:rowId
+    // GET is public; sensitive fields are stripped for unauthenticated callers.
+    if (resource === "datasets") {
+      const kind = id; // segments[1]
+      const rowId = segments[2];
+      if (!kind) return err("Dataset kind is required.", 400);
+
+      if (method === "GET" && !rowId) {
+        const { results } = await env.DB.prepare(
+          "SELECT id, data FROM datasets WHERE kind = ? ORDER BY id",
+        )
+          .bind(kind)
+          .all<Record<string, unknown>>();
+        return json(results.map((r) => rowToDataset(r, authed, kind)));
+      }
+      if (method === "POST") {
+        const guard = requireAuth();
+        if (guard) return guard;
+        const b = await readBody<Record<string, unknown>>(request);
+        const data = { ...b };
+        delete data.id;
+        const now = new Date().toISOString();
+        const newId = `ds-${crypto.randomUUID().slice(0, 8)}`;
+        await env.DB.prepare(
+          "INSERT INTO datasets (id,kind,data,createdAt) VALUES (?,?,?,?)",
+        )
+          .bind(newId, kind, JSON.stringify(data), now)
+          .run();
+        const row = await env.DB.prepare("SELECT id, data FROM datasets WHERE id = ?").bind(newId).first<Record<string, unknown>>();
+        return json(rowToDataset(row!, true, kind), 201);
+      }
+      if (method === "PUT" && rowId) {
+        const guard = requireAuth();
+        if (guard) return guard;
+        const existing = await env.DB.prepare("SELECT data FROM datasets WHERE id = ?").bind(rowId).first<Record<string, unknown>>();
+        if (!existing) return err("Record not found.", 404);
+        let current: Record<string, unknown> = {};
+        try {
+          current = JSON.parse(String(existing.data)) as Record<string, unknown>;
+        } catch {
+          /* corrupt — replace */
+        }
+        const b = await readBody<Record<string, unknown>>(request);
+        const patch = { ...b };
+        delete patch.id;
+        await env.DB.prepare("UPDATE datasets SET data = ? WHERE id = ?")
+          .bind(JSON.stringify({ ...current, ...patch }), rowId)
+          .run();
+        const row = await env.DB.prepare("SELECT id, data FROM datasets WHERE id = ?").bind(rowId).first<Record<string, unknown>>();
+        return json(rowToDataset(row!, true, kind));
+      }
+      if (method === "DELETE" && rowId) {
+        const guard = requireAuth();
+        if (guard) return guard;
+        await env.DB.prepare("DELETE FROM datasets WHERE id = ?").bind(rowId).run();
         return json(null, 204);
       }
     }

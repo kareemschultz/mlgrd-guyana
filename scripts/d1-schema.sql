@@ -116,3 +116,19 @@ CREATE TABLE IF NOT EXISTS appointments (
   createdAt  TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_appointments_created ON appointments (createdAt DESC);
+
+-- Generic reference datasets (schools, health centres, police stations,
+-- Amerindian villages, burial grounds, developments, tenders, resources, staff).
+-- Each row stores the whole record as a JSON blob in `data`; the dataset kind
+-- groups them. Reads are PUBLIC, but the API strips fields flagged sensitive in
+-- the registry (e.g. a village Toshao's personal mobile) for unauthenticated
+-- callers. Writes require auth.
+--   Public seed:    scripts/d1-seed-datasets.sql            (committed)
+--   Sensitive seed: scripts/d1-seed-datasets-villages.sql   (git-ignored)
+CREATE TABLE IF NOT EXISTS datasets (
+  id        TEXT PRIMARY KEY,
+  kind      TEXT NOT NULL,
+  data      TEXT NOT NULL,     -- JSON of the full row (may include sensitive fields)
+  createdAt TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_datasets_kind ON datasets (kind);
