@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   Recycle,
@@ -20,6 +20,7 @@ import {
 import { data } from "@/lib/data/client";
 import { seedPosts } from "@/lib/data/seed";
 import type { Post } from "@/lib/data/types";
+import { useModalA11y } from "@/hooks/use-modal-a11y";
 import { Reveal } from "@/components/site/reveal";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -121,6 +122,8 @@ export function NewsFeed() {
   const [category, setCategory] = useState<string>(ALL);
   const [tags, setTags] = useState<Set<string>>(() => new Set());
   const reduce = useReducedMotion();
+  const dialogRef = useRef<HTMLElement>(null);
+  useModalA11y(!!active, () => setActive(null), dialogRef);
 
   useEffect(() => {
     let alive = true;
@@ -419,7 +422,6 @@ export function NewsFeed() {
             className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setActive(null)}
             role="dialog"
@@ -428,10 +430,11 @@ export function NewsFeed() {
           >
             <div className="absolute inset-0 bg-ink/70 backdrop-blur-sm" />
             <motion.article
-              className="relative z-10 max-h-[92dvh] w-full max-w-2xl overflow-y-auto rounded-t-2xl border bg-card shadow-2xl sm:rounded-2xl"
+              ref={dialogRef}
+              tabIndex={-1}
+              className="relative z-10 max-h-[92dvh] w-full max-w-2xl overflow-y-auto rounded-t-2xl border bg-card shadow-2xl focus:outline-none sm:rounded-2xl"
               initial={reduce ? { opacity: 0 } : { opacity: 0, y: 28, scale: 0.98 }}
               animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
-              exit={reduce ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.98 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               onClick={(e) => e.stopPropagation()}
             >
