@@ -38,7 +38,7 @@ export function BackToTop() {
           exit={reduce ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.9 }}
           whileHover={reduce ? undefined : { y: -2 }}
           transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-5 right-5 z-40 flex size-11 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg shadow-brand-900/20 transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+          className="fixed bottom-[calc(env(safe-area-inset-bottom)+5.25rem)] right-5 z-40 flex size-11 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg shadow-brand-900/20 transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 sm:bottom-5"
         >
           <ArrowUp className="size-5" />
         </motion.button>
