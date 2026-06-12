@@ -19,7 +19,7 @@ export function WhatsAppHelpdesk() {
       href={ministry.whatsapp.url}
       badge="Help"
       ariaLabel="Message the Ministry helpdesk on WhatsApp"
-      className="fixed bottom-20 right-5 z-40 h-12 rounded-full bg-[#25D366] px-4 font-heading font-bold text-white shadow-lg shadow-emerald-950/20 transition hover:-translate-y-0.5 hover:bg-[#1fb85a] sm:bottom-5 sm:right-20"
+      className="fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-4 z-40 size-14 rounded-full border-2 border-white bg-[#25D366] p-0 font-heading font-bold text-white shadow-xl shadow-emerald-950/25 transition hover:-translate-y-0.5 hover:bg-[#1fb85a] [&_svg]:size-7 sm:bottom-5 sm:right-20 sm:h-12 sm:w-auto sm:px-4 sm:[&_svg]:size-5"
     >
       <span className="hidden sm:inline">WhatsApp Helpdesk</span>
     </StudioMessagesButton>
