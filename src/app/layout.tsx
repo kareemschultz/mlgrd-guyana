@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ChromeGate } from "@/components/site/chrome-gate";
 import { BackToTop } from "@/components/site/back-to-top";
+import { WhatsAppHelpdesk } from "@/components/site/whatsapp-helpdesk";
 import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "@/components/providers";
 import { StructuredData } from "@/components/site/structured-data";
@@ -102,6 +103,7 @@ export default function RootLayout({
           <ChromeGate>
             <SiteFooter />
           </ChromeGate>
+          <WhatsAppHelpdesk />
           <BackToTop />
           <Toaster position="top-right" closeButton />
         </Providers>

@@ -16,7 +16,14 @@ export const ministry = {
   address: "Fort Street, Georgetown, Guyana",
   phone: "+592-225-6088",
   email: "pr@mlgrd.gov.gy",
+  helpdeskEmail: "Helpdesk@mlgrd.gov.gy",
   hours: "Monday to Thursday: 08:00 - 16:30; Friday: 08:00 - 15:30",
+  whatsapp: {
+    label: "Ministry of Local Govt Chat Bot",
+    display: "+592 762 2431",
+    number: "5927622431",
+    url: "https://wa.me/5927622431?text=Hello%20Ministry%20Helpdesk%2C%20I%20would%20like%20assistance%20with%20a%20local%20government%20service.",
+  },
 } as const;
 
 export const socialLinks = [

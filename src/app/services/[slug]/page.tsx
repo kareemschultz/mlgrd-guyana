@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, CheckCircle2, MapPin, Phone, Mail, Building2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, MapPin, Phone, Mail, Building2, MessageCircle } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
 import { ServiceIcon } from "@/components/services/service-icons";
 import { ServiceFormSlot, serviceHasForm } from "@/components/forms/service-form-slot";
 import services from "@/data/services.json";
+import { ministry } from "@/lib/site";
 
 type Service = (typeof services)[number];
 
@@ -135,6 +136,24 @@ export default async function ServiceDetailPage({
                   </p>
                 </div>
                 <div className="space-y-4 px-6 py-6">
+                  {slug === "reporting-local-problems" && (
+                    <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950">
+                      <div className="flex items-start gap-3">
+                        <MessageCircle className="mt-0.5 size-5 shrink-0 text-emerald-600" />
+                        <div>
+                          <p className="font-heading font-bold">Report through WhatsApp</p>
+                          <p className="mt-1 text-emerald-900/80">
+                            Message the Ministry of Local Govt Chat Bot for help with local issues.
+                          </p>
+                          <Button asChild className="mt-3 w-full bg-[#25D366] text-white hover:bg-[#1fb85a]">
+                            <a href={ministry.whatsapp.url} target="_blank" rel="noopener noreferrer">
+                              Message {ministry.whatsapp.display}
+                            </a>
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Ministry contact
                   </p>
