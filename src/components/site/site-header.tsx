@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Mail, Phone, Menu, ChevronRight } from "lucide-react";
+import { Mail, Phone, Menu, ChevronRight, CalendarClock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ministry, mainNav, utilityNav } from "@/lib/site";
 import { Logo } from "@/components/site/logo";
@@ -88,8 +88,13 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <Button asChild variant="outline" className="hidden border-gold/50 text-ink hover:bg-gold/10 sm:inline-flex">
+              <Link href="/contact?intent=appointment">
+                <CalendarClock className="size-4" /> Book REO
+              </Link>
+            </Button>
             <Button asChild className="hidden bg-brand-600 hover:bg-brand-700 sm:inline-flex">
-              <Link href="/services/reporting-local-problems">Report a Problem</Link>
+              <a href={ministry.helpdesk.complaintUrl} target="_blank" rel="noopener noreferrer">Report a Problem</a>
             </Button>
 
             {/* Mobile menu */}
@@ -151,8 +156,13 @@ export function SiteHeader() {
                       </Link>
                     ))}
                   </div>
-                  <Button asChild className="mt-4 w-full bg-brand-600 hover:bg-brand-700">
-                    <Link href="/services/reporting-local-problems">Report a Problem</Link>
+                  <Button asChild variant="outline" className="mt-4 w-full border-gold/50 text-ink hover:bg-gold/10">
+                    <Link href="/contact?intent=appointment">
+                      <CalendarClock className="size-4" /> Book an REO
+                    </Link>
+                  </Button>
+                  <Button asChild className="mt-2 w-full bg-brand-600 hover:bg-brand-700">
+                    <a href={ministry.helpdesk.complaintUrl} target="_blank" rel="noopener noreferrer">Report a Problem</a>
                   </Button>
                   <div className="mt-5 space-y-1 border-t pt-4 text-sm text-muted-foreground">
                     <a href={`tel:${ministry.phone}`} className="flex items-center gap-2">

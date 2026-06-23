@@ -7,8 +7,8 @@ const variants: Variants = {
   // Keep the motion, but never gate readability behind a fully hidden state.
   // Starting at near-visible opacity prevents blank exported/static sections in
   // screenshots, slow browsers, and reduced/blocked IntersectionObserver cases.
-  hidden: { opacity: 0.96, y: 14, scale: 0.995, filter: "blur(2px)" },
-  show: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+  hidden: { opacity: 0.98, y: 10, scale: 0.998 },
+  show: { opacity: 1, y: 0, scale: 1 },
 };
 
 /**

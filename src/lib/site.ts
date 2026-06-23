@@ -18,6 +18,10 @@ export const ministry = {
   email: "pr@mlgrd.gov.gy",
   helpdeskEmail: "Helpdesk@mlgrd.gov.gy",
   hours: "Monday to Thursday: 08:00 - 16:30; Friday: 08:00 - 15:30",
+  helpdesk: {
+    url: process.env.NEXT_PUBLIC_HELPDESK_URL || "https://app.mlgrd.staging.castech.dev/",
+    complaintUrl: process.env.NEXT_PUBLIC_HELPDESK_COMPLAINT_URL || "https://app.mlgrd.staging.castech.dev/complaint/submit",
+  },
   whatsapp: {
     label: "Ministry of Local Govt Chat Bot",
     display: "+592 762 2431",
@@ -141,7 +145,7 @@ export const footerNav: { heading: string; links: NavLink[] }[] = [
       { label: "Building Permits", href: "/services/building-permits" },
       { label: "Business Licences", href: "/services/business-licences" },
       { label: "Rates & Taxes", href: "/services/rates-and-taxes-guidance" },
-      { label: "Report a Problem", href: "/services/reporting-local-problems" },
+      { label: "Report a Problem", href: ministry.helpdesk.complaintUrl },
     ],
   },
   {

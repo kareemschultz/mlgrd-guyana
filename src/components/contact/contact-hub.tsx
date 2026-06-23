@@ -58,8 +58,8 @@ const INTENTS: {
 }[] = [
   {
     id: "message",
-    title: "Send a message",
-    description: "General enquiries, feedback, a council or a service.",
+    title: "Open helpdesk portal",
+    description: "General support and helpdesk requests in the dedicated app.",
     icon: MessageSquareText,
     accent: "bg-brand/10 text-brand-600",
     href: "/helpdesk",
@@ -74,11 +74,11 @@ const INTENTS: {
   },
   {
     id: "report",
-    title: "Report a local problem",
-    description: "Roads, drainage, sanitation and other community issues.",
+    title: "Report an issue",
+    description: "Open the helpdesk app for roads, drainage, sanitation and community issues.",
     icon: TriangleAlert,
     accent: "bg-flag-red/10 text-flag-red",
-    href: "/services/reporting-local-problems",
+    href: process.env.NEXT_PUBLIC_HELPDESK_COMPLAINT_URL || "https://app.mlgrd.staging.castech.dev/complaint/submit",
   },
   {
     id: "vendor",
@@ -132,33 +132,50 @@ export function ContactHub() {
             </div>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {INTENTS.map((it) => (
-                <Link
-                  key={it.id}
-                  href={it.href}
-                  className="group flex items-start gap-4 rounded-2xl border bg-card p-5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
-                >
-                  <span
-                    className={cn(
-                      "flex size-12 shrink-0 items-center justify-center rounded-xl",
-                      it.accent,
-                    )}
-                  >
-                    <it.icon className="size-6" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="flex items-center justify-between gap-2">
-                      <span className="font-heading text-base font-bold">
-                        {it.title}
+              {INTENTS.map((it) => {
+                const card = (
+                  <>
+                    <span
+                      className={cn(
+                        "flex size-12 shrink-0 items-center justify-center rounded-xl",
+                        it.accent,
+                      )}
+                    >
+                      <it.icon className="size-6" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-center justify-between gap-2">
+                        <span className="font-heading text-base font-bold">
+                          {it.title}
+                        </span>
+                        <ChevronRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" />
                       </span>
-                      <ChevronRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" />
+                      <span className="mt-1 block text-sm text-muted-foreground">
+                        {it.description}
+                      </span>
                     </span>
-                    <span className="mt-1 block text-sm text-muted-foreground">
-                      {it.description}
-                    </span>
-                  </span>
-                </Link>
-              ))}
+                  </>
+                );
+                return it.href.startsWith("http") ? (
+                  <a
+                    key={it.id}
+                    href={it.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-start gap-4 rounded-2xl border bg-card p-5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                  >
+                    {card}
+                  </a>
+                ) : (
+                  <Link
+                    key={it.id}
+                    href={it.href}
+                    className="group flex items-start gap-4 rounded-2xl border bg-card p-5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                  >
+                    {card}
+                  </Link>
+                );
+              })}
             </div>
           </motion.div>
         ) : (

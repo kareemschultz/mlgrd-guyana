@@ -5,6 +5,7 @@ import {
   HandHelping,
   Megaphone,
   Briefcase,
+  ClipboardList,
   Building2,
   type LucideIcon,
 } from "lucide-react";
@@ -17,6 +18,7 @@ export const serviceIcons: Record<string, LucideIcon> = {
   "rates-and-taxes-guidance": FileText,
   "community-projects": HandHelping,
   "reporting-local-problems": Megaphone,
+  "ndc-services": ClipboardList,
   "vendor-and-supplier-enquiries": Briefcase,
 };
 
@@ -38,6 +40,8 @@ export function ServiceIcon({ slug, className }: { slug: string; className?: str
       return <HandHelping className={classes} />;
     case "reporting-local-problems":
       return <Megaphone className={classes} />;
+    case "ndc-services":
+      return <ClipboardList className={classes} />;
     case "vendor-and-supplier-enquiries":
       return <Briefcase className={classes} />;
     default:

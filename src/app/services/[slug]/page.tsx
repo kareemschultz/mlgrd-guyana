@@ -12,6 +12,18 @@ import { ministry } from "@/lib/site";
 
 type Service = (typeof services)[number];
 
+const ndcServiceItems = [
+  "Issue compliance letter for property",
+  "Address complaints and route follow-up",
+  "Maintenance of NDC drains",
+  "Issue burial spot guidance where burial grounds exist",
+  "House plan stamping after Single Window approval",
+  "Permission for Family Fun Day activities, conditions apply",
+  "Renewal of Food Handler Certificate through the EHO",
+  "Cash grant registration guidance",
+  "Single Window site guidance",
+];
+
 function getService(slug: string): Service | undefined {
   return services.find((s) => s.slug === slug);
 }
@@ -106,6 +118,25 @@ export default async function ServiceDetailPage({
                     ))}
                   </ul>
                 </div>
+              </Reveal>
+            )}
+
+            {slug === "ndc-services" && (
+              <Reveal>
+                <section className="rounded-2xl border bg-white p-6 shadow-sm 2xl:p-8">
+                  <h2 className="font-heading text-2xl font-bold 2xl:text-3xl">Common NDC services</h2>
+                  <p className="mt-1 text-sm text-muted-foreground 2xl:text-base">
+                    Based on the MLGRD service note, these are the common citizen-facing services to display clearly.
+                  </p>
+                  <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                    {ndcServiceItems.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5 rounded-xl bg-secondary/45 p-3 text-sm 2xl:text-base">
+                        <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-brand-600" />
+                        <span className="text-foreground/90">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
               </Reveal>
             )}
 
