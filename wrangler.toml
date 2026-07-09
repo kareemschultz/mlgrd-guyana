@@ -9,6 +9,12 @@
 #   3. wrangler d1 execute mlgrd --remote --file=scripts/d1-seed.sql
 #   4. set secrets:  wrangler pages secret put ADMIN_SECRET   (and ADMIN_PASSWORD)
 #   5. bun run build  &&  wrangler pages deploy out
+#
+# NOTE (2026-07-09): transferred from KareTech's Cloudflare account to the
+# client's own account (Kishana, MLGRD) — database_id below now points at the
+# database created under that account, migrated from the old KareTech-account
+# database 196224ba-a08e-4c9f-ae1d-1018108c1ac3 (verified match, 9 tables /
+# 7401 rows). CI now deploys there too (see .github/workflows/deploy-cloudflare.yml).
 
 name = "mlgrd-guyana"
 compatibility_date = "2025-06-01"
@@ -18,7 +24,7 @@ pages_build_output_dir = "out"
 [[d1_databases]]
 binding = "DB"
 database_name = "mlgrd"
-database_id = "196224ba-a08e-4c9f-ae1d-1018108c1ac3"
+database_id = "47c50856-7267-46fd-8b53-659379a3503e"
 
 # Admin auth is configured as Pages SECRETS (set once via the dashboard or
 # `wrangler pages secret put`), NOT here, to avoid duplicate-binding conflicts:
