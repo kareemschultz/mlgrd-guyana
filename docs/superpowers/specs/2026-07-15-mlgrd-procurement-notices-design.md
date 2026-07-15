@@ -26,9 +26,15 @@ document per notice.
    for typical tender PDFs/DOCX.
 2. **Role scope:** new `procurement` role sees **only** the Procurement Notices
    section after login — no Overview, no other content sections.
-3. **Notice fields:** kept simple — title, notice type, closing date, short summary,
-   one attached document. Not a full re-typed breakdown of the source document (fee,
-   submission address, validity period stay inside the attached file itself).
+3. **Notice fields:** kept simple, but incorporating the two genuinely useful fields
+   from the old placeholder "Tenders" dataset (reference number, procurement
+   category) since they cost her nothing extra to fill in and are already visible at
+   the top of the source document: title, reference number (optional), notice type
+   (Invitation for Bids / Request for Quotations / Request for Proposals /
+   Expression of Interest), closing date, short summary, one attached document. Still
+   not a full re-typed breakdown (fee, submission address, bid security, validity
+   period stay inside the attached file itself — the old placeholder's `bid_security`/
+   `contact` fields are dropped, not worth re-typing).
 4. **Status:** derived automatically from `closingAt` (Open until it passes, then
    Closed) — no manual toggle.
 5. **Public placement:** a compact "Procurement Notices" teaser card fills the blank
@@ -45,6 +51,7 @@ type ProcurementNoticeType = "ifb" | "rfq" | "rfp" | "eoi";
 interface ProcurementNotice {
   id: string;
   title: string;
+  refNo?: string;           // e.g. "MLGRD/PROC/2026/001" — optional, from the old Tenders schema
   noticeType: ProcurementNoticeType;
   summary: string;          // short plain-text description
   closingAt: string;        // ISO datetime
@@ -110,6 +117,26 @@ dedicated procurement space).
   than the left column's text/buttons. Shows the 2 nearest-closing Open notices
   + "View all procurement notices →"; if zero Open notices, a quiet "No open
   procurement notices right now" state (still links to the full page).
+
+## Consolidation with the existing placeholder "Tenders" directory
+
+Discovered during design: `src/lib/data/datasets.ts` already registers a generic
+`tenders` dataset (`/directories/tenders`, linked from Directories → Resources
+in `src/lib/site.ts`) with entirely fake seed data (`src/data/datasets/tenders.json`
+— dummy reference numbers, `documents` pointing at `/assets/docs/*` files that
+don't exist). It has no real upload, no restricted role, editable by any authed
+staff via the generic Datasets admin screen.
+
+Decision: retire it rather than run two tender-ish sections side by side.
+- Remove the `tenders` entry from `datasets.ts` (and its `columns`/`route`).
+- Delete `src/data/datasets/tenders.json`.
+- Update the "Tenders" nav link in `src/lib/site.ts` to point at `/procurement`
+  instead (relabel to "Procurement Notices" for clarity).
+- No D1 migration needed for the old dataset rows — the generic `datasets` table
+  is keyed by `kind`; simply no code path will read/write `kind = 'tenders'`
+  anymore. (If a live D1 already has seeded `tenders` rows from the placeholder,
+  they become inert or can be cleaned up with a one-off `DELETE FROM datasets
+  WHERE kind = 'tenders'` — not required for correctness.)
 
 ## Out of scope
 
