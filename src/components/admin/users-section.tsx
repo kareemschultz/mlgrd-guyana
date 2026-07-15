@@ -37,6 +37,7 @@ const ROLES: { value: UserRole; label: string; desc: string }[] = [
   { value: "admin", label: "Admin", desc: "Full access, including managing staff" },
   { value: "editor", label: "Editor", desc: "Manage all content" },
   { value: "viewer", label: "Viewer", desc: "Read-only access" },
+  { value: "procurement", label: "Procurement", desc: "Procurement Notices only — nothing else" },
 ];
 
 const roleBadge: Record<UserRole, string> = {
