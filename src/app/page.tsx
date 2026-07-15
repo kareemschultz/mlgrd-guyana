@@ -12,6 +12,7 @@ import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { HeroFx } from "@/components/site/hero-fx";
 import { HeroEmblemNews } from "@/components/site/latest-news";
 import { PortalUpdatesTeaser } from "@/components/site/portal-updates-teaser";
+import { ProcurementNoticesTeaser } from "@/components/site/procurement-notices-teaser";
 import { ministry } from "@/lib/site";
 import type { Metadata } from "next";
 
@@ -129,6 +130,7 @@ export default function HomePage() {
               <ShieldCheck className="size-4 text-gold" />
               An official Government of Guyana website
             </div>
+            <ProcurementNoticesTeaser />
           </div>
 
           {/* Emblem + latest updates */}
