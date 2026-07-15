@@ -68,6 +68,10 @@ The admin's `data.directory` reads the safe seed in demo and the auth-gated `/ap
   the dashboard renders its own chrome.
 - Demo login (localStorage mode): `admin` / `mlgrd2026` (`src/lib/data/seed.ts`).
   Live mode verifies `ADMIN_PASSWORD`/`ADMIN_PASSWORD_HASH` server-side.
+- **Roles:** `admin` (full access), `editor` (manage content), `viewer` (read-only),
+  and `procurement` (sees ONLY the Procurement Notices section — enforced
+  server-side in `functions/api/[[path]].ts`, not just hidden nav). Manage staff
+  accounts and roles from the "Staff & Roles" admin screen.
 
 ## Conventions
 - New mutable content type → add to `types.ts`, `seed.ts`, the client adapters, the

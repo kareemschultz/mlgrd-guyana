@@ -128,7 +128,11 @@ const LABELS: Record<SectionId, string> = {
 };
 
 export function Dashboard({ onLogout }: { onLogout: () => void }) {
-  const me = data.auth.currentUser();
+  // Memoized: Dashboard remounts fresh on every login/logout (src/app/admin/page.tsx
+  // swaps it for LoginCard), so the signed-in user never changes during its mounted
+  // lifetime. Memoizing gives `role` a stable reference the React Compiler can track
+  // as a useCallback dependency below (an unmemoized call here broke that analysis).
+  const me = React.useMemo(() => data.auth.currentUser(), []);
   const role = me?.role;
   const isAdmin = !me || role === "admin"; // demo / env-admin → full access
   const [section, setSection] = React.useState<SectionId>(() =>
