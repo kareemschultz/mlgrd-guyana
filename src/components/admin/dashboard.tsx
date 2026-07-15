@@ -314,7 +314,15 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
               <AccountMenu
                 user={me}
                 onLogout={logout}
-                onOpenSettings={() => setSection("settings")}
+                // Procurement accounts have no Settings section in the nav
+                // (see `nav` filter above) — omit the handler so AccountMenu
+                // hides the "Settings" item instead of letting it bypass the
+                // section restriction.
+                onOpenSettings={
+                  role === "procurement"
+                    ? undefined
+                    : () => setSection("settings")
+                }
               />
             </div>
           </header>
