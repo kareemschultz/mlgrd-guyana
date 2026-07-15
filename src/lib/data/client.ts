@@ -35,6 +35,8 @@ import type {
   NewPost,
   PortalUpdate,
   Post,
+  NewProcurementNotice,
+  ProcurementNotice,
 } from "./types";
 import { seedGallery, seedMinisters, seedPosts, demoAdmin } from "./seed";
 import { seedUpdates } from "./seed-updates";
@@ -117,6 +119,7 @@ const KEYS = {
   directory: "mlgrd:directory",
   updates: "mlgrd:updates",
   appointments: "mlgrd:appointments",
+  procurementNotices: "mlgrd:procurement-notices",
   users: "mlgrd:users",
 } as const;
 
@@ -449,6 +452,44 @@ const demo = {
     );
   },
 
+  // procurement notices -------------------------------------------------------
+  listProcurementNotices: async (): Promise<ProcurementNotice[]> =>
+    readStore<ProcurementNotice>(KEYS.procurementNotices, []).sort((a, b) =>
+      a.closingAt.localeCompare(b.closingAt),
+    ),
+
+  createProcurementNotice: async (
+    input: NewProcurementNotice,
+  ): Promise<ProcurementNotice> => {
+    const items = readStore<ProcurementNotice>(KEYS.procurementNotices, []);
+    const notice: ProcurementNotice = {
+      ...input,
+      id: uid("notice"),
+      publishedAt: nowIso(),
+    };
+    writeStore(KEYS.procurementNotices, [notice, ...items]);
+    return notice;
+  },
+
+  updateProcurementNotice: async (
+    id: string,
+    patch: Partial<NewProcurementNotice>,
+  ): Promise<ProcurementNotice> => {
+    const items = readStore<ProcurementNotice>(KEYS.procurementNotices, []);
+    const next = items.map((n) => (n.id === id ? { ...n, ...patch } : n));
+    writeStore(KEYS.procurementNotices, next);
+    return next.find((n) => n.id === id)!;
+  },
+
+  deleteProcurementNotice: async (id: string): Promise<void> => {
+    writeStore(
+      KEYS.procurementNotices,
+      readStore<ProcurementNotice>(KEYS.procurementNotices, []).filter(
+        (n) => n.id !== id,
+      ),
+    );
+  },
+
   // datasets (generic reference data) ---------------------------------------
   listDatasets: (kind: string): Promise<DatasetRow[]> => datasetStore(kind),
 
@@ -618,6 +659,23 @@ const http = {
   deleteAppointment: (id: string) =>
     api<void>(`/appointments/${id}`, { method: "DELETE", auth: true }),
 
+  listProcurementNotices: () =>
+    api<ProcurementNotice[]>("/procurement-notices"),
+  createProcurementNotice: (input: NewProcurementNotice) =>
+    api<ProcurementNotice>("/procurement-notices", {
+      method: "POST",
+      body: JSON.stringify(input),
+      auth: true,
+    }),
+  updateProcurementNotice: (id: string, patch: Partial<NewProcurementNotice>) =>
+    api<ProcurementNotice>(`/procurement-notices/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(patch),
+      auth: true,
+    }),
+  deleteProcurementNotice: (id: string) =>
+    api<void>(`/procurement-notices/${id}`, { method: "DELETE", auth: true }),
+
   // datasets: public reads (published reference data); writes are admin-only.
   listDatasets: (kind: string) => api<DatasetRow[]>(`/datasets/${kind}`),
   createDatasetRow: (kind: string, input: Record<string, unknown>) =>
@@ -694,6 +752,12 @@ export const data = {
     create: backend.createAppointment,
     update: backend.updateAppointment,
     remove: backend.deleteAppointment,
+  },
+  procurementNotices: {
+    list: backend.listProcurementNotices,
+    create: backend.createProcurementNotice,
+    update: backend.updateProcurementNotice,
+    remove: backend.deleteProcurementNotice,
   },
   datasets: {
     list: backend.listDatasets,
