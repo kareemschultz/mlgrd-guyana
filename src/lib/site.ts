@@ -100,6 +100,7 @@ export const mainNav: NavItem[] = [
     ],
   },
   { label: "Services", href: "/services" },
+  { label: "Procurement", href: "/procurement" },
   { label: "What’s New", href: "/updates" },
   { label: "Laws & Policies", href: "/laws-policies" },
   { label: "News", href: "/news" },
