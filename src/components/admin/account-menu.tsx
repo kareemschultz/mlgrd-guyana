@@ -26,12 +26,14 @@ const ROLE_LABEL: Record<UserRole, string> = {
   admin: "Administrator",
   editor: "Editor",
   viewer: "Viewer",
+  procurement: "Procurement",
 };
 
 const ROLE_STYLE: Record<UserRole, string> = {
   admin: "border-brand/30 bg-brand/10 text-brand-700",
   editor: "border-gold/30 bg-gold/15 text-[#8a6500]",
   viewer: "border-border bg-secondary text-muted-foreground",
+  procurement: "border-emerald/30 bg-emerald/10 text-emerald-700",
 };
 
 function initialsOf(name: string): string {
