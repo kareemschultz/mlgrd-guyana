@@ -150,3 +150,21 @@ CREATE TABLE IF NOT EXISTS users (
   createdAt    TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_users_username ON users (username);
+
+-- Procurement/tender notices (Invitation for Bids, RFQ, RFP, EOI) posted by the
+-- Procurement department. Public GET; writes are restricted in the API router to
+-- 'admin' and 'procurement' roles (D1 has no role concept, so this is enforced in
+-- functions/api/[[path]].ts, not here). Documents are stored as data: URLs, same
+-- pattern as gallery images/minister portraits — see documentDataUrl.
+CREATE TABLE IF NOT EXISTS procurement_notices (
+  id              TEXT PRIMARY KEY,
+  title           TEXT NOT NULL,
+  refNo           TEXT,
+  noticeType      TEXT NOT NULL DEFAULT 'ifb',
+  summary         TEXT,
+  closingAt       TEXT NOT NULL,
+  publishedAt     TEXT NOT NULL,
+  documentName    TEXT,
+  documentDataUrl TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_procurement_notices_closing ON procurement_notices (closingAt DESC);
