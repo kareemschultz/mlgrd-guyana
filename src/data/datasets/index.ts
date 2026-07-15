@@ -12,7 +12,6 @@ import policeStations from "./police-stations.json";
 import amerindianVillages from "./amerindian-villages.json";
 import burialGrounds from "./burial-grounds.json";
 import developments2026 from "./developments-2026.json";
-import tenders from "./tenders.json";
 import resources from "./resources.json";
 import staff from "./staff.json";
 
@@ -27,7 +26,6 @@ export const datasetRecords: Record<string, DatasetRecord[]> = {
   "amerindian-villages": amerindianVillages as DatasetRecord[],
   "burial-grounds": burialGrounds as DatasetRecord[],
   "developments-2026": developments2026 as DatasetRecord[],
-  tenders: tenders as DatasetRecord[],
   resources: resources as DatasetRecord[],
   staff: staff as DatasetRecord[],
 };

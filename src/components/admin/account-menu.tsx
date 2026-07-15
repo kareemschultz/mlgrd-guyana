@@ -26,12 +26,14 @@ const ROLE_LABEL: Record<UserRole, string> = {
   admin: "Administrator",
   editor: "Editor",
   viewer: "Viewer",
+  procurement: "Procurement",
 };
 
 const ROLE_STYLE: Record<UserRole, string> = {
   admin: "border-brand/30 bg-brand/10 text-brand-700",
   editor: "border-gold/30 bg-gold/15 text-[#8a6500]",
   viewer: "border-border bg-secondary text-muted-foreground",
+  procurement: "border-emerald-400/30 bg-emerald-500/10 text-emerald-700",
 };
 
 function initialsOf(name: string): string {
@@ -53,7 +55,8 @@ export function AccountMenu({
 }: {
   user: AuthUser | null;
   onLogout: () => void;
-  onOpenSettings: () => void;
+  /** Omit to hide the "Settings" menu item entirely (e.g. procurement-role accounts, who have no Settings section to open). */
+  onOpenSettings?: () => void;
 }) {
   const name = user?.name || "Administrator";
   const role = (user?.role || "admin") as UserRole;
@@ -94,9 +97,11 @@ export function AccountMenu({
             <ExternalLink className="size-4" /> View public site
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={onOpenSettings}>
-          <Settings className="size-4" /> Settings
-        </DropdownMenuItem>
+        {onOpenSettings && (
+          <DropdownMenuItem onSelect={onOpenSettings}>
+            <Settings className="size-4" /> Settings
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onSelect={onLogout}

@@ -186,6 +186,33 @@ export interface Appointment {
   createdAt: string;
 }
 
+export type ProcurementNoticeType = "ifb" | "rfq" | "rfp" | "eoi";
+
+/**
+ * A procurement/tender notice (Invitation for Bids, Request for Quotations,
+ * Request for Proposals, Expression of Interest) posted by the Procurement
+ * department. `status` (Open/Closed) is derived from `closingAt` at read time,
+ * never stored — see the `isNoticeOpen`-style check duplicated in each
+ * consumer (client component + admin section).
+ */
+export interface ProcurementNotice {
+  id: ID;
+  title: string;
+  /** e.g. "MLGRD/PROC/2026/001". Optional. */
+  refNo?: string;
+  noticeType: ProcurementNoticeType;
+  summary: string;
+  /** ISO datetime — when bids/quotes/proposals close. */
+  closingAt: string;
+  /** ISO datetime — when the notice was posted. */
+  publishedAt: string;
+  /** Original filename, e.g. "IFB-compost-bins.docx". */
+  documentName?: string;
+  /** The attached document as a data: URL (PDF or Word), same pattern as gallery images. */
+  documentDataUrl?: string;
+}
+export type NewProcurementNotice = Omit<ProcurementNotice, "id" | "publishedAt">;
+
 export type Collection =
   | "posts"
   | "gallery"
@@ -193,10 +220,11 @@ export type Collection =
   | "messages"
   | "directory"
   | "updates"
-  | "appointments";
+  | "appointments"
+  | "procurement-notices";
 
-/** Staff role: full admin, content editor, or read-only viewer. */
-export type UserRole = "admin" | "editor" | "viewer";
+/** Staff role: full admin, content editor, read-only viewer, or Procurement-only. */
+export type UserRole = "admin" | "editor" | "viewer" | "procurement";
 
 /** The signed-in account (no password). */
 export interface AuthUser {

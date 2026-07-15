@@ -27,7 +27,7 @@ NOW = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00
 # Public datasets (committed JSON). Villages handled separately (sensitive).
 PUBLIC_KINDS = [
     "schools", "health-centres", "police-stations", "burial-grounds",
-    "developments-2026", "tenders", "resources", "staff",
+    "developments-2026", "resources", "staff",
 ]
 
 

@@ -37,12 +37,14 @@ const ROLES: { value: UserRole; label: string; desc: string }[] = [
   { value: "admin", label: "Admin", desc: "Full access, including managing staff" },
   { value: "editor", label: "Editor", desc: "Manage all content" },
   { value: "viewer", label: "Viewer", desc: "Read-only access" },
+  { value: "procurement", label: "Procurement", desc: "Procurement Notices only — nothing else" },
 ];
 
 const roleBadge: Record<UserRole, string> = {
   admin: "border-brand/30 bg-brand/10 text-brand-700",
   editor: "border-gold/30 bg-gold/15 text-gold-700",
   viewer: "border-border bg-secondary text-muted-foreground",
+  procurement: "border-emerald-400/30 bg-emerald-500/10 text-emerald-700",
 };
 
 type Draft = {

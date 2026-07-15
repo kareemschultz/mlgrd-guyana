@@ -132,7 +132,7 @@ export const footerNav: { heading: string; links: NavLink[] }[] = [
   {
     heading: "Resources",
     links: [
-      { label: "Tenders", href: "/directories/tenders" },
+      { label: "Procurement Notices", href: "/procurement" },
       { label: "Resources & Downloads", href: "/directories/resources" },
       { label: "Development Projects", href: "/directories/developments-2026" },
       { label: "Burial Grounds", href: "/directories/burial-grounds" },

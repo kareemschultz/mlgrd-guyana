@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { motion } from "motion/react";
-import { Loader2, ImagePlus, X } from "lucide-react";
+import { Loader2, ImagePlus, X, FileText, FileUp } from "lucide-react";
+import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
@@ -207,6 +208,94 @@ export function ImageUpload({
           id={id}
           type="file"
           accept="image/*"
+          className="sr-only"
+          onChange={handleFile}
+        />
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Document upload — file (PDF/Word) → data URL string
+// ─────────────────────────────────────────────────────────────────────────────
+
+export function DocumentUpload({
+  value,
+  valueName,
+  onChange,
+  label,
+  id,
+  maxBytes = 5 * 1024 * 1024,
+}: {
+  value?: string;
+  valueName?: string;
+  onChange: (dataUrl: string, fileName: string) => void;
+  label: string;
+  id: string;
+  /** Client-side size guard so users get instant feedback (default 5MB). */
+  maxBytes?: number;
+}) {
+  const [busy, setBusy] = React.useState(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > maxBytes) {
+      toast.error(
+        `That file is too large — please use a document under ${Math.round(maxBytes / (1024 * 1024))}MB.`,
+      );
+      if (inputRef.current) inputRef.current.value = "";
+      return;
+    }
+    setBusy(true);
+    try {
+      const url = await readFileAsDataUrl(file);
+      onChange(url, file.name);
+    } finally {
+      setBusy(false);
+      if (inputRef.current) inputRef.current.value = "";
+    }
+  }
+
+  return (
+    <div className="flex flex-col gap-1.5">
+      <Label htmlFor={id} className="text-sm">
+        {label}
+      </Label>
+      <div className="flex items-center gap-3 rounded-lg border border-dashed border-input bg-muted/30 p-3">
+        <FileText className="size-5 shrink-0 text-muted-foreground" />
+        <span className="min-w-0 flex-1 truncate text-sm">
+          {valueName || "No document attached"}
+        </span>
+        {busy && (
+          <Loader2 className="size-4 shrink-0 animate-spin text-brand-600" />
+        )}
+      </div>
+      <div className="flex items-center gap-2">
+        <label
+          htmlFor={id}
+          className="inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-md border bg-background px-3 text-xs font-medium shadow-xs transition-colors hover:bg-accent hover:text-accent-foreground"
+        >
+          <FileUp className="size-3.5" />
+          {value ? "Replace" : "Upload"}
+        </label>
+        {value && (
+          <button
+            type="button"
+            onClick={() => onChange("", "")}
+            className="inline-flex h-8 items-center gap-1.5 rounded-md border bg-background px-3 text-xs font-medium text-muted-foreground shadow-xs transition-colors hover:bg-accent hover:text-foreground"
+          >
+            <X className="size-3.5" />
+            Remove
+          </button>
+        )}
+        <input
+          ref={inputRef}
+          id={id}
+          type="file"
+          accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           className="sr-only"
           onChange={handleFile}
         />

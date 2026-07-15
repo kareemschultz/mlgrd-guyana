@@ -23,6 +23,7 @@ import {
   Library,
   UserCog,
   Search,
+  Briefcase,
   type LucideIcon,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -34,6 +35,8 @@ import type {
   Message,
   Minister,
   Post,
+  ProcurementNotice,
+  UserRole,
 } from "@/lib/data/types";
 import { cn } from "@/lib/utils";
 import { LogoMark } from "@/components/site/logo";
@@ -63,6 +66,7 @@ import { DirectorySection } from "@/components/admin/directory-section";
 import { UpdatesSection } from "@/components/admin/updates-section";
 import { MessagesSection } from "@/components/admin/messages-section";
 import { AppointmentsSection } from "@/components/admin/appointments-section";
+import { ProcurementSection } from "@/components/admin/procurement-section";
 import { DatasetsSection } from "@/components/admin/datasets-section";
 import { UsersSection } from "@/components/admin/users-section";
 import { SettingsSection } from "@/components/admin/settings-section";
@@ -82,10 +86,18 @@ type SectionId =
   | "datasets"
   | "messages"
   | "appointments"
+  | "procurement"
   | "users"
   | "settings";
 
-const NAV: { id: SectionId; label: string; icon: LucideIcon; adminOnly?: boolean }[] = [
+const NAV: {
+  id: SectionId;
+  label: string;
+  icon: LucideIcon;
+  adminOnly?: boolean;
+  /** Restricts this item to specific roles (in addition to admin, who always sees everything). */
+  roles?: UserRole[];
+}[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "posts", label: "Posts", icon: Newspaper },
   { id: "updates", label: "Updates", icon: Megaphone },
@@ -95,6 +107,7 @@ const NAV: { id: SectionId; label: string; icon: LucideIcon; adminOnly?: boolean
   { id: "datasets", label: "Directories & Resources", icon: Library },
   { id: "messages", label: "Messages", icon: Inbox },
   { id: "appointments", label: "Appointments", icon: CalendarCheck },
+  { id: "procurement", label: "Procurement Notices", icon: Briefcase, roles: ["admin", "procurement"] },
   { id: "users", label: "Staff & Roles", icon: UserCog, adminOnly: true },
   { id: "settings", label: "Settings", icon: Settings },
 ];
@@ -110,14 +123,29 @@ const LABELS: Record<SectionId, string> = {
   users: "Staff & roles",
   messages: "Inbox",
   appointments: "Appointments",
+  procurement: "Procurement Notices",
   settings: "Settings",
 };
 
 export function Dashboard({ onLogout }: { onLogout: () => void }) {
-  const [section, setSection] = React.useState<SectionId>("overview");
-  const me = data.auth.currentUser();
-  const isAdmin = !me || me.role === "admin"; // demo / env-admin → full access
-  const nav = NAV.filter((n) => !n.adminOnly || isAdmin);
+  // Memoized: Dashboard remounts fresh on every login/logout (src/app/admin/page.tsx
+  // swaps it for LoginCard), so the signed-in user never changes during its mounted
+  // lifetime. Memoizing gives `role` a stable reference the React Compiler can track
+  // as a useCallback dependency below (an unmemoized call here broke that analysis).
+  const me = React.useMemo(() => data.auth.currentUser(), []);
+  const role = me?.role;
+  const isAdmin = !me || role === "admin"; // demo / env-admin → full access
+  const [section, setSection] = React.useState<SectionId>(() =>
+    role === "procurement" ? "procurement" : "overview",
+  );
+  // A 'procurement' account sees ONLY its own section — not Overview, not
+  // anything else — regardless of the adminOnly/roles flags on other items.
+  const nav = NAV.filter((n) => {
+    if (role === "procurement") return n.id === "procurement";
+    if (n.adminOnly) return isAdmin;
+    if (n.roles) return isAdmin || (role ? n.roles.includes(role) : false);
+    return true;
+  });
   const cmd = useCommandPalette();
 
   const [posts, setPosts] = React.useState<Post[]>([]);
@@ -125,28 +153,37 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
   const [ministers, setMinisters] = React.useState<Minister[]>([]);
   const [messages, setMessages] = React.useState<Message[]>([]);
   const [appointments, setAppointments] = React.useState<Appointment[]>([]);
+  const [notices, setNotices] = React.useState<ProcurementNotice[]>([]);
   const [loading, setLoading] = React.useState(true);
 
   const refresh = React.useCallback(async () => {
     try {
-      const [p, g, m, msg, appt] = await Promise.all([
-        data.posts.list(),
-        data.gallery.list(),
-        data.ministers.list(),
-        data.messages.list(),
-        data.appointments.list(),
-      ]);
-      setPosts(p);
-      setGallery(g);
-      setMinisters(m);
-      setMessages(msg);
-      setAppointments(appt);
+      if (role === "procurement") {
+        // A procurement-role token gets a 403 from every other resource
+        // server-side (Task 3) — only fetch what it's actually allowed to read.
+        setNotices(await data.procurementNotices.list());
+      } else {
+        const [p, g, m, msg, appt, pn] = await Promise.all([
+          data.posts.list(),
+          data.gallery.list(),
+          data.ministers.list(),
+          data.messages.list(),
+          data.appointments.list(),
+          data.procurementNotices.list(),
+        ]);
+        setPosts(p);
+        setGallery(g);
+        setMinisters(m);
+        setMessages(msg);
+        setAppointments(appt);
+        setNotices(pn);
+      }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not load content.");
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [role]);
 
   React.useEffect(() => {
     const timeout = window.setTimeout(() => void refresh(), 0);
@@ -277,7 +314,15 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
               <AccountMenu
                 user={me}
                 onLogout={logout}
-                onOpenSettings={() => setSection("settings")}
+                // Procurement accounts have no Settings section in the nav
+                // (see `nav` filter above) — omit the handler so AccountMenu
+                // hides the "Settings" item instead of letting it bypass the
+                // section restriction.
+                onOpenSettings={
+                  role === "procurement"
+                    ? undefined
+                    : () => setSection("settings")
+                }
               />
             </div>
           </header>
@@ -347,6 +392,13 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
                 {section === "appointments" && (
                   <AppointmentsSection
                     appointments={appointments}
+                    onChange={refresh}
+                    loading={loading}
+                  />
+                )}
+                {section === "procurement" && (
+                  <ProcurementSection
+                    notices={notices}
                     onChange={refresh}
                     loading={loading}
                   />

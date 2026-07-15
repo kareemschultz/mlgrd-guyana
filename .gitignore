@@ -51,6 +51,7 @@ yarn-error.log*
 
 # Claude Code local tooling / worktrees / preview config
 .claude/
+.worktrees/
 
 # Sensitive directory data (personal mobiles, emails, internal comments) — the
 # FULL D1 seed is generated locally by scripts/import-agencies.py for live DB

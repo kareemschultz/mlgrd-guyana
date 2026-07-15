@@ -31,6 +31,8 @@
  *   GET    /api/appointments          (auth) list REO booking requests
  *   POST   /api/appointments          public submit (citizen REO booking)
  *   PUT|DELETE /api/appointments/:id  (auth) (PUT updates status)
+ *   GET    /api/procurement-notices          public list
+ *   POST|PUT|DELETE /api/procurement-notices[/:id] (admin or procurement role only)
  */
 
 interface Env {
@@ -73,6 +75,17 @@ const ALLOWED_APPOINTMENT_STATUSES = new Set([
 ]);
 const ALLOWED_POST_STATUSES = new Set(["draft", "published", "archived"]);
 const ALLOWED_IMAGE_SCHEMES = new Set(["https:", "data:"]);
+const ALLOWED_NOTICE_TYPES = new Set(["ifb", "rfq", "rfp", "eoi"]);
+const ALLOWED_DOCUMENT_MIMES = new Set([
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+]);
+// Documents run through as data: URLs (base64 ~1.37x the source file), so they
+// need a much higher cap than the 32KB default used for ordinary JSON bodies —
+// but still bounded, so a mis-sent multi-hundred-MB payload can't reach D1.
+const MAX_DOCUMENT_JSON_BYTES = 8_000_000; // ~8MB request body
+const MAX_DOCUMENT_STRING_LENGTH = 7_500_000; // ~5.4MB decoded, matches the 5MB client-side cap
 
 
 // ── helpers ──────────────────────────────────────────────────────────────────
@@ -142,7 +155,7 @@ async function hashPassword(password: string, saltHex: string): Promise<string> 
   return toHex(bits);
 }
 
-const ALLOWED_ROLES = new Set(["admin", "editor", "viewer"]);
+const ALLOWED_ROLES = new Set(["admin", "editor", "viewer", "procurement"]);
 
 async function hmacKey(secret: string): Promise<CryptoKey> {
   return crypto.subtle.importKey(
@@ -202,9 +215,9 @@ function bearer(request: Request): string | null {
   return h.startsWith("Bearer ") ? h.slice(7) : null;
 }
 
-async function readBody<T>(request: Request): Promise<T> {
+async function readBody<T>(request: Request, maxBytes = MAX_JSON_BYTES): Promise<T> {
   const length = Number(request.headers.get("Content-Length") || "0");
-  if (length > MAX_JSON_BYTES) throw new Error("Request body is too large.");
+  if (length > maxBytes) throw new Error("Request body is too large.");
   try {
     return (await request.json()) as T;
   } catch {
@@ -250,6 +263,26 @@ function cleanImage(value: unknown): string | null {
   } catch {
     return null;
   }
+}
+
+/** Validates a document data: URL. Returns null only for "no document provided";
+ *  throws for a present-but-invalid document so callers can 422 instead of
+ *  silently saving a notice with a missing/corrupt attachment. */
+function cleanDocument(value: unknown): string | null {
+  if (typeof value !== "string" || !value.trim()) return null;
+  const raw = value.trim();
+  if (raw.length > MAX_DOCUMENT_STRING_LENGTH) {
+    throw new Error("Document is too large — please use a file under 5MB.");
+  }
+  if (!raw.startsWith("data:")) {
+    throw new Error("Invalid document — please re-upload the file.");
+  }
+  const semi = raw.indexOf(";");
+  const mime = semi > 5 ? raw.slice(5, semi) : "";
+  if (!ALLOWED_DOCUMENT_MIMES.has(mime)) {
+    throw new Error("Invalid document type — please upload a PDF or Word document.");
+  }
+  return raw;
 }
 
 // Map a D1 minister row (current as 0/1) to the API shape (boolean).
@@ -334,8 +367,20 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
     authed ? null : err("Unauthorized", 401);
   const requireAdmin = (): Response | null =>
     role === "admin" ? null : err("Forbidden — administrators only.", 403);
+  const requireProcurementAccess = (): Response | null =>
+    authed && (role === "admin" || role === "procurement")
+      ? null
+      : err("Forbidden — procurement staff or administrators only.", 403);
 
   try {
+    if (
+      role === "procurement" &&
+      resource !== "procurement-notices" &&
+      resource !== "auth" &&
+      resource !== "health"
+    ) {
+      return err("Forbidden — this account can only manage procurement notices.", 403);
+    }
     if (!env.DB && resource !== "auth") {
       return err("Database binding 'DB' is not configured.", 500);
     }
@@ -684,6 +729,85 @@ export const onRequest = async (ctx: EventContext): Promise<Response> => {
         const guard = requireAuth();
         if (guard) return guard;
         await env.DB.prepare("DELETE FROM appointments WHERE id = ?").bind(id).run();
+        return json(null, 204);
+      }
+    }
+
+    // ── procurement notices (tenders/bids) ───────────────────────────────────
+    // GET is public. Writes are restricted to 'admin' and 'procurement' roles
+    // (not 'editor'/'viewer') — this is Procurement's own dedicated space.
+    if (resource === "procurement-notices") {
+      if (method === "GET" && !id) {
+        const { results } = await env.DB.prepare(
+          "SELECT * FROM procurement_notices ORDER BY closingAt DESC",
+        ).all();
+        return json(results);
+      }
+      if (method === "POST") {
+        const guard = requireProcurementAccess();
+        if (guard) return guard;
+        const b = await readBody<Record<string, unknown>>(request, MAX_DOCUMENT_JSON_BYTES);
+        const title = asString(b.title, 200);
+        const closingAt = asString(b.closingAt, 40);
+        if (!title) return err("A title is required.", 422);
+        if (!closingAt) return err("A closing date is required.", 422);
+        let documentDataUrl: string | null;
+        try {
+          documentDataUrl = cleanDocument(b.documentDataUrl);
+        } catch (e) {
+          return err((e as Error).message, 422);
+        }
+        const now = new Date().toISOString();
+        const newId = `notice-${crypto.randomUUID().slice(0, 8)}`;
+        await env.DB.prepare(
+          `INSERT INTO procurement_notices (id,title,refNo,noticeType,summary,closingAt,publishedAt,documentName,documentDataUrl)
+           VALUES (?,?,?,?,?,?,?,?,?)`,
+        )
+          .bind(
+            newId,
+            title,
+            optionalString(b.refNo, 80),
+            ALLOWED_NOTICE_TYPES.has(String(b.noticeType)) ? String(b.noticeType) : "ifb",
+            asString(b.summary, 2000),
+            closingAt,
+            now,
+            documentDataUrl ? optionalString(b.documentName, 200) : null,
+            documentDataUrl,
+          )
+          .run();
+        const row = await env.DB.prepare("SELECT * FROM procurement_notices WHERE id = ?").bind(newId).first();
+        return json(row, 201);
+      }
+      if (method === "PUT" && id) {
+        const guard = requireProcurementAccess();
+        if (guard) return guard;
+        const b = await readBody<Record<string, unknown>>(request, MAX_DOCUMENT_JSON_BYTES);
+        const sets: string[] = [];
+        const vals: unknown[] = [];
+        if (typeof b.title === "string") { sets.push("title = ?"); vals.push(asString(b.title, 200)); }
+        if ("refNo" in b) { sets.push("refNo = ?"); vals.push(optionalString(b.refNo, 80)); }
+        if (ALLOWED_NOTICE_TYPES.has(String(b.noticeType))) { sets.push("noticeType = ?"); vals.push(String(b.noticeType)); }
+        if (typeof b.summary === "string") { sets.push("summary = ?"); vals.push(asString(b.summary, 2000)); }
+        if (typeof b.closingAt === "string" && b.closingAt) { sets.push("closingAt = ?"); vals.push(asString(b.closingAt, 40)); }
+        if ("documentDataUrl" in b) {
+          let documentDataUrl: string | null;
+          try {
+            documentDataUrl = cleanDocument(b.documentDataUrl);
+          } catch (e) {
+            return err((e as Error).message, 422);
+          }
+          sets.push("documentDataUrl = ?"); vals.push(documentDataUrl);
+          sets.push("documentName = ?"); vals.push(documentDataUrl ? optionalString(b.documentName, 200) : null);
+        }
+        if (!sets.length) return err("Nothing to update.", 422);
+        await env.DB.prepare(`UPDATE procurement_notices SET ${sets.join(", ")} WHERE id = ?`).bind(...vals, id).run();
+        const row = await env.DB.prepare("SELECT * FROM procurement_notices WHERE id = ?").bind(id).first();
+        return row ? json(row) : err("Notice not found.", 404);
+      }
+      if (method === "DELETE" && id) {
+        const guard = requireProcurementAccess();
+        if (guard) return guard;
+        await env.DB.prepare("DELETE FROM procurement_notices WHERE id = ?").bind(id).run();
         return json(null, 204);
       }
     }

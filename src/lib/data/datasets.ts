@@ -1,6 +1,6 @@
 /**
  * Dataset registry — the single source of truth for the Ministry's reference
- * datasets (schools, health centres, villages, tenders, etc.). Each entry
+ * datasets (schools, health centres, villages, resources, etc.). Each entry
  * declares its columns, which are searchable, the region field for filtering,
  * and which fields are sensitive (excluded from the public/committed JSON).
  *
@@ -169,27 +169,6 @@ export const datasets: DatasetDef[] = [
       { key: "location", label: "Location", searchable: true },
       { key: "year", label: "Year", type: "number", detail: true },
       { key: "summary", label: "Summary", type: "textarea", detail: true },
-    ],
-  },
-  {
-    key: "tenders",
-    label: "Tenders",
-    singular: "Tender",
-    description:
-      "Current procurement opportunities and invitations to bid.",
-    icon: "FileText",
-    route: "/directories/tenders",
-    navGroup: "resources",
-    columns: [
-      { key: "title", label: "Tender", primary: true, searchable: true },
-      { key: "ref_no", label: "Reference", searchable: true },
-      { key: "category", label: "Category", badge: true, searchable: true },
-      { key: "status", label: "Status", badge: true },
-      { key: "issue_date", label: "Issued", type: "date" },
-      { key: "close_date", label: "Closes", type: "date" },
-      { key: "description", label: "Description", type: "textarea", detail: true },
-      { key: "bid_security", label: "Bid security", detail: true },
-      { key: "contact", label: "Contact", detail: true },
     ],
   },
   {
