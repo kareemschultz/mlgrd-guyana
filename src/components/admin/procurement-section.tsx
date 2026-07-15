@@ -70,6 +70,11 @@ function formatDateTime(value: string): string {
   });
 }
 
+function toDateTimeLocalValue(d: Date): string {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
 function emptyDraft(): NewProcurementNotice {
   const closing = new Date();
   closing.setDate(closing.getDate() + 14);
@@ -78,7 +83,7 @@ function emptyDraft(): NewProcurementNotice {
     refNo: "",
     noticeType: "ifb",
     summary: "",
-    closingAt: closing.toISOString().slice(0, 16),
+    closingAt: toDateTimeLocalValue(closing),
     documentName: "",
     documentDataUrl: "",
   };
@@ -123,7 +128,7 @@ export function ProcurementSection({
       refNo: n.refNo ?? "",
       noticeType: n.noticeType,
       summary: n.summary,
-      closingAt: n.closingAt.slice(0, 16),
+      closingAt: toDateTimeLocalValue(new Date(n.closingAt)),
       documentName: n.documentName ?? "",
       documentDataUrl: n.documentDataUrl ?? "",
     });
